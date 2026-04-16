@@ -1,0 +1,6 @@
+{
+  "name": "Simulador On-Line - Plataforma Headless para Corretores",
+  "description": "Frontend desacoplado consumindo WordPress Headless para gestão de planos de saúde, templates e assinaturas SaaS.",
+  "requestFramePermissions": [],
+  "majorCapabilities": []
+}
