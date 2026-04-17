@@ -95,21 +95,25 @@ export function Header() {
               
               {/* Dropdown Menu */}
               <div className="absolute right-0 mt-2 w-56 bg-white border border-gray-100 rounded-2xl shadow-2xl opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-300 py-3 z-50 overflow-hidden">
-                <Link 
-                  to="/entrar/classico" 
+                <a 
+                  href="https://app.simuladoronline.com/login/" 
+                  target="_blank"
+                  rel="noopener noreferrer"
                   className="flex items-center gap-3 px-5 py-3 text-sm font-bold text-brand-secondary hover:bg-gray-50 hover:text-brand-primary transition-colors"
                 >
                   <Monitor size={18} className="text-brand-primary" />
                   Sistema Clássico
-                </Link>
+                </a>
                 <div className="h-[1px] bg-gray-100 mx-5" />
-                <Link 
-                  to="/entrar/mobile" 
+                <a 
+                  href="https://app.simuladoronline.com/app/sessao/login" 
+                  target="_blank"
+                  rel="noopener noreferrer"
                   className="flex items-center gap-3 px-5 py-3 text-sm font-bold text-brand-secondary hover:bg-gray-50 hover:text-brand-primary transition-colors"
                 >
                   <Smartphone size={18} className="text-brand-primary" />
                   Sistema Mobile (Celular)
-                </Link>
+                </a>
               </div>
             </div>
           </nav>
@@ -149,8 +153,10 @@ export function Header() {
               <div className="mt-8 px-3 space-y-3">
                 <div className="text-[10px] font-black text-gray-400 uppercase tracking-[0.2em] mb-4 ml-1">Acesso ao Sistema</div>
                 
-                <Link
-                  to="/entrar/classico"
+                <a
+                  href="https://app.simuladoronline.com/login/"
+                  target="_blank"
+                  rel="noopener noreferrer"
                   onClick={() => setIsOpen(false)}
                   className="flex items-center gap-4 w-full bg-brand-secondary text-white p-4 rounded-xl font-bold shadow-md active:scale-95 transition-all"
                 >
@@ -161,10 +167,12 @@ export function Header() {
                     <span className="text-sm">Sistema Clássico</span>
                     <span className="text-[10px] opacity-50 font-medium">Desktop & Notebook</span>
                   </div>
-                </Link>
+                </a>
 
-                <Link
-                  to="/entrar/mobile"
+                <a
+                  href="https://app.simuladoronline.com/app/sessao/login"
+                  target="_blank"
+                  rel="noopener noreferrer"
                   onClick={() => setIsOpen(false)}
                   className="flex items-center gap-4 w-full bg-brand-button text-white p-4 rounded-xl font-bold shadow-md active:scale-95 transition-all"
                 >
@@ -175,7 +183,7 @@ export function Header() {
                     <span className="text-sm">Sistema Mobile</span>
                     <span className="text-[10px] opacity-80 font-medium">Celular & Tablet</span>
                   </div>
-                </Link>
+                </a>
               </div>
             </div>
           </motion.div>
