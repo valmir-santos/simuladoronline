@@ -65,14 +65,8 @@ export function Header() {
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="flex justify-between items-center h-20">
           <div className="flex-shrink-0 flex items-center">
-            <Link to="/" className="flex items-center gap-2">
-              <div className="bg-brand-primary p-2 rounded-lg">
-                <ShieldCheck className="text-white" size={24} />
-              </div>
-              <div className="flex flex-col">
-                <span className="text-xl font-bold text-brand-secondary leading-none tracking-tight">SIMULADOR</span>
-                <span className="text-xs font-semibold text-brand-primary tracking-[0.2em]">ON-LINE</span>
-              </div>
+            <Link to="/" className="flex items-center">
+              <img src="/logo_simulador_alta.jpg" alt="Simulador On-Line" className="h-12 w-auto object-contain" />
             </Link>
           </div>
 
@@ -234,14 +228,8 @@ export function Footer() {
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-12 mb-16">
           <div className="space-y-6">
-            <Link to="/" className="flex items-center gap-2">
-              <div className="bg-brand-primary p-2 rounded-lg">
-                <ShieldCheck className="text-white" size={24} />
-              </div>
-              <div className="flex flex-col">
-                <span className="text-xl font-bold text-white leading-none tracking-tight">SIMULADOR</span>
-                <span className="text-xs font-semibold text-brand-primary tracking-[0.2em]">ON-LINE</span>
-              </div>
+            <Link to="/" className="flex items-center">
+              <img src="/logo_simulador_alta.jpg" alt="Simulador On-Line" className="h-12 w-auto object-contain bg-white rounded-md p-1" />
             </Link>
             <p className="text-sm leading-relaxed text-gray-400">
               Desde 2006 transformando o dia a dia do corretor de planos de saúde com ferramentas SaaS de alta performance e sites especializados.
