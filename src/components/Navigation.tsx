@@ -29,18 +29,45 @@ export function Topbar() {
   return (
     <div className="bg-brand-secondary text-white py-2 px-4 text-xs font-medium border-b border-white/10 hidden md:block">
       <div className="max-w-7xl mx-auto flex justify-between items-center">
-        <div className="flex gap-4">
-          <a href="https://api.whatsapp.com/send?phone=551132190409&text=Olá sou corretor e gostaria de algumas informações" target="_blank" rel="noopener noreferrer" className="flex items-center gap-1.5 grayscale-0 hover:text-brand-primary transition-colors">
-            <Phone size={14} className="text-brand-primary" />
-            (11) 3219-0409 / (21) 3527-0540
+        <div className="flex flex-col gap-1">
+          <div className="flex items-center gap-2">
+            <a href="https://api.whatsapp.com/send?phone=551132190409&text=Olá sou corretor e gostaria de algumas informações" target="_blank" rel="noopener noreferrer" className="flex items-center gap-2 hover:text-brand-primary transition-colors">
+              <MessageCircle size={14} className="text-white" />
+              <span>(11) 3219-0409</span>
+            </a>
+            <span className="text-white/30">|</span>
+          </div>
+          <a href="tel:2135270540" className="flex items-center gap-2 hover:text-brand-primary transition-colors">
+            <Phone size={14} className="text-white" />
+            <span>(21) 3527-0540</span>
           </a>
         </div>
-        <div className="flex gap-3">
-          <a href="#" className="hover:text-brand-primary transition-colors"><X size={14} /></a>
+        
+        <div className="flex gap-4">
+          <a 
+            href="https://app.simuladoronline.com/login/" 
+            target="_blank"
+            rel="noopener noreferrer"
+            className="bg-brand-button hover:opacity-90 text-white px-4 py-1.5 rounded-md text-xs font-semibold transition-all shadow-sm"
+          >
+            Área do Cliente - Clássica
+          </a>
+          <a 
+            href="https://app.simuladoronline.com/app/sessao/login" 
+            target="_blank"
+            rel="noopener noreferrer"
+            className="bg-brand-button hover:opacity-90 text-white px-4 py-1.5 rounded-md text-xs font-semibold transition-all shadow-sm"
+          >
+            Área do Cliente - Mobile
+          </a>
+        </div>
+
+        <div className="flex gap-4">
           <a href="#" className="hover:text-brand-primary transition-colors"><Instagram size={14} /></a>
           <a href="#" className="hover:text-brand-primary transition-colors"><Facebook size={14} /></a>
-          <a href="#" className="hover:text-brand-primary transition-colors"><Linkedin size={14} /></a>
+          <a href="#" className="hover:text-brand-primary transition-colors"><Twitter size={14} /></a>
           <a href="#" className="hover:text-brand-primary transition-colors"><Youtube size={14} /></a>
+          <a href="#" className="hover:text-brand-primary transition-colors"><Linkedin size={14} /></a>
         </div>
       </div>
     </div>
@@ -84,38 +111,7 @@ export function Header() {
                 {item.name}
               </Link>
             ))}
-            {/* Broker Area Dropdown */}
-            <div className="relative group ml-4">
-              <button 
-                className="bg-brand-button hover:opacity-90 text-white px-6 py-2.5 rounded-full text-sm font-bold transition-all shadow-md flex items-center gap-2 group-hover:shadow-lg active:scale-95"
-              >
-                ÁREA DO CORRETOR
-                <ChevronDown size={16} className="group-hover:rotate-180 transition-transform" />
-              </button>
-              
-              {/* Dropdown Menu */}
-              <div className="absolute right-0 mt-2 w-56 bg-white border border-gray-100 rounded-2xl shadow-2xl opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-300 py-3 z-50 overflow-hidden">
-                <a 
-                  href="https://app.simuladoronline.com/login/" 
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="flex items-center gap-3 px-5 py-3 text-sm font-bold text-brand-secondary hover:bg-gray-50 hover:text-brand-primary transition-colors"
-                >
-                  <Monitor size={18} className="text-brand-primary" />
-                  Sistema Clássico
-                </a>
-                <div className="h-[1px] bg-gray-100 mx-5" />
-                <a 
-                  href="https://app.simuladoronline.com/app/sessao/login" 
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="flex items-center gap-3 px-5 py-3 text-sm font-bold text-brand-secondary hover:bg-gray-50 hover:text-brand-primary transition-colors"
-                >
-                  <Smartphone size={18} className="text-brand-primary" />
-                  Sistema Mobile (Celular)
-                </a>
-              </div>
-            </div>
+
           </nav>
 
           {/* Mobile Toggle */}
