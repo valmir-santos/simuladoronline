@@ -48,19 +48,19 @@ export default function PricingTable() {
       <motion.div 
         initial={{ opacity: 0, y: 30 }}
         whileInView={{ opacity: 1, y: 0 }}
-        className="bg-[#F2EDE6] rounded-[4rem] p-10 md:p-20 shadow-xl border border-gray-200"
+        className="bg-[#F2EDE6] rounded-3xl md:rounded-[4rem] p-6 md:p-20 shadow-xl border border-gray-200"
       >
-        <div className="text-center mb-16">
-          <h2 className="text-4xl md:text-5xl font-black text-brand-secondary mb-2">Relação de Planos por Estado</h2>
-          <p className="text-2xl font-bold text-brand-secondary">Assinatura mensal</p>
+        <div className="text-center mb-10 md:mb-16">
+          <h2 className="text-3xl md:text-5xl font-black text-brand-secondary mb-2">Relação de Planos por Estado</h2>
+          <p className="text-xl md:text-2xl font-bold text-brand-secondary">Assinatura mensal</p>
         </div>
 
-        <div className="flex flex-col space-y-4 max-w-lg mx-auto mb-16">
+        <div className="flex flex-col space-y-3 md:space-y-4 max-w-lg mx-auto mb-16">
           {ESTADUAL_PRICES.map((item, idx) => (
-            <div key={idx} className="flex items-center py-2 px-4 group">
-              <div className="flex items-center gap-4">
-                <CheckCircle2 size={24} className="text-brand-secondary flex-shrink-0" fill="currentColor" color="white" />
-                <span className="text-lg sm:text-xl font-medium text-brand-secondary">
+            <div key={idx} className="flex items-center py-1 md:py-2 px-0 md:px-4 group">
+              <div className="flex items-center gap-3 md:gap-4">
+                <CheckCircle2 size={22} className="text-brand-secondary flex-shrink-0" fill="currentColor" color="white" />
+                <span className="text-[16px] md:text-lg lg:text-xl font-medium text-brand-secondary whitespace-nowrap">
                   {item.users} &ndash; {item.price}
                 </span>
               </div>
@@ -75,21 +75,21 @@ export default function PricingTable() {
       <motion.div 
         initial={{ opacity: 0, y: 30 }}
         whileInView={{ opacity: 1, y: 0 }}
-        className="bg-brand-secondary rounded-[4rem] p-10 md:p-20 shadow-2xl relative overflow-hidden"
+        className="bg-brand-secondary rounded-3xl md:rounded-[4rem] p-6 md:p-20 shadow-2xl relative overflow-hidden"
       >
         <div className="absolute inset-0 bg-[url('https://www.transparenttextures.com/patterns/cubes.png')] opacity-10 pointer-events-none" />
         
-        <div className="text-center mb-16 relative z-10">
-          <h2 className="text-4xl md:text-5xl font-black text-white mb-2">Relação de Planos Nacionais</h2>
-          <p className="text-2xl font-bold text-white/80">Assinatura mensal</p>
+        <div className="text-center mb-10 md:mb-16 relative z-10">
+          <h2 className="text-3xl md:text-5xl font-black text-white mb-2">Relação de Planos Nacionais</h2>
+          <p className="text-xl md:text-2xl font-bold text-white/80">Assinatura mensal</p>
         </div>
 
-        <div className="flex flex-col space-y-4 max-w-lg mx-auto mb-16 relative z-10">
+        <div className="flex flex-col space-y-3 md:space-y-4 max-w-lg mx-auto mb-16 relative z-10">
           {NACIONAL_PRICES.map((item, idx) => (
-            <div key={idx} className="flex items-center py-2 px-4 group">
-              <div className="flex items-center gap-4">
-                <CheckCircle2 size={24} className="text-brand-primary flex-shrink-0" fill="currentColor" color="white" />
-                <span className="text-lg sm:text-xl font-medium text-white">
+            <div key={idx} className="flex items-center py-1 md:py-2 px-0 md:px-4 group">
+              <div className="flex items-center gap-3 md:gap-4">
+                <CheckCircle2 size={22} className="text-brand-primary flex-shrink-0" fill="currentColor" color="white" />
+                <span className="text-[16px] md:text-lg lg:text-xl font-medium text-white whitespace-nowrap">
                   {item.users} &ndash; {item.price}
                 </span>
               </div>
