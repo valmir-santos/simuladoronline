@@ -40,7 +40,6 @@ export default function Home() {
              <div className="font-black text-2xl italic tracking-tighter">PORTO SEGURO</div>
              <div className="font-black text-2xl italic tracking-tighter">NOTRE DAME</div>
              <div className="font-black text-2xl italic tracking-tighter">ALLCARE</div>
-             <div className="font-black text-2xl italic tracking-tighter">TEC SAÚDE</div>
              <div className="font-black text-2xl italic tracking-tighter">CORPE SAÚDE</div>
              <div className="font-black text-2xl italic tracking-tighter">SALE LIFE</div>
           </div>
