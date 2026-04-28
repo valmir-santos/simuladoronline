@@ -31,7 +31,7 @@ export default function Home() {
       {/* PARTNERS / TRUST */}
       <section className="py-12 bg-gray-50 border-b border-gray-100">
         <div className="max-w-7xl mx-auto px-4 text-center">
-          <p className="text-xs font-black text-gray-400 uppercase tracking-[0.3em] mb-8">Tecnologia Confiada por Milhares de Corretores</p>
+          <p className="text-xs font-black text-gray-400 uppercase tracking-[0.3em] mb-8">Nossa Tecnologia é Confiada pelas maiores operadoras do Mercado</p>
           <div className="flex flex-wrap justify-center gap-12 grayscale opacity-40">
              {/* Mock Partner Logos */}
              <div className="font-black text-2xl italic tracking-tighter">SULAMERICA</div>
@@ -39,6 +39,10 @@ export default function Home() {
              <div className="font-black text-2xl italic tracking-tighter">AMIL</div>
              <div className="font-black text-2xl italic tracking-tighter">PORTO SEGURO</div>
              <div className="font-black text-2xl italic tracking-tighter">NOTRE DAME</div>
+             <div className="font-black text-2xl italic tracking-tighter">ALLCARE</div>
+             <div className="font-black text-2xl italic tracking-tighter">TEC SAÚDE</div>
+             <div className="font-black text-2xl italic tracking-tighter">CORPE SAÚDE</div>
+             <div className="font-black text-2xl italic tracking-tighter">SALE LIFE</div>
           </div>
         </div>
       </section>
