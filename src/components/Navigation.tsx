@@ -27,28 +27,32 @@ import { motion, AnimatePresence } from 'motion/react';
 // --- TOPBAR COMPONENT ---
 export function Topbar() {
   return (
-    <div className="bg-brand-secondary text-white py-2 px-4 text-xs font-medium border-b border-white/10 hidden md:block">
-      <div className="max-w-7xl mx-auto flex justify-between items-center">
-        <div className="flex flex-col gap-1">
-          <div className="flex items-center gap-2">
-            <a href="https://api.whatsapp.com/send?phone=551132190409&text=Olá sou corretor e gostaria de algumas informações" target="_blank" rel="noopener noreferrer" className="flex items-center gap-2 hover:text-brand-primary transition-colors">
+    <div className="bg-brand-secondary text-white py-3 px-4 text-xs font-medium border-b border-white/10">
+      <div className="max-w-7xl mx-auto flex flex-col md:flex-row justify-between items-center gap-4">
+        <div className="flex flex-col items-center md:items-start gap-2">
+          <div className="flex items-center gap-3">
+            <a href="https://api.whatsapp.com/send?phone=551132190409&text=Olá sou corretor e gostaria de algumas informações" target="_blank" rel="noopener noreferrer" className="flex items-center gap-1.5 hover:text-brand-primary transition-colors">
               <MessageCircle size={14} className="text-white" />
               <span>(11) 3219-0409</span>
             </a>
             <span className="text-white/30">|</span>
+            <a href="tel:2135270540" className="flex items-center gap-1.5 hover:text-brand-primary transition-colors">
+              <Phone size={14} className="text-white" />
+              <span>(21) 3527-0540</span>
+            </a>
           </div>
-          <a href="tel:2135270540" className="flex items-center gap-2 hover:text-brand-primary transition-colors">
-            <Phone size={14} className="text-white" />
-            <span>(21) 3527-0540</span>
+          <a href="mailto:comercial@simuladoronline.com.br" className="flex items-center gap-2 hover:text-brand-primary transition-colors">
+            <Mail size={14} className="text-white" />
+            <span className="text-sm">comercial@simuladoronline.com.br</span>
           </a>
         </div>
         
-        <div className="flex gap-4">
+        <div className="flex flex-col md:flex-row gap-3 w-full md:w-auto px-4 md:px-0">
           <a 
             href="https://app.simuladoronline.com/login/" 
             target="_blank"
             rel="noopener noreferrer"
-            className="bg-brand-button hover:opacity-90 text-white px-4 py-1.5 rounded-md text-xs font-semibold transition-all shadow-sm"
+            className="bg-[#f05a41] hover:bg-opacity-90 text-white px-4 py-2.5 md:py-1.5 rounded-md text-sm md:text-xs font-bold transition-all shadow-sm text-center w-full md:w-auto"
           >
             Área do Cliente - Clássica
           </a>
@@ -56,18 +60,18 @@ export function Topbar() {
             href="https://app.simuladoronline.com/app/sessao/login" 
             target="_blank"
             rel="noopener noreferrer"
-            className="bg-brand-button hover:opacity-90 text-white px-4 py-1.5 rounded-md text-xs font-semibold transition-all shadow-sm"
+            className="bg-[#f05a41] hover:bg-opacity-90 text-white px-4 py-2.5 md:py-1.5 rounded-md text-sm md:text-xs font-bold transition-all shadow-sm text-center w-full md:w-auto"
           >
             Área do Cliente - Mobile
           </a>
         </div>
 
-        <div className="flex gap-4">
-          <a href="#" className="hover:text-brand-primary transition-colors"><Instagram size={14} /></a>
-          <a href="#" className="hover:text-brand-primary transition-colors"><Facebook size={14} /></a>
-          <a href="#" className="hover:text-brand-primary transition-colors"><Twitter size={14} /></a>
-          <a href="#" className="hover:text-brand-primary transition-colors"><Youtube size={14} /></a>
-          <a href="#" className="hover:text-brand-primary transition-colors"><Linkedin size={14} /></a>
+        <div className="flex gap-4 justify-center mt-2 md:mt-0">
+          <a href="#" className="hover:text-brand-primary transition-colors"><Instagram size={16} /></a>
+          <a href="#" className="hover:text-brand-primary transition-colors"><Facebook size={16} /></a>
+          <a href="#" className="hover:text-brand-primary transition-colors"><Twitter size={16} /></a>
+          <a href="#" className="hover:text-brand-primary transition-colors"><Youtube size={16} /></a>
+          <a href="#" className="hover:text-brand-primary transition-colors"><Linkedin size={16} /></a>
         </div>
       </div>
     </div>

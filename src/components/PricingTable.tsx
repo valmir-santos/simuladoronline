@@ -55,14 +55,15 @@ export default function PricingTable() {
           <p className="text-2xl font-bold text-brand-secondary">Assinatura mensal</p>
         </div>
 
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-x-20 gap-y-4 max-w-4xl mx-auto mb-16">
+        <div className="flex flex-col space-y-4 max-w-lg mx-auto mb-16">
           {ESTADUAL_PRICES.map((item, idx) => (
-            <div key={idx} className="flex items-center justify-between py-2 border-b border-brand-secondary/10 group hover:bg-white/50 px-4 rounded-lg transition-colors">
+            <div key={idx} className="flex items-center py-2 px-4 group">
               <div className="flex items-center gap-4">
-                <CheckCircle2 size={24} className="text-brand-secondary" />
-                <span className="text-lg font-medium text-gray-500">{item.users.split(' ')[0]} <span className="text-gray-400">{item.users.split(' ').slice(1).join(' ')}</span></span>
+                <CheckCircle2 size={24} className="text-brand-secondary flex-shrink-0" fill="currentColor" color="white" />
+                <span className="text-lg sm:text-xl font-medium text-brand-secondary">
+                  {item.users} &ndash; {item.price}
+                </span>
               </div>
-              <span className="text-lg font-bold text-gray-600">{item.price}</span>
             </div>
           ))}
         </div>
@@ -83,14 +84,15 @@ export default function PricingTable() {
           <p className="text-2xl font-bold text-white/80">Assinatura mensal</p>
         </div>
 
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-x-20 gap-y-4 max-w-4xl mx-auto mb-16 relative z-10">
+        <div className="flex flex-col space-y-4 max-w-lg mx-auto mb-16 relative z-10">
           {NACIONAL_PRICES.map((item, idx) => (
-            <div key={idx} className="flex items-center justify-between py-2 border-b border-white/10 group hover:bg-white/5 px-4 rounded-lg transition-colors">
+            <div key={idx} className="flex items-center py-2 px-4 group">
               <div className="flex items-center gap-4">
-                <CheckCircle2 size={24} className="text-brand-primary" />
-                <span className="text-lg font-medium text-white/70">{item.users.split(' ')[0]} <span className="text-white/40">{item.users.split(' ').slice(1).join(' ')}</span></span>
+                <CheckCircle2 size={24} className="text-brand-primary flex-shrink-0" fill="currentColor" color="white" />
+                <span className="text-lg sm:text-xl font-medium text-white">
+                  {item.users} &ndash; {item.price}
+                </span>
               </div>
-              <span className="text-lg font-bold text-white/90">{item.price}</span>
             </div>
           ))}
         </div>
