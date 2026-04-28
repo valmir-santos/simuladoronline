@@ -55,7 +55,7 @@ export default function PricingTable() {
           <p className="text-xl md:text-2xl font-bold text-brand-secondary">Assinatura mensal</p>
         </div>
 
-        <div className="flex flex-col space-y-3 md:space-y-4 max-w-lg mx-auto mb-16">
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-y-3 md:gap-y-4 gap-x-4 md:gap-x-16 w-fit mx-auto mb-16">
           {ESTADUAL_PRICES.map((item, idx) => (
             <div key={idx} className="flex items-center py-1 md:py-2 px-0 md:px-4 group">
               <div className="flex items-center gap-3 md:gap-4">
@@ -84,7 +84,7 @@ export default function PricingTable() {
           <p className="text-xl md:text-2xl font-bold text-white/80">Assinatura mensal</p>
         </div>
 
-        <div className="flex flex-col space-y-3 md:space-y-4 max-w-lg mx-auto mb-16 relative z-10">
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-y-3 md:gap-y-4 gap-x-4 md:gap-x-16 w-fit mx-auto mb-16 relative z-10">
           {NACIONAL_PRICES.map((item, idx) => (
             <div key={idx} className="flex items-center py-1 md:py-2 px-0 md:px-4 group">
               <div className="flex items-center gap-3 md:gap-4">
