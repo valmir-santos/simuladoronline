@@ -9,35 +9,35 @@ interface PricingItem {
 
 const ESTADUAL_PRICES: PricingItem[] = [
   { users: '01 usuário', price: 'R$ 30,00' },
-  { users: '08 usuários', price: 'R$ 80,00' },
   { users: '02 usuários', price: 'R$ 40,00' },
-  { users: '09 usuários', price: 'R$ 85,00' },
   { users: '03 usuários', price: 'R$ 50,00' },
-  { users: '10 usuários', price: 'R$ 90,00' },
   { users: '04 usuários', price: 'R$ 60,00' },
-  { users: '20 usuários', price: 'R$ 150,00' },
   { users: '05 usuários', price: 'R$ 65,00' },
-  { users: '50 usuários', price: 'R$ 250,00' },
   { users: '06 usuários', price: 'R$ 70,00' },
-  { users: '100 usuários', price: 'R$ 350,00' },
   { users: '07 usuários', price: 'R$ 75,00' },
+  { users: '08 usuários', price: 'R$ 80,00' },
+  { users: '09 usuários', price: 'R$ 85,00' },
+  { users: '10 usuários', price: 'R$ 90,00' },
+  { users: '20 usuários', price: 'R$ 150,00' },
+  { users: '50 usuários', price: 'R$ 250,00' },
+  { users: '100 usuários', price: 'R$ 350,00' },
   { users: '200 usuários', price: 'R$ 500,00' },
 ];
 
 const NACIONAL_PRICES: PricingItem[] = [
   { users: '01 usuário', price: 'R$ 50,00' },
-  { users: '08 usuários', price: 'R$ 140,00' },
   { users: '02 usuários', price: 'R$ 70,00' },
-  { users: '09 usuários', price: 'R$ 150,00' },
   { users: '03 usuários', price: 'R$ 85,00' },
-  { users: '10 usuários', price: 'R$ 160,00' },
   { users: '04 usuários', price: 'R$ 100,00' },
-  { users: '20 usuários', price: 'R$ 240,00' },
   { users: '05 usuários', price: 'R$ 110,00' },
-  { users: '50 usuários', price: 'R$ 400,00' },
   { users: '06 usuários', price: 'R$ 120,00' },
-  { users: '70 usuários', price: 'R$ 500,00' },
   { users: '07 usuários', price: 'R$ 130,00' },
+  { users: '08 usuários', price: 'R$ 140,00' },
+  { users: '09 usuários', price: 'R$ 150,00' },
+  { users: '10 usuários', price: 'R$ 160,00' },
+  { users: '20 usuários', price: 'R$ 240,00' },
+  { users: '50 usuários', price: 'R$ 400,00' },
+  { users: '70 usuários', price: 'R$ 500,00' },
   { users: '100 usuários', price: 'R$ 600,00' },
 ];
 
@@ -55,7 +55,7 @@ export default function PricingTable() {
           <p className="text-xl md:text-2xl font-bold text-brand-secondary">Assinatura mensal</p>
         </div>
 
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-y-3 md:gap-y-4 gap-x-4 md:gap-x-16 w-fit mx-auto mb-16">
+        <div className="flex flex-col md:grid md:grid-flow-col md:grid-rows-[7] gap-y-3 md:gap-y-4 gap-x-4 md:gap-x-16 w-fit mx-auto mb-16">
           {ESTADUAL_PRICES.map((item, idx) => (
             <div key={idx} className="flex items-center py-1 md:py-2 px-0 md:px-4 group">
               <div className="flex items-center gap-3 md:gap-4">
@@ -84,7 +84,7 @@ export default function PricingTable() {
           <p className="text-xl md:text-2xl font-bold text-white/80">Assinatura mensal</p>
         </div>
 
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-y-3 md:gap-y-4 gap-x-4 md:gap-x-16 w-fit mx-auto mb-16 relative z-10">
+        <div className="flex flex-col md:grid md:grid-flow-col md:grid-rows-[7] gap-y-3 md:gap-y-4 gap-x-4 md:gap-x-16 w-fit mx-auto mb-16 relative z-10">
           {NACIONAL_PRICES.map((item, idx) => (
             <div key={idx} className="flex items-center py-1 md:py-2 px-0 md:px-4 group">
               <div className="flex items-center gap-3 md:gap-4">
