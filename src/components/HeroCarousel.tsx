@@ -1,6 +1,6 @@
 import React, { useState, useEffect, useCallback } from 'react';
 import { motion, AnimatePresence } from 'motion/react';
-import { ChevronLeft, ChevronRight, ArrowRight } from 'lucide-react';
+import { ChevronLeft, ChevronRight, ArrowRight, ShieldCheck, MessageCircle } from 'lucide-react';
 import { Link } from 'react-router-dom';
 
 const slides = [
@@ -21,12 +21,17 @@ const slides = [
   },
   {
     type: 'image',
-    title: 'Sua corretora 100% digital',
-    subtitle: 'Simuladores integrados e sites de alta conversão',
-    cta: 'Falar com um consultor',
+    title: 'CORRETOR, COMECE 2026 COM O SEU NOME LIMPO!',
+    subtitle: 'VOCÊ ESTÁ COM O NOME SUJO E NÃO CONSEGUE CRÉDITO?',
+    cta: 'ENTRE EM CONTATO AGORA PELO WHATSAPP',
     image: 'https://images.unsplash.com/photo-1522071823991-b1ae5e6a3048?q=80&w=2070&auto=format&fit=crop',
-    overlay: 'bg-brand-secondary/80',
-    actionUrl: 'https://api.whatsapp.com/send?phone=551132190409&text=Olá sou corretor e gostaria de algumas informações'
+    overlay: 'bg-[#002F5D]/85',
+    actionUrl: 'https://api.whatsapp.com/send?phone=5511994227649&text=Ol%C3%A1+Guilherme,+sou+cliente+do+*Simulador+On-Line(Valmir)*+tenho+interesse+em+regularizar+meu+nome+',
+    icon: 'whatsapp',
+    features: [
+      'Na Lex Reabilita Nome, limpamos seu CPF/CNPJ em até 30 dias, de forma 100% judicial, baseada na Súmula 359 do STJ.',
+      'Atuamos em todos os órgãos: SPC, Serasa, Boa Vista, Quod e Cenprot (Cartórios).'
+    ]
   }
 ];
 
@@ -143,6 +148,22 @@ export default function HeroCarousel() {
                 {slides[current].subtitle}
               </motion.p>
 
+              {slides[current].features && (
+                <motion.div 
+                  initial={{ opacity: 0, y: 20 }}
+                  animate={{ opacity: 1, y: 0 }}
+                  transition={{ delay: 0.5, duration: 0.6 }}
+                  className="flex flex-col md:flex-row justify-center gap-4 mb-10 text-white text-sm md:text-base text-left max-w-4xl mx-auto"
+                >
+                  {slides[current].features.map((feat, i) => (
+                    <div key={i} className="flex items-start gap-3 bg-black/30 p-4 md:p-6 rounded-2xl backdrop-blur-md flex-1 border border-white/10 shadow-lg">
+                      <ShieldCheck className="text-green-400 shrink-0 mt-0.5" size={28} />
+                      <p className="leading-relaxed">{feat}</p>
+                    </div>
+                  ))}
+                </motion.div>
+              )}
+
               <motion.div
                 initial={{ opacity: 0, scale: 0.9 }}
                 animate={{ opacity: 1, scale: 1 }}
@@ -153,10 +174,11 @@ export default function HeroCarousel() {
                     href={slides[current].actionUrl}
                     target="_blank"
                     rel="noopener noreferrer"
-                    className="inline-flex items-center gap-3 bg-brand-primary text-white px-10 py-5 rounded-2xl font-black text-lg shadow-[0_10px_40px_rgba(61,171,227,0.3)] hover:scale-105 active:scale-95 transition-all"
+                    className={`inline-flex items-center gap-3 text-white px-10 py-5 rounded-2xl font-black text-lg shadow-[0_10px_40px_rgba(61,171,227,0.3)] hover:scale-105 active:scale-95 transition-all ${slides[current].icon === 'whatsapp' ? 'bg-[#25D366] hover:bg-[#1DA851]' : 'bg-brand-primary'}`}
                   >
+                    {slides[current].icon === 'whatsapp' && <MessageCircle size={22} />}
                     {slides[current].cta}
-                    <ArrowRight size={22} />
+                    {slides[current].icon !== 'whatsapp' && <ArrowRight size={22} />}
                   </a>
                 ) : (
                   <Link 
