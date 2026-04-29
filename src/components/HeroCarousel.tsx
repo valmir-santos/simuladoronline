@@ -15,6 +15,7 @@ const slides = [
   {
     type: 'image-only',
     image: '/banner-allcare-suas-vendas-podem-valer-muito-mais.png',
+    mobileImage: '/banner-allcare-suas-vendas-podem-valer-muito-mais-1080x1350.png',
     link: 'https://www.corretorallcare.com.br/'
   },
   {
@@ -90,20 +91,30 @@ export default function HeroCarousel() {
             <div className="absolute inset-0 z-0">
               {slides[current].type === 'image-only' && slides[current].link ? (
                 <a href={slides[current].link} target="_blank" rel="noopener noreferrer" className="block w-full h-full">
-                  <img
-                    src={slides[current].image}
-                    alt="Banner Slide"
-                    className="w-full h-full object-cover"
-                  />
+                  <picture>
+                    {slides[current].mobileImage && (
+                      <source media="(max-width: 768px)" srcSet={slides[current].mobileImage} />
+                    )}
+                    <img
+                      src={slides[current].image}
+                      alt="Banner Slide"
+                      className="w-full h-full object-cover"
+                    />
+                  </picture>
                 </a>
               ) : (
                 <>
-                  <img
-                    src={slides[current].image}
-                    alt={slides[current].title}
-                    className="w-full h-full object-cover"
-                    referrerPolicy="no-referrer"
-                  />
+                  <picture>
+                    {slides[current].mobileImage && (
+                      <source media="(max-width: 768px)" srcSet={slides[current].mobileImage} />
+                    )}
+                    <img
+                      src={slides[current].image}
+                      alt={slides[current].title}
+                      className="w-full h-full object-cover"
+                      referrerPolicy="no-referrer"
+                    />
+                  </picture>
                   <div className={`absolute inset-0 ${slides[current].overlay} backdrop-blur-[2px]`} />
                 </>
               )}
