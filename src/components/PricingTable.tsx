@@ -1,6 +1,7 @@
 import React from 'react';
 import { CheckCircle2, Info, X } from 'lucide-react';
 import { motion } from 'motion/react';
+import { Link } from 'react-router-dom';
 
 interface PricingItem {
   users: string;
@@ -85,7 +86,6 @@ export default function PricingTable() {
         <PricingFooter 
           theme="light" 
           urlContratar="https://app.simuladoronline.com/contratacao/2"
-          urlSenhaTeste="https://app.simuladoronline.com/contratacao/5"
         />
       </motion.div>
 
@@ -132,14 +132,13 @@ export default function PricingTable() {
         <PricingFooter 
           theme="dark"
           urlContratar="https://app.simuladoronline.com/contratacao/1"
-          urlSenhaTeste="https://app.simuladoronline.com/contratacao/6"
         />
       </motion.div>
     </div>
   );
 }
 
-function PricingFooter({ theme, urlContratar, urlSenhaTeste }: { theme: 'light' | 'dark', urlContratar: string, urlSenhaTeste: string }) {
+function PricingFooter({ theme, urlContratar }: { theme: 'light' | 'dark', urlContratar: string }) {
   const isDark = theme === 'dark';
   
   return (
@@ -163,9 +162,9 @@ function PricingFooter({ theme, urlContratar, urlSenhaTeste }: { theme: 'light' 
         <a href={urlContratar} target="_blank" rel="noopener noreferrer" className={`flex items-center justify-center ${isDark ? 'bg-brand-primary' : 'bg-[#002F5D]'} text-white px-16 py-5 rounded-xl font-black text-lg hover:scale-105 transition-all shadow-xl`}>
           Contratar
         </a>
-        <a href={urlSenhaTeste} target="_blank" rel="noopener noreferrer" className={`flex items-center justify-center ${isDark ? 'bg-brand-primary' : 'bg-[#002F5D]'} text-white px-16 py-5 rounded-xl font-black text-lg hover:scale-105 transition-all shadow-xl`}>
+        <Link to="/testar-gratis" className={`flex items-center justify-center ${isDark ? 'bg-brand-primary' : 'bg-[#002F5D]'} text-white px-16 py-5 rounded-xl font-black text-lg hover:scale-105 transition-all shadow-xl`}>
           Senha Teste
-        </a>
+        </Link>
       </div>
     </div>
   );

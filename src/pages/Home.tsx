@@ -122,12 +122,12 @@ export default function Home() {
                Teste grátis por 5 dias.
              </p>
              <div className="flex flex-col sm:flex-row justify-center gap-6">
-               <a href="https://app.simuladoronline.com/contratacao/6" target="_blank" rel="noopener noreferrer" className="inline-flex items-center justify-center bg-brand-button text-white px-12 py-6 rounded-2xl font-black text-xl hover:scale-105 transition-all shadow-2xl">
+               <Link to="/testar-gratis" className="inline-flex items-center justify-center bg-brand-button text-white px-12 py-6 rounded-2xl font-black text-xl hover:scale-105 transition-all shadow-2xl">
                  QUERO TESTAR GRÁTIS
-               </a>
-               <button className="bg-white/10 text-white border border-white/20 px-12 py-6 rounded-2xl font-bold text-xl hover:bg-white/20 transition-all">
+               </Link>
+               <a href="https://api.whatsapp.com/send?phone=551132190409&text=Olá sou corretor e gostaria de algumas informações" target="_blank" rel="noopener noreferrer" className="inline-flex items-center justify-center bg-white/10 text-white border border-white/20 px-12 py-6 rounded-2xl font-bold text-xl hover:bg-white/20 transition-all">
                  Falar com Consultor
-               </button>
+               </a>
              </div>
           </div>
         </div>

@@ -10,7 +10,8 @@ const slides = [
     subtitle: 'A partir de R$30.00',
     cta: 'Quero testar agora!',
     bg: 'bg-brand-secondary',
-    accent: 'text-brand-primary'
+    accent: 'text-brand-primary',
+    actionUrl: '/testar-gratis'
   },
   {
     type: 'image-only',
@@ -24,7 +25,8 @@ const slides = [
     subtitle: 'Simuladores integrados e sites de alta conversão',
     cta: 'Falar com um consultor',
     image: 'https://images.unsplash.com/photo-1522071823991-b1ae5e6a3048?q=80&w=2070&auto=format&fit=crop',
-    overlay: 'bg-brand-secondary/80'
+    overlay: 'bg-brand-secondary/80',
+    actionUrl: 'https://api.whatsapp.com/send?phone=551132190409&text=Olá sou corretor e gostaria de algumas informações'
   }
 ];
 
@@ -146,13 +148,25 @@ export default function HeroCarousel() {
                 animate={{ opacity: 1, scale: 1 }}
                 transition={{ delay: 0.6, duration: 0.4 }}
               >
-                <Link 
-                  to="/produtos" 
-                  className="inline-flex items-center gap-3 bg-brand-primary text-white px-10 py-5 rounded-2xl font-black text-lg shadow-[0_10px_40px_rgba(61,171,227,0.3)] hover:scale-105 active:scale-95 transition-all"
-                >
-                  {slides[current].cta}
-                  <ArrowRight size={22} />
-                </Link>
+                {slides[current].actionUrl?.startsWith('http') ? (
+                  <a 
+                    href={slides[current].actionUrl}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="inline-flex items-center gap-3 bg-brand-primary text-white px-10 py-5 rounded-2xl font-black text-lg shadow-[0_10px_40px_rgba(61,171,227,0.3)] hover:scale-105 active:scale-95 transition-all"
+                  >
+                    {slides[current].cta}
+                    <ArrowRight size={22} />
+                  </a>
+                ) : (
+                  <Link 
+                    to={slides[current].actionUrl || "/produtos"} 
+                    className="inline-flex items-center gap-3 bg-brand-primary text-white px-10 py-5 rounded-2xl font-black text-lg shadow-[0_10px_40px_rgba(61,171,227,0.3)] hover:scale-105 active:scale-95 transition-all"
+                  >
+                    {slides[current].cta}
+                    <ArrowRight size={22} />
+                  </Link>
+                )}
               </motion.div>
             </div>
           )}
