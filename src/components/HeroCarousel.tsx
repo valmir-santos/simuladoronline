@@ -13,12 +13,9 @@ const slides = [
     accent: 'text-brand-primary'
   },
   {
-    type: 'image',
-    title: 'Inovação que transforma seu dia a dia',
-    subtitle: 'Tecnologia Headless para máxima performance',
-    cta: 'Conheça nossos planos',
-    image: 'https://images.unsplash.com/photo-1551434678-e076c223a692?q=80&w=2070&auto=format&fit=crop',
-    overlay: 'bg-brand-secondary/70'
+    type: 'image-only',
+    image: '/banner-allcare-suas-vendas-podem-valer-muito-mais.png',
+    link: 'https://www.corretorallcare.com.br/'
   },
   {
     type: 'image',
@@ -89,51 +86,65 @@ export default function HeroCarousel() {
           exit="exit"
           className="absolute inset-0 w-full h-full flex items-center justify-center"
         >
-          {slides[current].type === 'image' && (
+          {(slides[current].type === 'image' || slides[current].type === 'image-only') && (
             <div className="absolute inset-0 z-0">
-              <img
-                src={slides[current].image}
-                alt={slides[current].title}
-                className="w-full h-full object-cover"
-                referrerPolicy="no-referrer"
-              />
-              <div className={`absolute inset-0 ${slides[current].overlay} backdrop-blur-[2px]`} />
+              {slides[current].type === 'image-only' && slides[current].link ? (
+                <a href={slides[current].link} target="_blank" rel="noopener noreferrer" className="block w-full h-full">
+                  <img
+                    src={slides[current].image}
+                    alt="Banner Slide"
+                    className="w-full h-full object-cover"
+                  />
+                </a>
+              ) : (
+                <>
+                  <img
+                    src={slides[current].image}
+                    alt={slides[current].title}
+                    className="w-full h-full object-cover"
+                    referrerPolicy="no-referrer"
+                  />
+                  <div className={`absolute inset-0 ${slides[current].overlay} backdrop-blur-[2px]`} />
+                </>
+              )}
             </div>
           )}
 
-          <div className="max-w-5xl mx-auto px-4 text-center relative z-10">
-            <motion.h1
-              initial={{ opacity: 0, y: 30 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ delay: 0.2, duration: 0.6 }}
-              className="text-4xl md:text-7xl font-black text-white mb-8 leading-[1.1] tracking-tight"
-            >
-              {slides[current].title}
-            </motion.h1>
-            
-            <motion.p
-              initial={{ opacity: 0, y: 20 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ delay: 0.4, duration: 0.6 }}
-              className={`text-xl md:text-2xl font-bold mb-12 ${slides[current].accent || 'text-white/80'} underline underline-offset-8 decoration-2`}
-            >
-              {slides[current].subtitle}
-            </motion.p>
-
-            <motion.div
-              initial={{ opacity: 0, scale: 0.9 }}
-              animate={{ opacity: 1, scale: 1 }}
-              transition={{ delay: 0.6, duration: 0.4 }}
-            >
-              <Link 
-                to="/produtos" 
-                className="inline-flex items-center gap-3 bg-brand-primary text-white px-10 py-5 rounded-2xl font-black text-lg shadow-[0_10px_40px_rgba(61,171,227,0.3)] hover:scale-105 active:scale-95 transition-all"
+          {slides[current].type !== 'image-only' && (
+            <div className="max-w-5xl mx-auto px-4 text-center relative z-10">
+              <motion.h1
+                initial={{ opacity: 0, y: 30 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ delay: 0.2, duration: 0.6 }}
+                className="text-4xl md:text-7xl font-black text-white mb-8 leading-[1.1] tracking-tight"
               >
-                {slides[current].cta}
-                <ArrowRight size={22} />
-              </Link>
-            </motion.div>
-          </div>
+                {slides[current].title}
+              </motion.h1>
+              
+              <motion.p
+                initial={{ opacity: 0, y: 20 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ delay: 0.4, duration: 0.6 }}
+                className={`text-xl md:text-2xl font-bold mb-12 ${slides[current].accent || 'text-white/80'} underline underline-offset-8 decoration-2`}
+              >
+                {slides[current].subtitle}
+              </motion.p>
+
+              <motion.div
+                initial={{ opacity: 0, scale: 0.9 }}
+                animate={{ opacity: 1, scale: 1 }}
+                transition={{ delay: 0.6, duration: 0.4 }}
+              >
+                <Link 
+                  to="/produtos" 
+                  className="inline-flex items-center gap-3 bg-brand-primary text-white px-10 py-5 rounded-2xl font-black text-lg shadow-[0_10px_40px_rgba(61,171,227,0.3)] hover:scale-105 active:scale-95 transition-all"
+                >
+                  {slides[current].cta}
+                  <ArrowRight size={22} />
+                </Link>
+              </motion.div>
+            </div>
+          )}
         </motion.div>
       </AnimatePresence>
 

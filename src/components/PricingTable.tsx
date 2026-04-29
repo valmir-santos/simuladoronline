@@ -68,7 +68,11 @@ export default function PricingTable() {
           ))}
         </div>
 
-        <PricingFooter theme="light" />
+        <PricingFooter 
+          theme="light" 
+          urlContratar="https://app.simuladoronline.com/contratacao/2"
+          urlSenhaTeste="https://app.simuladoronline.com/contratacao/5"
+        />
       </motion.div>
 
       {/* TABELA NACIONAL */}
@@ -97,13 +101,17 @@ export default function PricingTable() {
           ))}
         </div>
 
-        <PricingFooter theme="dark" />
+        <PricingFooter 
+          theme="dark"
+          urlContratar="https://app.simuladoronline.com/contratacao/1"
+          urlSenhaTeste="https://app.simuladoronline.com/contratacao/6"
+        />
       </motion.div>
     </div>
   );
 }
 
-function PricingFooter({ theme }: { theme: 'light' | 'dark' }) {
+function PricingFooter({ theme, urlContratar, urlSenhaTeste }: { theme: 'light' | 'dark', urlContratar: string, urlSenhaTeste: string }) {
   const isDark = theme === 'dark';
   
   return (
@@ -124,12 +132,12 @@ function PricingFooter({ theme }: { theme: 'light' | 'dark' }) {
       </div>
 
       <div className="flex flex-col sm:flex-row justify-center gap-6">
-        <button className={`${isDark ? 'bg-brand-primary' : 'bg-[#002F5D]'} text-white px-16 py-5 rounded-xl font-black text-lg hover:scale-105 transition-all shadow-xl`}>
+        <a href={urlContratar} target="_blank" rel="noopener noreferrer" className={`flex items-center justify-center ${isDark ? 'bg-brand-primary' : 'bg-[#002F5D]'} text-white px-16 py-5 rounded-xl font-black text-lg hover:scale-105 transition-all shadow-xl`}>
           Contratar
-        </button>
-        <button className={`${isDark ? 'bg-brand-primary' : 'bg-[#002F5D]'} text-white px-16 py-5 rounded-xl font-black text-lg hover:scale-105 transition-all shadow-xl`}>
+        </a>
+        <a href={urlSenhaTeste} target="_blank" rel="noopener noreferrer" className={`flex items-center justify-center ${isDark ? 'bg-brand-primary' : 'bg-[#002F5D]'} text-white px-16 py-5 rounded-xl font-black text-lg hover:scale-105 transition-all shadow-xl`}>
           Senha Teste
-        </button>
+        </a>
       </div>
     </div>
   );
