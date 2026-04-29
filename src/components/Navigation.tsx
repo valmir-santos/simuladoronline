@@ -270,6 +270,7 @@ export function Footer() {
               <li><Link to="/contato" className="hover:text-brand-primary transition-colors">Suporte Técnico</Link></li>
               <li><Link to="/termos" className="hover:text-brand-primary transition-colors">Termos de Uso</Link></li>
               <li><Link to="/politica-de-privacidade" className="hover:text-brand-primary transition-colors">Política de Privacidade</Link></li>
+              <li><Link to="/politica-de-cookies" className="hover:text-brand-primary transition-colors">Política de Cookies</Link></li>
             </ul>
           </div>
 
