@@ -91,7 +91,7 @@ export default function HeroCarousel() {
             <div className="absolute inset-0 z-0">
               {slides[current].type === 'image-only' && slides[current].link ? (
                 <a href={slides[current].link} target="_blank" rel="noopener noreferrer" className="block w-full h-full">
-                  <picture>
+                  <picture className="w-full h-full block">
                     {slides[current].mobileImage && (
                       <source media="(max-width: 768px)" srcSet={slides[current].mobileImage} />
                     )}
@@ -104,7 +104,7 @@ export default function HeroCarousel() {
                 </a>
               ) : (
                 <>
-                  <picture>
+                  <picture className="w-full h-full block">
                     {slides[current].mobileImage && (
                       <source media="(max-width: 768px)" srcSet={slides[current].mobileImage} />
                     )}
