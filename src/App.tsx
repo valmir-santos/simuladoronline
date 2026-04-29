@@ -7,6 +7,7 @@ import Products from './pages/Products';
 import Blog from './pages/Blog';
 import BlogPost from './pages/BlogPost';
 import Contact from './pages/Contact';
+import TestarGratis from './pages/TestarGratis';
 
 // Scroll to top on route change
 function ScrollToTop() {
@@ -28,6 +29,7 @@ export default function App() {
         <main className="flex-grow">
           <Routes>
             <Route path="/" element={<Home />} />
+            <Route path="/testar-gratis" element={<TestarGratis />} />
             <Route path="/sobre" element={<About />} />
             <Route path="/produtos" element={<Products />} />
             <Route path="/blog" element={<Blog />} />

@@ -85,10 +85,11 @@ export function Header() {
 
   const menuItems = [
     { name: 'HOME', path: '/' },
+    { name: 'TESTAR GRÁTIS', path: '/testar-gratis' },
+    { name: 'NOSSOS PLANOS', path: '/produtos' },
     { name: 'SOBRE O SIMULADOR', path: '/sobre' },
-    { name: 'PRODUTOS & PLANOS', path: '/produtos' },
-    { name: 'BLOG', path: '/blog' },
     { name: 'FALE CONOSCO', path: '/contato' },
+    { name: 'BLOG', path: '/blog' },
   ];
 
   return (
