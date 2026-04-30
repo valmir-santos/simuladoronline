@@ -83,7 +83,7 @@ export default function HeroCarousel() {
   };
 
   return (
-    <section className="relative h-[80vh] min-h-[600px] w-full overflow-hidden bg-brand-secondary">
+    <section className="relative h-[100svh] md:h-[80vh] min-h-[800px] md:min-h-[600px] w-full overflow-hidden bg-brand-secondary">
       <AnimatePresence initial={false} custom={direction}>
         <motion.div
           key={current}
@@ -134,7 +134,7 @@ export default function HeroCarousel() {
                 initial={{ opacity: 0, y: 30 }}
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ delay: 0.2, duration: 0.6 }}
-                className="text-4xl md:text-7xl font-black text-white mb-8 leading-[1.1] tracking-tight"
+                className="text-3xl md:text-7xl font-black text-white mb-4 md:mb-8 leading-[1.1] tracking-tight pt-10 md:pt-0"
               >
                 {slides[current].title}
               </motion.h1>
@@ -143,7 +143,7 @@ export default function HeroCarousel() {
                 initial={{ opacity: 0, y: 20 }}
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ delay: 0.4, duration: 0.6 }}
-                className={`text-xl md:text-2xl font-bold mb-12 ${slides[current].accent || 'text-white/80'} underline underline-offset-8 decoration-2`}
+                className={`text-lg md:text-2xl font-bold mb-6 md:mb-12 ${slides[current].accent || 'text-white/80'} underline underline-offset-8 decoration-2`}
               >
                 {slides[current].subtitle}
               </motion.p>
@@ -153,10 +153,10 @@ export default function HeroCarousel() {
                   initial={{ opacity: 0, y: 20 }}
                   animate={{ opacity: 1, y: 0 }}
                   transition={{ delay: 0.5, duration: 0.6 }}
-                  className="flex flex-col md:flex-row justify-center gap-4 mb-10 text-white text-sm md:text-base text-left max-w-4xl mx-auto"
+                  className="flex flex-col md:flex-row justify-center gap-3 md:gap-4 mb-6 md:mb-10 text-white text-sm md:text-base text-left max-w-4xl mx-auto"
                 >
                   {slides[current].features.map((feat, i) => (
-                    <div key={i} className="flex items-start gap-3 bg-black/30 p-4 md:p-6 rounded-2xl backdrop-blur-md flex-1 border border-white/10 shadow-lg">
+                    <div key={i} className="flex items-start gap-2 md:gap-3 bg-black/30 p-4 md:p-6 rounded-2xl backdrop-blur-md flex-1 border border-white/10 shadow-lg">
                       <ShieldCheck className="text-green-400 shrink-0 mt-0.5" size={28} />
                       <p className="leading-relaxed">{feat}</p>
                     </div>
@@ -174,7 +174,7 @@ export default function HeroCarousel() {
                     href={slides[current].actionUrl}
                     target="_blank"
                     rel="noopener noreferrer"
-                    className={`inline-flex items-center gap-3 text-white px-10 py-5 rounded-2xl font-black text-lg shadow-[0_10px_40px_rgba(61,171,227,0.3)] hover:scale-105 active:scale-95 transition-all ${slides[current].icon === 'whatsapp' ? 'bg-[#25D366] hover:bg-[#1DA851]' : 'bg-brand-primary'}`}
+                    className={`inline-flex items-center gap-2 md:gap-3 text-white px-6 py-4 md:px-10 md:py-5 rounded-xl md:rounded-2xl font-black text-sm md:text-lg shadow-[0_10px_40px_rgba(61,171,227,0.3)] hover:scale-105 active:scale-95 transition-all ${slides[current].icon === 'whatsapp' ? 'bg-[#25D366] hover:bg-[#1DA851]' : 'bg-brand-primary'}`}
                   >
                     {slides[current].icon === 'whatsapp' && <MessageCircle size={22} />}
                     {slides[current].cta}
@@ -183,7 +183,7 @@ export default function HeroCarousel() {
                 ) : (
                   <Link 
                     to={slides[current].actionUrl || "/produtos"} 
-                    className="inline-flex items-center gap-3 bg-brand-primary text-white px-10 py-5 rounded-2xl font-black text-lg shadow-[0_10px_40px_rgba(61,171,227,0.3)] hover:scale-105 active:scale-95 transition-all"
+                    className="inline-flex items-center gap-2 md:gap-3 bg-brand-primary text-white px-6 py-4 md:px-10 md:py-5 rounded-xl md:rounded-2xl font-black text-sm md:text-lg shadow-[0_10px_40px_rgba(61,171,227,0.3)] hover:scale-105 active:scale-95 transition-all"
                   >
                     {slides[current].cta}
                     <ArrowRight size={22} />
