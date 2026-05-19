@@ -42,13 +42,13 @@ export default function Products() {
                 onClick={() => setActiveTab('simuladores')}
                 className={`px-8 py-4 rounded-xl font-bold text-sm transition-all ${activeTab === 'simuladores' ? 'bg-brand-secondary text-white shadow-lg' : 'text-gray-600 hover:text-brand-secondary'}`}
               >
-                Simuladores SaaS
+                Simulador - Planos
               </button>
               <button 
                 onClick={() => setActiveTab('sites')}
                 className={`px-8 py-4 rounded-xl font-bold text-sm transition-all ${activeTab === 'sites' ? 'bg-brand-secondary text-white shadow-lg' : 'text-gray-600 hover:text-brand-secondary'}`}
               >
-                Sites & Templates
+                Sites & Landing Pages
               </button>
             </div>
           </motion.div>
