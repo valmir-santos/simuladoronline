@@ -1,5 +1,6 @@
 import React from 'react';
 import { motion } from 'motion/react';
+import { CheckCircle2 } from 'lucide-react';
 
 export default function Contratar() {
   return (
@@ -41,9 +42,28 @@ export default function Contratar() {
                 </div>
               </div>
 
-              <p className="text-gray-500 font-medium text-xs md:text-sm leading-relaxed mb-8">
-                Através do Plano Simulador On-Line - ESTADUAL é possível fazer simulações de planos Individuais, Familiares, Adesões e PME's dentro do seu Estado/Cidade, oferecendo informações das operadoras e os valores já calculados por cada padrão/categoria e separados por faixa etária conforme digitado.
-              </p>
+              <ul className="text-gray-500 font-medium text-xs md:text-sm leading-relaxed mb-8 text-left space-y-3">
+                <li className="flex items-start gap-2">
+                  <CheckCircle2 size={16} className="text-[#3DABE3] shrink-0 mt-0.5" />
+                  <span>Simulações de planos Individuais, Familiares, Adesões e PME's</span>
+                </li>
+                <li className="flex items-start gap-2">
+                  <CheckCircle2 size={16} className="text-[#3DABE3] shrink-0 mt-0.5" />
+                  <span>Cobertura dentro do seu Estado/Cidade</span>
+                </li>
+                <li className="flex items-start gap-2">
+                  <CheckCircle2 size={16} className="text-[#3DABE3] shrink-0 mt-0.5" />
+                  <span>Informações detalhadas das operadoras</span>
+                </li>
+                <li className="flex items-start gap-2">
+                  <CheckCircle2 size={16} className="text-[#3DABE3] shrink-0 mt-0.5" />
+                  <span>Valores calculados por padrão/categoria</span>
+                </li>
+                <li className="flex items-start gap-2">
+                  <CheckCircle2 size={16} className="text-[#3DABE3] shrink-0 mt-0.5" />
+                  <span>Separação por faixa etária conforme digitado</span>
+                </li>
+              </ul>
 
               <div className="mt-auto w-full">
                 <a 
@@ -88,9 +108,28 @@ export default function Contratar() {
                 </div>
               </div>
 
-              <p className="text-gray-500 font-medium text-xs md:text-sm leading-relaxed mb-8">
-                Através do Plano Simulador On-Line - NACIONAL é possível fazer simulações de planos Individuais, Familiares, Adesões e PME's dentro do seu Estado/Cidade e também em todos os Estados/Cidade do Brasil, oferecendo informações das operadoras e os valores já calculados por cada padrão/categoria e separados por faixa etária conforme digitado.
-              </p>
+              <ul className="text-gray-500 font-medium text-xs md:text-sm leading-relaxed mb-8 text-left space-y-3">
+                <li className="flex items-start gap-2">
+                  <CheckCircle2 size={16} className="text-[#3DABE3] shrink-0 mt-0.5" />
+                  <span>Simulações de planos Individuais, Familiares, Adesões e PME's</span>
+                </li>
+                <li className="flex items-start gap-2">
+                  <CheckCircle2 size={16} className="text-[#3DABE3] shrink-0 mt-0.5" />
+                  <span>Cobertura Nacional (todos os Estados/Cidades do Brasil)</span>
+                </li>
+                <li className="flex items-start gap-2">
+                  <CheckCircle2 size={16} className="text-[#3DABE3] shrink-0 mt-0.5" />
+                  <span>Informações detalhadas das operadoras</span>
+                </li>
+                <li className="flex items-start gap-2">
+                  <CheckCircle2 size={16} className="text-[#3DABE3] shrink-0 mt-0.5" />
+                  <span>Valores calculados por padrão/categoria</span>
+                </li>
+                <li className="flex items-start gap-2">
+                  <CheckCircle2 size={16} className="text-[#3DABE3] shrink-0 mt-0.5" />
+                  <span>Separação por faixa etária conforme digitado</span>
+                </li>
+              </ul>
 
               <div className="mt-auto w-full">
                 <a 
@@ -130,17 +169,40 @@ export default function Contratar() {
                 </div>
               </div>
 
-              <div className="text-gray-500 font-medium text-[11px] md:text-xs leading-relaxed mb-8 text-center flex flex-col gap-1">
-                <p className="mb-2">O SITE PREMIUM é um pacote completo para quem deseja vender e captar clientes pela internet.</p>
-                <p>Inclusos neste pacote:</p>
-                <p>- Hospedagem Básica com 3 contas de E-mail com 10GB/Cada(Contas adicionais podem ser contratadas);</p>
-                <p>- Possibilidade de disponibilizar Cálculos e Tabelas para seus clientes;</p>
-                <p>- Certificado de Segurança incluso sem custo, este recurso é indispensável caso queira fazer anúncios patrocinados.</p>
-                <p>- Acesso Estadual do Simulador On-Line para *01 Usuário, R$ 70,00/mês;</p>
-                <p>- Acesso Nacional do Simulador On-Line para *01 Usuário, R$ 90,00/mês;</p>
-                <p>- Usuários Adicionais(Consultar Valores).</p>
-                <p>- Sem acesso ao Simulador On-Line, manutenção de R$ 50,00/mês.</p>
-                <p className="mt-4 mb-1">Basta ter registrado um endereço de site/domínio e utilizar um de nossos modelos.</p>
+              <div className="text-gray-500 font-medium text-[11px] md:text-xs leading-relaxed mb-8 text-left flex flex-col gap-1">
+                <p className="mb-2 font-bold">O SITE PREMIUM é um pacote completo para quem deseja vender e captar clientes pela internet.</p>
+                <p className="font-bold mb-1">Inclusos neste pacote:</p>
+                <ul className="space-y-2 mb-4">
+                  <li className="flex items-start gap-2">
+                    <CheckCircle2 size={14} className="text-[#3DABE3] shrink-0 mt-0.5" />
+                    <span>Hospedagem Básica com 3 contas de E-mail com 10GB/Cada(Contas adicionais podem ser contratadas)</span>
+                  </li>
+                  <li className="flex items-start gap-2">
+                    <CheckCircle2 size={14} className="text-[#3DABE3] shrink-0 mt-0.5" />
+                    <span>Possibilidade de disponibilizar Cálculos e Tabelas para seus clientes</span>
+                  </li>
+                  <li className="flex items-start gap-2">
+                    <CheckCircle2 size={14} className="text-[#3DABE3] shrink-0 mt-0.5" />
+                    <span>Certificado de Segurança incluso sem custo, este recurso é indispensável caso queira fazer anúncios patrocinados.</span>
+                  </li>
+                  <li className="flex items-start gap-2">
+                    <CheckCircle2 size={14} className="text-[#3DABE3] shrink-0 mt-0.5" />
+                    <span>Acesso Estadual do Simulador On-Line para *01 Usuário, R$ 70,00/mês</span>
+                  </li>
+                  <li className="flex items-start gap-2">
+                    <CheckCircle2 size={14} className="text-[#3DABE3] shrink-0 mt-0.5" />
+                    <span>Acesso Nacional do Simulador On-Line para *01 Usuário, R$ 90,00/mês</span>
+                  </li>
+                  <li className="flex items-start gap-2">
+                    <CheckCircle2 size={14} className="text-[#3DABE3] shrink-0 mt-0.5" />
+                    <span>Usuários Adicionais(Consultar Valores).</span>
+                  </li>
+                  <li className="flex items-start gap-2">
+                    <CheckCircle2 size={14} className="text-[#3DABE3] shrink-0 mt-0.5" />
+                    <span>Sem acesso ao Simulador On-Line, manutenção de R$ 50,00/mês.</span>
+                  </li>
+                </ul>
+                <p className="font-bold">Basta ter registrado um endereço de site/domínio e utilizar um de nossos modelos.</p>
                 <p>Após 12 meses de assinatura o site(arquivos) passa a ser seu definitivamente;</p>
                 <p className="mt-2 text-[10px]">*Após o preenchimento do formulário de contratação e pagamento, você será contatado por nossa equipe.</p>
               </div>

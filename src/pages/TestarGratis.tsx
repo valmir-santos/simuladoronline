@@ -1,6 +1,6 @@
 import React from 'react';
 import { motion } from 'motion/react';
-import { ShieldCheck } from 'lucide-react';
+import { ShieldCheck, CheckCircle2 } from 'lucide-react';
 
 export default function TestarGratis() {
   return (
@@ -59,9 +59,28 @@ export default function TestarGratis() {
                 </div>
               </div>
 
-              <p className="text-gray-500 font-medium text-sm md:text-base leading-relaxed mb-12 max-w-sm mx-auto">
-                Através do Plano Simulador On-Line - ESTADUAL é possível fazer simulações de planos Individuais, Familiares, Adesões e PME's dentro do seu Estado/Cidade, oferecendo informações das operadoras e os valores já calculados por cada padrão/categoria e separados por faixa etária conforme digitado.
-              </p>
+              <ul className="text-gray-500 font-medium text-xs md:text-sm leading-relaxed mb-12 max-w-sm mx-auto text-left space-y-3">
+                <li className="flex items-start gap-2">
+                  <CheckCircle2 size={16} className="text-[#3DABE3] shrink-0 mt-0.5" />
+                  <span>Simulações de planos Individuais, Familiares, Adesões e PME's</span>
+                </li>
+                <li className="flex items-start gap-2">
+                  <CheckCircle2 size={16} className="text-[#3DABE3] shrink-0 mt-0.5" />
+                  <span>Cobertura dentro do seu Estado/Cidade</span>
+                </li>
+                <li className="flex items-start gap-2">
+                  <CheckCircle2 size={16} className="text-[#3DABE3] shrink-0 mt-0.5" />
+                  <span>Informações detalhadas das operadoras</span>
+                </li>
+                <li className="flex items-start gap-2">
+                  <CheckCircle2 size={16} className="text-[#3DABE3] shrink-0 mt-0.5" />
+                  <span>Valores calculados por padrão/categoria</span>
+                </li>
+                <li className="flex items-start gap-2">
+                  <CheckCircle2 size={16} className="text-[#3DABE3] shrink-0 mt-0.5" />
+                  <span>Separação por faixa etária conforme digitado</span>
+                </li>
+              </ul>
 
               <div className="mt-auto w-full">
                 <a 
@@ -105,9 +124,28 @@ export default function TestarGratis() {
                 </div>
               </div>
 
-              <p className="text-gray-500 font-medium text-sm md:text-base leading-relaxed mb-12 max-w-sm mx-auto">
-                Através do Plano Simulador On-Line - NACIONAL é possível fazer simulações de planos Individuais, Familiares, Adesões e PME's dentro do seu Estado/Cidade e também em todos os Estados/Cidade do Brasil, oferecendo informações das operadoras e os valores já calculados por cada padrão/categoria e separados por faixa etária conforme digitado.
-              </p>
+              <ul className="text-gray-500 font-medium text-xs md:text-sm leading-relaxed mb-12 max-w-sm mx-auto text-left space-y-3">
+                <li className="flex items-start gap-2">
+                  <CheckCircle2 size={16} className="text-[#3DABE3] shrink-0 mt-0.5" />
+                  <span>Simulações de planos Individuais, Familiares, Adesões e PME's</span>
+                </li>
+                <li className="flex items-start gap-2">
+                  <CheckCircle2 size={16} className="text-[#3DABE3] shrink-0 mt-0.5" />
+                  <span>Cobertura Nacional (todos os Estados/Cidades do Brasil)</span>
+                </li>
+                <li className="flex items-start gap-2">
+                  <CheckCircle2 size={16} className="text-[#3DABE3] shrink-0 mt-0.5" />
+                  <span>Informações detalhadas das operadoras</span>
+                </li>
+                <li className="flex items-start gap-2">
+                  <CheckCircle2 size={16} className="text-[#3DABE3] shrink-0 mt-0.5" />
+                  <span>Valores calculados por padrão/categoria</span>
+                </li>
+                <li className="flex items-start gap-2">
+                  <CheckCircle2 size={16} className="text-[#3DABE3] shrink-0 mt-0.5" />
+                  <span>Separação por faixa etária conforme digitado</span>
+                </li>
+              </ul>
 
               <div className="mt-auto w-full">
                 <a 
