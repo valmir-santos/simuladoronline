@@ -20,7 +20,9 @@ export default function TestarGratis() {
             transition={{ delay: 0.1 }}
             className="text-lg md:text-xl font-bold text-[#002F5D] mb-8"
           >
-            Teste A Nossa Ferramenta Durante 05(Cinco) Dias Sem Nenhum Custo.
+            Teste nossa ferramenta grátis por 5 dias, sem compromisso. <br />
+            Não exigimos cartão de crédito. <br />
+            Se não for para você, o cancelamento é automático em caso de não pagamento.
           </motion.p>
           <motion.h2 
             initial={{ opacity: 0, scale: 0.95 }}
@@ -43,7 +45,7 @@ export default function TestarGratis() {
             {/* Header */}
             <div className="bg-[#002F5D] text-white p-8 text-center flex flex-col justify-center min-h-[160px]">
               <h3 className="text-3xl font-black mb-2 uppercase">Acesso ESTADUAL</h3>
-              <p className="text-sm font-medium">Após periodo de teste, custo partir de:</p>
+              <p className="text-sm font-medium">Após período de teste, custo apartir de:</p>
             </div>
             
             {/* Body */}
@@ -89,7 +91,7 @@ export default function TestarGratis() {
             {/* Header */}
             <div className="bg-[#002F5D] text-white p-8 text-center flex flex-col justify-center min-h-[160px] relative">
               <h3 className="text-3xl font-black mb-2 uppercase">Acesso NACIONAL</h3>
-              <p className="text-sm font-medium">Após periodo de teste, custo partir de:</p>
+              <p className="text-sm font-medium">Após período de teste, custo apartir de:</p>
             </div>
             
             {/* Body */}
