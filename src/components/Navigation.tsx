@@ -85,8 +85,9 @@ export function Header() {
 
   const menuItems = [
     { name: 'HOME', path: '/' },
+    { name: 'CONTRATAR', path: '/contratar' },
     { name: 'TESTAR GRÁTIS', path: '/testar-gratis' },
-    { name: 'NOSSOS PLANOS', path: '/produtos' },
+    { name: 'PRODUTOS E SERVIÇOS', path: '/produtos' },
     { name: 'SOBRE O SIMULADOR', path: '/sobre' },
     { name: 'FALE CONOSCO', path: '/contato' },
     { name: 'BLOG', path: '/blog' },

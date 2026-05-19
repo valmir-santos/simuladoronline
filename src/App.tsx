@@ -8,6 +8,7 @@ import Blog from './pages/Blog';
 import BlogPost from './pages/BlogPost';
 import Contact from './pages/Contact';
 import TestarGratis from './pages/TestarGratis';
+import Contratar from './pages/Contratar';
 import Termos from './pages/Termos';
 import PoliticaPrivacidade from './pages/PoliticaPrivacidade';
 import PoliticaCookies from './pages/PoliticaCookies';
@@ -35,6 +36,7 @@ export default function App() {
           <Routes>
             <Route path="/" element={<Home />} />
             <Route path="/testar-gratis" element={<TestarGratis />} />
+            <Route path="/contratar" element={<Contratar />} />
             <Route path="/sobre" element={<About />} />
             <Route path="/produtos" element={<Products />} />
             <Route path="/blog" element={<Blog />} />
