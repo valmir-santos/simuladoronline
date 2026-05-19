@@ -131,12 +131,18 @@ export default function Contratar() {
               </div>
 
               <div className="text-gray-500 font-medium text-[11px] md:text-xs leading-relaxed mb-8 text-center flex flex-col gap-1">
-                <p>O SITE PREMIUM é um pacote completo para quem deseja vender e captar clientes pela internet.</p>
+                <p className="mb-2">O SITE PREMIUM é um pacote completo para quem deseja vender e captar clientes pela internet.</p>
                 <p>Inclusos neste pacote:</p>
-                <p>- Hospedagem Básica com 3 contas de E-mail com 10GB/Cada;</p>
-                <p>- Acesso Estadual do Simulador On-Line para *01 Usuário;</p>
+                <p>- Hospedagem Básica com 3 contas de E-mail com 10GB/Cada(Contas adicionais podem ser contratadas);</p>
                 <p>- Possibilidade de disponibilizar Cálculos e Tabelas para seus clientes;</p>
-                <p className="mt-2">Basta ter registrado um endereço de site/domínio e utilizar um de nossos modelos. Após 12 meses de assinatura o site(arquivos) passa a ser seu definitivamente. Certificado de Segurança(SSL) 60,00/ano, após 01 ano o custo é de 120,00/ano, este recurso é indispensável caso queira fazer anúncios patrocinados/pagos no Google. *Após o preenchimento do formulário de contratação você poderá solicitar: - Acesso NACIONAL(R$ 90,00/Mês) - Usuários Adicionais(Consultar Valores)</p>
+                <p>- Certificado de Segurança incluso sem custo, este recurso é indispensável caso queira fazer anúncios patrocinados.</p>
+                <p>- Acesso Estadual do Simulador On-Line para *01 Usuário, R$ 70,00/mês;</p>
+                <p>- Acesso Nacional do Simulador On-Line para *01 Usuário, R$ 90,00/mês;</p>
+                <p>- Usuários Adicionais(Consultar Valores).</p>
+                <p>- Sem acesso ao Simulador On-Line, manutenção de R$ 50,00/mês.</p>
+                <p className="mt-4 mb-1">Basta ter registrado um endereço de site/domínio e utilizar um de nossos modelos.</p>
+                <p>Após 12 meses de assinatura o site(arquivos) passa a ser seu definitivamente;</p>
+                <p className="mt-2 text-[10px]">*Após o preenchimento do formulário de contratação e pagamento, você será contatado por nossa equipe.</p>
               </div>
 
               <div className="mt-auto w-full">
