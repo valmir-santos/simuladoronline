@@ -70,8 +70,8 @@ export default function Contact() {
                    <h3 className="text-2xl font-black text-brand-secondary">Sede Central</h3>
                 </div>
                 <p className="text-gray-600 font-medium leading-relaxed">
-                  Rua do Rosário, 133, Centro Comercial<br />
-                  Rio de Janeiro - RJ, 20041-001<br />
+                  Rua Gonçalves Crespo, 324 - Tatuapé<br />
+                  São Paulo - SP, 03067-030<br />
                   Brasil
                 </p>
              </div>
