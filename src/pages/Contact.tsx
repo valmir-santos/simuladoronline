@@ -47,13 +47,18 @@ export default function Contact() {
                     <h4 className="text-xl font-black text-brand-secondary">Rio de Janeiro</h4>
                     <p className="text-gray-500 font-bold">(21) 3527-0540</p>
                   </div>
-                  <div className="space-y-3">
+                  <a 
+                    href="https://api.whatsapp.com/send?phone=551132190409&text=Ol%C3%A1%20sou%20corretor%20e%20gostaria%20de%20algumas%20informa%C3%A7%C3%B5es" 
+                    target="_blank" 
+                    rel="noopener noreferrer"
+                    className="space-y-3 block hover:opacity-80 transition-opacity cursor-pointer"
+                  >
                     <div className="w-12 h-12 bg-gray-100 rounded-2xl flex items-center justify-center text-green-600 border border-gray-100 mb-6">
                       <MessageSquare size={24} />
                     </div>
                     <h4 className="text-xl font-black text-brand-secondary">WhatsApp Vendas</h4>
                     <p className="text-gray-500 font-bold">(11) 3219-0409</p>
-                  </div>
+                  </a>
                   <div className="space-y-3">
                     <div className="w-12 h-12 bg-gray-50 rounded-2xl flex items-center justify-center text-brand-button border border-gray-100 mb-6 font-bold">
                       <Mail size={24} />
