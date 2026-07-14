@@ -16,7 +16,7 @@ import PricingTable from '../components/PricingTable';
 export default function Products() {
   const [products, setProducts] = useState<Product[]>([]);
   const [templates, setTemplates] = useState<Template[]>([]);
-  const [activeTab, setActiveTab] = useState<'simuladores' | 'sites'>('simuladores');
+  const [activeTab, setActiveTab] = useState<'simuladores' | 'sites' | 'crm'>('simuladores');
 
   useEffect(() => {
     wpService.getProducts().then(setProducts);
@@ -50,6 +50,12 @@ export default function Products() {
               >
                 Sites & Landing Pages
               </button>
+              <button 
+                onClick={() => setActiveTab('crm')}
+                className={`px-8 py-4 rounded-xl font-bold text-sm transition-all ${activeTab === 'crm' ? 'bg-brand-secondary text-white shadow-lg' : 'text-gray-600 hover:text-brand-secondary'}`}
+              >
+                CRM/Gestor de Clientes
+              </button>
             </div>
           </motion.div>
         </div>
@@ -59,6 +65,40 @@ export default function Products() {
       <div className="py-24 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         {activeTab === 'simuladores' ? (
           <PricingTable />
+        ) : activeTab === 'crm' ? (
+          <motion.div 
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            className="bg-white rounded-[3rem] p-8 md:p-16 border border-gray-100 shadow-xl max-w-6xl mx-auto"
+          >
+             <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
+                <div className="space-y-6">
+                   <h2 className="text-3xl md:text-4xl font-black text-brand-secondary tracking-tight">Gestor de Clientes</h2>
+                   <p className="text-gray-500 font-medium leading-relaxed">
+                     O Gestor de Clientes é uma ferramenta integrada à plataforma Simulador Online desenvolvida para centralizar a administração de leads e vendas. 
+                     O sistema permite o cadastro manual ou importação em massa de contatos, possibilitando que gestores distribuam clientes entre corretores e monitorem a origem de cada oportunidade. 
+                     Entre suas principais funcionalidades, destacam-se a criação de formulários personalizados para captação digital e a geração de relatórios gerenciais detalhados para controle de produtividade.
+                   </p>
+                   <p className="text-gray-500 font-medium leading-relaxed">
+                     Além disso, a plataforma facilita a elaboração de cotações de planos e o envio de propostas comerciais via WhatsApp ou e-mail.
+                   </p>
+                   <p className="text-gray-500 font-medium leading-relaxed">
+                     Por fim, o recurso atua como um CRM especializado, incentivando a atualização constante do histórico de negociações e o fortalecimento do relacionamento com o público.
+                   </p>
+                </div>
+                <div className="w-full aspect-video rounded-3xl overflow-hidden shadow-2xl border border-gray-100">
+                   <iframe 
+                     width="100%" 
+                     height="100%" 
+                     src="https://www.youtube.com/embed/3natwztKJSM" 
+                     title="Apresentação do Gestor de Clientes" 
+                     frameBorder="0" 
+                     allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" 
+                     allowFullScreen
+                   ></iframe>
+                </div>
+             </div>
+          </motion.div>
         ) : (
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-10">
             {templates.map((t) => (
