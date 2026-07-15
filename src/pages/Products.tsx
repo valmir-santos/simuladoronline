@@ -172,6 +172,16 @@ export default function Products() {
               </motion.div>
             ))}
           </div>
+          <div className="mt-16 flex justify-center">
+            <a 
+              href="https://app.simuladoronline.com/contratacao/3" 
+              target="_blank" 
+              rel="noreferrer" 
+              className="inline-flex items-center justify-center bg-brand-secondary hover:bg-brand-primary text-white font-black text-lg md:text-xl py-5 px-10 rounded-2xl transition-all shadow-xl hover:shadow-2xl hover:-translate-y-1"
+            >
+              Contrate um dos Nossos Modelos
+            </a>
+          </div>
         )}
       </div>
 

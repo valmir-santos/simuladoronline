@@ -87,7 +87,7 @@ const MOCK_TEMPLATES: Template[] = [
     name: "Site Premium Modelo 01",
     platform: "WordPress",
     demoUrl: "https://wp-modelo01.simulador.app.br/",
-    image: "/templates/modelo01.png",
+    image: "https://www.simuladoronline.com/wp-content/uploads/2022/01/modelos_premium_sites_wp011.jpg",
     description: "Saúde + Odonto",
     features: [
       "Ativação R$ 300,00 + manutenção R$ 70,00/mês",
@@ -103,7 +103,7 @@ const MOCK_TEMPLATES: Template[] = [
     name: "Site Premium Modelo 02",
     platform: "WordPress",
     demoUrl: "https://wp-modelo02.simulador.app.br/",
-    image: "/templates/modelo02.png",
+    image: "https://www.simuladoronline.com/wp-content/uploads/2022/01/modelos_premium_sites_wp021.jpg",
     description: "Saúde + Odonto",
     features: [
       "Ativação R$ 300,00 + manutenção R$ 70,00/mês",
@@ -119,7 +119,7 @@ const MOCK_TEMPLATES: Template[] = [
     name: "Site Premium Modelo 04",
     platform: "WordPress",
     demoUrl: "https://wp-modelo04.simulador.app.br/",
-    image: "/templates/modelo04.png",
+    image: "https://www.simuladoronline.com/wp-content/uploads/2022/01/site-jooma-modelo-01-saude-seguros1-p2ny0qe11b61luaqzrkoklchx6l5ygx2jh1yz1dwaq.jpg",
     description: "Saúde + Odonto + Seguros",
     features: [
       "Todos os recursos dos Modelos 01 e 02",
