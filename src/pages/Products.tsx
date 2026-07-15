@@ -128,7 +128,7 @@ export default function Products() {
                 whileHover={{ y: -8 }}
                 className="group bg-white rounded-2xl md:rounded-[2.5rem] border border-gray-100 overflow-hidden shadow-sm hover:shadow-2xl transition-all duration-300"
               >
-                <div className="relative overflow-hidden aspect-[4/3]">
+                <a href={t.demoUrl} target="_blank" rel="noreferrer" className="block relative overflow-hidden aspect-[4/3]">
                   <img 
                     src={t.image} 
                     alt={t.name} 
@@ -137,27 +137,36 @@ export default function Products() {
                     loading="lazy"
                   />
                   <div className="absolute inset-0 bg-gradient-to-t from-brand-secondary to-transparent opacity-0 group-hover:opacity-60 transition-opacity" />
-                  <div className="absolute bottom-4 left-4 right-4 md:bottom-6 md:left-6 md:right-6 translate-y-10 group-hover:translate-y-0 transition-transform duration-500 opacity-0 group-hover:opacity-100">
-                    <a href={t.demoUrl} target="_blank" rel="noreferrer" className="w-full bg-white text-brand-secondary py-2.5 md:py-3 rounded-lg md:rounded-xl font-bold flex items-center justify-center gap-2 text-sm">
-                       Demo ao Vivo <ExternalLink size={16} />
-                    </a>
-                  </div>
-                </div>
-                <div className="p-6 md:p-8">
-                  <div className="flex justify-between items-start mb-3 md:mb-4">
-                    <h3 className="text-xl md:text-2xl font-black text-brand-secondary tracking-tight">{t.name}</h3>
-                    <span className="bg-gray-100 text-brand-primary text-[10px] font-black uppercase px-2 py-1 md:px-3 md:py-1.5 rounded-md md:rounded-lg tracking-wider">
-                      {t.platform}
+                  <div className="absolute inset-0 flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity duration-500">
+                    <span className="bg-white/90 text-brand-secondary px-6 py-3 rounded-full font-bold shadow-lg flex items-center gap-2">
+                      Visitar Site <ExternalLink size={18} />
                     </span>
                   </div>
-                  <p className="text-gray-500 font-medium text-xs md:text-sm leading-relaxed mb-6 md:mb-8">{t.description}</p>
-                  <div className="flex gap-3 md:gap-4">
-                    <button className="flex-1 bg-brand-secondary text-white py-3 md:py-4 rounded-lg md:rounded-xl font-bold text-xs md:text-sm hover:bg-brand-primary transition-colors">
-                      Customizar
-                    </button>
-                    <button className="p-3 md:p-4 border border-gray-200 rounded-lg md:rounded-xl hover:bg-gray-50 transition-colors shrink-0">
-                      <Plus size={18} className="text-gray-400" />
-                    </button>
+                </a>
+                <div className="p-6 md:p-8 flex flex-col h-full">
+                  <div className="flex justify-between items-start mb-3 md:mb-4">
+                    <h3 className="text-xl md:text-2xl font-black text-brand-secondary tracking-tight">{t.name}</h3>
+                    <span className="bg-brand-primary/10 text-brand-primary text-[10px] font-black uppercase px-2 py-1 md:px-3 md:py-1.5 rounded-md md:rounded-lg tracking-wider">
+                      Premium
+                    </span>
+                  </div>
+                  <p className="text-brand-secondary font-black text-sm md:text-base leading-relaxed mb-4">{t.description}</p>
+                  
+                  {t.features && (
+                    <ul className="space-y-3 mb-8 flex-1">
+                      {t.features.map((feature, i) => (
+                        <li key={i} className="flex items-start gap-3 text-gray-500 text-xs md:text-sm font-medium">
+                          <CheckCircle2 size={18} className="text-green-500 shrink-0" />
+                          <span>{feature}</span>
+                        </li>
+                      ))}
+                    </ul>
+                  )}
+                  
+                  <div className="flex gap-3 md:gap-4 mt-auto">
+                    <a href={t.demoUrl} target="_blank" rel="noreferrer" className="flex-1 bg-brand-secondary text-white py-3 md:py-4 rounded-lg md:rounded-xl font-bold text-xs md:text-sm hover:bg-brand-primary transition-colors text-center flex items-center justify-center gap-2">
+                      Acessar <ExternalLink size={16} />
+                    </a>
                   </div>
                 </div>
               </motion.div>

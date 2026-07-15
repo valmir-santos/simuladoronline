@@ -32,6 +32,7 @@ export interface Template {
   demoUrl: string;
   image: string;
   description: string;
+  features?: string[];
 }
 
 const MOCK_BLOG_POSTS: WPPost[] = [
@@ -82,20 +83,53 @@ const MOCK_PRODUCTS: Product[] = [
 
 const MOCK_TEMPLATES: Template[] = [
   {
-    id: 201,
-    name: "Nexus Health",
+    id: 1,
+    name: "Site Premium Modelo 01",
     platform: "WordPress",
-    demoUrl: "https://example.com/demo1",
-    image: "https://picsum.photos/seed/web1/400/300",
-    description: "Design moderno focado em conversão e rapidez."
+    demoUrl: "https://wp-modelo01.simulador.app.br/",
+    image: "/templates/modelo01.png",
+    description: "Saúde + Odonto",
+    features: [
+      "Ativação R$ 300,00 + manutenção R$ 70,00/mês",
+      "Responsivo com Chat WhatsApp e Blog(opcional)",
+      "01 Licença Regional Simulador On-Line",
+      "Hospedagem inclusa",
+      "03 contas de E-mail de 10GB/cada",
+      "Certificado de Segurança (SSL)"
+    ]
   },
   {
-    id: 202,
-    name: "Elite Broker",
+    id: 2,
+    name: "Site Premium Modelo 02",
     platform: "WordPress",
-    demoUrl: "https://example.com/demo2",
-    image: "https://picsum.photos/seed/web2/400/300",
-    description: "Elegância e autoridade para sua marca digital."
+    demoUrl: "https://wp-modelo02.simulador.app.br/",
+    image: "/templates/modelo02.png",
+    description: "Saúde + Odonto",
+    features: [
+      "Ativação R$ 300,00 + manutenção R$ 70,00/mês",
+      "Responsivo com Chat WhatsApp e Blog(opcional)",
+      "01 Licença Regional Simulador On-Line",
+      "Hospedagem inclusa",
+      "03 contas de E-mail de 10GB/cada",
+      "Certificado de Segurança (SSL)"
+    ]
+  },
+  {
+    id: 4,
+    name: "Site Premium Modelo 04",
+    platform: "WordPress",
+    demoUrl: "https://wp-modelo04.simulador.app.br/",
+    image: "/templates/modelo04.png",
+    description: "Saúde + Odonto + Seguros",
+    features: [
+      "Todos os recursos dos Modelos 01 e 02",
+      "Ativação R$ 300,00 + manutenção R$ 70,00/mês",
+      "Responsivo com Chat WhatsApp e Blog(opcional)",
+      "01 Licença Regional Simulador On-Line",
+      "Hospedagem inclusa",
+      "03 contas de E-mail de 10GB/cada",
+      "Certificado de Segurança (SSL)"
+    ]
   }
 ];
 
