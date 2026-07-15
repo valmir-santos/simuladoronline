@@ -8,7 +8,8 @@ import {
   Monitor, 
   Smartphone, 
   Send,
-  Plus
+  Plus,
+  MessageCircle
 } from 'lucide-react';
 import { wpService, Product, Template } from '../services/wpService';
 import PricingTable from '../components/PricingTable';
@@ -85,6 +86,23 @@ export default function Products() {
                    <p className="text-gray-500 font-medium leading-relaxed">
                      Por fim, o recurso atua como um CRM especializado, incentivando a atualização constante do histórico de negociações e o fortalecimento do relacionamento com o público.
                    </p>
+                   <div className="flex flex-col sm:flex-row gap-4 pt-4">
+                     <a 
+                       href="/contratar" 
+                       className="bg-brand-secondary hover:bg-brand-primary text-white font-bold py-4 px-8 rounded-xl transition-colors text-center"
+                     >
+                       Contratar
+                     </a>
+                     <a 
+                       href="https://api.whatsapp.com/send?phone=551132190409&text=Ol%C3%A1%20sou%20corretor%20e%20gostaria%20de%20algumas%20informa%C3%A7%C3%B5es%20sobre%20o%20*CRM/Gestor%20de%20Clientes*." 
+                       target="_blank" 
+                       rel="noopener noreferrer"
+                       className="bg-[#25D366] hover:bg-[#128C7E] text-white font-bold py-4 px-8 rounded-xl transition-colors text-center flex items-center justify-center gap-2"
+                     >
+                       <MessageCircle size={20} />
+                       Falar no WhatsApp
+                     </a>
+                   </div>
                 </div>
                 <div className="w-full aspect-video rounded-3xl overflow-hidden shadow-2xl border border-gray-100">
                    <iframe 
