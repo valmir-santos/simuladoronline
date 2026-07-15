@@ -118,7 +118,8 @@ export default function Products() {
              </div>
           </motion.div>
         ) : (
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-10">
+          <>
+            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-10">
             {templates.map((t) => (
               <motion.div 
                 key={t.id}
@@ -182,6 +183,7 @@ export default function Products() {
               Contrate um dos Nossos Modelos
             </a>
           </div>
+          </>
         )}
       </div>
 
