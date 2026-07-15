@@ -122,7 +122,6 @@ const MOCK_TEMPLATES: Template[] = [
     image: "https://www.simuladoronline.com/wp-content/uploads/2022/01/site-jooma-modelo-01-saude-seguros1-p2ny0qe11b61luaqzrkoklchx6l5ygx2jh1yz1dwaq.jpg",
     description: "Saúde + Odonto + Seguros",
     features: [
-      "Todos os recursos dos Modelos 01 e 02",
       "Ativação R$ 300,00 + manutenção R$ 70,00/mês",
       "Responsivo com Chat WhatsApp e Blog(opcional)",
       "01 Licença Regional Simulador On-Line",
