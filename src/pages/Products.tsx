@@ -38,22 +38,22 @@ export default function Products() {
               Oferecemos soluções completas para digitalizar sua operação: de simuladores de preços a sites de alta conversão.
             </p>
 
-            <div className="inline-flex bg-gray-200 p-1.5 rounded-2xl">
+            <div className="flex flex-col md:flex-row md:inline-flex bg-gray-200 p-1.5 rounded-2xl gap-1">
               <button 
                 onClick={() => setActiveTab('simuladores')}
-                className={`px-8 py-4 rounded-xl font-bold text-sm transition-all ${activeTab === 'simuladores' ? 'bg-brand-secondary text-white shadow-lg' : 'text-gray-600 hover:text-brand-secondary'}`}
+                className={`px-4 py-3 md:px-8 md:py-4 rounded-xl font-bold text-sm transition-all ${activeTab === 'simuladores' ? 'bg-brand-secondary text-white shadow-lg' : 'text-gray-600 hover:text-brand-secondary'}`}
               >
                 Simulador - Planos
               </button>
               <button 
                 onClick={() => setActiveTab('sites')}
-                className={`px-8 py-4 rounded-xl font-bold text-sm transition-all ${activeTab === 'sites' ? 'bg-brand-secondary text-white shadow-lg' : 'text-gray-600 hover:text-brand-secondary'}`}
+                className={`px-4 py-3 md:px-8 md:py-4 rounded-xl font-bold text-sm transition-all ${activeTab === 'sites' ? 'bg-brand-secondary text-white shadow-lg' : 'text-gray-600 hover:text-brand-secondary'}`}
               >
                 Sites & Landing Pages
               </button>
               <button 
                 onClick={() => setActiveTab('crm')}
-                className={`px-8 py-4 rounded-xl font-bold text-sm transition-all ${activeTab === 'crm' ? 'bg-brand-secondary text-white shadow-lg' : 'text-gray-600 hover:text-brand-secondary'}`}
+                className={`px-4 py-3 md:px-8 md:py-4 rounded-xl font-bold text-sm transition-all ${activeTab === 'crm' ? 'bg-brand-secondary text-white shadow-lg' : 'text-gray-600 hover:text-brand-secondary'}`}
               >
                 CRM/Gestor de Clientes
               </button>
