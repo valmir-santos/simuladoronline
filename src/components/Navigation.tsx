@@ -67,9 +67,9 @@ export function Topbar() {
         </div>
 
         <div className="flex gap-4 justify-center mt-2 md:mt-0">
+          <a href="https://x.com/simuladorsp" target="_blank" rel="noreferrer" className="hover:text-brand-primary transition-colors"><Twitter size={16} /></a>
           <a href="https://www.instagram.com/simuladoronline" target="_blank" rel="noreferrer" className="hover:text-brand-primary transition-colors"><Instagram size={16} /></a>
           <a href="https://www.facebook.com/simuladoronline" target="_blank" rel="noreferrer" className="hover:text-brand-primary transition-colors"><Facebook size={16} /></a>
-          <a href="https://x.com/simuladorsp" target="_blank" rel="noreferrer" className="hover:text-brand-primary transition-colors"><Twitter size={16} /></a>
           <a href="https://www.youtube.com/@simulador-online" target="_blank" rel="noreferrer" className="hover:text-brand-primary transition-colors"><Youtube size={16} /></a>
         </div>
       </div>
