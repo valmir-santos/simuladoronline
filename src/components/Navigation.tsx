@@ -67,11 +67,10 @@ export function Topbar() {
         </div>
 
         <div className="flex gap-4 justify-center mt-2 md:mt-0">
-          <a href="#" className="hover:text-brand-primary transition-colors"><Instagram size={16} /></a>
-          <a href="#" className="hover:text-brand-primary transition-colors"><Facebook size={16} /></a>
-          <a href="#" className="hover:text-brand-primary transition-colors"><Twitter size={16} /></a>
-          <a href="#" className="hover:text-brand-primary transition-colors"><Youtube size={16} /></a>
-          <a href="#" className="hover:text-brand-primary transition-colors"><Linkedin size={16} /></a>
+          <a href="https://www.instagram.com/simuladoronline" target="_blank" rel="noreferrer" className="hover:text-brand-primary transition-colors"><Instagram size={16} /></a>
+          <a href="https://www.facebook.com/simuladoronline" target="_blank" rel="noreferrer" className="hover:text-brand-primary transition-colors"><Facebook size={16} /></a>
+          <a href="https://x.com/simuladorsp" target="_blank" rel="noreferrer" className="hover:text-brand-primary transition-colors"><Twitter size={16} /></a>
+          <a href="https://www.youtube.com/@simulador-online" target="_blank" rel="noreferrer" className="hover:text-brand-primary transition-colors"><Youtube size={16} /></a>
         </div>
       </div>
     </div>
@@ -245,11 +244,10 @@ export function Footer() {
               Desde 2006 transformando o dia a dia do corretor de planos de saúde com ferramentas SaaS de alta performance e sites especializados.
             </p>
             <div className="flex gap-4">
-              <a href="#" className="p-2 bg-white/5 rounded-full hover:bg-brand-primary hover:text-white transition-all"><X size={18} /></a>
-              <a href="#" className="p-2 bg-white/5 rounded-full hover:bg-brand-primary hover:text-white transition-all"><Instagram size={18} /></a>
-              <a href="#" className="p-2 bg-white/5 rounded-full hover:bg-brand-primary hover:text-white transition-all"><Facebook size={18} /></a>
-              <a href="#" className="p-2 bg-white/5 rounded-full hover:bg-brand-primary hover:text-white transition-all"><Linkedin size={18} /></a>
-              <a href="#" className="p-2 bg-white/5 rounded-full hover:bg-brand-primary hover:text-white transition-all"><Youtube size={18} /></a>
+              <a href="https://x.com/simuladorsp" target="_blank" rel="noreferrer" className="p-2 bg-white/5 rounded-full hover:bg-brand-primary hover:text-white transition-all"><Twitter size={18} /></a>
+              <a href="https://www.instagram.com/simuladoronline" target="_blank" rel="noreferrer" className="p-2 bg-white/5 rounded-full hover:bg-brand-primary hover:text-white transition-all"><Instagram size={18} /></a>
+              <a href="https://www.facebook.com/simuladoronline" target="_blank" rel="noreferrer" className="p-2 bg-white/5 rounded-full hover:bg-brand-primary hover:text-white transition-all"><Facebook size={18} /></a>
+              <a href="https://www.youtube.com/@simulador-online" target="_blank" rel="noreferrer" className="p-2 bg-white/5 rounded-full hover:bg-brand-primary hover:text-white transition-all"><Youtube size={18} /></a>
             </div>
           </div>
 
