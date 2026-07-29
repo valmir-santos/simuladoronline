@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { useParams, Link } from 'react-router-dom';
 import { wpService, WPPost } from '../services/wpService';
-import { Calendar, User, ArrowLeft, MessageCircle } from 'lucide-react';
+import { Calendar, User, ArrowLeft, MessageCircle, Facebook, Twitter } from 'lucide-react';
 import { motion } from 'motion/react';
 
 export default function BlogPost() {
@@ -72,7 +72,7 @@ export default function BlogPost() {
                   className="text-blue-600 hover:opacity-70 transition-opacity"
                   title="Compartilhar no Facebook"
                 >
-                  FB
+                  <Facebook size={20} />
                 </a>
                 <a 
                   href={`https://twitter.com/intent/tweet?url=${encodeURIComponent(window.location.href)}&text=${encodeURIComponent(post.title)}`} 
@@ -81,7 +81,7 @@ export default function BlogPost() {
                   className="text-blue-400 hover:opacity-70 transition-opacity"
                   title="Compartilhar no Twitter (X)"
                 >
-                  TW
+                  <Twitter size={20} />
                 </a>
                 <a 
                   href={`https://api.whatsapp.com/send?text=${encodeURIComponent(post.title + " - " + window.location.href)}`} 
@@ -90,7 +90,7 @@ export default function BlogPost() {
                   className="text-green-500 hover:opacity-70 transition-opacity"
                   title="Compartilhar no WhatsApp"
                 >
-                  WA
+                  <MessageCircle size={20} />
                 </a>
               </div>
             </div>
