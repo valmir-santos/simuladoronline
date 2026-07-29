@@ -184,7 +184,7 @@ export default function PoliticaPrivacidade() {
                 <li><strong>Nome:</strong> Valmir Jesus dos Santos</li>
                 <li><strong>E-mail:</strong> valmir@simuladoronline.com / suporte@simuladoronline.com</li>
                 <li><strong>Telefone/WhatsApp:</strong> (11) 3219-0904</li>
-                <li><strong>Endereço:</strong> Rua Serra de Bragança, 1055 – CJ 203 — CEP: 03318-000 – São Paulo – SP</li>
+                <li><strong>Endereço:</strong> Rua Gonçalves Crespo, 324 - Tatuapé — CEP: 03067-030 - São Paulo - SP</li>
               </ul>
             </div>
           </div>
