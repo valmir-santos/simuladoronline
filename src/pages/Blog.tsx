@@ -123,7 +123,7 @@ export default function Blog() {
                <p className="text-gray-400 text-sm font-medium mb-8">Sem spam. Apenas conteúdo de valor para corretores profissionais.</p>
                <form action="https://formsubmit.co/suporte@simuladoronline.com" method="POST" className="space-y-4">
                  <input type="hidden" name="_subject" value="Cadastro de News" />
-                 <input type="hidden" name="_next" value={window.location.href} />
+                 <input type="hidden" name="_next" value={window.location.origin + "/obrigado-newsletter"} />
                  <input type="hidden" name="_captcha" value="false" />
                  <input type="email" name="email" required placeholder="Seu melhor e-mail" className="w-full bg-white/5 border border-white/10 p-4 rounded-xl focus:outline-none focus:ring-2 focus:ring-brand-primary/50 font-medium text-white placeholder:text-gray-500" />
                  <button type="submit" className="w-full bg-brand-primary text-white py-4 rounded-xl font-black tracking-widest text-sm uppercase flex items-center justify-center gap-2 hover:bg-brand-primary/90 transition-colors">
