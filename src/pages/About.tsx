@@ -2,10 +2,12 @@ import React from 'react';
 import { motion } from 'motion/react';
 import { Calendar, Award, Target, Users, MapPin, CheckCircle2 } from 'lucide-react';
 import { Link } from 'react-router-dom';
+import SEO from '../components/SEO';
 
 export default function About() {
   return (
     <div className="flex flex-col bg-white">
+      <SEO title="Sobre Nós" description="Conheça a história do Simulador On-Line, transformando o mercado de corretagem de planos de saúde." canonical="https://www.simuladoronline.com/sobre" />
       {/* HEADER SECTION */}
       <section className="bg-gray-50 py-24 border-b border-gray-100">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">

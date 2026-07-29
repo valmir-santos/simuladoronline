@@ -16,6 +16,7 @@ import { wpService, Product } from '../services/wpService';
 import HeroCarousel from '../components/HeroCarousel';
 import PricingTable from '../components/PricingTable';
 import Testimonials from '../components/Testimonials';
+import SEO from '../components/SEO';
 
 export default function Home() {
   const [products, setProducts] = useState<Product[]>([]);
@@ -26,6 +27,11 @@ export default function Home() {
 
   return (
     <div className="flex flex-col">
+      <SEO 
+        title="Simulador Multicálculo de Planos de Saúde" 
+        description="Aumente suas vendas com o Simulador On-Line. Multicálculo de planos de saúde, sites para corretores e CRM especializado. Teste grátis!" 
+        canonical="https://www.simuladoronline.com/"
+      />
       <HeroCarousel />
 
       {/* PARTNERS / TRUST */}

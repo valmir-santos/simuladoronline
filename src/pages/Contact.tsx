@@ -1,10 +1,12 @@
 import React from 'react';
 import { motion } from 'motion/react';
 import { Phone, Mail, MessageCircle, MapPin, Send, MessageSquare } from 'lucide-react';
+import SEO from '../components/SEO';
 
 export default function Contact() {
   return (
     <div className="bg-white">
+      <SEO title="Fale Conosco" description="Entre em contato com o suporte do Simulador On-Line." canonical="https://www.simuladoronline.com/contato" />
       {/* HEADER */}
       <section className="bg-gray-50 py-24 border-b border-gray-100">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">

@@ -14,6 +14,7 @@ import {
 import { useLocation } from 'react-router-dom';
 import { wpService, Product, Template } from '../services/wpService';
 import PricingTable from '../components/PricingTable';
+import SEO from '../components/SEO';
 
 export default function Products() {
   const location = useLocation();
@@ -48,6 +49,11 @@ export default function Products() {
 
   return (
     <div className="flex flex-col bg-white">
+      <SEO 
+        title="Produtos e Ferramentas" 
+        description="Conheça nossas ferramentas SaaS: Multicálculo Estadual e Nacional, Criação de Sites para Corretores e CRM Gestor de Clientes." 
+        canonical="https://www.simuladoronline.com/produtos"
+      />
       {/* HEADER */}
       <section className="bg-gray-50 py-20 border-b border-gray-100">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center">

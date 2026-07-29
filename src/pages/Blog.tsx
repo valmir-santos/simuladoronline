@@ -3,6 +3,7 @@ import { motion } from 'motion/react';
 import { Calendar, User, ChevronRight, Search, Tag } from 'lucide-react';
 import { Link } from 'react-router-dom';
 import { wpService, WPPost } from '../services/wpService';
+import SEO from '../components/SEO';
 
 export default function Blog() {
   const [posts, setPosts] = useState<WPPost[]>([]);
@@ -18,6 +19,7 @@ export default function Blog() {
 
   return (
     <div className="bg-white min-h-screen">
+      <SEO title="Blog do Corretor" description="Artigos, dicas de vendas e notícias sobre o mercado de planos de saúde para corretores." canonical="https://www.simuladoronline.com/blog" />
       {/* HERO */}
       <section className="bg-gray-50 py-24 border-b border-gray-100">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
