@@ -11,13 +11,34 @@ import {
   Plus,
   MessageCircle
 } from 'lucide-react';
+import { useLocation } from 'react-router-dom';
 import { wpService, Product, Template } from '../services/wpService';
 import PricingTable from '../components/PricingTable';
 
 export default function Products() {
+  const location = useLocation();
+  
+  const getInitialTab = (): 'simuladores' | 'sites' | 'crm' => {
+    const hash = location.hash.replace('#', '');
+    if (hash === 'sites' || hash === 'crm') return hash;
+    return 'simuladores';
+  };
+
   const [products, setProducts] = useState<Product[]>([]);
   const [templates, setTemplates] = useState<Template[]>([]);
-  const [activeTab, setActiveTab] = useState<'simuladores' | 'sites' | 'crm'>('simuladores');
+  const [activeTab, setActiveTab] = useState<'simuladores' | 'sites' | 'crm'>(getInitialTab());
+
+  useEffect(() => {
+    const hash = location.hash.replace('#', '');
+    if (hash === 'sites' || hash === 'crm' || hash === 'simuladores') {
+      setActiveTab(hash as any);
+    }
+  }, [location.hash]);
+
+  const handleTabChange = (tab: 'simuladores' | 'sites' | 'crm') => {
+    setActiveTab(tab);
+    window.location.hash = tab;
+  };
 
   useEffect(() => {
     wpService.getProducts().then(setProducts);
@@ -40,19 +61,19 @@ export default function Products() {
 
             <div className="flex flex-col md:flex-row md:inline-flex bg-gray-200 p-1.5 rounded-2xl gap-1">
               <button 
-                onClick={() => setActiveTab('simuladores')}
+                onClick={() => handleTabChange('simuladores')}
                 className={`px-4 py-3 md:px-8 md:py-4 rounded-xl font-bold text-sm transition-all ${activeTab === 'simuladores' ? 'bg-brand-secondary text-white shadow-lg' : 'text-gray-600 hover:text-brand-secondary'}`}
               >
                 Simulador - Planos
               </button>
               <button 
-                onClick={() => setActiveTab('sites')}
+                onClick={() => handleTabChange('sites')}
                 className={`px-4 py-3 md:px-8 md:py-4 rounded-xl font-bold text-sm transition-all ${activeTab === 'sites' ? 'bg-brand-secondary text-white shadow-lg' : 'text-gray-600 hover:text-brand-secondary'}`}
               >
                 Sites & Landing Pages
               </button>
               <button 
-                onClick={() => setActiveTab('crm')}
+                onClick={() => handleTabChange('crm')}
                 className={`px-4 py-3 md:px-8 md:py-4 rounded-xl font-bold text-sm transition-all ${activeTab === 'crm' ? 'bg-brand-secondary text-white shadow-lg' : 'text-gray-600 hover:text-brand-secondary'}`}
               >
                 CRM/Gestor de Clientes

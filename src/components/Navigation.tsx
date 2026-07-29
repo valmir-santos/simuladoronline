@@ -254,10 +254,10 @@ export function Footer() {
           <div>
             <h4 className="text-white font-bold mb-6 text-lg">Produtos</h4>
             <ul className="space-y-4 text-sm">
-              <li><Link to="/produtos" className="hover:text-brand-primary transition-colors">Simulador Estadual</Link></li>
-              <li><Link to="/produtos" className="hover:text-brand-primary transition-colors">Simulador Nacional</Link></li>
-              <li><Link to="/produtos" className="hover:text-brand-primary transition-colors">Sites para Corretores</Link></li>
-              <li><Link to="/produtos" className="hover:text-brand-primary transition-colors">Sistemas Multi-Calculo</Link></li>
+              <li><Link to="/produtos#simuladores" className="hover:text-brand-primary transition-colors">Simulador Estadual</Link></li>
+              <li><Link to="/produtos#simuladores" className="hover:text-brand-primary transition-colors">Simulador Nacional</Link></li>
+              <li><Link to="/produtos#sites" className="hover:text-brand-primary transition-colors">Sites para Corretores</Link></li>
+              <li><Link to="/produtos#crm" className="hover:text-brand-primary transition-colors">CRM / Gestor de Clientes</Link></li>
             </ul>
           </div>
 
