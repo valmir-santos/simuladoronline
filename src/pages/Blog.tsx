@@ -7,6 +7,7 @@ import { wpService, WPPost } from '../services/wpService';
 export default function Blog() {
   const [posts, setPosts] = useState<WPPost[]>([]);
   const [loading, setLoading] = useState(true);
+  const [searchQuery, setSearchQuery] = useState('');
 
   useEffect(() => {
     wpService.getPosts().then(data => {
@@ -42,7 +43,18 @@ export default function Blog() {
                 ))}
               </div>
             ) : (
-              posts.map((post) => (
+              posts.filter(post => 
+                post.title.toLowerCase().includes(searchQuery.toLowerCase()) || 
+                post.excerpt.toLowerCase().includes(searchQuery.toLowerCase())
+              ).length === 0 ? (
+                <div className="text-center py-12">
+                  <p className="text-xl text-gray-500 font-medium">Nenhum artigo encontrado para "{searchQuery}".</p>
+                </div>
+              ) : (
+              posts.filter(post => 
+                post.title.toLowerCase().includes(searchQuery.toLowerCase()) || 
+                post.excerpt.toLowerCase().includes(searchQuery.toLowerCase())
+              ).map((post) => (
                 <motion.article 
                   key={post.id} 
                   initial={{ opacity: 0, y: 20 }}
@@ -101,7 +113,13 @@ export default function Blog() {
             <div className="bg-gray-50 p-10 rounded-[2.5rem] border border-gray-100">
                <h4 className="text-xl font-black text-brand-secondary mb-6">Buscar</h4>
                <div className="relative">
-                 <input type="text" placeholder="Pesquisar artigos..." className="w-full bg-white border border-gray-200 p-4 rounded-xl focus:outline-none focus:ring-2 focus:ring-brand-primary/20 transition-all font-medium" />
+                 <input 
+                   type="text" 
+                   placeholder="Pesquisar artigos..." 
+                   className="w-full bg-white border border-gray-200 p-4 rounded-xl focus:outline-none focus:ring-2 focus:ring-brand-primary/20 transition-all font-medium"
+                   value={searchQuery}
+                   onChange={(e) => setSearchQuery(e.target.value)}
+                 />
                  <Search className="absolute right-4 top-1/2 -translate-y-1/2 text-gray-300" size={20} />
                </div>
             </div>
