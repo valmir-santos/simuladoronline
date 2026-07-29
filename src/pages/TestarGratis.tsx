@@ -1,10 +1,16 @@
 import React from 'react';
 import { motion } from 'motion/react';
-import { ShieldCheck, CheckCircle2 } from 'lucide-react';
+import { CheckCircle2 } from 'lucide-react';
+import SEO from '../components/SEO';
 
 export default function TestarGratis() {
   return (
     <div className="bg-[#F2EDE6] min-h-[calc(100vh-80px)] py-16 md:py-24 px-4 sm:px-6 lg:px-8 font-sans">
+      <SEO 
+        title="Teste Grátis por 7 Dias" 
+        description="Experimente o Simulador On-line gratuitamente. Acesse o multicálculo de planos de saúde e descubra como aumentar suas vendas." 
+        canonical="https://www.simuladoronline.com/testar-gratis" 
+      />
       <div className="max-w-6xl mx-auto">
         <div className="text-center mb-16">
           <motion.h1 

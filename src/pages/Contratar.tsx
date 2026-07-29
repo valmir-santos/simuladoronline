@@ -1,10 +1,16 @@
 import React from 'react';
 import { motion } from 'motion/react';
 import { CheckCircle2 } from 'lucide-react';
+import SEO from '../components/SEO';
 
 export default function Contratar() {
   return (
     <div className="bg-[#F2EDE6] min-h-[calc(100vh-80px)] py-16 md:py-24 px-4 sm:px-6 lg:px-8 font-sans">
+      <SEO 
+        title="Planos e Preços" 
+        description="Escolha o melhor plano do Simulador On-line para a sua corretora de seguros. Preços transparentes e recursos exclusivos." 
+        canonical="https://www.simuladoronline.com/contratar" 
+      />
       <div className="max-w-7xl mx-auto">
         <div className="text-center mb-16">
           <motion.h1 
