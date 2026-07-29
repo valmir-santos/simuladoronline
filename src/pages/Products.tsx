@@ -32,6 +32,7 @@ export default function Products() {
     const hash = location.hash.replace('#', '');
     if (hash === 'sites' || hash === 'crm' || hash === 'simuladores') {
       setActiveTab(hash as any);
+      window.scrollTo({ top: 0, behavior: 'smooth' });
     }
   }, [location.hash]);
 
