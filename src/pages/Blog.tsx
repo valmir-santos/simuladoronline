@@ -94,6 +94,7 @@ export default function Blog() {
                   </Link>
                 </motion.article>
               ))
+              )
             )}
             
             {/* Pagination Placeholder */}
