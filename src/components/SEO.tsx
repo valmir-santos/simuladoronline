@@ -1,5 +1,4 @@
-import React from 'react';
-import { Helmet } from 'react-helmet-async';
+import { useEffect } from 'react';
 
 interface SEOProps {
   title: string;
@@ -9,58 +8,90 @@ interface SEOProps {
   imageUrl?: string;
 }
 
+const updateTag = (selector: string, attribute: string, value: string, tagType: string = 'meta') => {
+  let element = document.querySelector(selector);
+  if (!element) {
+    element = document.createElement(tagType);
+    if (tagType === 'meta') {
+      const isProperty = selector.includes('property');
+      const attrName = isProperty ? 'property' : 'name';
+      const attrValue = selector.match(/["'](.*?)["']/)?.[1] || '';
+      element.setAttribute(attrName, attrValue);
+    }
+    document.head.appendChild(element);
+  }
+  element.setAttribute(attribute, value);
+};
+
 export default function SEO({ 
   title, 
   description, 
   canonical, 
   type = 'website',
-  imageUrl = 'https://www.simuladoronline.com/assets/og-image.jpg' // Default OG image
+  imageUrl = 'https://www.simuladoronline.com/assets/og-image.jpg'
 }: SEOProps) {
-  const siteName = "Simulador On-Line";
-  const fullTitle = `${title} | ${siteName}`;
+  useEffect(() => {
+    const siteName = "Simulador On-Line";
+    const fullTitle = `${title} | ${siteName}`;
 
-  // Organization structured data for better AI/Google understanding
-  const organizationSchema = {
-    "@context": "https://schema.org",
-    "@type": "SoftwareApplication",
-    "name": "Simulador On-Line",
-    "applicationCategory": "BusinessApplication",
-    "operatingSystem": "Web",
-    "description": "Ferramenta SaaS de multicálculos de planos de saúde e odontológico para corretores.",
-    "url": "https://www.simuladoronline.com",
-    "provider": {
-      "@type": "Organization",
-      "name": "Simulador On-Line"
+    // Update Title
+    document.title = fullTitle;
+
+    // Update Meta Description
+    updateTag('meta[name="description"]', 'content', description);
+
+    // Update Open Graph tags
+    updateTag('meta[property="og:type"]', 'content', type);
+    updateTag('meta[property="og:title"]', 'content', fullTitle);
+    updateTag('meta[property="og:description"]', 'content', description);
+    updateTag('meta[property="og:image"]', 'content', imageUrl);
+    updateTag('meta[property="og:site_name"]', 'content', siteName);
+    
+    if (canonical) {
+      updateTag('meta[property="og:url"]', 'content', canonical);
     }
-  };
 
-  return (
-    <Helmet>
-      {/* Standard Metadata */}
-      <title>{fullTitle}</title>
-      <meta name="description" content={description} />
-      
-      {/* Open Graph / Facebook */}
-      <meta property="og:type" content={type} />
-      <meta property="og:title" content={fullTitle} />
-      <meta property="og:description" content={description} />
-      <meta property="og:image" content={imageUrl} />
-      <meta property="og:site_name" content={siteName} />
-      {canonical && <meta property="og:url" content={canonical} />}
+    // Update Twitter tags
+    updateTag('meta[name="twitter:card"]', 'content', 'summary_large_image');
+    updateTag('meta[name="twitter:title"]', 'content', fullTitle);
+    updateTag('meta[name="twitter:description"]', 'content', description);
+    updateTag('meta[name="twitter:image"]', 'content', imageUrl);
 
-      {/* Twitter */}
-      <meta name="twitter:card" content="summary_large_image" />
-      <meta name="twitter:title" content={fullTitle} />
-      <meta name="twitter:description" content={description} />
-      <meta name="twitter:image" content={imageUrl} />
+    // Update Canonical URL
+    if (canonical) {
+      let canonicalElement = document.querySelector('link[rel="canonical"]');
+      if (!canonicalElement) {
+        canonicalElement = document.createElement('link');
+        canonicalElement.setAttribute('rel', 'canonical');
+        document.head.appendChild(canonicalElement);
+      }
+      canonicalElement.setAttribute('href', canonical);
+    }
 
-      {/* Canonical URL */}
-      {canonical && <link rel="canonical" href={canonical} />}
+    // Update Schema.org JSON-LD
+    const organizationSchema = {
+      "@context": "https://schema.org",
+      "@type": "SoftwareApplication",
+      "name": "Simulador On-Line",
+      "applicationCategory": "BusinessApplication",
+      "operatingSystem": "Web",
+      "description": "Ferramenta SaaS de multicálculos de planos de saúde e odontológico para corretores.",
+      "url": "https://www.simuladoronline.com",
+      "provider": {
+        "@type": "Organization",
+        "name": "Simulador On-Line"
+      }
+    };
 
-      {/* Structured Data (Schema.org) */}
-      <script type="application/ld+json">
-        {JSON.stringify(organizationSchema)}
-      </script>
-    </Helmet>
-  );
+    let scriptElement = document.querySelector('script[type="application/ld+json"]');
+    if (!scriptElement) {
+      scriptElement = document.createElement('script');
+      scriptElement.setAttribute('type', 'application/ld+json');
+      document.head.appendChild(scriptElement);
+    }
+    scriptElement.textContent = JSON.stringify(organizationSchema);
+
+  }, [title, description, canonical, type, imageUrl]);
+
+  return null;
 }
