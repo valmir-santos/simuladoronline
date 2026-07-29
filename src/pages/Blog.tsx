@@ -121,12 +121,14 @@ export default function Blog() {
             <div className="bg-brand-secondary p-10 rounded-[2.5rem] text-white">
                <h4 className="text-2xl font-black mb-6 leading-tight">Receba novidades no seu e-mail.</h4>
                <p className="text-gray-400 text-sm font-medium mb-8">Sem spam. Apenas conteúdo de valor para corretores profissionais.</p>
-               <div className="space-y-4">
-                 <input type="email" placeholder="Seu melhor e-mail" className="w-full bg-white/5 border border-white/10 p-4 rounded-xl focus:outline-none focus:ring-2 focus:ring-brand-primary/50 font-medium" />
-                 <button className="w-full bg-brand-primary text-white py-4 rounded-xl font-black tracking-widest text-sm uppercase flex items-center justify-center gap-2">
+               <form action="https://formsubmit.co/suporte@simuladoronline.com" method="POST" className="space-y-4">
+                 <input type="hidden" name="_next" value={window.location.href} />
+                 <input type="hidden" name="_captcha" value="false" />
+                 <input type="email" name="email" required placeholder="Seu melhor e-mail" className="w-full bg-white/5 border border-white/10 p-4 rounded-xl focus:outline-none focus:ring-2 focus:ring-brand-primary/50 font-medium text-white placeholder:text-gray-500" />
+                 <button type="submit" className="w-full bg-brand-primary text-white py-4 rounded-xl font-black tracking-widest text-sm uppercase flex items-center justify-center gap-2 hover:bg-brand-primary/90 transition-colors">
                    Inscrever <Tag size={16} />
                  </button>
-               </div>
+               </form>
             </div>
           </aside>
         </div>
