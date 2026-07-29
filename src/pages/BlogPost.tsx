@@ -63,11 +63,35 @@ export default function BlogPost() {
                   <span key={tag} className="px-4 py-2 bg-gray-50 text-gray-500 font-bold text-xs rounded-xl border border-gray-100 italic">#{tag}</span>
                 ))}
               </div>
-              <div className="flex gap-4 font-black text-brand-secondary text-sm tracking-widest">
+              <div className="flex gap-4 font-black text-brand-secondary text-sm tracking-widest items-center">
                 Compartilhar:
-                <a href="#" className="text-blue-600">FB</a>
-                <a href="#" className="text-blue-400">TW</a>
-                <a href="#" className="text-green-500">WA</a>
+                <a 
+                  href={`https://www.facebook.com/sharer/sharer.php?u=${encodeURIComponent(window.location.href)}`} 
+                  target="_blank" 
+                  rel="noreferrer" 
+                  className="text-blue-600 hover:opacity-70 transition-opacity"
+                  title="Compartilhar no Facebook"
+                >
+                  FB
+                </a>
+                <a 
+                  href={`https://twitter.com/intent/tweet?url=${encodeURIComponent(window.location.href)}&text=${encodeURIComponent(post.title)}`} 
+                  target="_blank" 
+                  rel="noreferrer" 
+                  className="text-blue-400 hover:opacity-70 transition-opacity"
+                  title="Compartilhar no Twitter (X)"
+                >
+                  TW
+                </a>
+                <a 
+                  href={`https://api.whatsapp.com/send?text=${encodeURIComponent(post.title + " - " + window.location.href)}`} 
+                  target="_blank" 
+                  rel="noreferrer" 
+                  className="text-green-500 hover:opacity-70 transition-opacity"
+                  title="Compartilhar no WhatsApp"
+                >
+                  WA
+                </a>
               </div>
             </div>
          </div>
