@@ -4,6 +4,8 @@ import { wpService, WPPost } from '../services/wpService';
 import { Calendar, User, ArrowLeft, MessageCircle, Facebook, Twitter } from 'lucide-react';
 import { motion } from 'motion/react';
 
+import SEO from '../components/SEO';
+
 export default function BlogPost() {
   const { slug } = useParams();
   const [post, setPost] = useState<WPPost | undefined>(undefined);
@@ -23,6 +25,19 @@ export default function BlogPost() {
 
   return (
     <div className="bg-white pb-32">
+      <SEO 
+        title={post.title}
+        description={post.excerpt}
+        canonical={`https://www.simuladoronline.com/blog/${post.slug}`}
+        type="article"
+        imageUrl={post.featuredImage}
+        articleData={{
+          publishedTime: post.date,
+          author: "Equipe Simulador On-Line",
+          category: post.category,
+          tags: post.tags
+        }}
+      />
       <div className="relative h-[60vh] md:h-[70vh] flex items-end">
         <div className="absolute inset-0 z-0">
           <img 
