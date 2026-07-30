@@ -58,8 +58,8 @@ export default function BlogPost() {
             />
             
             <div className="mt-20 pt-10 border-t border-gray-100 flex flex-col md:flex-row justify-between items-center gap-6">
-              <div className="flex gap-2">
-                {['Vendas', 'Saúde', 'Digital'].map(tag => (
+              <div className="flex flex-wrap gap-2">
+                {(post.tags || ['Vendas', 'Saúde', 'Digital']).map(tag => (
                   <span key={tag} className="px-4 py-2 bg-gray-50 text-gray-500 font-bold text-xs rounded-xl border border-gray-100 italic">#{tag}</span>
                 ))}
               </div>
@@ -98,7 +98,10 @@ export default function BlogPost() {
          
          <div className="mt-16 text-center">
             <h3 className="text-3xl font-black text-brand-secondary mb-8">Gostou deste conteúdo?</h3>
-            <Link to="/produtos" className="bg-brand-button text-white px-10 py-5 rounded-2xl font-black text-lg inline-flex items-center gap-3 hover:scale-105 transition-all">
+            <Link 
+              to={post.slug === 'site-para-corretor-de-plano-de-saude' ? "/produtos#sites" : "/produtos"} 
+              className="bg-brand-button text-white px-10 py-5 rounded-2xl font-black text-lg inline-flex items-center gap-3 hover:scale-105 transition-all"
+            >
               Conheça nossas ferramentas <ArrowLeft size={20} className="rotate-180" />
             </Link>
          </div>
