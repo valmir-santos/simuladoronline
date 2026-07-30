@@ -55,6 +55,26 @@ const MOCK_BLOG_POSTS: WPPost[] = [
     date: "2024-03-05T14:30:00Z",
     featuredImage: "https://picsum.photos/seed/map/800/600",
     category: "Mercado de Saúde"
+  },
+  {
+    id: 3,
+    title: "Tudo o que você precisa saber sobre Multicálculo de Plano de Saúde",
+    slug: "tudo-sobre-multicalculo-plano-de-saude",
+    excerpt: "Entenda o que é um sistema de multicálculo de plano de saúde, como ele funciona e por que é a ferramenta nº 1 para acelerar as vendas da sua corretora.",
+    content: "<h2>O Fim das Cotações Manuais</h2><p>Tempo é dinheiro, especialmente no mercado de corretagem. Passar horas cruzando planilhas, PDFs e tabelas de preços de diferentes operadoras não é apenas cansativo, mas aumenta a chance de erros que podem custar o fechamento de um contrato. É exatamente para resolver esse problema que o <strong>multicálculo de plano de saúde</strong> se tornou a ferramenta indispensável para corretores de alta performance.</p><h3>O que é um Multicálculo de Plano de Saúde?</h3><p>Trata-se de um sistema inteligente e integrado que permite comparar os valores, carências e coberturas de diversas operadoras e seguradoras (como SulAmérica, Amil, Bradesco Saúde, entre outras) em um único ambiente. Basta inserir os dados do cliente (idade, CNPJ ou CPF, região) e o sistema faz o cruzamento instantâneo de dados.</p><h3>Vantagens para o Corretor</h3><ul><li><strong>Velocidade no Atendimento:</strong> O cliente moderno exige respostas rápidas. Um sistema de cotação de plano de saúde reduz o tempo de resposta de horas para poucos minutos.</li><li><strong>Profissionalismo:</strong> Ao invés de mandar mensagens confusas de texto no WhatsApp, o sistema gera propostas em PDF personalizadas com o seu logotipo e contatos.</li><li><strong>Tabelas sempre atualizadas:</strong> Esqueça o risco de passar um valor defasado para o cliente. As plataformas SaaS mantêm as tabelas de preços e regras de aceitação atualizadas em tempo real.</li></ul><h3>Como o Simulador On-Line ajuda?</h3><p>Oferecemos a plataforma mais completa do mercado. Com nosso <strong>multicálculo de plano de saúde</strong>, você pode operar tanto com planos estaduais quanto nacionais, além de integrar o resultado das cotações diretamente com nosso CRM. Comece a transformar a sua operação hoje mesmo e feche mais negócios com menos esforço!</p>",
+    date: "2026-07-30T10:00:00Z",
+    featuredImage: "https://picsum.photos/seed/multicalculo/800/600",
+    category: "Ferramentas"
+  },
+  {
+    id: 4,
+    title: "Como criar um Site para Corretor de Plano de Saúde que converte",
+    slug: "site-para-corretor-de-plano-de-saude",
+    excerpt: "Descubra os elementos obrigatórios que um site para corretor de plano de saúde precisa ter para captar leads e vender no piloto automático.",
+    content: "<h2>Sua Vitrine na Internet</h2><p>Muitos profissionais acham que ter um perfil no Instagram é suficiente para atrair clientes. Porém, quando o assunto é saúde e proteção familiar, a confiança é o fator decisivo. Ter um <strong>site para corretor de plano de saúde</strong> profissional transmite autoridade, credibilidade e, o mais importante, funciona como um gerador de clientes (leads) 24 horas por dia.</p><h3>O que não pode faltar no seu site?</h3><p>Criar um site não é apenas colocar seus dados de contato na internet. Uma verdadeira máquina de vendas precisa ser estratégica. Aqui estão os 3 elementos fundamentais:</p><ul><li><strong>Foco em Captura (Landing Pages):</strong> Seu site precisa de formulários estratégicos para que o visitante deixe o nome, telefone e o tipo de plano que procura. Esses dados devem cair direto no seu funil de vendas.</li><li><strong>Simulador Integrado:</strong> Permitir que o cliente faça uma pré-simulação online aumenta drasticamente o tempo que ele passa no seu site e o engajamento dele com a sua marca.</li><li><strong>Velocidade e Design Responsivo:</strong> Mais de 80% dos acessos hoje vêm pelo celular. Se o seu site for lento ou difícil de ler no smartphone, o cliente vai procurar o concorrente em 3 segundos.</li></ul><h3>A Solução do Simulador On-line</h3><p>Sabemos que desenvolver e manter um site custa caro e dá trabalho. Por isso, oferecemos a criação de <strong>site para corretor de plano de saúde</strong> já totalmente integrado com nossas ferramentas de multicálculo e CRM. Você não precisa se preocupar com programação, hospedagem ou atualizações. Nós cuidamos da tecnologia para que você foque apenas em vender. Conheça nossos modelos de landing pages prontas!</p>",
+    date: "2026-08-03T10:00:00Z",
+    featuredImage: "https://picsum.photos/seed/sitecorretor/800/600",
+    category: "Marketing Digital"
   }
 ];
 
