@@ -9,10 +9,12 @@ import {
   Monitor,
   Database,
   Search,
-  ChevronRight
+  ChevronRight,
+  Calendar,
+  User
 } from 'lucide-react';
 import { Link } from 'react-router-dom';
-import { wpService, Product } from '../services/wpService';
+import { wpService, Product, WPPost } from '../services/wpService';
 import HeroCarousel from '../components/HeroCarousel';
 import PricingTable from '../components/PricingTable';
 import Testimonials from '../components/Testimonials';
@@ -20,9 +22,11 @@ import SEO from '../components/SEO';
 
 export default function Home() {
   const [products, setProducts] = useState<Product[]>([]);
+  const [recentPosts, setRecentPosts] = useState<WPPost[]>([]);
 
   useEffect(() => {
     wpService.getProducts().then(setProducts);
+    wpService.getPosts().then(data => setRecentPosts(data.slice(0, 4)));
   }, []);
 
   return (
@@ -108,6 +112,55 @@ export default function Home() {
           </div>
 
           <PricingTable />
+        </div>
+      </section>
+
+      {/* LATEST BLOG POSTS */}
+      <section className="py-24 bg-gray-50 border-t border-gray-100">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+          <div className="text-center max-w-3xl mx-auto mb-20">
+            <h2 className="text-brand-primary text-sm font-black tracking-[0.2em] uppercase mb-4">Conteúdo Exclusivo</h2>
+            <p className="text-4xl md:text-5xl font-black text-brand-secondary mb-6 tracking-tight">Últimas do nosso Blog</p>
+          </div>
+          
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
+            {recentPosts.map(post => (
+              <motion.article 
+                key={post.id}
+                whileHover={{ y: -5 }}
+                className="bg-white rounded-3xl overflow-hidden border border-gray-100 shadow-sm hover:shadow-xl transition-all group flex flex-col"
+              >
+                <Link to={`/blog/${post.slug}`} className="block relative h-48 overflow-hidden">
+                  <img src={post.featuredImage} alt={post.title} className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500" />
+                  <div className="absolute top-4 left-4 bg-brand-primary text-white text-xs font-bold px-3 py-1 rounded-full">
+                    {post.category}
+                  </div>
+                </Link>
+                <div className="p-6 flex flex-col flex-1">
+                  <div className="flex items-center gap-4 text-xs font-medium text-gray-400 mb-4">
+                    <span className="flex items-center gap-1"><Calendar size={14}/> {new Date(post.date).toLocaleDateString('pt-BR')}</span>
+                  </div>
+                  <h3 className="text-xl font-bold text-brand-secondary mb-3 line-clamp-2 leading-tight">
+                    <Link to={`/blog/${post.slug}`} className="hover:text-brand-primary transition-colors">
+                      {post.title}
+                    </Link>
+                  </h3>
+                  <p className="text-gray-500 text-sm mb-6 line-clamp-3">{post.excerpt}</p>
+                  
+                  <div className="mt-auto pt-6 border-t border-gray-100">
+                    <Link to={`/blog/${post.slug}`} className="inline-flex items-center gap-2 text-brand-primary font-bold text-sm hover:gap-3 transition-all">
+                      Ler artigo <ArrowRight size={16} />
+                    </Link>
+                  </div>
+                </div>
+              </motion.article>
+            ))}
+          </div>
+          <div className="text-center mt-12">
+            <Link to="/blog" className="inline-flex items-center justify-center bg-gray-900 text-white px-8 py-4 rounded-xl font-bold hover:bg-brand-secondary transition-colors">
+              Ver todos os artigos
+            </Link>
+          </div>
         </div>
       </section>
 
