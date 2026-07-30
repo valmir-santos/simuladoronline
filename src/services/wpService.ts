@@ -160,7 +160,9 @@ const MOCK_TEMPLATES: Template[] = [
 export const wpService = {
   getPosts: async (): Promise<WPPost[]> => {
     return new Promise((resolve) => setTimeout(() => {
-      const sorted = [...MOCK_BLOG_POSTS].sort((a, b) => new Date(b.date).getTime() - new Date(a.date).getTime());
+      const now = new Date();
+      const published = MOCK_BLOG_POSTS.filter(post => new Date(post.date) <= now);
+      const sorted = published.sort((a, b) => new Date(b.date).getTime() - new Date(a.date).getTime());
       resolve(sorted);
     }, 500));
   },
