@@ -66,19 +66,19 @@ export default function Home() {
             {[
               { 
                 icon: <Database className="text-white" />, 
-                title: "Banco de Dados Completo", 
+                title: "Sistema de Cotação de Plano de Saúde", 
                 desc: "Acesso instantâneo a todas as tabelas de preços, rede credenciada e carências de planos nacionais e estaduais.",
                 bg: "bg-brand-primary"
               },
               { 
                 icon: <Monitor className="text-white" />, 
-                title: "Site Personalizado", 
+                title: "Site para Corretor de Plano de Saúde", 
                 desc: "Templates exclusivos para corretores, otimizados para SEO e prontos para captação de leads direto no seu painel.",
                 bg: "bg-brand-secondary"
               },
               { 
                 icon: <Search className="text-white" />, 
-                title: "Multi-Cálculos", 
+                title: "Multicálculo Saúde e Odonto", 
                 desc: "Realize comparativos detalhados entre operadoras em segundos e envie PDFs profissionais para seus clientes.",
                 bg: "bg-brand-button"
               }

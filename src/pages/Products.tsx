@@ -71,19 +71,19 @@ export default function Products() {
                 onClick={() => handleTabChange('simuladores')}
                 className={`px-4 py-3 md:px-8 md:py-4 rounded-xl font-bold text-sm transition-all ${activeTab === 'simuladores' ? 'bg-brand-secondary text-white shadow-lg' : 'text-gray-600 hover:text-brand-secondary'}`}
               >
-                Simulador - Planos
+                Simulador de Planos de Saúde
               </button>
               <button 
                 onClick={() => handleTabChange('sites')}
                 className={`px-4 py-3 md:px-8 md:py-4 rounded-xl font-bold text-sm transition-all ${activeTab === 'sites' ? 'bg-brand-secondary text-white shadow-lg' : 'text-gray-600 hover:text-brand-secondary'}`}
               >
-                Sites & Landing Pages
+                Site para Corretor
               </button>
               <button 
                 onClick={() => handleTabChange('crm')}
                 className={`px-4 py-3 md:px-8 md:py-4 rounded-xl font-bold text-sm transition-all ${activeTab === 'crm' ? 'bg-brand-secondary text-white shadow-lg' : 'text-gray-600 hover:text-brand-secondary'}`}
               >
-                CRM/Gestor de Clientes
+                CRM para Corretor de Seguros
               </button>
             </div>
           </motion.div>

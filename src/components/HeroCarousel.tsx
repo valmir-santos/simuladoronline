@@ -6,7 +6,7 @@ import { Link } from 'react-router-dom';
 const slides = [
   {
     type: 'text',
-    title: 'A primeira ferramenta de cálculos online para corretores de plano de saúde do mercado',
+    title: 'A principal ferramenta de multicálculo de plano de saúde para corretores do mercado',
     subtitle: 'A partir de R$30.00',
     cta: 'Quero testar agora!',
     bg: 'bg-brand-secondary',
