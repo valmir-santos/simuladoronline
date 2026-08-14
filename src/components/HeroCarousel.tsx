@@ -15,8 +15,8 @@ const slides = [
   },
   {
     type: 'image-only',
-    image: '/banner-allcare-suas-vendas-podem-valer-muito-mais.png',
-    mobileImage: '/banner-allcare-suas-vendas-podem-valer-muito-mais-1080x1350.png',
+    image: '/banner-allcare-suas-vendas-podem-valer-muito-mais.jpg',
+    mobileImage: '/banner-allcare-suas-vendas-podem-valer-muito-mais-1080x1350.jpg',
     link: 'https://www.corretorallcare.com.br/'
   },
   {

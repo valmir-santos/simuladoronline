@@ -210,7 +210,7 @@ const MOCK_TEMPLATES: Template[] = [
     name: "Site Premium Modelo 01",
     platform: "WordPress",
     demoUrl: "https://wp-modelo01.simulador.app.br/",
-    image: "/templates/modelo01-hr.png",
+    image: "/templates/modelo01-hr.jpg",
     description: "Saúde + Odonto",
     features: [
       "Ativação R$ 300,00 + manutenção R$ 70,00/mês",
@@ -226,7 +226,7 @@ const MOCK_TEMPLATES: Template[] = [
     name: "Site Premium Modelo 02",
     platform: "WordPress",
     demoUrl: "https://wp-modelo02.simulador.app.br/",
-    image: "/templates/modelo02-hr.png",
+    image: "/templates/modelo02-hr.jpg",
     description: "Saúde + Odonto",
     features: [
       "Ativação R$ 300,00 + manutenção R$ 70,00/mês",
@@ -242,7 +242,7 @@ const MOCK_TEMPLATES: Template[] = [
     name: "Site Premium Modelo 04",
     platform: "WordPress",
     demoUrl: "https://wp-modelo04.simulador.app.br/",
-    image: "/templates/modelo04-hr.png",
+    image: "/templates/modelo04-hr.jpg",
     description: "Saúde + Odonto + Seguros",
     features: [
       "Ativação R$ 300,00 + manutenção R$ 70,00/mês",
