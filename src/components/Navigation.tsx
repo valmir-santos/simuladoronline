@@ -230,6 +230,31 @@ export function Breadcrumbs() {
   );
 }
 
+function ReclameAquiSeal() {
+  useEffect(() => {
+    const scriptId = 'ra-embed-verified-seal';
+    let script = document.getElementById(scriptId) as HTMLScriptElement | null;
+    
+    if (!script) {
+      script = document.createElement('script');
+      script.type = 'text/javascript';
+      script.id = scriptId;
+      script.src = 'https://s3.amazonaws.com/raichu-beta/ra-verified/bundle.js';
+      script.setAttribute('data-id', 'RkJJMllVTjBLb1FqOVlJTDpzaW11bGFkb3Itb24tbGluZS1tZQ==');
+      script.setAttribute('data-target', 'ra-verified-seal');
+      script.setAttribute('data-model', 'horizontal_1');
+      script.async = true;
+
+      const container = document.getElementById('ra-verified-seal');
+      if (container) {
+        container.appendChild(script);
+      }
+    }
+  }, []);
+
+  return <div id="ra-verified-seal" className="mt-4 min-h-[45px]" />;
+}
+
 // --- FOOTER COMPONENT ---
 export function Footer() {
   return (
@@ -248,6 +273,12 @@ export function Footer() {
               <a href="https://www.instagram.com/simuladoronline" target="_blank" rel="noreferrer" className="p-2 bg-white/5 rounded-full hover:bg-brand-primary hover:text-white transition-all"><Instagram size={18} /></a>
               <a href="https://www.facebook.com/simuladoronline" target="_blank" rel="noreferrer" className="p-2 bg-white/5 rounded-full hover:bg-brand-primary hover:text-white transition-all"><Facebook size={18} /></a>
               <a href="https://www.youtube.com/@simulador-online" target="_blank" rel="noreferrer" className="p-2 bg-white/5 rounded-full hover:bg-brand-primary hover:text-white transition-all"><Youtube size={18} /></a>
+            </div>
+
+            {/* Selo Reclame Aqui Estratégico */}
+            <div className="pt-2">
+              <p className="text-xs font-bold text-gray-400 uppercase tracking-wider mb-2">Empresa Verificada</p>
+              <ReclameAquiSeal />
             </div>
           </div>
 
