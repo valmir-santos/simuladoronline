@@ -13,6 +13,7 @@ import Termos from './pages/Termos';
 import PoliticaPrivacidade from './pages/PoliticaPrivacidade';
 import PoliticaCookies from './pages/PoliticaCookies';
 import ObrigadoNewsletter from './pages/ObrigadoNewsletter';
+import Parceiros from './pages/Parceiros';
 import CookieConsent from './components/CookieConsent';
 
 // Scroll to top on route change
@@ -43,6 +44,7 @@ export default function App() {
             <Route path="/blog" element={<Blog />} />
             <Route path="/blog/:slug" element={<BlogPost />} />
             <Route path="/obrigado-newsletter" element={<ObrigadoNewsletter />} />
+            <Route path="/parceiros" element={<Parceiros />} />
             <Route path="/contato" element={<Contact />} />
             <Route path="/termos" element={<Termos />} />
             <Route path="/politica-de-privacidade" element={<PoliticaPrivacidade />} />

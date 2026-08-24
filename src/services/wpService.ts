@@ -255,6 +255,41 @@ const MOCK_TEMPLATES: Template[] = [
   }
 ];
 
+export interface Partner {
+  id: number;
+  name: string;
+  category: string;
+  description: string;
+  services: string[];
+  contactName: string;
+  phone: string;
+  whatsapp: string;
+  websiteUrl: string;
+  badge?: string;
+  image?: string;
+}
+
+const MOCK_PARTNERS: Partner[] = [
+  {
+    id: 1,
+    name: "Completta Soluções em Informática",
+    category: "TI & Suprimentos para Impressoras",
+    description: "Especialista no fornecimento de suprimentos de informática e manutenção especializada de impressoras para empresas e corretoras.",
+    services: [
+      "Manutenção Corretiva e Preventiva para Impressoras de todas as Marcas",
+      "Fornecimento de Suprimentos (Tintas, Cartuchos e Toners)",
+      "Atendimento Especializado para Empresas e Corretoras",
+      "Suporte Técnico com Garantia de Qualidade"
+    ],
+    contactName: "Waldemir",
+    phone: "(11) 99263-2502",
+    whatsapp: "5511992632502",
+    websiteUrl: "https://www.suprimentosparaimpressoras.net.br/",
+    badge: "Parceiro Recomendado",
+    image: "https://images.unsplash.com/photo-1612815154858-60aa4c59eaa6?q=80&w=800&auto=format&fit=crop"
+  }
+];
+
 export const wpService = {
   getPosts: async (): Promise<WPPost[]> => {
     return new Promise((resolve) => setTimeout(() => {
@@ -272,5 +307,8 @@ export const wpService = {
   },
   getTemplates: async (): Promise<Template[]> => {
     return new Promise((resolve) => setTimeout(() => resolve(MOCK_TEMPLATES), 400));
+  },
+  getPartners: async (): Promise<Partner[]> => {
+    return new Promise((resolve) => setTimeout(() => resolve(MOCK_PARTNERS), 300));
   }
 };

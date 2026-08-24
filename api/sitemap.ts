@@ -25,6 +25,7 @@ export default function handler(req: VercelRequest, res: VercelResponse) {
     { url: '/produtos', changefreq: 'weekly', priority: '0.9' },
     { url: '/testar-gratis', changefreq: 'monthly', priority: '0.8' },
     { url: '/sobre', changefreq: 'monthly', priority: '0.8' },
+    { url: '/parceiros', changefreq: 'monthly', priority: '0.8' },
     { url: '/blog', changefreq: 'daily', priority: '0.8' },
     { url: '/contato', changefreq: 'monthly', priority: '0.7' },
     { url: '/politica-de-privacidade', changefreq: 'yearly', priority: '0.3' },

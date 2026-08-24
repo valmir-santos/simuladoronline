@@ -87,6 +87,7 @@ export function Header() {
     { name: 'CONTRATAR', path: '/contratar' },
     { name: 'TESTAR GRÁTIS', path: '/testar-gratis' },
     { name: 'PRODUTOS E SERVIÇOS', path: '/produtos' },
+    { name: 'PARCEIROS', path: '/parceiros' },
     { name: 'SOBRE O SIMULADOR', path: '/sobre' },
     { name: 'FALE CONOSCO', path: '/contato' },
     { name: 'BLOG', path: '/blog' },
@@ -296,6 +297,7 @@ export function Footer() {
             <h4 className="text-white font-bold mb-6 text-lg">Links Úteis</h4>
             <ul className="space-y-4 text-sm">
               <li><Link to="/sobre" className="hover:text-brand-primary transition-colors">Quem Somos</Link></li>
+              <li><Link to="/parceiros" className="hover:text-brand-primary transition-colors">Parceiros Recomendados</Link></li>
               <li><Link to="/blog" className="hover:text-brand-primary transition-colors">Blog & Novidades</Link></li>
               <li><Link to="/contato" className="hover:text-brand-primary transition-colors">Suporte Técnico</Link></li>
               <li><Link to="/termos" className="hover:text-brand-primary transition-colors">Termos de Uso</Link></li>
