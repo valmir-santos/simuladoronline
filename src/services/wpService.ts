@@ -225,7 +225,7 @@ const MOCK_TEMPLATES: Template[] = [
     id: 2,
     name: "Site Premium Modelo 02",
     platform: "WordPress",
-    demoUrl: "https://wp-modelo02.simulador.app.br/",
+    demoUrl: "https://sitepremium-modelo02.assistenciamedica.emp.br/",
     image: "/templates/modelo02-hr.jpg",
     description: "Saúde + Odonto",
     features: [
@@ -241,7 +241,7 @@ const MOCK_TEMPLATES: Template[] = [
     id: 4,
     name: "Site Premium Modelo 04",
     platform: "WordPress",
-    demoUrl: "https://wp-modelo04.simulador.app.br/",
+    demoUrl: "https://sitepremium-modelo04.assistenciamedica.emp.br/",
     image: "/templates/modelo04-hr.jpg",
     description: "Saúde + Odonto + Seguros",
     features: [
