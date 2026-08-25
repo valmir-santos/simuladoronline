@@ -1,4 +1,5 @@
-import type { VercelRequest, VercelResponse } from '@vercel/node';
+type ApiReq = any;
+type ApiRes = any;
 
 const MOCK_BLOG_POSTS = [
   { slug: 'como-aumentar-vendas-planos-saude', date: '2026-07-20T10:00:00Z' },
@@ -17,7 +18,7 @@ const MOCK_BLOG_POSTS = [
   { slug: 'hapvida-confirma-reajuste-cancelamento-947-mil-contratos', date: '2026-08-25T09:00:00Z' }
 ];
 
-export default function handler(req: VercelRequest, res: VercelResponse) {
+export default function handler(req: ApiReq, res: ApiRes) {
   const baseUrl = 'https://www.simuladoronline.com';
   const now = new Date();
 

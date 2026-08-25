@@ -1,5 +1,7 @@
-import type { VercelRequest, VercelResponse } from '@vercel/node';
 import crypto from 'crypto';
+
+type ApiReq = any;
+type ApiRes = any;
 
 function percentEncode(str: string): string {
   return encodeURIComponent(str).replace(/[!'()*]/g, (c) => `%${c.charCodeAt(0).toString(16).toUpperCase()}`);
@@ -37,7 +39,7 @@ function generateOAuthHeader(
   return `OAuth ${headerParts.join(', ')}`;
 }
 
-export default async function handler(req: VercelRequest, res: VercelResponse) {
+export default async function handler(req: ApiReq, res: ApiRes) {
   if (req.method !== 'POST') {
     return res.status(405).json({ error: 'Método não permitido' });
   }

@@ -1,4 +1,5 @@
-import type { VercelRequest, VercelResponse } from '@vercel/node';
+type ApiReq = any;
+type ApiRes = any;
 
 export interface CompactTableUpdate {
   id: number;
@@ -30,7 +31,7 @@ let CENTRAL_UPDATES: CompactTableUpdate[] = [
   { id: 213, badge: 'NOVO', text: 'AMIL SAÚDE - PME: Plano (Amil Bronze SP Mais) disponível na acomodação Apartamento (Quarto privativo)', date: '17/08/2026', monthKey: 'agosto', monthLabel: 'Agosto' }
 ];
 
-export default function handler(req: VercelRequest, res: VercelResponse) {
+export default function handler(req: ApiReq, res: ApiRes) {
   // Configurar cabeçalhos CORS para permitir acesso por qualquer máquina/iframe
   res.setHeader('Access-Control-Allow-Origin', '*');
   res.setHeader('Access-Control-Allow-Methods', 'GET, POST, OPTIONS');
