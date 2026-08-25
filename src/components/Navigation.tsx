@@ -297,6 +297,7 @@ export function Footer() {
             <h4 className="text-white font-bold mb-6 text-lg">Links Úteis</h4>
             <ul className="space-y-4 text-sm">
               <li><Link to="/sobre" className="hover:text-brand-primary transition-colors">Quem Somos</Link></li>
+              <li><Link to="/noticias" className="hover:text-brand-primary transition-colors">Notícias de Tabelas</Link></li>
               <li><Link to="/parceiros" className="hover:text-brand-primary transition-colors">Parceiros Recomendados</Link></li>
               <li><Link to="/blog" className="hover:text-brand-primary transition-colors">Blog & Novidades</Link></li>
               <li><Link to="/contato" className="hover:text-brand-primary transition-colors">Suporte Técnico</Link></li>

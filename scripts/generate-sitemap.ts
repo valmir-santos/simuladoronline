@@ -17,6 +17,7 @@ async function generateSitemap() {
     { url: '/testar-gratis', changefreq: 'monthly', priority: '0.8' },
     { url: '/sobre', changefreq: 'monthly', priority: '0.8' },
     { url: '/parceiros', changefreq: 'monthly', priority: '0.8' },
+    { url: '/noticias', changefreq: 'daily', priority: '0.8' },
     { url: '/blog', changefreq: 'daily', priority: '0.8' },
     { url: '/contato', changefreq: 'monthly', priority: '0.7' },
   ];

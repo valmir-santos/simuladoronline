@@ -301,6 +301,109 @@ const MOCK_PARTNERS: Partner[] = [
   }
 ];
 
+export interface TableUpdate {
+  id: number;
+  title: string;
+  operadora: string;
+  category: 'Reajuste' | 'Troca de Tabela' | 'Lançamento' | 'Regras de Aceitação' | 'Informativo';
+  date: string;
+  monthYear: string; // Ex: "Agosto / 2026"
+  description: string;
+  details?: string[];
+  pdfUrl?: string;
+  postedToX?: boolean;
+}
+
+const MOCK_TABLE_UPDATES: TableUpdate[] = [
+  {
+    id: 1,
+    title: "Atualização Geral de Tabelas PME e Pessoas Físicas",
+    operadora: "Amil",
+    category: "Troca de Tabela",
+    date: "2026-08-25T08:30:00Z",
+    monthYear: "Agosto / 2026",
+    description: "Novas tabelas de preços e vigências atualizadas para as linhas Amil Fácil, Amil One e Linha Selecionada.",
+    details: [
+      "Entrada em vigor imediata para novas propostas",
+      "Atualização de carências reduzidas para PME a partir de 2 vidas",
+      "Rede credenciada atualizada na região metropolitana de SP e RJ"
+    ],
+    postedToX: true
+  },
+  {
+    id: 2,
+    title: "Reajuste Anual e Novas Regras de Aceitação PME",
+    operadora: "Bradesco Saúde",
+    category: "Reajuste",
+    date: "2026-08-20T14:00:00Z",
+    monthYear: "Agosto / 2026",
+    description: "Disponibilizadas as novas condições comerciais e percentuais de reajuste técnico para contratos empresariais.",
+    details: [
+      "Novos valores para planos Top Nacional e Efetivo",
+      "Inclusão de novos laboratórios parceiros em SP",
+      "Incentivos de comissionamento para corretores cadastrados"
+    ],
+    postedToX: true
+  },
+  {
+    id: 3,
+    title: "Lançamento da Nova Linha Direta com Coparticipação",
+    operadora: "SulAmérica",
+    category: "Lançamento",
+    date: "2026-08-12T10:15:00Z",
+    monthYear: "Agosto / 2026",
+    description: "SulAmérica lança nova opção de plano regional Direto com foco em custo-benefício para pequenas empresas.",
+    details: [
+      "Acomodação enfermaria e apartamento",
+      "Sem taxa de adesão no primeiro mês de contratação",
+      "Desconto adicional na contratação conjunta de Seguro Odontológico"
+    ],
+    postedToX: true
+  },
+  {
+    id: 4,
+    title: "Atualização das Tabelas Regionais e Odontológico",
+    operadora: "Notredame Intermédica",
+    category: "Troca de Tabela",
+    date: "2026-07-28T09:00:00Z",
+    monthYear: "Julho / 2026",
+    description: "Revisão das tabelas da linha Smart e Advance para os estados de SP, RJ e MG.",
+    details: [
+      "Tabelas com vigência a partir de 01/08/2026",
+      "Flexibilização de carências para planos de adesão corporativos"
+    ],
+    postedToX: true
+  },
+  {
+    id: 5,
+    title: "Comunicado Oficial sobre Contratos Individuais",
+    operadora: "Hapvida",
+    category: "Informativo",
+    date: "2026-07-18T11:45:00Z",
+    monthYear: "Julho / 2026",
+    description: "Comunicado referente às regras comerciais de renovação de contratos e reequilíbrio financeiro.",
+    details: [
+      "Orientações de atendimento aos beneficiários",
+      "Procedimentos de regularização de propostas pendentes"
+    ],
+    postedToX: true
+  },
+  {
+    id: 6,
+    title: "Lançamento da Tabela Promoção Pro-Corretor",
+    operadora: "Porto Seguro Saúde",
+    category: "Lançamento",
+    date: "2026-06-25T15:30:00Z",
+    monthYear: "Junho / 2026",
+    description: "Condições exclusivas de contratação para empresas de 03 a 29 vidas com carência zero para consultas e exames.",
+    details: [
+      "Carência zero para exames simples e consultas",
+      "Reembolso ágil via aplicativo Porto Saúde"
+    ],
+    postedToX: true
+  }
+];
+
 export const wpService = {
   getPosts: async (): Promise<WPPost[]> => {
     return new Promise((resolve) => setTimeout(() => {
@@ -321,5 +424,22 @@ export const wpService = {
   },
   getPartners: async (): Promise<Partner[]> => {
     return new Promise((resolve) => setTimeout(() => resolve(MOCK_PARTNERS), 300));
+  },
+  getTableUpdates: async (): Promise<TableUpdate[]> => {
+    return new Promise((resolve) => setTimeout(() => {
+      const sorted = [...MOCK_TABLE_UPDATES].sort((a, b) => new Date(b.date).getTime() - new Date(a.date).getTime());
+      resolve(sorted);
+    }, 300));
+  },
+  addTableUpdate: async (newUpdate: Omit<TableUpdate, 'id' | 'date'>): Promise<TableUpdate> => {
+    return new Promise((resolve) => setTimeout(() => {
+      const created: TableUpdate = {
+        ...newUpdate,
+        id: Date.now(),
+        date: new Date().toISOString()
+      };
+      MOCK_TABLE_UPDATES.unshift(created);
+      resolve(created);
+    }, 400));
   }
 };
