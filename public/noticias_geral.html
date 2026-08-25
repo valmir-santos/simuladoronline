@@ -1,0 +1,296 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Notícias Simulador On-Line</title>
+    <style>
+        body { font-family: 'Segoe UI', Arial, sans-serif; margin: 0; padding: 5px; background-color: #fff; font-size: 11px; line-height: 1.1; }
+        .header { background: #19137a; color: white; padding: 6px 10px; border-radius: 4px; margin-bottom: 8px; display: flex; justify-content: space-between; align-items: center; }
+        .header a { color: #00d1ff; text-decoration: none; font-weight: bold; }
+        .table-container { width: 100%; border-collapse: collapse; table-layout: fixed; }
+        .row { border-bottom: 1px solid #f2f2f2; }
+        .row:hover { background-color: #f9faff; }
+        .cell { padding: 4px 2px; vertical-align: middle; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+        
+        .badge { font-weight: bold; font-size: 9px; padding: 2px 4px; border-radius: 3px; text-transform: uppercase; display: inline-block; min-width: 60px; text-align: center; margin-right: 5px; border: none; }
+        .bg-novo { background: #28a745; color: white; }    
+        .bg-susp { background: #dc3545; color: white; }    
+        .bg-reaj { background: #f39c12; color: white; }    
+        .bg-att  { background: #17a2b8; color: white; }    
+        .operadora { font-weight: bold; color: #19137a; }
+        .descricao { color: #444; }
+        .col-tag { width: 70px; }
+        .col-data { width: 75px; color: #888; text-align: right; font-family: Arial, sans-serif; }
+
+        .tabs { display: flex; overflow-x: auto; border-bottom: 2px solid #19137a; margin-bottom: 10px; background-color: #f8f9fa; border-radius: 4px 4px 0 0; }
+        .tabs::-webkit-scrollbar { display: none; } 
+        .tabs { -ms-overflow-style: none; scrollbar-width: none; } 
+        
+        .tab-btn { background-color: inherit; border: none; outline: none; cursor: pointer; padding: 8px 12px; transition: 0.3s; font-size: 11px; font-weight: bold; color: #666; white-space: nowrap; text-transform: uppercase; }
+        .tab-btn:hover { background-color: #e2e6ea; color: #19137a; }
+        .tab-btn.active { background-color: #19137a; color: white; border-radius: 4px 4px 0 0; }
+        
+        .tab-content { display: none; animation: fadeEffect 0.3s; }
+        .tab-content.active { display: block; }
+        
+        @keyframes fadeEffect {
+            from {opacity: 0;}
+            to {opacity: 1;}
+        }
+    </style>
+</head>
+<body>
+
+    <div class="header">
+        <span>📢 ATUALIZAÇÕES SIMULADOR ON-LINE</span>
+        <span>X: <a href="https://x.com/SimuladorSP/" target="_blank">@SimuladorSP</a></span>
+    </div>
+
+    <div class="tabs">
+        <button class="tab-btn active" onclick="openTab(event, 'agosto')">Agosto</button>
+        <button class="tab-btn" onclick="openTab(event, 'julho')">Julho</button>
+        <button class="tab-btn" onclick="openTab(event, 'junho')">Junho</button>
+        <button class="tab-btn" onclick="openTab(event, 'maio')">Maio</button>
+        <button class="tab-btn" onclick="openTab(event, 'abril')">Abril</button>
+        <button class="tab-btn" onclick="openTab(event, 'marco')">Março</button>
+        <button class="tab-btn" onclick="openTab(event, 'fevereiro')">Fevereiro</button>
+        <button class="tab-btn" onclick="openTab(event, 'janeiro')">Janeiro</button>
+    </div>
+
+    <div id="agosto" class="tab-content active">
+        <table class="table-container">
+            <tr class="row"><td class="cell col-tag"><span class="badge bg-att">ATUALIZ.</span></td><td class="cell"><span class="operadora">HSMED SAÚDE - RJ:</span> <span class="descricao">Atualização de rede credenciada disponível (Individual, Familiar, PME e Adesão)</span></td><td class="cell col-data">17/08/2026</td></tr>
+            <tr class="row"><td class="cell col-tag"><span class="badge bg-reaj">REAJUSTE</span></td><td class="cell"><span class="operadora">DENTALPAR (CORPe SAÚDE) - SP:</span> <span class="descricao">Reajuste disponível no projeto Adesão Odontológico</span></td><td class="cell col-data">16/08/2026</td></tr>
+            <tr class="row"><td class="cell col-tag"><span class="badge bg-reaj">REAJUSTE</span></td><td class="cell"><span class="operadora">PORTO SEGURO SAÚDE:</span> <span class="descricao">Reajuste de valores disponível - PME (SP / RJ / DF)</span></td><td class="cell col-data">14/08/2026</td></tr>
+            <tr class="row"><td class="cell col-tag"><span class="badge bg-novo">NOVO</span></td><td class="cell"><span class="operadora">HUMANA SAÚDE (CORPe SAÚDE) - Maringá/PR e Londrina/PR:</span> <span class="descricao">Novo portfólio 2026 disponível no projeto Adesão</span></td><td class="cell col-data">14/08/2026</td></tr>
+            <tr class="row"><td class="cell col-tag"><span class="badge bg-reaj">REAJUSTE</span></td><td class="cell"><span class="operadora">UNIMED TRÊS RIOS (G2C ADMINISTRADORA) - RJ:</span> <span class="descricao">Reajuste de valores disponível no projeto Adesão</span></td><td class="cell col-data">13/08/2026</td></tr>
+            <tr class="row"><td class="cell col-tag"><span class="badge bg-reaj">REAJUSTE</span></td><td class="cell"><span class="operadora">ASSIM SAÚDE (G2C ADMINISTRADORA) - RJ:</span> <span class="descricao">Reajuste de valores disponível na entidade CRMV (Veterinário)</span></td><td class="cell col-data">13/08/2026</td></tr>
+            <tr class="row"><td class="cell col-tag"><span class="badge bg-reaj">REAJUSTE</span></td><td class="cell"><span class="operadora">HAPVIDA CLINIPAM SUL (CORPe SAÚDE) - Curitiba-PR / Londrina-PR / Balneário Camboriú-SC:</span> <span class="descricao">Projeto Adesão com reajuste disponível</span></td><td class="cell col-data">13/08/2026</td></tr>
+            <tr class="row"><td class="cell col-tag"><span class="badge bg-reaj">REAJUSTE</span></td><td class="cell"><span class="operadora">PLAMED (ALLCARE) - SE:</span> <span class="descricao">Projeto Adesão com reajuste disponível</span></td><td class="cell col-data">12/08/2026</td></tr>
+            <tr class="row"><td class="cell col-tag"><span class="badge bg-susp">SUSPENSO</span></td><td class="cell"><span class="operadora">AMPLA SAÚDE (TEC GROUP) - SP:</span> <span class="descricao">Produto JOY 250 AD SP (Enfermaria e Apartamento) retirado do projeto Adesão</span></td><td class="cell col-data">12/08/2026</td></tr>
+            <tr class="row"><td class="cell col-tag"><span class="badge bg-att">ATUALIZ.</span></td><td class="cell"><span class="operadora">SÃO CAMILO (ALLCARE):</span> <span class="descricao">Tabela de carência atualizada e disponível no projeto Adesão (SP / AP / PA / CE)</span></td><td class="cell col-data">12/08/2026</td></tr>
+            <tr class="row"><td class="cell col-tag"><span class="badge bg-reaj">REAJUSTE</span></td><td class="cell"><span class="operadora">UNIMED JUNDIAÍ (CORPe SAÚDE) - SP:</span> <span class="descricao">Reajuste de valores disponível para os projetos PME e MEI (Boletado)</span></td><td class="cell col-data">11/08/2026</td></tr>
+            <tr class="row"><td class="cell col-tag"><span class="badge bg-reaj">REAJUSTE</span></td><td class="cell"><span class="operadora">HAPVIDA NOTREDAME (CORPe SAÚDE) - SP:</span> <span class="descricao">Reajuste disponível no projeto Adesão</span></td><td class="cell col-data">11/08/2026</td></tr>
+            <tr class="row"><td class="cell col-tag"><span class="badge bg-reaj">REAJUSTE</span></td><td class="cell"><span class="operadora">BENEVIDA (ALLCARE) - SP:</span> <span class="descricao">Reajuste de valores disponível no projeto Adesão</span></td><td class="cell col-data">11/08/2026</td></tr>
+            <tr class="row"><td class="cell col-tag"><span class="badge bg-novo">NOVO</span></td><td class="cell"><span class="operadora">VERA CRUZ (ALLCARE) - SP:</span> <span class="descricao">Novo projeto Adesão disponível</span></td><td class="cell col-data">11/08/2026</td></tr>
+            <tr class="row"><td class="cell col-tag"><span class="badge bg-reaj">REAJUSTE</span></td><td class="cell"><span class="operadora">ANA COSTA SAÚDE (SUPERMED) - SP:</span> <span class="descricao">Projeto Adesão atualizado e disponível</span></td><td class="cell col-data">10/08/2026</td></tr>
+            <tr class="row"><td class="cell col-tag"><span class="badge bg-reaj">REAJUSTE</span></td><td class="cell"><span class="operadora">ANA COSTA SAÚDE - SP:</span> <span class="descricao">Projeto PME atualizado e disponível</span></td><td class="cell col-data">10/08/2026</td></tr>
+            <tr class="row"><td class="cell col-tag"><span class="badge bg-reaj">REAJUSTE</span></td><td class="cell"><span class="operadora">BLUE MED (CORPe SAÚDE) - SP:</span> <span class="descricao">Atualização disponível na carência promocional do projeto Adesão</span></td><td class="cell col-data">10/08/2026</td></tr>
+            <tr class="row"><td class="cell col-tag"><span class="badge bg-reaj">REAJUSTE</span></td><td class="cell"><span class="operadora">AMEPLAN SAÚDE (CORPe SAÚDE) - SP:</span> <span class="descricao">Carência promocional prorrogada no projeto Adesão</span></td><td class="cell col-data">10/08/2026</td></tr>
+            <tr class="row"><td class="cell col-tag"><span class="badge bg-reaj">REAJUSTE</span></td><td class="cell"><span class="operadora">UNIMED LESTE FLUMINENSE (ALLCARE) - RJ:</span> <span class="descricao">Inclusão da Profissão Autônomo na entidade ANCEPLA</span></td><td class="cell col-data">10/08/2026</td></tr>
+            <tr class="row"><td class="cell col-tag"><span class="badge bg-susp">SUSPENSO</span></td><td class="cell"><span class="operadora">HUMANA SAÚDE (ALLCARE) - MA:</span> <span class="descricao">Suspensão das tabelas Adesão e PME</span></td><td class="cell col-data">10/08/2026</td></tr>
+            <tr class="row"><td class="cell col-tag"><span class="badge bg-reaj">REAJUSTE</span></td><td class="cell"><span class="operadora">HAPVIDA NOTREDAME - FLAMENGO (QV BENEFÍCIOS) - RJ:</span> <span class="descricao">Atualização de valores disponível no projeto Adesão</span></td><td class="cell col-data">10/08/2026</td></tr>
+            <tr class="row"><td class="cell col-tag"><span class="badge bg-reaj">REAJUSTE</span></td><td class="cell"><span class="operadora">HUMANA SAÚDE (ALLCARE) - MA (São Luís e Imperatriz):</span> <span class="descricao">Atualizações disponíveis no projeto Adesão</span></td><td class="cell col-data">07/08/2026</td></tr>
+            <tr class="row"><td class="cell col-tag"><span class="badge bg-reaj">REAJUSTE</span></td><td class="cell"><span class="operadora">HAPVIDA SAÚDE - PE:</span> <span class="descricao">Atualização de valores disponível na tabela Individual</span></td><td class="cell col-data">07/08/2026</td></tr>
+            <tr class="row"><td class="cell col-tag"><span class="badge bg-reaj">REAJUSTE</span></td><td class="cell"><span class="operadora">SÃO LUCAS (CORPe SAÚDE) - MG:</span> <span class="descricao">Reajuste de valores disponível no projeto Adesão</span></td><td class="cell col-data">07/08/2026</td></tr>
+            <tr class="row"><td class="cell col-tag"><span class="badge bg-reaj">REAJUSTE</span></td><td class="cell"><span class="operadora">SÃO FRANCISCO VIDA (CORPe SAÚDE) - SP:</span> <span class="descricao">Campanha promocional com desconto de 10% prorrogada</span></td><td class="cell col-data">07/08/2026</td></tr>
+            <tr class="row"><td class="cell col-tag"><span class="badge bg-reaj">REAJUSTE</span></td><td class="cell"><span class="operadora">UNIMED LESTE FLUMINENSE - RJ:</span> <span class="descricao">Projeto PME atualizado e disponível</span></td><td class="cell col-data">06/08/2026</td></tr>
+            <tr class="row"><td class="cell col-tag"><span class="badge bg-reaj">REAJUSTE</span></td><td class="cell"><span class="operadora">HAPVIDA NOTREDAME (ALLCARE) - RJ:</span> <span class="descricao">Projeto Adesão atualizado e disponível</span></td><td class="cell col-data">06/08/2026</td></tr>
+            <tr class="row"><td class="cell col-tag"><span class="badge bg-novo">NOVO</span></td><td class="cell"><span class="operadora">SAMI (TEC GROUP) - SP:</span> <span class="descricao">Novo projeto Adesão disponível</span></td><td class="cell col-data">06/08/2026</td></tr>
+            <tr class="row"><td class="cell col-tag"><span class="badge bg-reaj">REAJUSTE</span></td><td class="cell"><span class="operadora">UNIMED RECIFE (ALLCARE) - PE:</span> <span class="descricao">Atualização de valores disponível no projeto Adesão</span></td><td class="cell col-data">05/08/2026</td></tr>
+            <tr class="row"><td class="cell col-tag"><span class="badge bg-reaj">REAJUSTE</span></td><td class="cell"><span class="operadora">HUMANA SAÚDE - SEMPRE VIDA (CORPe SAÚDE) - PR:</span> <span class="descricao">Projeto Adesão atualizado e disponível</span></td><td class="cell col-data">05/08/2026</td></tr>
+            <tr class="row"><td class="cell col-tag"><span class="badge bg-reaj">REAJUSTE</span></td><td class="cell"><span class="operadora">PROASA SAÚDE (TEC GROUP) - AM:</span> <span class="descricao">Atualizações disponíveis no projeto Adesão</span></td><td class="cell col-data">05/08/2026</td></tr>
+            <tr class="row"><td class="cell col-tag"><span class="badge bg-reaj">REAJUSTE</span></td><td class="cell"><span class="operadora">SF SAÚDE (CORPe SAÚDE) - PE:</span> <span class="descricao">Atualização na rede de atendimento disponível no projeto Adesão</span></td><td class="cell col-data">05/08/2026</td></tr>
+            <tr class="row"><td class="cell col-tag"><span class="badge bg-reaj">REAJUSTE</span></td><td class="cell"><span class="operadora">OESTE SAÚDE (CORPe SAÚDE) - SP:</span> <span class="descricao">Atualizações disponíveis no projeto Adesão</span></td><td class="cell col-data">05/08/2026</td></tr>
+            <tr class="row"><td class="cell col-tag"><span class="badge bg-reaj">REAJUSTE</span></td><td class="cell"><span class="operadora">AMPLA SAÚDE (TEC GROUP):</span> <span class="descricao">Atualizações disponíveis no projeto Adesão - SP / RJ / DF / PE</span></td><td class="cell col-data">04/08/2026</td></tr>
+            <tr class="row"><td class="cell col-tag"><span class="badge bg-reaj">REAJUSTE</span></td><td class="cell"><span class="operadora">ALICE SAÚDE - SP:</span> <span class="descricao">Atualização de valores disponível no PME Porte 1 (1 a 29 vidas)</span></td><td class="cell col-data">04/08/2026</td></tr>
+            <tr class="row"><td class="cell col-tag"><span class="badge bg-reaj">REAJUSTE</span></td><td class="cell"><span class="operadora">UNIMED FORTALEZA (ALLCARE) - CE:</span> <span class="descricao">Atualizações disponíveis no projeto Adesão</span></td><td class="cell col-data">03/08/2026</td></tr>
+            <tr class="row"><td class="cell col-tag"><span class="badge bg-reaj">REAJUSTE</span></td><td class="cell"><span class="operadora">UNIMED SÃO JOSÉ DO RIO PRETO (ALLCARE) - SP:</span> <span class="descricao">Projeto Adesão atualizado e disponível</span></td><td class="cell col-data">03/08/2026</td></tr>
+            <tr class="row"><td class="cell col-tag"><span class="badge bg-novo">NOVO</span></td><td class="cell"><span class="operadora">UNIMED JUNDIAÍ (ALLCARE) - SP:</span> <span class="descricao">Inclusão de novos planos (Clássicos) disponível no projeto Adesão</span></td><td class="cell col-data">03/08/2026</td></tr>
+            <tr class="row"><td class="cell col-tag"><span class="badge bg-novo">NOVO</span></td><td class="cell"><span class="operadora">BLUE MED (CORPe SAÚDE) - SP:</span> <span class="descricao">Carências promocionais disponíveis no projeto Adesão</span></td><td class="cell col-data">03/08/2026</td></tr>
+            <tr class="row"><td class="cell col-tag"><span class="badge bg-susp">SUSPENSO</span></td><td class="cell"><span class="operadora">SELECT SAÚDE (CORPe SAÚDE) - RJ:</span> <span class="descricao">Comercialização do projeto Adesão suspensa</span></td><td class="cell col-data">03/08/2026</td></tr>
+            <tr class="row"><td class="cell col-tag"><span class="badge bg-reaj">REAJUSTE</span></td><td class="cell"><span class="operadora">LEVE SAÚDE - RJ:</span> <span class="descricao">Atualização de valores disponível nas tabelas (Individual, Familiar, PME e Sênior)</span></td><td class="cell col-data">01/08/2026</td></tr>
+        </table>
+    </div>
+
+    <div id="julho" class="tab-content">
+        <table class="table-container">
+            <tr class="row"><td class="cell col-tag"><span class="badge bg-susp">SUSPENSO</span></td><td class="cell"><span class="operadora">BEMSTAR SAÚDE (CORPe SAÚDE) - BA:</span> <span class="descricao">Comercialização do projeto suspensa por tempo indeterminado</span></td><td class="cell col-data">13/07/2026</td></tr>
+            <tr class="row"><td class="cell col-tag"><span class="badge bg-reaj">REAJUSTE</span></td><td class="cell"><span class="operadora">ASSIM SAÚDE (G2C ADMINISTRADORA) - RJ:</span> <span class="descricao">Atualizações disponíveis no projeto Adesão</span></td><td class="cell col-data">10/07/2026</td></tr>
+            <tr class="row"><td class="cell col-tag"><span class="badge bg-reaj">REAJUSTE</span></td><td class="cell"><span class="operadora">BLUE MED (ALLCARE) - SP:</span> <span class="descricao">Atualização de portfólio disponível no projeto Adesão</span></td><td class="cell col-data">08/07/2026</td></tr>
+            <tr class="row"><td class="cell col-tag"><span class="badge bg-reaj">REAJUSTE</span></td><td class="cell"><span class="operadora">BLUE MED (TEC SAÚDE) - SP:</span> <span class="descricao">Projeto Adesão atualizado e disponível</span></td><td class="cell col-data">08/07/2026</td></tr>
+            <tr class="row"><td class="cell col-tag"><span class="badge bg-reaj">REAJUSTE</span></td><td class="cell"><span class="operadora">SÃO CRISTÓVÃO (TEC SAÚDE) - SP:</span> <span class="descricao">Projeto Adesão atualizado e disponível</span></td><td class="cell col-data">08/07/2026</td></tr>
+            <tr class="row"><td class="cell col-tag"><span class="badge bg-reaj">REAJUSTE</span></td><td class="cell"><span class="operadora">NORDESTE SAÚDE (CORPe SAÚDE) - BA:</span> <span class="descricao">Reajuste de valores disponível nos projetos Adesão e PME</span></td><td class="cell col-data">08/07/2026</td></tr>
+            <tr class="row"><td class="cell col-tag"><span class="badge bg-reaj">REAJUSTE</span></td><td class="cell"><span class="operadora">ÔNIX SAÚDE (QV BENEFÍCIOS) - RJ:</span> <span class="descricao">Reajuste de valores disponível no projeto Adesão</span></td><td class="cell col-data">07/07/2026</td></tr>
+            <tr class="row"><td class="cell col-tag"><span class="badge bg-reaj">REAJUSTE</span></td><td class="cell"><span class="operadora">NOVA SAÚDE (QV BENEFÍCIOS) - RJ:</span> <span class="descricao">Atualizações disponíveis no projeto Adesão</span></td><td class="cell col-data">07/07/2026</td></tr>
+            <tr class="row"><td class="cell col-tag"><span class="badge bg-reaj">REAJUSTE</span></td><td class="cell"><span class="operadora">HAPVIDA NOTREDAME (QV BENEFÍCIOS) - RJ:</span> <span class="descricao">Atualização de valores e portfólio disponível no projeto Adesão</span></td><td class="cell col-data">07/07/2026</td></tr>
+            <tr class="row"><td class="cell col-tag"><span class="badge bg-reaj">REAJUSTE</span></td><td class="cell"><span class="operadora">PROASA SAÚDE (TEC SAÚDE):</span> <span class="descricao">Projetos Adesão e PME atualizados e disponíveis (SP, BA, DF, AM e PA)</span></td><td class="cell col-data">02/07/2026</td></tr>
+            <tr class="row"><td class="cell col-tag"><span class="badge bg-reaj">REAJUSTE</span></td><td class="cell"><span class="operadora">UNIMED SANTOS (TEC SAÚDE) - SP:</span> <span class="descricao">Projeto Adesão atualizado e disponível</span></td><td class="cell col-data">02/07/2026</td></tr>
+            <tr class="row"><td class="cell col-tag"><span class="badge bg-reaj">REAJUSTE</span></td><td class="cell"><span class="operadora">HAPVIDA NOTREDAME - SP / RJ:</span> <span class="descricao">Atualizações disponíveis nos canais (Individual, Super Simples e PME)</span></td><td class="cell col-data">01/07/2026</td></tr>
+            <tr class="row"><td class="cell col-tag"><span class="badge bg-novo">NOVO</span></td><td class="cell"><span class="operadora">AMEPLAN SAÚDE - SP:</span> <span class="descricao">PME a partir de 1 vida disponível</span></td><td class="cell col-data">01/07/2026</td></tr>
+            <tr class="row"><td class="cell col-tag"><span class="badge bg-reaj">REAJUSTE</span></td><td class="cell"><span class="operadora">PORTO SEGURO SAÚDE - PME:</span> <span class="descricao">Atualizações disponíveis e nova praça (Jundiaí - Linha Tradicional, Linha P e Pro) disponível</span></td><td class="cell col-data">01/07/2026</td></tr>
+            <tr class="row"><td class="cell col-tag"><span class="badge bg-novo">NOVO</span></td><td class="cell"><span class="operadora">KLINI SAÚDE - RJ:</span> <span class="descricao">Produtos da Linha Klini 200, 400 e 600 disponíveis na modalidade PME a partir de 1 vida (com idade mínima de 18 anos)</span></td><td class="cell col-data">01/07/2026</td></tr>
+        </table>
+    </div>
+
+    <div id="junho" class="tab-content">
+        <table class="table-container">
+            <tr class="row"><td class="cell col-tag"><span class="badge bg-novo">NOVO</span></td><td class="cell"><span class="operadora">MEDSÊNIOR (QUALICORP):</span> <span class="descricao">Projeto de Adesão disponível na praça do Rio de Janeiro</span></td><td class="cell col-data">25/06/2026</td></tr>
+            <tr class="row"><td class="cell col-tag"><span class="badge bg-susp">SUSPENSO</span></td><td class="cell"><span class="operadora">SEGUROS UNIMED (CORPe SAÚDE) - SP:</span> <span class="descricao">Comercialização do projeto suspensa por tempo indeterminado</span></td><td class="cell col-data">20/06/2026</td></tr>
+            <tr class="row"><td class="cell col-tag"><span class="badge bg-reaj">REAJUSTE</span></td><td class="cell"><span class="operadora">PORTO SEGURO ODONTO - SP/ RJ:</span> <span class="descricao">Atualizações disponíveis no projeto PME Odontológico</span></td><td class="cell col-data">12/06/2026</td></tr>
+            <tr class="row"><td class="cell col-tag"><span class="badge bg-reaj">REAJUSTE</span></td><td class="cell"><span class="operadora">PORTO SEGURO SAÚDE - SP/ RJ/ DF:</span> <span class="descricao">Atualizações de valores disponíveis nas tabelas PME</span></td><td class="cell col-data">12/06/2026</td></tr>
+            <tr class="row"><td class="cell col-tag"><span class="badge bg-novo">NOVO</span></td><td class="cell"><span class="operadora">HAPVIDA NOTREDAME (QUALICORP) - SP / RJ:</span> <span class="descricao">Novo portfólio disponível no projeto de Adesão</span></td><td class="cell col-data">11/06/2026</td></tr>
+            <tr class="row"><td class="cell col-tag"><span class="badge bg-novo">NOVO</span></td><td class="cell"><span class="operadora">MEDSÊNIOR (QUALICORP) - SP:</span> <span class="descricao">Novo plano (INFINITE ADESÃO) disponível no projeto de Adesão</span></td><td class="cell col-data">11/06/2026</td></tr>
+            <tr class="row"><td class="cell col-tag"><span class="badge bg-reaj">REAJUSTE</span></td><td class="cell"><span class="operadora">UNIMED SERRANA (SUPERMED) - RJ:</span> <span class="descricao">Atualização de valores disponível no projeto de Adesão</span></td><td class="cell col-data">11/06/2026</td></tr>
+            <tr class="row"><td class="cell col-tag"><span class="badge bg-reaj">REAJUSTE</span></td><td class="cell"><span class="operadora">ASSIM SAÚDE - RJ:</span> <span class="descricao">Atualização disponível nas tabelas PME</span></td><td class="cell col-data">10/06/2026</td></tr>
+            <tr class="row"><td class="cell col-tag"><span class="badge bg-novo">NOVO</span></td><td class="cell"><span class="operadora">AMIL SAÚDE - SP - PME:</span> <span class="descricao">Novo produto AMIL PRATA II disponível na Linha Amil</span></td><td class="cell col-data">10/06/2026</td></tr>
+            <tr class="row"><td class="cell col-tag"><span class="badge bg-novo">NOVO</span></td><td class="cell"><span class="operadora">DENTALPAR (ADC BENEFÍCIOS) - SP:</span> <span class="descricao">Novo projeto Odontológico disponível</span></td><td class="cell col-data">05/06/2026</td></tr>
+            <tr class="row"><td class="cell col-tag"><span class="badge bg-novo">NOVO</span></td><td class="cell"><span class="operadora">HAPVIDA NOTREDAME - FLAMENGO (ALLCARE) - SP:</span> <span class="descricao">Novo projeto de Adesão disponível</span></td><td class="cell col-data">05/06/2026</td></tr>
+            <tr class="row"><td class="cell col-tag"><span class="badge bg-reaj">REAJUSTE</span></td><td class="cell"><span class="operadora">HAPVIDA NOTREDAME - PME - SP:</span> <span class="descricao">Alteração do produto Smart 200 UP para Smart UP/Retirada do produto Smart 200 Capital e atualizações</span></td><td class="cell col-data">01/06/2026</td></tr>
+            <tr class="row"><td class="cell col-tag"><span class="badge bg-novo">NOVO</span></td><td class="cell"><span class="operadora">HAPVIDA NOTREDAME - PME - RJ:</span> <span class="descricao">Retirada Smart 150/400 e Criação Tabelas MEI, Adesão e Compulsório PME</span></td><td class="cell col-data">01/06/2026</td></tr>
+            <tr class="row"><td class="cell col-tag"><span class="badge bg-reaj">REAJUSTE</span></td><td class="cell"><span class="operadora">UNIMED NATAL (ALLCARE) - RN:</span> <span class="descricao">Atualizações disponíveis no projeto de Adesão</span></td><td class="cell col-data">02/06/2026</td></tr>
+            <tr class="row"><td class="cell col-tag"><span class="badge bg-novo">NOVO</span></td><td class="cell"><span class="operadora">UNIMED (SUPERMED) - RJ:</span> <span class="descricao">Novo projeto de Adesão com atendimentos pela Unimed do Brasil disponível</span></td><td class="cell col-data">01/06/2026</td></tr>
+            <tr class="row"><td class="cell col-tag"><span class="badge bg-reaj">REAJUSTE</span></td><td class="cell"><span class="operadora">SEGUROS UNIMED (QUALICORP) - BA / DF:</span> <span class="descricao">Atualizações disponíveis no projeto de Adesão</span></td><td class="cell col-data">01/06/2026</td></tr>
+            <tr class="row"><td class="cell col-tag"><span class="badge bg-reaj">REAJUSTE</span></td><td class="cell"><span class="operadora">UNIMED GUARULHOS - SP:</span> <span class="descricao">Valores atualizados disponíveis na tabela PME</span></td><td class="cell col-data">01/06/2026</td></tr>
+        </table>
+    </div>
+
+    <div id="maio" class="tab-content">
+        <table class="table-container">
+            <tr class="row"><td class="cell col-tag"><span class="badge bg-susp">SUSPENSO</span></td><td class="cell"><span class="operadora">KLINI SAÚDE (QUALICORP) - RJ:</span> <span class="descricao">Comercialização do produto 350 suspensa para certas cidades</span></td><td class="cell col-data">27/05/2026</td></tr>
+            <tr class="row"><td class="cell col-tag"><span class="badge bg-reaj">REAJUSTE</span></td><td class="cell"><span class="operadora">SEGUROS UNIMED (QUALICORP) - SP:</span> <span class="descricao">Valores atualizados no projeto de Adesão em diversas entidades</span></td><td class="cell col-data">29/05/2026</td></tr>
+            <tr class="row"><td class="cell col-tag"><span class="badge bg-reaj">REAJUSTE</span></td><td class="cell"><span class="operadora">SF SAÚDE (CORPe SAÚDE) - PE:</span> <span class="descricao">Atualizações disponíveis no projeto de Adesão</span></td><td class="cell col-data">29/05/2026</td></tr>
+            <tr class="row"><td class="cell col-tag"><span class="badge bg-reaj">REAJUSTE</span></td><td class="cell"><span class="operadora">HAPVIDA (AFFIX) - SP:</span> <span class="descricao">Atualização disponível no projeto de Adesão (S. José dos Campos)</span></td><td class="cell col-data">26/05/2026</td></tr>
+            <tr class="row"><td class="cell col-tag"><span class="badge bg-novo">NOVO</span></td><td class="cell"><span class="operadora">HAPVIDA NOTREDAME (ALLCARE) - SP / RJ:</span> <span class="descricao">Novo portfólio disponível no projeto de Adesão</span></td><td class="cell col-data">26/05/2026</td></tr>
+            <tr class="row"><td class="cell col-tag"><span class="badge bg-reaj">REAJUSTE</span></td><td class="cell"><span class="operadora">PORTO SEGURO SAÚDE - SP:</span> <span class="descricao">Nova precificação PME para as praças S. J. Rio Preto e Bragança</span></td><td class="cell col-data">19/05/2026</td></tr>
+            <tr class="row"><td class="cell col-tag"><span class="badge bg-novo">NOVO</span></td><td class="cell"><span class="operadora">HAPVIDA (GRUPO CONTÉM) - DF:</span> <span class="descricao">Novo projeto de Adesão disponível</span></td><td class="cell col-data">19/05/2026</td></tr>
+            <tr class="row"><td class="cell col-tag"><span class="badge bg-novo">NOVO</span></td><td class="cell"><span class="operadora">HAPVIDA CLINIPAM (CONTÉM) - PR / SC:</span> <span class="descricao">Novo projeto de Adesão disponível</span></td><td class="cell col-data">19/05/2026</td></tr>
+            <tr class="row"><td class="cell col-tag"><span class="badge bg-novo">NOVO</span></td><td class="cell"><span class="operadora">HAPVIDA CCG (CONTÉM) - RS:</span> <span class="descricao">Novo projeto de Adesão disponível</span></td><td class="cell col-data">19/05/2026</td></tr>
+            <tr class="row"><td class="cell col-tag"><span class="badge bg-novo">NOVO</span></td><td class="cell"><span class="operadora">UNIMED COSTA VERDE (CONTÉM) - RJ:</span> <span class="descricao">Novo projeto de Adesão disponível</span></td><td class="cell col-data">19/05/2026</td></tr>
+            <tr class="row"><td class="cell col-tag"><span class="badge bg-novo">NOVO</span></td><td class="cell"><span class="operadora">PLENUM SAÚDE (GRUPO CONTÉM) - DF:</span> <span class="descricao">Novo projeto de Adesão disponível</span></td><td class="cell col-data">19/05/2026</td></tr>
+            <tr class="row"><td class="cell col-tag"><span class="badge bg-reaj">REAJUSTE</span></td><td class="cell"><span class="operadora">CEMERU (PLURAL SAÚDE) - RJ:</span> <span class="descricao">Atualização de valores disponível nos projetos Adesão e PME</span></td><td class="cell col-data">18/05/2026</td></tr>
+            <tr class="row"><td class="cell col-tag"><span class="badge bg-novo">NOVO</span></td><td class="cell"><span class="operadora">UNIMED RECIFE - PE:</span> <span class="descricao">Tabela com desconto a partir de 2 vidas disponível no projeto PME</span></td><td class="cell col-data">18/05/2026</td></tr>
+            <tr class="row"><td class="cell col-tag"><span class="badge bg-novo">NOVO</span></td><td class="cell"><span class="operadora">UNIMED NOVA IGUAÇU (SOLUTIONS) - RJ:</span> <span class="descricao">Novas tabelas disponíveis nos projetos Adesão e PME</span></td><td class="cell col-data">15/05/2026</td></tr>
+            <tr class="row"><td class="cell col-tag"><span class="badge bg-reaj">REAJUSTE</span></td><td class="cell"><span class="operadora">BLUE MED (QUALISAUDE) - SP:</span> <span class="descricao">Atualizações disponíveis no projeto de Adesão</span></td><td class="cell col-data">15/05/2026</td></tr>
+            <tr class="row"><td class="cell col-tag"><span class="badge bg-reaj">REAJUSTE</span></td><td class="cell"><span class="operadora">UNIHOSP SAÚDE (QUALISAUDE) - SP:</span> <span class="descricao">Atualizações disponíveis no projeto de Adesão</span></td><td class="cell col-data">15/05/2026</td></tr>
+            <tr class="row"><td class="cell col-tag"><span class="badge bg-reaj">REAJUSTE</span></td><td class="cell"><span class="operadora">KLINI SAÚDE - RJ:</span> <span class="descricao">Atualização de valores disponível no projeto PME</span></td><td class="cell col-data">14/05/2026</td></tr>
+            <tr class="row"><td class="cell col-tag"><span class="badge bg-novo">NOVO</span></td><td class="cell"><span class="operadora">SF SAÚDE (CORPe SAÚDE) - PE:</span> <span class="descricao">Novo projeto de Adesão disponível</span></td><td class="cell col-data">12/05/2026</td></tr>
+            <tr class="row"><td class="cell col-tag"><span class="badge bg-novo">NOVO</span></td><td class="cell"><span class="operadora">HSMED SAÚDE (SOLUTIONS) - RJ:</span> <span class="descricao">Novo produto ROYAL disponível no projeto de Adesão</span></td><td class="cell col-data">07/05/2026</td></tr>
+            <tr class="row"><td class="cell col-tag"><span class="badge bg-novo">NOVO</span></td><td class="cell"><span class="operadora">AMIL SAÚDE - PME:</span> <span class="descricao">Novo produto AMIL OURO II disponível para região metropolitana de SP</span></td><td class="cell col-data">06/05/2026</td></tr>
+            <tr class="row"><td class="cell col-tag"><span class="badge bg-reaj">REAJUSTE</span></td><td class="cell"><span class="operadora">HUMANA SAÚDE (CORPe SAÚDE):</span> <span class="descricao">Atualizações disponíveis no projeto de Adesão (PI, MA, RN)</span></td><td class="cell col-data">06/05/2026</td></tr>
+            <tr class="row"><td class="cell col-tag"><span class="badge bg-novo">NOVO</span></td><td class="cell"><span class="operadora">HSMED SAÚDE - RJ:</span> <span class="descricao">Novo produto ROYAL disponível na tabela PME</span></td><td class="cell col-data">04/05/2026</td></tr>
+            <tr class="row"><td class="cell col-tag"><span class="badge bg-reaj">REAJUSTE</span></td><td class="cell"><span class="operadora">SAGRADA FAMÍLIA SAÚDE (CORPe) - SP:</span> <span class="descricao">Atualização disponível no projeto de Adesão</span></td><td class="cell col-data">01/05/2026</td></tr>
+            <tr class="row"><td class="cell col-tag"><span class="badge bg-reaj">REAJUSTE</span></td><td class="cell"><span class="operadora">ASSIM SAÚDE - RJ:</span> <span class="descricao">Atualizações disponíveis nas tabelas PF e PME (MEI)</span></td><td class="cell col-data">01/05/2026</td></tr>
+            <tr class="row"><td class="cell col-tag"><span class="badge bg-reaj">REAJUSTE</span></td><td class="cell"><span class="operadora">SAMOC SAÚDE - RJ:</span> <span class="descricao">Atualizações disponíveis (PME e PF)</span></td><td class="cell col-data">01/05/2026</td></tr>
+            <tr class="row"><td class="cell col-tag"><span class="badge bg-reaj">REAJUSTE</span></td><td class="cell"><span class="operadora">SAGRADA FAMÍLIA (HEBROM) - SP:</span> <span class="descricao">Atualização disponível no projeto de Adesão</span></td><td class="cell col-data">01/05/2026</td></tr>
+            <tr class="row"><td class="cell col-tag"><span class="badge bg-reaj">REAJUSTE</span></td><td class="cell"><span class="operadora">SAGRADA FAMÍLIA SAÚDE - SP:</span> <span class="descricao">Atualizações disponíveis (PME e Sênior PF)</span></td><td class="cell col-data">01/05/2026</td></tr>
+        </table>
+    </div>
+
+    <div id="abril" class="tab-content">
+        <table class="table-container">
+            <tr class="row"><td class="cell col-tag"><span class="badge bg-reaj">REAJUSTE</span></td><td class="cell"><span class="operadora">UNIMED FERJ (SUPERMED) - RJ:</span> <span class="descricao">Reajuste de valores no projeto de Adesão</span></td><td class="cell col-data">28/04/2026</td></tr>
+            <tr class="row"><td class="cell col-tag"><span class="badge bg-reaj">REAJUSTE</span></td><td class="cell"><span class="operadora">OPLAN (QV BENEFÍCIOS) - RJ:</span> <span class="descricao">Reajuste de valores no projeto de Adesão</span></td><td class="cell col-data">28/04/2026</td></tr>
+            <tr class="row"><td class="cell col-tag"><span class="badge bg-reaj">REAJUSTE</span></td><td class="cell"><span class="operadora">SAMEL (PLURAL SAÚDE) - AM:</span> <span class="descricao">Atualização de valores no projeto de Adesão</span></td><td class="cell col-data">28/04/2026</td></tr>
+            <tr class="row"><td class="cell col-tag"><span class="badge bg-novo">NOVO</span></td><td class="cell"><span class="operadora">PORTO SEGURO SAÚDE - SP:</span> <span class="descricao">Nova precificação SOROCABA e RIBEIRÃO PRETO (PME)</span></td><td class="cell col-data">28/04/2026</td></tr>
+            <tr class="row"><td class="cell col-tag"><span class="badge bg-reaj">REAJUSTE</span></td><td class="cell"><span class="operadora">UNIMED JUNDIAÍ (CORPe) - SP:</span> <span class="descricao">Reajuste no projeto PME Administrado</span></td><td class="cell col-data">24/04/2026</td></tr>
+            <tr class="row"><td class="cell col-tag"><span class="badge bg-novo">NOVO</span></td><td class="cell"><span class="operadora">BRADESCO SAÚDE - PR:</span> <span class="descricao">Lançamento Efetivo Plus / Suspensão Flex (PME)</span></td><td class="cell col-data">23/04/2026</td></tr>
+            <tr class="row"><td class="cell col-tag"><span class="badge bg-att">ATUALIZ.</span></td><td class="cell"><span class="operadora">HAPVIDA NOTREDAME (AFFIX) - SP:</span> <span class="descricao">Atualização no projeto PME disponível</span></td><td class="cell col-data">22/04/2026</td></tr>
+            <tr class="row"><td class="cell col-tag"><span class="badge bg-att">ATUALIZ.</span></td><td class="cell"><span class="operadora">UNIHOSP SAÚDE - SP:</span> <span class="descricao">Novas regras comerciais (Familiar / PME)</span></td><td class="cell col-data">22/04/2026</td></tr>
+            <tr class="row"><td class="cell col-tag"><span class="badge bg-att">ATUALIZ.</span></td><td class="cell"><span class="operadora">MEDSÊNIOR (ALLCARE) - DF:</span> <span class="descricao">Atualização disponível no projeto de Adesão</span></td><td class="cell col-data">22/04/2026</td></tr>
+            <tr class="row"><td class="cell col-tag"><span class="badge bg-novo">NOVO</span></td><td class="cell"><span class="operadora">PORTO SEGURO SAÚDE - SP:</span> <span class="descricao">Novo produto PIRACICABA (PME Tradicional, P e Pro)</span></td><td class="cell col-data">15/04/2026</td></tr>
+            <tr class="row"><td class="cell col-tag"><span class="badge bg-susp">SUSPENSO</span></td><td class="cell"><span class="operadora">ATIVIA SAÚDE (ALLCARE) - SP:</span> <span class="descricao">Projeto de Adesão suspenso</span></td><td class="cell col-data">13/04/2026</td></tr>
+            <tr class="row"><td class="cell col-tag"><span class="badge bg-novo">NOVO</span></td><td class="cell"><span class="operadora">KLINI SAÚDE (QUALICORP) - RJ:</span> <span class="descricao">Novo plano KLINI 350 AD COPART (Estudantil)</span></td><td class="cell col-data">11/04/2026</td></tr>
+            <tr class="row"><td class="cell col-tag"><span class="badge bg-reaj">REAJUSTE</span></td><td class="cell"><span class="operadora">SÃO CAMILO (CORPe) - SP:</span> <span class="descricao">Reajuste anual de valores no projeto PME</span></td><td class="cell col-data">09/04/2026</td></tr>
+            <tr class="row"><td class="cell col-tag"><span class="badge bg-novo">NOVO</span></td><td class="cell"><span class="operadora">PORTO SEGURO SAÚDE - SP:</span> <span class="descricao">Nova linha SOROCABA PRO disponível (PME)</span></td><td class="cell col-data">08/04/2026</td></tr>
+            <tr class="row"><td class="cell col-tag"><span class="badge bg-novo">NOVO</span></td><td class="cell"><span class="operadora">SAMOC SAÚDE (ALLCARE) - RJ:</span> <span class="descricao">Novo projeto de Adesão disponível</span></td><td class="cell col-data">07/04/2026</td></tr>
+            <tr class="row"><td class="cell col-tag"><span class="badge bg-reaj">REAJUSTE</span></td><td class="cell"><span class="operadora">AMIL SAÚDE - PME:</span> <span class="descricao">Valores RN / CE / GO / MA / PB / SC / RS</span></td><td class="cell col-data">06/04/2026</td></tr>
+            <tr class="row"><td class="cell col-tag"><span class="badge bg-reaj">REAJUSTE</span></td><td class="cell"><span class="operadora">AMIL SAÚDE - PME:</span> <span class="descricao">Valores BA / MG / DF / PE / PR</span></td><td class="cell col-data">06/04/2026</td></tr>
+            <tr class="row"><td class="cell col-tag"><span class="badge bg-reaj">REAJUSTE</span></td><td class="cell"><span class="operadora">AMIL SAÚDE - PME:</span> <span class="descricao">Valores SP / RJ (Demais praças em breve)</span></td><td class="cell col-data">06/04/2026</td></tr>
+            <tr class="row"><td class="cell col-tag"><span class="badge bg-susp">SUSPENSO</span></td><td class="cell"><span class="operadora">ATIVIA SAÚDE (CORPe) - SP:</span> <span class="descricao">Projeto de Adesão suspenso</span></td><td class="cell col-data">06/04/2026</td></tr>
+            <tr class="row"><td class="cell col-tag"><span class="badge bg-att">ATUALIZ.</span></td><td class="cell"><span class="operadora">PORTO SEGURO SAÚDE - PME:</span> <span class="descricao">Atualização de valores - SP / RJ / DF</span></td><td class="cell col-data">02/04/2026</td></tr>
+            <tr class="row"><td class="cell col-tag"><span class="badge bg-reaj">REAJUSTE</span></td><td class="cell"><span class="operadora">LEVE SAÚDE - RJ:</span> <span class="descricao">Reajuste tabela de vendas e rede hospitalar (PF/PME)</span></td><td class="cell col-data">01/04/2026</td></tr>
+            <tr class="row"><td class="cell col-tag"><span class="badge bg-att">ATUALIZ.</span></td><td class="cell"><span class="operadora">ASSIM SAÚDE (QUALICORP) - RJ:</span> <span class="descricao">Novas entidades no projeto de Adesão</span></td><td class="cell col-data">01/04/2026</td></tr>
+        </table>
+    </div>
+
+    <div id="marco" class="tab-content">
+        <table class="table-container">
+            <tr class="row"><td class="cell col-tag"><span class="badge bg-susp">SUSPENSO</span></td><td class="cell"><span class="operadora">AMPLA SAÚDE (QUALICORP):</span> <span class="descricao">Projetos Adesão e PME suspensos</span></td><td class="cell col-data">27/03/2026</td></tr>
+            <tr class="row"><td class="cell col-tag"><span class="badge bg-att">ATUALIZ.</span></td><td class="cell"><span class="operadora">PREVENT SÊNIOR:</span> <span class="descricao">Entrevista Qualificada e Carência DLP Reduzida</span></td><td class="cell col-data">25/03/2026</td></tr>
+            <tr class="row"><td class="cell col-tag"><span class="badge bg-susp">SUSPENSO</span></td><td class="cell"><span class="operadora">NOVA SAÚDE (QUALICORP) - RJ:</span> <span class="descricao">Projeto de Adesão suspenso</span></td><td class="cell col-data">23/03/2026</td></tr>
+            <tr class="row"><td class="cell col-tag"><span class="badge bg-att">ATUALIZ.</span></td><td class="cell"><span class="operadora">UNIMED COSTA VERDE - RJ:</span> <span class="descricao">Atualizações no projeto de Adesão</span></td><td class="cell col-data">20/03/2026</td></tr>
+            <tr class="row"><td class="cell col-tag"><span class="badge bg-att">ATUALIZ.</span></td><td class="cell"><span class="operadora">HAPVIDA NOTREDAME - SP/RJ:</span> <span class="descricao">Atualizações no canal INDIVIDUAL</span></td><td class="cell col-data">12/03/2026</td></tr>
+        </table>
+    </div>
+
+    <div id="fevereiro" class="tab-content">
+        <table class="table-container">
+            <tr class="row"><td class="cell col-tag"><span class="badge bg-reaj">REAJUSTE</span></td><td class="cell"><span class="operadora">HEALTH MED (QV BENEFÍCIOS) - RJ:</span> <span class="descricao">Atualização de valores em Adesão</span></td><td class="cell col-data">20/02/2026</td></tr>
+            <tr class="row"><td class="cell col-tag"><span class="badge bg-novo">NOVO</span></td><td class="cell"><span class="operadora">SAMOC SAÚDE (SOLUTIONS) - RJ:</span> <span class="descricao">Novo projetos (Adesão e PME)</span></td><td class="cell col-data">14/02/2026</td></tr>
+            <tr class="row"><td class="cell col-tag"><span class="badge bg-reaj">REAJUSTE</span></td><td class="cell"><span class="operadora">PORTO SEGURO SAÚDE - PME:</span> <span class="descricao">Valores Novo Tradicional, P e Pro (SP/RJ/DF)</span></td><td class="cell col-data">13/02/2026</td></tr>
+            <tr class="row"><td class="cell col-tag"><span class="badge bg-novo">NOVO</span></td><td class="cell"><span class="operadora">NOVA SAÚDE (QUALICORP) - RJ:</span> <span class="descricao">Novo portfólio no projeto de Adesão</span></td><td class="cell col-data">12/02/2026</td></tr>
+            <tr class="row"><td class="cell col-tag"><span class="badge bg-reaj">REAJUSTE</span></td><td class="cell"><span class="operadora">BRADESCO DENTAL - PF/PME:</span> <span class="descricao">Atualização de valores SP e RJ</span></td><td class="cell col-data">10/02/2026</td></tr>
+            <tr class="row"><td class="cell col-tag"><span class="badge bg-novo">NOVO</span></td><td class="cell"><span class="operadora">AMIL DENTAL - PF/PME:</span> <span class="descricao">Nova Linha de produtos em SP e RJ</span></td><td class="cell col-data">10/02/2026</td></tr>
+            <tr class="row"><td class="cell col-tag"><span class="badge bg-att">ATUALIZ.</span></td><td class="cell"><span class="operadora">NOVA SAÚDE (CORPe) - RJ:</span> <span class="descricao">Regras estudantis no antigo portfólio</span></td><td class="cell col-data">10/02/2026</td></tr>
+            <tr class="row"><td class="cell col-tag"><span class="badge bg-novo">NOVO</span></td><td class="cell"><span class="operadora">MEDSÊNIOR (SUPERMED) - RJ:</span> <span class="descricao">Projeto de Adesão disponível</span></td><td class="cell col-data">06/02/2026</td></tr>
+            <tr class="row"><td class="cell col-tag"><span class="badge bg-novo">NOVO</span></td><td class="cell"><span class="operadora">HAPVIDA NOTREDAME (DIXMED) - SP:</span> <span class="descricao">Projeto de Adesão disponível</span></td><td class="cell col-data">05/02/2026</td></tr>
+            <tr class="row"><td class="cell col-tag"><span class="badge bg-att">ATUALIZ.</span></td><td class="cell"><span class="operadora">VERTE SAÚDE (CONTÉM) - RS:</span> <span class="descricao">Atualizações no projeto de adesão</span></td><td class="cell col-data">03/02/2026</td></tr>
+            <tr class="row"><td class="cell col-tag"><span class="badge bg-att">ATUALIZ.</span></td><td class="cell"><span class="operadora">UNITY SAÚDE (CONTÉM) - DF:</span> <span class="descricao">Atualizações no projeto de adesão</span></td><td class="cell col-data">03/02/2026</td></tr>
+            <tr class="row"><td class="cell col-tag"><span class="badge bg-att">ATUALIZ.</span></td><td class="cell"><span class="operadora">UNIMED VALE DO AÇO - MG:</span> <span class="descricao">Atualizações no projeto de adesão</span></td><td class="cell col-data">03/02/2026</td></tr>
+            <tr class="row"><td class="cell col-tag"><span class="badge bg-att">ATUALIZ.</span></td><td class="cell"><span class="operadora">UNIMED ODONTO:</span> <span class="descricao">Atualização no projeto Odontológico</span></td><td class="cell col-data">03/02/2026</td></tr>
+            <tr class="row"><td class="cell col-tag"><span class="badge bg-att">ATUALIZ.</span></td><td class="cell"><span class="operadora">UNIMED NORTE FLUMINENSE - RJ:</span> <span class="descricao">Atualizações no projeto de adesão</span></td><td class="cell col-data">03/02/2026</td></tr>
+            <tr class="row"><td class="cell col-tag"><span class="badge bg-att">ATUALIZ.</span></td><td class="cell"><span class="operadora">SULMED (CONTÉM) - RS:</span> <span class="descricao">Atualizações no projeto de adesão</span></td><td class="cell col-data">03/02/2026</td></tr>
+            <tr class="row"><td class="cell col-tag"><span class="badge bg-att">ATUALIZ.</span></td><td class="cell"><span class="operadora">ÔNIX SAÚDE (CONTÉM) - RJ:</span> <span class="descricao">Atualizações no projeto de adesão</span></td><td class="cell col-data">03/02/2026</td></tr>
+            <tr class="row"><td class="cell col-tag"><span class="badge bg-att">ATUALIZ.</span></td><td class="cell"><span class="operadora">ODONTO EMPRESAS:</span> <span class="descricao">Atualização no projeto Odontológico</span></td><td class="cell col-data">03/02/2026</td></tr>
+            <tr class="row"><td class="cell col-tag"><span class="badge bg-reaj">REAJUSTE</span></td><td class="cell"><span class="operadora">AMIL SAÚDE (SUPERMED) - SP/RJ:</span> <span class="descricao">Atualização de valores em Adesão</span></td><td class="cell col-data">02/02/2026</td></tr>
+        </table>
+    </div>
+
+    <div id="janeiro" class="tab-content">
+        <table class="table-container">
+            <tr class="row"><td class="cell col-tag"><span class="badge bg-novo">NOVO</span></td><td class="cell"><span class="operadora">ONMED SAÚDE (QUALICORP):</span> <span class="descricao">Adesão e PME em Pernambuco</span></td><td class="cell col-data">30/01/2026</td></tr>
+            <tr class="row"><td class="cell col-tag"><span class="badge bg-susp">SUSPENSO</span></td><td class="cell"><span class="operadora">HEALTH MED (CORPe) - RJ:</span> <span class="descricao">Comercialização suspensa</span></td><td class="cell col-data">30/01/2026</td></tr>
+            <tr class="row"><td class="cell col-tag"><span class="badge bg-novo">NOVO</span></td><td class="cell"><span class="operadora">ÚNICA SAÚDE (ADC) - SP:</span> <span class="descricao">Novo projeto PF e PME disponível</span></td><td class="cell col-data">28/01/2026</td></tr>
+            <tr class="row"><td class="cell col-tag"><span class="badge bg-novo">NOVO</span></td><td class="cell"><span class="operadora">NOVA SAÚDE (CORPe) - RJ:</span> <span class="descricao">Novo portfólio em Adesão</span></td><td class="cell col-data">26/01/2026</td></tr>
+            <tr class="row"><td class="cell col-tag"><span class="badge bg-reaj">REAJUSTE</span></td><td class="cell"><span class="operadora">PORTO SEGURO SAÚDE:</span> <span class="descricao">Valores Linhas Pro e Porto Bairro</span></td><td class="cell col-data">24/01/2026</td></tr>
+            <tr class="row"><td class="cell col-tag"><span class="badge bg-novo">NOVO</span></td><td class="cell"><span class="operadora">HAPVIDA NOTREDAME - PME:</span> <span class="descricao">Novas modalidades Canais Super Simples e PME</span></td><td class="cell col-data">23/01/2026</td></tr>
+            <tr class="row"><td class="cell col-tag"><span class="badge bg-reaj">REAJUSTE</span></td><td class="cell"><span class="operadora">ÚNICA SAÚDE - SP:</span> <span class="descricao">Reajuste de valores (PF / PME / Sênior)</span></td><td class="cell col-data">23/01/2026</td></tr>
+            <tr class="row"><td class="cell col-tag"><span class="badge bg-reaj">REAJUSTE</span></td><td class="cell"><span class="operadora">BRADESCO SAÚDE - PME:</span> <span class="descricao">Reajuste de valores nacional</span></td><td class="cell col-data">19/01/2026</td></tr>
+            <tr class="row"><td class="cell col-tag"><span class="badge bg-att">ATUALIZ.</span></td><td class="cell"><span class="operadora">SÃO CAMILO (CORPe):</span> <span class="descricao">Projeto Adesão atualizado (PR)</span></td><td class="cell col-data">16/01/2026</td></tr>
+            <tr class="row"><td class="cell col-tag"><span class="badge bg-att">ATUALIZ.</span></td><td class="cell"><span class="operadora">DONA SAÚDE (HEBROM) - SP:</span> <span class="descricao">Projeto de Adesão atualizado</span></td><td class="cell col-data">15/01/2026</td></tr>
+            <tr class="row"><td class="cell col-tag"><span class="badge bg-att">ATUALIZ.</span></td><td class="cell"><span class="operadora">UNIMED COSTA VERDE - RJ:</span> <span class="descricao">Projeto de Adesão atualizado</span></td><td class="cell col-data">15/01/2026</td></tr>
+            <tr class="row"><td class="cell col-tag"><span class="badge bg-att">ATUALIZ.</span></td><td class="cell"><span class="operadora">ONMED SAÚDE (QUALICORP):</span> <span class="descricao">Entidade ACRESP disponível em Adesão</span></td><td class="cell col-data">15/01/2026</td></tr>
+            <tr class="row"><td class="cell col-tag"><span class="badge bg-reaj">REAJUSTE</span></td><td class="cell"><span class="operadora">AMIL SAÚDE - PME:</span> <span class="descricao">Valores Linhas Amil e Selecionada (SP/RJ)</span></td><td class="cell col-data">15/01/2026</td></tr>
+            <tr class="row"><td class="cell col-tag"><span class="badge bg-susp">SUSPENSO</span></td><td class="cell"><span class="operadora">ASSIM SAÚDE (ALLCARE) - RJ:</span> <span class="descricao">Comercialização suspensa</span></td><td class="cell col-data">15/01/2026</td></tr>
+            <tr class="row"><td class="cell col-tag"><span class="badge bg-susp">SUSPENSO</span></td><td class="cell"><span class="operadora">ASSIM SAÚDE (SUPERMED) - RJ:</span> <span class="descricao">Comercialização suspensa</span></td><td class="cell col-data">15/01/2026</td></tr>
+            <tr class="row"><td class="cell col-tag"><span class="badge bg-novo">NOVO</span></td><td class="cell"><span class="operadora">ASSIM SAÚDE (QUALICORP):</span> <span class="descricao">Novo portfólio em Adesão</span></td><td class="cell col-data">14/01/2026</td></tr>
+            <tr class="row"><td class="cell col-tag"><span class="badge bg-novo">NOVO</span></td><td class="cell"><span class="operadora">ÔNIX SAÚDE (CORPe) - RJ:</span> <span class="descricao">Novo portfólio de Adesão</span></td><td class="cell col-data">14/01/2026</td></tr>
+            <tr class="row"><td class="cell col-tag"><span class="badge bg-novo">NOVO</span></td><td class="cell"><span class="operadora">NOVA SAÚDE (SOLUTIONS):</span> <span class="descricao">Novo portfólio em Adesão</span></td><td class="cell col-data">13/01/2026</td></tr>
+            <tr class="row"><td class="cell col-tag"><span class="badge bg-novo">NOVO</span></td><td class="cell"><span class="operadora">NOVA SAÚDE (EASYPLAN):</span> <span class="descricao">Novo portfólio em Adesão</span></td><td class="cell col-data">12/01/2026</td></tr>
+            <tr class="row"><td class="cell col-tag"><span class="badge bg-novo">NOVO</span></td><td class="cell"><span class="operadora">NOVA SAÚDE (DIXMED):</span> <span class="descricao">Novo portfólio em Adesão</span></td><td class="cell col-data">12/01/2026</td></tr>
+            <tr class="row"><td class="cell col-tag"><span class="badge bg-reaj">REAJUSTE</span></td><td class="cell"><span class="operadora">PESSOAL SAÚDE (HEBROM):</span> <span class="descricao">Reajuste de valores em Adesão</span></td><td class="cell col-data">09/01/2026</td></tr>
+            <tr class="row"><td class="cell col-tag"><span class="badge bg-novo">NOVO</span></td><td class="cell"><span class="operadora">NOVA SAÚDE - RJ:</span> <span class="descricao">Novo portfólio PME disponível</span></td><td class="cell col-data">09/01/2026</td></tr>
+            <tr class="row"><td class="cell col-tag"><span class="badge bg-novo">NOVO</span></td><td class="cell"><span class="operadora">NOVA SAÚDE (QV):</span> <span class="descricao">Novo portfólio em Adesão</span></td><td class="cell col-data">09/01/2026</td></tr>
+            <tr class="row"><td class="cell col-tag"><span class="badge bg-att">ATUALIZ.</span></td><td class="cell"><span class="operadora">PORTO SEGURO (SP/RJ/DF):</span> <span class="descricao">Linhas Tradicional, P, Pro e Bairro</span></td><td class="cell col-data">07/01/2026</td></tr>
+            <tr class="row"><td class="cell col-tag"><span class="badge bg-reaj">REAJUSTE</span></td><td class="cell"><span class="operadora">ASSIM SAÚDE - RJ:</span> <span class="descricao">Reajuste Individual / Grupo / Familiar</span></td><td class="cell col-data">06/01/2026</td></tr>
+            <tr class="row"><td class="cell col-tag"><span class="badge bg-reaj">REAJUSTE</span></td><td class="cell"><span class="operadora">AMEPLAN SAÚDE - SP:</span> <span class="descricao">Reajuste de valores no PME</span></td><td class="cell col-data">05/01/2026</td></tr>
+            <tr class="row"><td class="cell col-tag"><span class="badge bg-novo">NOVO</span></td><td class="cell"><span class="operadora">UNIMED GUARULHOS - PME:</span> <span class="descricao">Nova tabela disponível</span></td><td class="cell col-data">01/01/2026</td></tr>
+            <tr class="row"><td class="cell col-tag"><span class="badge bg-reaj">REAJUSTE</span></td><td class="cell"><span class="operadora">SANTA CASA DE MAUÁ:</span> <span class="descricao">Valores Individual, Familiar, PME e Sênior</span></td><td class="cell col-data">01/01/2026</td></tr>
+        </table>
+    </div>
+
+    <script>
+        function openTab(evt, monthName) {
+            var i, tabcontent, tablinks;
+            tabcontent = document.getElementsByClassName("tab-content");
+            for (i = 0; i < tabcontent.length; i++) {
+                tabcontent[i].style.display = "none";
+                tabcontent[i].classList.remove("active");
+            }
+
+            tablinks = document.getElementsByClassName("tab-btn");
+            for (i = 0; i < tablinks.length; i++) {
+                tablinks[i].classList.remove("active");
+            }
+
+            document.getElementById(monthName).style.display = "block";
+            document.getElementById(monthName).classList.add("active");
+            evt.currentTarget.classList.add("active");
+        }
+    </script>
+
+</body>
+</html>

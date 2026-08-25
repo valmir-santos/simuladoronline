@@ -301,107 +301,68 @@ const MOCK_PARTNERS: Partner[] = [
   }
 ];
 
-export interface TableUpdate {
+export interface CompactTableUpdate {
   id: number;
-  title: string;
-  operadora: string;
-  category: 'Reajuste' | 'Troca de Tabela' | 'Lançamento' | 'Regras de Aceitação' | 'Informativo';
-  date: string;
-  monthYear: string; // Ex: "Agosto / 2026"
-  description: string;
-  details?: string[];
-  pdfUrl?: string;
-  postedToX?: boolean;
+  badge: 'ATUALIZ.' | 'REAJUSTE' | 'NOVO' | 'SUSPENSO';
+  text: string; // ex: "HSMED SAÚDE - RJ: Atualização de rede credenciada disponível (Individual, Familiar, PME e Adesão)"
+  date: string; // ex: "17/08/2026"
+  monthKey: string; // "agosto" | "julho" | "junho" | "maio" | "abril" | "marco" | "fevereiro" | "janeiro"
+  monthLabel: string;
 }
 
-const MOCK_TABLE_UPDATES: TableUpdate[] = [
-  {
-    id: 1,
-    title: "Atualização Geral de Tabelas PME e Pessoas Físicas",
-    operadora: "Amil",
-    category: "Troca de Tabela",
-    date: "2026-08-25T08:30:00Z",
-    monthYear: "Agosto / 2026",
-    description: "Novas tabelas de preços e vigências atualizadas para as linhas Amil Fácil, Amil One e Linha Selecionada.",
-    details: [
-      "Entrada em vigor imediata para novas propostas",
-      "Atualização de carências reduzidas para PME a partir de 2 vidas",
-      "Rede credenciada atualizada na região metropolitana de SP e RJ"
-    ],
-    postedToX: true
-  },
-  {
-    id: 2,
-    title: "Reajuste Anual e Novas Regras de Aceitação PME",
-    operadora: "Bradesco Saúde",
-    category: "Reajuste",
-    date: "2026-08-20T14:00:00Z",
-    monthYear: "Agosto / 2026",
-    description: "Disponibilizadas as novas condições comerciais e percentuais de reajuste técnico para contratos empresariais.",
-    details: [
-      "Novos valores para planos Top Nacional e Efetivo",
-      "Inclusão de novos laboratórios parceiros em SP",
-      "Incentivos de comissionamento para corretores cadastrados"
-    ],
-    postedToX: true
-  },
-  {
-    id: 3,
-    title: "Lançamento da Nova Linha Direta com Coparticipação",
-    operadora: "SulAmérica",
-    category: "Lançamento",
-    date: "2026-08-12T10:15:00Z",
-    monthYear: "Agosto / 2026",
-    description: "SulAmérica lança nova opção de plano regional Direto com foco em custo-benefício para pequenas empresas.",
-    details: [
-      "Acomodação enfermaria e apartamento",
-      "Sem taxa de adesão no primeiro mês de contratação",
-      "Desconto adicional na contratação conjunta de Seguro Odontológico"
-    ],
-    postedToX: true
-  },
-  {
-    id: 4,
-    title: "Atualização das Tabelas Regionais e Odontológico",
-    operadora: "Notredame Intermédica",
-    category: "Troca de Tabela",
-    date: "2026-07-28T09:00:00Z",
-    monthYear: "Julho / 2026",
-    description: "Revisão das tabelas da linha Smart e Advance para os estados de SP, RJ e MG.",
-    details: [
-      "Tabelas com vigência a partir de 01/08/2026",
-      "Flexibilização de carências para planos de adesão corporativos"
-    ],
-    postedToX: true
-  },
-  {
-    id: 5,
-    title: "Comunicado Oficial sobre Contratos Individuais",
-    operadora: "Hapvida",
-    category: "Informativo",
-    date: "2026-07-18T11:45:00Z",
-    monthYear: "Julho / 2026",
-    description: "Comunicado referente às regras comerciais de renovação de contratos e reequilíbrio financeiro.",
-    details: [
-      "Orientações de atendimento aos beneficiários",
-      "Procedimentos de regularização de propostas pendentes"
-    ],
-    postedToX: true
-  },
-  {
-    id: 6,
-    title: "Lançamento da Tabela Promoção Pro-Corretor",
-    operadora: "Porto Seguro Saúde",
-    category: "Lançamento",
-    date: "2026-06-25T15:30:00Z",
-    monthYear: "Junho / 2026",
-    description: "Condições exclusivas de contratação para empresas de 03 a 29 vidas com carência zero para consultas e exames.",
-    details: [
-      "Carência zero para exames simples e consultas",
-      "Reembolso ágil via aplicativo Porto Saúde"
-    ],
-    postedToX: true
-  }
+const MOCK_COMPACT_UPDATES: CompactTableUpdate[] = [
+  // AGOSTO 2026
+  { id: 1, badge: 'ATUALIZ.', text: 'HSMED SAÚDE - RJ: Atualização de rede credenciada disponível (Individual, Familiar, PME e Adesão)', date: '17/08/2026', monthKey: 'agosto', monthLabel: 'Agosto' },
+  { id: 2, badge: 'REAJUSTE', text: 'DENTALPAR (CORPe SAÚDE) - SP: Reajuste disponível no projeto Adesão Odontológico', date: '16/08/2026', monthKey: 'agosto', monthLabel: 'Agosto' },
+  { id: 3, badge: 'REAJUSTE', text: 'PORTO SEGURO SAÚDE: Reajuste de valores disponível - PME (SP / RJ / DF)', date: '14/08/2026', monthKey: 'agosto', monthLabel: 'Agosto' },
+  { id: 4, badge: 'NOVO', text: 'HUMANA SAÚDE (CORPe SAÚDE) - Maringá/PR e Londrina/PR: Novo portfólio 2026 disponível no projeto Adesão', date: '14/08/2026', monthKey: 'agosto', monthLabel: 'Agosto' },
+  { id: 5, badge: 'REAJUSTE', text: 'UNIMED TRÊS RIOS (G2C ADMINISTRADORA) - RJ: Reajuste de valores disponível no projeto Adesão', date: '13/08/2026', monthKey: 'agosto', monthLabel: 'Agosto' },
+  { id: 6, badge: 'REAJUSTE', text: 'ASSIM SAÚDE (G2C ADMINISTRADORA) - RJ: Reajuste de valores disponível na entidade CRMV (Veterinário)', date: '13/08/2026', monthKey: 'agosto', monthLabel: 'Agosto' },
+  { id: 7, badge: 'REAJUSTE', text: 'HAPVIDA CLINIPAM SUL (CORPe SAÚDE) - Curitiba-PR / Londrina-PR / Balneário Camboriú-SC: Projeto Adesão com reajuste disponível', date: '13/08/2026', monthKey: 'agosto', monthLabel: 'Agosto' },
+  { id: 8, badge: 'REAJUSTE', text: 'PLAMED (ALLCARE) - SE: Projeto Adesão com reajuste disponível', date: '12/08/2026', monthKey: 'agosto', monthLabel: 'Agosto' },
+  { id: 9, badge: 'SUSPENSO', text: 'AMPLA SAÚDE (TEC GROUP) - SP: Produto JOY 250 AD SP (Enfermaria e Apartamento) retirado do projeto Adesão', date: '12/08/2026', monthKey: 'agosto', monthLabel: 'Agosto' },
+  { id: 10, badge: 'ATUALIZ.', text: 'SÃO CAMILO (ALLCARE): Tabela de carência atualizada e disponível no projeto Adesão (SP / AP / PA / CE)', date: '12/08/2026', monthKey: 'agosto', monthLabel: 'Agosto' },
+  { id: 11, badge: 'REAJUSTE', text: 'UNIMED JUNDIAÍ (CORPe SAÚDE) - SP: Reajuste de valores disponível para os projetos PME e MEI (Boletado)', date: '11/08/2026', monthKey: 'agosto', monthLabel: 'Agosto' },
+  { id: 12, badge: 'REAJUSTE', text: 'HAPVIDA NOTREDAME (CORPe SAÚDE) - SP: Reajuste disponível no projeto Adesão', date: '11/08/2026', monthKey: 'agosto', monthLabel: 'Agosto' },
+  { id: 13, badge: 'REAJUSTE', text: 'BENEVIDA (ALLCARE) - SP: Reajuste de valores disponível no projeto Adesão', date: '11/08/2026', monthKey: 'agosto', monthLabel: 'Agosto' },
+  { id: 14, badge: 'NOVO', text: 'VERA CRUZ (ALLCARE) - SP: Novo projeto Adesão disponível', date: '11/08/2026', monthKey: 'agosto', monthLabel: 'Agosto' },
+  { id: 15, badge: 'REAJUSTE', text: 'ANA COSTA SAÚDE (SUPERMED) - SP: Projeto Adesão atualizado e disponível', date: '10/08/2026', monthKey: 'agosto', monthLabel: 'Agosto' },
+  { id: 16, badge: 'REAJUSTE', text: 'ANA COSTA SAÚDE - SP: Projeto PME atualizado e disponível', date: '10/08/2026', monthKey: 'agosto', monthLabel: 'Agosto' },
+  { id: 17, badge: 'REAJUSTE', text: 'BLUE MED (CORPe SAÚDE) - SP: Atualização disponível na carência promocional do projeto Adesão', date: '10/08/2026', monthKey: 'agosto', monthLabel: 'Agosto' },
+  { id: 18, badge: 'REAJUSTE', text: 'AMEPLAN SAÚDE (CORPe SAÚDE) - SP: Carência promocional prorrogada no projeto Adesão', date: '10/08/2026', monthKey: 'agosto', monthLabel: 'Agosto' },
+  { id: 19, badge: 'REAJUSTE', text: 'UNIMED LESTE FLUMINENSE (ALLCARE) - RJ: Inclusão da Profissão Autônomo na entidade ANCEPLA', date: '10/08/2026', monthKey: 'agosto', monthLabel: 'Agosto' },
+  { id: 20, badge: 'SUSPENSO', text: 'HUMANA SAÚDE (ALLCARE) - MA: Suspensão das tabelas Adesão e PME', date: '10/08/2026', monthKey: 'agosto', monthLabel: 'Agosto' },
+  { id: 21, badge: 'REAJUSTE', text: 'HAPVIDA NOTREDAME - FLAMENGO (QV BENEFÍCIOS) - RJ: Atualização de valores disponível no projeto Adesão', date: '10/08/2026', monthKey: 'agosto', monthLabel: 'Agosto' },
+
+  // JULHO 2026
+  { id: 22, badge: 'SUSPENSO', text: 'BEMSTAR SAÚDE (CORPe SAÚDE) - BA: Comercialização do projeto suspensa por tempo indeterminado', date: '13/07/2026', monthKey: 'julho', monthLabel: 'Julho' },
+  { id: 23, badge: 'REAJUSTE', text: 'ASSIM SAÚDE (G2C ADMINISTRADORA) - RJ: Atualizações disponíveis no projeto Adesão', date: '10/07/2026', monthKey: 'julho', monthLabel: 'Julho' },
+  { id: 24, badge: 'REAJUSTE', text: 'BLUE MED (ALLCARE) - SP: Atualização de portfólio disponível no projeto Adesão', date: '08/07/2026', monthKey: 'julho', monthLabel: 'Julho' },
+  { id: 25, badge: 'REAJUSTE', text: 'BLUE MED (TEC SAÚDE) - SP: Projeto Adesão atualizado e disponível', date: '08/07/2026', monthKey: 'julho', monthLabel: 'Julho' },
+  { id: 26, badge: 'REAJUSTE', text: 'SÃO CRISTÓVÃO (TEC SAÚDE) - SP: Projeto Adesão atualizado e disponível', date: '08/07/2026', monthKey: 'julho', monthLabel: 'Julho' },
+  { id: 27, badge: 'REAJUSTE', text: 'NORDESTE SAÚDE (CORPe SAÚDE) - BA: Reajuste de valores disponível nos projetos Adesão e PME', date: '08/07/2026', monthKey: 'julho', monthLabel: 'Julho' },
+
+  // JUNHO 2026
+  { id: 28, badge: 'NOVO', text: 'MEDSÊNIOR (QUALICORP): Projeto de Adesão disponível na praça do Rio de Janeiro', date: '25/06/2026', monthKey: 'junho', monthLabel: 'Junho' },
+  { id: 29, badge: 'SUSPENSO', text: 'SEGUROS UNIMED (CORPe SAÚDE) - SP: Comercialização do projeto suspensa por tempo indeterminado', date: '20/06/2026', monthKey: 'junho', monthLabel: 'Junho' },
+  { id: 30, badge: 'REAJUSTE', text: 'PORTO SEGURO ODONTO - SP/ RJ: Atualizações disponíveis no projeto PME Odontológico', date: '12/06/2026', monthKey: 'junho', monthLabel: 'Junho' },
+  { id: 31, badge: 'REAJUSTE', text: 'PORTO SEGURO SAÚDE - SP/ RJ/ DF: Atualizações de valores disponíveis nas tabelas PME', date: '12/06/2026', monthKey: 'junho', monthLabel: 'Junho' },
+
+  // MAIO 2026
+  { id: 32, badge: 'SUSPENSO', text: 'KLINI SAÚDE (QUALICORP) - RJ: Comercialização do produto 350 suspensa para certas cidades', date: '27/05/2026', monthKey: 'maio', monthLabel: 'Maio' },
+  { id: 33, badge: 'REAJUSTE', text: 'SEGUROS UNIMED (QUALICORP) - SP: Valores atualizados no projeto de Adesão em diversas entidades', date: '29/05/2026', monthKey: 'maio', monthLabel: 'Maio' },
+
+  // ABRIL 2026
+  { id: 34, badge: 'REAJUSTE', text: 'UNIMED FERJ (SUPERMED) - RJ: Reajuste de valores no projeto de Adesão', date: '28/04/2026', monthKey: 'abril', monthLabel: 'Abril' },
+
+  // MARÇO 2026
+  { id: 35, badge: 'SUSPENSO', text: 'AMPLA SAÚDE (QUALICORP): Projetos Adesão e PME suspensos', date: '27/03/2026', monthKey: 'marco', monthLabel: 'Março' },
+
+  // FEVEREIRO 2026
+  { id: 36, badge: 'REAJUSTE', text: 'HEALTH MED (QV BENEFÍCIOS) - RJ: Atualização de valores em Adesão', date: '20/02/2026', monthKey: 'fevereiro', monthLabel: 'Fevereiro' },
+
+  // JANEIRO 2026
+  { id: 37, badge: 'NOVO', text: 'ONMED SAÚDE (QUALICORP): Adesão e PME em Pernambuco', date: '30/01/2026', monthKey: 'janeiro', monthLabel: 'Janeiro' }
 ];
 
 export const wpService = {
@@ -425,21 +386,17 @@ export const wpService = {
   getPartners: async (): Promise<Partner[]> => {
     return new Promise((resolve) => setTimeout(() => resolve(MOCK_PARTNERS), 300));
   },
-  getTableUpdates: async (): Promise<TableUpdate[]> => {
-    return new Promise((resolve) => setTimeout(() => {
-      const sorted = [...MOCK_TABLE_UPDATES].sort((a, b) => new Date(b.date).getTime() - new Date(a.date).getTime());
-      resolve(sorted);
-    }, 300));
+  getCompactUpdates: async (): Promise<CompactTableUpdate[]> => {
+    return new Promise((resolve) => setTimeout(() => resolve(MOCK_COMPACT_UPDATES), 200));
   },
-  addTableUpdate: async (newUpdate: Omit<TableUpdate, 'id' | 'date'>): Promise<TableUpdate> => {
+  addCompactUpdate: async (newUpdate: Omit<CompactTableUpdate, 'id'>): Promise<CompactTableUpdate> => {
     return new Promise((resolve) => setTimeout(() => {
-      const created: TableUpdate = {
+      const created: CompactTableUpdate = {
         ...newUpdate,
-        id: Date.now(),
-        date: new Date().toISOString()
+        id: Date.now()
       };
-      MOCK_TABLE_UPDATES.unshift(created);
+      MOCK_COMPACT_UPDATES.unshift(created);
       resolve(created);
-    }, 400));
+    }, 300));
   }
 };
