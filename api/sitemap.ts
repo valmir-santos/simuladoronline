@@ -13,7 +13,8 @@ const MOCK_BLOG_POSTS = [
   { slug: 'importancia-atendimento-agil-corretagem', date: '2026-08-21T10:00:00Z' },
   { slug: 'metricas-corretor-seguros', date: '2026-08-24T10:00:00Z' },
   { slug: 'landing-pages-alta-conversao', date: '2026-08-27T10:00:00Z' },
-  { slug: 'futuro-corretagem-planos-saude', date: '2026-08-30T10:00:00Z' }
+  { slug: 'futuro-corretagem-planos-saude', date: '2026-08-30T10:00:00Z' },
+  { slug: 'hapvida-confirma-reajuste-cancelamento-947-mil-contratos', date: '2026-08-25T09:00:00Z' }
 ];
 
 export default function handler(req: VercelRequest, res: VercelResponse) {

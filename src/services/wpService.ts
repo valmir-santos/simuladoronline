@@ -178,6 +178,17 @@ const MOCK_BLOG_POSTS: WPPost[] = [
     featuredImage: "https://picsum.photos/seed/future/800/600",
     category: "Mercado de Saúde",
     tags: ["Futuro", "IA", "Tendências"]
+  },
+  {
+    id: 14,
+    title: "Hapvida confirma reajuste ou cancelamento de 947 mil contratos",
+    slug: "hapvida-confirma-reajuste-cancelamento-947-mil-contratos",
+    excerpt: "Em comunicado enviado ao mercado, operadora confirma revisão de 11% da sua carteira de saúde, enquanto aguarda notificação da ANS sobre medida cautelar.",
+    content: "<h2>Revisão da Carteira de Planos de Saúde</h2><p>A <strong>Hapvida</strong> divulgou um comunicado oficial ao mercado no qual confirma a revisão de contratos — que inclui reajustes ou cancelamentos — de <strong>947 mil beneficiários</strong>. O volume representa cerca de 11% de toda a carteira de saúde da operadora no país.</p><p>Contudo, no mesmo comunicado, a empresa afirmou que ainda não foi oficialmente comunicada sobre a medida cautelar anunciada pela <strong>Agência Nacional de Saúde Suplementar (ANS)</strong> para suspender as alterações e reajustes dos planos de saúde.</p><h3>Revisão Contrato a Contrato</h3><p>De acordo com a nota emitida pela Hapvida, a 'revisão comercial dos contratos com rentabilidade inadequada ou histórico de inadimplência é atividade ordinária da operação'. O procedimento será realizado contrato a contrato, na data de aniversário de cada um deles, ao longo dos próximos 12 meses.</p><p>A operadora ressaltou que nesses casos 'propõe as condições necessárias ao reequilíbrio do contrato, mas a decisão de aceitá-las é do cliente', reiterando que atua em conformidade com as regras do mercado.</p><h3>Contexto Financeiro</h3><p>A medida ocorre em um momento de ajuste para a operadora. No segundo trimestre deste ano, a Hapvida reportou lucro líquido ajustado de R$ 12,5 milhões, o que representou uma forte queda em relação ao mesmo período do ano anterior, levando a diretoria a adotar medidas de readequação operacional.</p><hr /><p className=\"text-xs text-gray-500 italic mt-6\"><strong>Fonte Original:</strong> Notícia extraída do portal <a href=\"https://www.metropoles.com/brasil/economia-br/hapvida-confirma-reajuste-ou-cancelamento-de-947-mil-contratos\" target=\"_blank\" rel=\"noopener noreferrer\" className=\"text-brand-primary font-bold hover:underline\">Metrópoles</a> (Por Carlos Rydlewski).</p>",
+    date: "2026-08-25T09:00:00Z",
+    featuredImage: "https://images.metroimg.com/2026/01/valentina-moreira-33.jpg",
+    category: "Notícias do Mercado",
+    tags: ["Hapvida", "ANS", "Planos de Saúde", "Notícias"]
   }
 ];
 
