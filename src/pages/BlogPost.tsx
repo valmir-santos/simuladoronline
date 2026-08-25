@@ -1,16 +1,14 @@
 import React, { useEffect, useState } from 'react';
-import { useParams, Link, useNavigate } from 'react-router-dom';
+import { useParams, Link } from 'react-router-dom';
 import { wpService, WPPost } from '../services/wpService';
-import { Calendar, User, ArrowLeft, MessageCircle, Facebook, Twitter, Trash2 } from 'lucide-react';
+import { Calendar, User, ArrowLeft, MessageCircle, Facebook, Twitter } from 'lucide-react';
 
 import SEO from '../components/SEO';
 
 export default function BlogPost() {
   const { slug } = useParams();
-  const navigate = useNavigate();
   const [post, setPost] = useState<WPPost | undefined>(undefined);
   const [loading, setLoading] = useState(true);
-  const [deleting, setDeleting] = useState(false);
 
   useEffect(() => {
     if (slug) {
@@ -20,30 +18,6 @@ export default function BlogPost() {
       });
     }
   }, [slug]);
-
-  const handleDelete = async () => {
-    if (!post || !slug) return;
-
-    const pin = prompt('Para excluir este artigo do blog, digite a senha comercial:');
-    if (!pin) return;
-
-    if (pin !== '2026' && pin.toLowerCase() !== 'simulador') {
-      alert('Senha incorreta.');
-      return;
-    }
-
-    if (confirm(`Tem certeza que deseja excluir o artigo "${post.title}"?`)) {
-      setDeleting(true);
-      const success = await wpService.deleteBlogPost(slug, pin);
-      if (success) {
-        alert('Artigo removido com sucesso!');
-        navigate('/blog');
-      } else {
-        alert('Erro ao excluir o artigo. Tente novamente.');
-        setDeleting(false);
-      }
-    }
-  };
 
   if (loading) return <div className="py-40 text-center font-black text-brand-secondary">Carregando Artigo...</div>;
   if (!post) return <div className="py-40 text-center">Artigo não encontrado.</div>;
@@ -76,21 +50,9 @@ export default function BlogPost() {
         </div>
         
         <div className="max-w-4xl mx-auto px-4 relative z-10 pb-20 w-full text-center">
-           <div className="flex items-center justify-between mb-8">
-             <Link to="/blog" className="inline-flex items-center gap-2 text-white/70 hover:text-white font-bold uppercase tracking-widest text-xs transition-colors">
-               <ArrowLeft size={16} /> Voltar ao Blog
-             </Link>
-
-             {/* BOTÃO DE EXCLUSÃO RÁPIDA DE ARTIGO */}
-             <button
-               onClick={handleDelete}
-               disabled={deleting}
-               className="bg-red-600/80 hover:bg-red-600 text-white font-bold text-xs uppercase px-3 py-1.5 rounded-lg backdrop-blur border border-white/20 transition-all flex items-center gap-1.5 cursor-pointer"
-               title="Excluir este artigo (Requer senha 2026)"
-             >
-               <Trash2 size={14} /> {deleting ? 'Excluindo...' : 'Excluir Artigo'}
-             </button>
-           </div>
+           <Link to="/blog" className="inline-flex items-center gap-2 text-white/70 hover:text-white mb-8 font-bold uppercase tracking-widest text-xs transition-colors">
+             <ArrowLeft size={16} /> Voltar ao Blog
+           </Link>
 
            <h1 className="text-4xl md:text-6xl font-black text-white mb-8 leading-tight tracking-tight">
              {post.title}
