@@ -557,6 +557,19 @@ export const wpService = {
       return false;
     }
   },
+  updateBlogPost: async (updatedPost: Partial<BlogPost> & { id: string }, pin: string): Promise<boolean> => {
+    try {
+      const res = await fetch('/api/blog', {
+        method: 'PUT',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ ...updatedPost, pin })
+      });
+      return res.ok;
+    } catch (e) {
+      console.error('Erro ao editar artigo:', e);
+      return false;
+    }
+  },
   getPosts: async (): Promise<WPPost[]> => {
     return new Promise((resolve) => setTimeout(() => {
       const now = new Date();

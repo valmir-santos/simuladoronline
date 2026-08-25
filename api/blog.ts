@@ -34,7 +34,7 @@ let CENTRAL_BLOG_POSTS: BlogPostItem[] = [
 
 export default function handler(req: VercelRequest, res: VercelResponse) {
   res.setHeader('Access-Control-Allow-Origin', '*');
-  res.setHeader('Access-Control-Allow-Methods', 'GET, POST, DELETE, OPTIONS');
+  res.setHeader('Access-Control-Allow-Methods', 'GET, POST, PUT, DELETE, OPTIONS');
   res.setHeader('Access-Control-Allow-Headers', 'Content-Type');
 
   if (req.method === 'OPTIONS') {
@@ -44,6 +44,35 @@ export default function handler(req: VercelRequest, res: VercelResponse) {
   // GET: Listar todos os posts do blog
   if (req.method === 'GET') {
     return res.status(200).json(CENTRAL_BLOG_POSTS);
+  }
+
+  // PUT: Editar um post existente
+  if (req.method === 'PUT') {
+    const { id, title, excerpt, content, category, imageUrl, sourceUrl, pin } = req.body || {};
+
+    if (pin !== '2026' && pin !== 'simulador') {
+      return res.status(401).json({ error: 'Senha de acesso incorreta' });
+    }
+
+    const postIndex = CENTRAL_BLOG_POSTS.findIndex(p => p.id === id || p.slug === id);
+    if (postIndex === -1) {
+      return res.status(404).json({ error: 'Artigo não encontrado para edição' });
+    }
+
+    CENTRAL_BLOG_POSTS[postIndex] = {
+      ...CENTRAL_BLOG_POSTS[postIndex],
+      title: title ? title.trim() : CENTRAL_BLOG_POSTS[postIndex].title,
+      excerpt: excerpt ? excerpt.trim() : CENTRAL_BLOG_POSTS[postIndex].excerpt,
+      content: content || CENTRAL_BLOG_POSTS[postIndex].content,
+      category: category || CENTRAL_BLOG_POSTS[postIndex].category,
+      imageUrl: imageUrl || CENTRAL_BLOG_POSTS[postIndex].imageUrl,
+      sourceUrl: sourceUrl || CENTRAL_BLOG_POSTS[postIndex].sourceUrl
+    };
+
+    return res.status(200).json({
+      success: true,
+      post: CENTRAL_BLOG_POSTS[postIndex]
+    });
   }
 
   // POST: Adicionar um novo post (Robô IA ou Manual)

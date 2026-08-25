@@ -1,12 +1,9 @@
 {
-  "rewrites": [
+  "version": 2,
+  "crons": [
     {
-      "source": "/sitemap.xml",
-      "destination": "/api/sitemap"
-    },
-    {
-      "source": "/(.*)",
-      "destination": "/index.html"
+      "path": "/api/cron/news",
+      "schedule": "0 11,17 * * *"
     }
   ]
 }
