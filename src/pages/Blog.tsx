@@ -11,8 +11,8 @@ export default function Blog() {
   const [searchQuery, setSearchQuery] = useState('');
 
   useEffect(() => {
-    wpService.getPosts().then(data => {
-      setPosts(data);
+    wpService.getBlogPosts().then(data => {
+      setPosts(data as any);
       setLoading(false);
     });
   }, []);
@@ -66,7 +66,7 @@ export default function Blog() {
                   <Link to={`/blog/${post.slug}`}>
                     <div className="relative h-[400px] mb-8 overflow-hidden rounded-[2.5rem] shadow-xl">
                       <img 
-                        src={post.featuredImage} 
+                        src={(post as any).imageUrl || post.featuredImage || "https://images.unsplash.com/photo-1505751172876-fa1923c5c528?auto=format&fit=crop&q=80&w=1200"} 
                         alt={post.title} 
                         className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110"
                         referrerPolicy="no-referrer"
@@ -80,8 +80,8 @@ export default function Blog() {
                     </div>
                   </Link>
                   <div className="flex items-center gap-6 text-sm text-gray-400 font-bold uppercase tracking-widest mb-4">
-                    <span className="flex items-center gap-2"><Calendar size={14} className="text-brand-primary" /> {new Date(post.date).toLocaleDateString('pt-BR')}</span>
-                    <span className="flex items-center gap-2"><User size={14} className="text-brand-primary" /> Por Equipe Simulador</span>
+                    <span className="flex items-center gap-2"><Calendar size={14} className="text-brand-primary" /> {post.date}</span>
+                    <span className="flex items-center gap-2"><User size={14} className="text-brand-primary" /> Por {(post as any).author || "Equipe Simulador"}</span>
                   </div>
                   <Link to={`/blog/${post.slug}`}>
                     <h2 className="text-3xl font-black text-brand-secondary mb-4 group-hover:text-brand-primary transition-colors leading-tight">
