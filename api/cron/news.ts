@@ -107,15 +107,20 @@ Retorne um JSON estrito com o seguinte formato:
 
     const blogData = await blogRes.json();
 
-    // Disparar o Tweet no Twitter/X automático com as hashtags
+    // Disparar o Tweet no Twitter/X automático apontando para a matéria no Blog
     try {
+      const articleUrl = blogData?.post?.slug 
+        ? `https://www.simuladoronline.com/blog/${blogData.post.slug}`
+        : 'https://www.simuladoronline.com/blog';
+
       await fetch(`${protocol}://${host}/api/tweet`, {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({
           title: articleTitle,
           operadora: 'MERCADO SAÚDE',
-          category: 'NOVA NOTÍCIA'
+          category: 'NOVA NOTÍCIA',
+          linkUrl: articleUrl
         })
       });
     } catch (e) {
