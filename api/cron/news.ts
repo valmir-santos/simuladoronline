@@ -1,7 +1,13 @@
 import type { VercelRequest, VercelResponse } from '@vercel/node';
 
-// Pauta de backup/temas de mercado em saúde para geração de novos artigos
+// Pauta de backup e fontes de notícias de mercado em saúde
 const HEALTH_TOPICS = [
+  {
+    title: 'Notícias e Bastidores do Mercado de Saúde Suplementar',
+    source: 'Blog do Corretor (blogdocorretor.com)',
+    feedUrl: 'https://blogdocorretor.com/feed/',
+    topic: 'Novidades de Operadoras, Corretoras e Mercado de Saúde'
+  },
   {
     title: 'ANS divulga novo teto de reajuste para planos individuais e familiares',
     source: 'ANS - Agência Nacional de Saúde Suplementar',
