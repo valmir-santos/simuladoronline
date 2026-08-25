@@ -12,8 +12,8 @@ export default function BlogPost() {
 
   useEffect(() => {
     if (slug) {
-      wpService.getPostBySlug(slug).then(data => {
-        setPost(data);
+      wpService.getBlogPostBySlug(slug).then(data => {
+        setPost(data as any);
         setLoading(false);
       });
     }
@@ -29,10 +29,10 @@ export default function BlogPost() {
         description={post.excerpt}
         canonical={`https://www.simuladoronline.com/blog/${post.slug}`}
         type="article"
-        imageUrl={post.featuredImage}
+        imageUrl={post.imageUrl || post.featuredImage}
         articleData={{
           publishedTime: post.date,
-          author: "Equipe Simulador On-Line",
+          author: post.author || "Equipe Simulador On-Line",
           category: post.category,
           tags: post.tags
         }}
@@ -40,7 +40,7 @@ export default function BlogPost() {
       <div className="relative h-[60vh] md:h-[70vh] flex items-end">
         <div className="absolute inset-0 z-0">
           <img 
-            src={post.featuredImage} 
+            src={post.imageUrl || post.featuredImage || "https://images.unsplash.com/photo-1505751172876-fa1923c5c528?auto=format&fit=crop&q=80&w=1200"} 
             alt={post.title} 
             className="w-full h-full object-cover"
             referrerPolicy="no-referrer"
