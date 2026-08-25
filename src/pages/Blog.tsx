@@ -1,6 +1,6 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useState, useMemo } from 'react';
 import { motion } from 'motion/react';
-import { Calendar, User, ChevronRight, Search, Tag } from 'lucide-react';
+import { Calendar, User, ChevronRight, Search, Tag, Filter } from 'lucide-react';
 import { Link } from 'react-router-dom';
 import { wpService, WPPost } from '../services/wpService';
 import SEO from '../components/SEO';
@@ -9,6 +9,7 @@ export default function Blog() {
   const [posts, setPosts] = useState<WPPost[]>([]);
   const [loading, setLoading] = useState(true);
   const [searchQuery, setSearchQuery] = useState('');
+  const [selectedCategory, setSelectedCategory] = useState<string>('Todas');
 
   useEffect(() => {
     wpService.getBlogPosts().then(data => {
@@ -17,20 +18,47 @@ export default function Blog() {
     });
   }, []);
 
+  // Calcular contagem dinâmica por categoria
+  const categoryCounts = useMemo(() => {
+    const map: Record<string, number> = {};
+    posts.forEach(post => {
+      const cat = post.category || 'Mercado';
+      map[cat] = (map[cat] || 0) + 1;
+    });
+    return map;
+  }, [posts]);
+
+  // Lista de categorias dinâmicas únicas
+  const categoriesList = useMemo(() => {
+    return Object.keys(categoryCounts);
+  }, [categoryCounts]);
+
+  // Filtrar artigos por busca e por categoria selecionada
+  const filteredPosts = useMemo(() => {
+    return posts.filter(post => {
+      const matchesCategory = selectedCategory === 'Todas' || post.category === selectedCategory;
+      const matchesSearch = 
+        post.title.toLowerCase().includes(searchQuery.toLowerCase()) || 
+        (post.excerpt && post.excerpt.toLowerCase().includes(searchQuery.toLowerCase()));
+      return matchesCategory && matchesSearch;
+    });
+  }, [posts, selectedCategory, searchQuery]);
+
   return (
-    <div className="bg-white min-h-screen">
+    <div className="bg-white min-h-screen font-sans">
       <SEO title="Blog do Corretor" description="Artigos, dicas de vendas e notícias sobre o mercado de planos de saúde para corretores." canonical="https://www.simuladoronline.com/blog" />
+      
       {/* HERO */}
       <section className="bg-gray-50 py-24 border-b border-gray-100">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="max-w-3xl">
             <h1 className="text-5xl font-black text-brand-secondary mb-8 tracking-tight">Conteúdo para <span className="text-brand-primary">Corretores</span> de Elite.</h1>
-            <p className="text-xl text-gray-500 font-medium">Notícias, tutoriais e estratégias de vendas vindo diretamente do nosso WordPress Headless.</p>
+            <p className="text-xl text-gray-500 font-medium">Notícias, regulamentações e estratégias de vendas em saúde suplementar geradas em tempo real.</p>
           </div>
         </div>
       </section>
 
-      {/* BLOG LIST */}
+      {/* LISTA DE ARTIGOS */}
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-24">
         <div className="grid grid-cols-1 lg:grid-cols-3 gap-16">
           <div className="lg:col-span-2 space-y-20">
@@ -44,21 +72,20 @@ export default function Blog() {
                   </div>
                 ))}
               </div>
+            ) : filteredPosts.length === 0 ? (
+              <div className="text-center py-16 bg-gray-50 rounded-[2.5rem] p-8 border border-gray-100">
+                <p className="text-xl text-gray-500 font-medium mb-4">Nenhum artigo encontrado para a busca selecionada.</p>
+                <button
+                  onClick={() => { setSearchQuery(''); setSelectedCategory('Todas'); }}
+                  className="bg-brand-primary text-white px-6 py-2.5 rounded-xl font-bold text-xs uppercase"
+                >
+                  Limpar Filtros
+                </button>
+              </div>
             ) : (
-              posts.filter(post => 
-                post.title.toLowerCase().includes(searchQuery.toLowerCase()) || 
-                post.excerpt.toLowerCase().includes(searchQuery.toLowerCase())
-              ).length === 0 ? (
-                <div className="text-center py-12">
-                  <p className="text-xl text-gray-500 font-medium">Nenhum artigo encontrado para "{searchQuery}".</p>
-                </div>
-              ) : (
-              posts.filter(post => 
-                post.title.toLowerCase().includes(searchQuery.toLowerCase()) || 
-                post.excerpt.toLowerCase().includes(searchQuery.toLowerCase())
-              ).map((post) => (
+              filteredPosts.map((post) => (
                 <motion.article 
-                  key={post.id} 
+                  key={post.id || post.slug} 
                   initial={{ opacity: 0, y: 20 }}
                   whileInView={{ opacity: 1, y: 0 }}
                   className="group"
@@ -96,59 +123,83 @@ export default function Blog() {
                   </Link>
                 </motion.article>
               ))
-              )
-            )}
-            
-            {/* Pagination Placeholder */}
-            {!loading && (
-              <div className="flex gap-4 pt-10">
-                <button className="w-12 h-12 rounded-2xl bg-brand-secondary text-white font-black">1</button>
-                <button className="w-12 h-12 rounded-2xl border border-gray-200 text-gray-400 font-black hover:bg-gray-50 hover:text-brand-secondary transition-all">2</button>
-                <button className="w-12 h-12 rounded-2xl border border-gray-200 text-gray-400 font-black hover:bg-gray-50 transition-all flex items-center justify-center">
-                  <ChevronRight size={20} />
-                </button>
-              </div>
             )}
           </div>
 
-          {/* SIDEBAR */}
+          {/* BARRA LATERAL (SIDEBAR COM CATEGORIAS DINÂMICAS) */}
           <aside className="space-y-12">
-            <div className="bg-gray-50 p-10 rounded-[2.5rem] border border-gray-100">
-               <h4 className="text-xl font-black text-brand-secondary mb-6">Buscar</h4>
+            {/* BUSCAR */}
+            <div className="bg-gray-50 p-8 rounded-[2.5rem] border border-gray-100">
+               <h4 className="text-lg font-black text-brand-secondary mb-4">Buscar no Blog</h4>
                <div className="relative">
                  <input 
                    type="text" 
                    placeholder="Pesquisar artigos..." 
-                   className="w-full bg-white border border-gray-200 p-4 rounded-xl focus:outline-none focus:ring-2 focus:ring-brand-primary/20 transition-all font-medium"
+                   className="w-full bg-white border border-gray-200 p-3.5 rounded-xl focus:outline-none focus:ring-2 focus:ring-brand-primary/20 transition-all font-medium text-sm"
                    value={searchQuery}
                    onChange={(e) => setSearchQuery(e.target.value)}
                  />
-                 <Search className="absolute right-4 top-1/2 -translate-y-1/2 text-gray-300" size={20} />
+                 <Search className="absolute right-4 top-1/2 -translate-y-1/2 text-gray-300" size={18} />
                </div>
             </div>
 
-            <div className="bg-gray-50 p-10 rounded-[2.5rem] border border-gray-100">
-               <h4 className="text-xl font-black text-brand-secondary mb-6">Categorias</h4>
-               <ul className="space-y-4 font-bold text-gray-500">
-                 {['Dicas de Vendas', 'Mercado de Saúde', 'Tutoriais', 'Novidades'].map(cat => (
-                   <li key={cat} className="flex justify-between items-center group cursor-pointer hover:text-brand-primary transition-colors">
+            {/* CATEGORIAS DINÂMICAS */}
+            <div className="bg-gray-50 p-8 rounded-[2.5rem] border border-gray-100">
+               <h4 className="text-lg font-black text-brand-secondary mb-4 flex items-center justify-between">
+                 <span>Categorias</span>
+                 <Filter size={16} className="text-brand-primary" />
+               </h4>
+               <ul className="space-y-2 font-bold text-gray-600 text-sm">
+                 {/* Opção Todas as Categorias */}
+                 <li 
+                   onClick={() => setSelectedCategory('Todas')}
+                   className={`flex justify-between items-center p-2.5 rounded-xl cursor-pointer transition-all ${
+                     selectedCategory === 'Todas'
+                       ? 'bg-brand-secondary text-white shadow-md'
+                       : 'hover:bg-gray-200/60 hover:text-brand-primary'
+                   }`}
+                 >
+                   <span>Todas as Categorias</span>
+                   <span className={`px-2.5 py-0.5 rounded-lg text-xs font-bold ${
+                     selectedCategory === 'Todas' ? 'bg-white/20 text-white' : 'bg-white border border-gray-200 text-gray-700'
+                   }`}>
+                     {posts.length}
+                   </span>
+                 </li>
+
+                 {/* Lista Dinâmica de Categorias */}
+                 {categoriesList.map(cat => (
+                   <li 
+                     key={cat}
+                     onClick={() => setSelectedCategory(cat)}
+                     className={`flex justify-between items-center p-2.5 rounded-xl cursor-pointer transition-all ${
+                       selectedCategory === cat
+                         ? 'bg-brand-secondary text-white shadow-md'
+                         : 'hover:bg-gray-200/60 hover:text-brand-primary'
+                     }`}
+                   >
                      <span>{cat}</span>
-                     <span className="bg-white px-2.5 py-1 rounded-lg text-xs border border-gray-100 group-hover:border-brand-primary/30">12</span>
+                     <span className={`px-2.5 py-0.5 rounded-lg text-xs font-bold ${
+                       selectedCategory === cat ? 'bg-white/20 text-white' : 'bg-white border border-gray-200 text-gray-700'
+                     }`}>
+                       {categoryCounts[cat]}
+                     </span>
                    </li>
                  ))}
                </ul>
             </div>
 
-            <div className="bg-brand-secondary p-10 rounded-[2.5rem] text-white">
-               <h4 className="text-2xl font-black mb-6 leading-tight">Receba novidades no seu e-mail.</h4>
-               <p className="text-gray-400 text-sm font-medium mb-8">Sem spam. Apenas conteúdo de valor para corretores profissionais.</p>
-               <form action="https://formsubmit.co/suporte@simuladoronline.com" method="POST" className="space-y-4">
+            {/* NEWSLETTER */}
+            <div className="bg-brand-secondary p-8 rounded-[2.5rem] text-white">
+               <h4 className="text-xl font-black mb-4 leading-tight">Receba novidades no e-mail</h4>
+               <p className="text-gray-300 text-xs font-medium mb-6">Apenas conteúdo estratégico sobre o mercado de saúde.</p>
+               <form action="https://formsubmit.co/suporte@simuladoronline.com" method="POST" className="space-y-3">
                  <input type="hidden" name="_subject" value="Cadastro de News" />
                  <input type="hidden" name="_next" value={window.location.origin + "/obrigado-newsletter"} />
                  <input type="hidden" name="_captcha" value="false" />
-                 <input type="email" name="email" required placeholder="Seu melhor e-mail" className="w-full bg-white/5 border border-white/10 p-4 rounded-xl focus:outline-none focus:ring-2 focus:ring-brand-primary/50 font-medium text-white placeholder:text-gray-500" />
-                 <button type="submit" className="w-full bg-brand-primary text-white py-4 rounded-xl font-black tracking-widest text-sm uppercase flex items-center justify-center gap-2 hover:bg-brand-primary/90 transition-colors">
-                   Inscrever <Tag size={16} />
+                 <input type="email" name="email" required placeholder="Seu e-mail profissional" className="w-full bg-white/10 border border-white/20 p-3 rounded-xl focus:outline-none focus:ring-2 focus:ring-brand-primary/50 font-medium text-xs text-white placeholder:text-gray-400" />
+                 <button type="submit" className="w-full bg-brand-primary text-white py-3 rounded-xl font-black tracking-widest text-xs uppercase flex items-center justify-center gap-2 hover:bg-brand-primary/90 transition-colors">
+                   Inscrever-se <Tag size={14} />
                  </button>
                </form>
             </div>

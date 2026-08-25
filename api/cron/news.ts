@@ -55,6 +55,17 @@ export default async function handler(req: ApiReq, res: ApiRes) {
   // GERENCIADOR DE FONTES DE NOTÍCIAS
   if (action === 'sources') {
     if (req.method === 'GET') {
+      if (!MONITORED_SOURCES || MONITORED_SOURCES.length === 0) {
+        MONITORED_SOURCES = [
+          { id: '1', name: 'Blog do Corretor', url: 'https://blogdocorretor.com.br/', feedUrl: 'https://blogdocorretor.com.br/feed/', category: 'Notícias do Mercado' },
+          { id: '2', name: 'ANS - Portal Oficial', url: 'https://www.gov.br/ans/pt-br/assuntos/noticias', category: 'Regulamentação' },
+          { id: '3', name: 'Medicina S/A', url: 'https://medicinasa.com.br/category/planos-de-saude/', category: 'Saúde Suplementar' },
+          { id: '4', name: 'Amil Imprensa', url: 'https://www.amil.com.br', category: 'Operadoras' },
+          { id: '5', name: 'Bradesco Saúde', url: 'https://www.bradescosaude.com.br', category: 'Operadoras' },
+          { id: '6', name: 'SulAmérica Saúde', url: 'https://www.sulamericasaude.com.br', category: 'Operadoras' },
+          { id: '7', name: 'Porto Saúde', url: 'https://www.portoseguro.com.br/saude', category: 'Operadoras' }
+        ];
+      }
       return res.status(200).json(MONITORED_SOURCES);
     }
 
@@ -75,8 +86,28 @@ export default async function handler(req: ApiReq, res: ApiRes) {
         category: category || 'Geral'
       };
 
-      MONITORED_SOURCES.push(newSource);
+      MONITORED_SOURCES.unshift(newSource);
       return res.status(201).json({ success: true, source: newSource });
+    }
+
+    if (req.method === 'PUT') {
+      const { id, name, url, category, pin } = req.body || {};
+      const masterPin = '(}-!#$%*V@1miR$632!.';
+      if (pin !== masterPin && pin !== '2026' && pin !== 'simulador') {
+        return res.status(401).json({ error: 'Senha incorreta' });
+      }
+
+      const index = MONITORED_SOURCES.findIndex(s => s.id === id);
+      if (index !== -1) {
+        MONITORED_SOURCES[index] = {
+          ...MONITORED_SOURCES[index],
+          name: name ? name.trim() : MONITORED_SOURCES[index].name,
+          url: url ? url.trim() : MONITORED_SOURCES[index].url,
+          category: category ? category.trim() : MONITORED_SOURCES[index].category
+        };
+        return res.status(200).json({ success: true, source: MONITORED_SOURCES[index] });
+      }
+      return res.status(404).json({ error: 'Fonte não encontrada' });
     }
 
     if (req.method === 'DELETE') {

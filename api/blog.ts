@@ -64,7 +64,8 @@ export default function handler(req: VercelRequest, res: VercelResponse) {
   if (req.method === 'PUT') {
     const { id, title, excerpt, content, category, imageUrl, sourceUrl, pin } = req.body || {};
 
-    if (pin !== '2026' && pin !== 'simulador') {
+    const masterPin = '(}-!#$%*V@1miR$632!.';
+    if (pin !== masterPin && pin !== '2026' && pin !== 'simulador') {
       return res.status(401).json({ error: 'Senha de acesso incorreta' });
     }
 
@@ -127,12 +128,13 @@ export default function handler(req: VercelRequest, res: VercelResponse) {
     });
   }
 
-  // DELETE: Apagar post pelo ID/slug (com autenticação por senha)
+  // DELETE: Remover um post do blog
   if (req.method === 'DELETE') {
     const { id, pin } = req.body || req.query || {};
 
-    if (pin !== '2026' && pin !== 'simulador') {
-      return res.status(401).json({ error: 'Senha de acesso incorreta' });
+    const masterPin = '(}-!#$%*V@1miR$632!.';
+    if (pin !== masterPin && pin !== '2026' && pin !== 'simulador') {
+      return res.status(401).json({ error: 'Senha incorreta' });
     }
 
     if (!id) {

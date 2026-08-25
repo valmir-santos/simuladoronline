@@ -73,9 +73,15 @@ export default function AdminBlog() {
     }
   };
 
+  const MASTER_PIN = '(}-!#$%*V@1miR$632!.';
+
   const handleLogin = (e: React.FormEvent) => {
     e.preventDefault();
-    if (accessCode.trim() === '2026' || accessCode.trim().toLowerCase() === 'simulador') {
+    if (
+      accessCode.trim() === MASTER_PIN ||
+      accessCode.trim() === '2026' ||
+      accessCode.trim().toLowerCase() === 'simulador'
+    ) {
       setIsAuthenticated(true);
       loadPostsAndSources();
     } else {
