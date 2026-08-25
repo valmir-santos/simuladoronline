@@ -539,16 +539,44 @@ export const wpService = {
     return new Promise((resolve) => setTimeout(() => resolve(MOCK_PARTNERS), 300));
   },
   getCompactUpdates: async (): Promise<CompactTableUpdate[]> => {
-    return new Promise((resolve) => setTimeout(() => resolve(MOCK_COMPACT_UPDATES), 200));
+    try {
+      const res = await fetch('/api/noticias');
+      if (res.ok) {
+        const remoteData = await res.json();
+        if (Array.isArray(remoteData) && remoteData.length > 0) {
+          // Combinar remotas com locais sem duplicar
+          const remoteTexts = new Set(remoteData.map((r: CompactTableUpdate) => r.text.toLowerCase()));
+          const extraLocal = MOCK_COMPACT_UPDATES.filter(l => !remoteTexts.has(l.text.toLowerCase()));
+          return [...remoteData, ...extraLocal];
+        }
+      }
+    } catch (e) {
+      console.warn('Usando dados estáticos de reserva.');
+    }
+    return MOCK_COMPACT_UPDATES;
   },
   addCompactUpdate: async (newUpdate: Omit<CompactTableUpdate, 'id'>): Promise<CompactTableUpdate> => {
-    return new Promise((resolve) => setTimeout(() => {
-      const created: CompactTableUpdate = {
-        ...newUpdate,
-        id: Date.now()
-      };
-      MOCK_COMPACT_UPDATES.unshift(created);
-      resolve(created);
-    }, 300));
+    try {
+      const res = await fetch('/api/noticias', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(newUpdate)
+      });
+      if (res.ok) {
+        const json = await res.json();
+        if (json.data) {
+          return json.data;
+        }
+      }
+    } catch (e) {
+      console.warn('Erro ao salvar no servidor central, mantendo localmente.');
+    }
+
+    const created: CompactTableUpdate = {
+      ...newUpdate,
+      id: Date.now()
+    };
+    MOCK_COMPACT_UPDATES.unshift(created);
+    return created;
   }
 };

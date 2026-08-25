@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import { PlusCircle, X, Lock, Send, ExternalLink, Sparkles } from 'lucide-react';
+import { PlusCircle, X, Lock, Send, Sparkles } from 'lucide-react';
 import { wpService, CompactTableUpdate } from '../services/wpService';
 import SEO from '../components/SEO';
 
@@ -32,16 +32,28 @@ export default function Noticias() {
   const [formPostToX, setFormPostToX] = useState(true);
   const [submitting, setSubmitting] = useState(false);
 
+  const fetchUpdates = async () => {
+    try {
+      const data = await wpService.getCompactUpdates();
+      // Deduplicar por id e texto
+      const seen = new Set();
+      const uniqueData = data.filter(item => {
+        const key = `${item.monthKey}_${item.text.toLowerCase()}`;
+        if (seen.has(key)) return false;
+        seen.add(key);
+        return true;
+      });
+      setItems(uniqueData);
+    } finally {
+      setLoading(false);
+    }
+  };
+
   useEffect(() => {
-    // Preencher data padrão como DD/MM/YYYY de hoje
     const today = new Date();
     const formattedDate = `${String(today.getDate()).padStart(2, '0')}/${String(today.getMonth() + 1).padStart(2, '0')}/${today.getFullYear()}`;
     setFormDate(formattedDate);
-
-    wpService.getCompactUpdates().then((data) => {
-      setItems(data);
-      setLoading(false);
-    });
+    fetchUpdates();
   }, []);
 
   const handleAuthorize = (e: React.FormEvent) => {
@@ -49,20 +61,20 @@ export default function Noticias() {
     if (accessCode.trim() === '2026' || accessCode.trim().toLowerCase() === 'simulador') {
       setIsAuthorized(true);
     } else {
-      alert('Código de acesso incorreto. Use "2026" para o departamento comercial.');
+      alert('Código de acesso incorreto. Use "2026".');
     }
   };
 
   const handleAddRow = async (e: React.FormEvent) => {
     e.preventDefault();
-    if (!formText.trim()) return;
+    if (submitting || !formText.trim()) return;
 
     setSubmitting(true);
 
     const targetMonth = MONTH_TABS.find(m => m.key === formMonthKey);
 
     try {
-      const created = await wpService.addCompactUpdate({
+      await wpService.addCompactUpdate({
         badge: formBadge,
         text: formText.trim(),
         date: formDate.trim() || new Date().toLocaleDateString('pt-BR'),
@@ -70,28 +82,30 @@ export default function Noticias() {
         monthLabel: targetMonth ? targetMonth.label : 'Agosto'
       });
 
-      setItems([created, ...items]);
-      setActiveTab(formMonthKey);
-
-      // Post to X API Serverless endpoint
+      // Se selecionou postar no X, acionar API serverless do Twitter
       if (formPostToX) {
         try {
           await fetch('/api/tweet', {
             method: 'POST',
             headers: { 'Content-Type': 'application/json' },
             body: JSON.stringify({
-              title: created.text,
+              title: formText.trim(),
               operadora: 'SIMULADOR ON-LINE',
-              category: created.badge
+              category: formBadge
             })
           });
         } catch (err) {
-          console.warn('Postagem no X disparada em ambiente de simulação.');
+          console.warn('Simulação de Tweet executada.');
         }
       }
 
       setFormText('');
       setIsModalOpen(false);
+      
+      // Recarregar dados centralizados atualizados
+      await fetchUpdates();
+      setActiveTab(formMonthKey);
+
     } catch (err) {
       alert('Erro ao adicionar linha.');
     } finally {
@@ -99,22 +113,22 @@ export default function Noticias() {
     }
   };
 
-  // Renderizador de Badge com as cores exatas do HTML original
+  // Renderizador de Badge com as classes exatas do CSS original (.bg-novo, .bg-susp, .bg-reaj, .bg-att)
   const renderBadge = (badge: CompactTableUpdate['badge']) => {
     switch (badge) {
       case 'NOVO':
-        return <span className="bg-[#28a745] text-white font-bold text-[9px] px-1.5 py-0.5 rounded uppercase inline-block min-w-[60px] text-center border-none">NOVO</span>;
+        return <span className="badge bg-novo bg-[#28a745] text-white font-bold text-[9px] px-1 py-0.5 rounded uppercase inline-block min-w-[60px] text-center border-none">NOVO</span>;
       case 'SUSPENSO':
-        return <span className="bg-[#dc3545] text-white font-bold text-[9px] px-1.5 py-0.5 rounded uppercase inline-block min-w-[60px] text-center border-none">SUSPENSO</span>;
+        return <span className="badge bg-susp bg-[#dc3545] text-white font-bold text-[9px] px-1 py-0.5 rounded uppercase inline-block min-w-[60px] text-center border-none">SUSPENSO</span>;
       case 'REAJUSTE':
-        return <span className="bg-[#f39c12] text-white font-bold text-[9px] px-1.5 py-0.5 rounded uppercase inline-block min-w-[60px] text-center border-none">REAJUSTE</span>;
+        return <span className="badge bg-reaj bg-[#f39c12] text-white font-bold text-[9px] px-1 py-0.5 rounded uppercase inline-block min-w-[60px] text-center border-none">REAJUSTE</span>;
       case 'ATUALIZ.':
       default:
-        return <span className="bg-[#17a2b8] text-white font-bold text-[9px] px-1.5 py-0.5 rounded uppercase inline-block min-w-[60px] text-center border-none">ATUALIZ.</span>;
+        return <span className="badge bg-att bg-[#17a2b8] text-white font-bold text-[9px] px-1 py-0.5 rounded uppercase inline-block min-w-[60px] text-center border-none">ATUALIZ.</span>;
     }
   };
 
-  // Divide o texto da linha em Parte da Operadora (antes dos dois pontos) e Descrição
+  // Formatação do conteúdo: separa operadora em roxo/azul #19137a e descrição em #444
   const formatTextContent = (fullText: string) => {
     const colonIdx = fullText.indexOf(':');
     if (colonIdx !== -1) {
@@ -122,36 +136,34 @@ export default function Noticias() {
       const descPart = fullText.substring(colonIdx + 1);
       return (
         <>
-          <span className="font-bold text-[#19137a] mr-1">{operadoraPart}</span>
-          <span className="text-[#444]">{descPart}</span>
+          <span className="operadora font-bold text-[#19137a]">{operadoraPart}</span>
+          <span className="descricao text-[#444]">{descPart}</span>
         </>
       );
     }
-    return <span className="text-[#444]">{fullText}</span>;
+    return <span className="descricao text-[#444]">{fullText}</span>;
   };
 
   const currentTabItems = items.filter(item => item.monthKey === activeTab);
 
   return (
-    <div className="bg-white min-h-screen p-2 md:p-6 font-['Segoe_UI',Arial,sans-serif] text-[11px] leading-tight selection:bg-[#19137a] selection:text-white">
+    <div className="bg-white min-h-screen p-1 md:p-4 font-['Segoe_UI',Arial,sans-serif] text-[11px] leading-[1.1] selection:bg-[#19137a] selection:text-white">
       <SEO 
-        title="Notícias & Atualizações de Tabelas" 
-        description="Acompanhe o histórico de atualizações de tabelas do Simulador On-Line por mês." 
+        title="Notícias Simulador On-Line" 
+        description="Atualizações diárias de tabelas de planos de saúde do Simulador On-Line." 
         canonical="https://www.simuladoronline.com/noticias" 
       />
 
-      <div className="max-w-6xl mx-auto border border-gray-200 rounded-lg shadow-sm overflow-hidden bg-white">
+      <div className="w-full max-w-6xl mx-auto border border-gray-200 rounded shadow-sm overflow-hidden bg-white">
         
         {/* HEADER EXATO DO HTML DA PLATAFORMA */}
-        <div className="bg-[#19137a] color-white text-white px-3 py-2 flex items-center justify-between font-bold text-xs">
-          <div className="flex items-center gap-2">
-            <span>📢 ATUALIZAÇÕES SIMULADOR ON-LINE</span>
-          </div>
+        <div className="header bg-[#19137a] color-white text-white px-2.5 py-1.5 rounded-t flex items-center justify-between font-bold text-xs">
+          <span>📢 ATUALIZAÇÕES SIMULADOR ON-LINE</span>
 
-          <div className="flex items-center gap-4">
+          <div className="flex items-center gap-3">
             <button
               onClick={() => setIsModalOpen(true)}
-              className="bg-[#00d1ff] hover:bg-cyan-300 text-[#19137a] font-extrabold px-2.5 py-1 rounded text-[10px] uppercase transition-all flex items-center gap-1 shadow-sm"
+              className="bg-[#00d1ff] hover:bg-cyan-300 text-[#19137a] font-extrabold px-2 py-0.5 rounded text-[10px] uppercase transition-all flex items-center gap-1 border-none cursor-pointer"
             >
               <PlusCircle size={12} /> + Nova Linha Comercial
             </button>
@@ -162,16 +174,16 @@ export default function Noticias() {
           </div>
         </div>
 
-        {/* ABAS DOS MESES (TAB-BTN ACTIVE) */}
-        <div className="flex overflow-x-auto border-b-2 border-[#19137a] bg-gray-50 scrollbar-none">
+        {/* ABAS DOS MESES (.tabs .tab-btn .active) */}
+        <div className="tabs flex overflow-x-auto border-b-2 border-[#19137a] bg-[#f8f9fa] scrollbar-none">
           {MONTH_TABS.map((tab) => (
             <button
               key={tab.key}
               onClick={() => setActiveTab(tab.key)}
-              className={`px-3 py-2 font-bold text-[11px] uppercase whitespace-nowrap transition-colors border-none outline-none cursor-pointer ${
+              className={`tab-btn px-3 py-2 font-bold text-[11px] uppercase whitespace-nowrap transition-all border-none outline-none cursor-pointer ${
                 activeTab === tab.key
-                  ? 'bg-[#19137a] text-white rounded-t'
-                  : 'text-gray-600 hover:bg-gray-200 hover:text-[#19137a]'
+                  ? 'active bg-[#19137a] text-white rounded-t'
+                  : 'text-[#666] hover:bg-[#e2e6ea] hover:text-[#19137a]'
               }`}
             >
               {tab.label}
@@ -179,36 +191,36 @@ export default function Noticias() {
           ))}
         </div>
 
-        {/* TABELA COMPACTA EXATA DA PLATAFORMA */}
-        <div className="p-1">
+        {/* TABELA COMPACTA EXATA DA PLATAFORMA (.table-container .row .cell) */}
+        <div className="tab-content active block">
           {loading ? (
-            <div className="p-8 text-center font-bold text-[#19137a]">
+            <div className="p-6 text-center font-bold text-[#19137a]">
               Carregando atualizações de tabelas...
             </div>
           ) : currentTabItems.length === 0 ? (
-            <div className="p-8 text-center text-gray-500 font-medium">
+            <div className="p-6 text-center text-gray-500 font-medium">
               Nenhuma atualização cadastrada para este mês.
             </div>
           ) : (
-            <table className="w-full border-collapse table-fixed">
+            <table className="table-container w-full border-collapse table-fixed">
               <tbody>
                 {currentTabItems.map((row) => (
                   <tr 
                     key={row.id} 
-                    className="border-b border-[#f2f2f2] hover:bg-[#f9faff] transition-colors"
+                    className="row border-b border-[#f2f2f2] hover:bg-[#f9faff] transition-colors"
                   >
-                    {/* Badge Column */}
-                    <td className="w-[75px] py-1 px-1 align-middle whitespace-nowrap">
+                    {/* Badge Column (.cell .col-tag) */}
+                    <td className="cell col-tag w-[70px] p-[4px_2px] vertical-middle overflow-hidden text-ellipsis whitespace-nowrap">
                       {renderBadge(row.badge)}
                     </td>
 
-                    {/* Text Content Column */}
-                    <td className="py-1 px-1 align-middle overflow-hidden text-ellipsis whitespace-nowrap">
+                    {/* Text Content Column (.cell) */}
+                    <td className="cell p-[4px_2px] vertical-middle overflow-hidden text-ellipsis whitespace-nowrap">
                       {formatTextContent(row.text)}
                     </td>
 
-                    {/* Date Column */}
-                    <td className="w-[75px] py-1 px-1 align-middle text-right font-sans text-gray-500 whitespace-nowrap text-[10px]">
+                    {/* Date Column (.cell .col-data) */}
+                    <td className="cell col-data w-[75px] p-[4px_2px] vertical-middle text-right text-[#888] font-sans whitespace-nowrap">
                       {row.date}
                     </td>
                   </tr>
@@ -225,7 +237,7 @@ export default function Noticias() {
           <div className="bg-white rounded-xl shadow-2xl border border-gray-300 max-w-lg w-full p-6 relative">
             <button
               onClick={() => setIsModalOpen(false)}
-              className="absolute top-4 right-4 text-gray-400 hover:text-gray-600"
+              className="absolute top-4 right-4 text-gray-400 hover:text-gray-600 border-none bg-transparent cursor-pointer"
             >
               <X size={18} />
             </button>
@@ -250,7 +262,7 @@ export default function Noticias() {
                 />
                 <button
                   type="submit"
-                  className="w-full bg-[#19137a] text-white font-bold py-2.5 rounded text-xs uppercase"
+                  className="w-full bg-[#19137a] text-white font-bold py-2.5 rounded text-xs uppercase border-none cursor-pointer"
                 >
                   Confirmar Acesso
                 </button>
@@ -259,7 +271,7 @@ export default function Noticias() {
               /* SINGLE-LINE INPUT FORM STEP */
               <form onSubmit={handleAddRow} className="space-y-4">
                 <div className="flex items-center gap-2 text-[#19137a] font-bold text-xs uppercase border-b pb-2 border-gray-200">
-                  <Sparkles size={14} /> Publicar Linha de Notícia (Simples)
+                  <Sparkles size={14} /> Publicar Linha de Notícia (Central de Servidor)
                 </div>
 
                 <div>
@@ -329,9 +341,11 @@ export default function Noticias() {
                 <button
                   type="submit"
                   disabled={submitting}
-                  className="w-full bg-[#19137a] hover:bg-[#00d1ff] hover:text-[#19137a] text-white font-bold py-3 rounded text-xs uppercase transition-all shadow flex items-center justify-center gap-1.5"
+                  className={`w-full bg-[#19137a] hover:bg-[#00d1ff] hover:text-[#19137a] text-white font-bold py-3 rounded text-xs uppercase transition-all shadow flex items-center justify-center gap-1.5 border-none cursor-pointer ${
+                    submitting ? 'opacity-50 cursor-not-allowed' : ''
+                  }`}
                 >
-                  <Send size={14} /> {submitting ? 'Adicionando...' : 'Adicionar Linha ao Histórico'}
+                  <Send size={14} /> {submitting ? 'Salvando no Servidor Central...' : 'Publicar Linha Centralizada'}
                 </button>
               </form>
             )}
