@@ -1,5 +1,5 @@
-import React, { useEffect, useState } from 'react';
-import { ShieldCheck, Lock, Trash2, Edit3, ExternalLink, RefreshCw, Zap, X, Save, Globe, PlusCircle } from 'lucide-react';
+import React, { useEffect, useState, useRef } from 'react';
+import { ShieldCheck, Lock, Trash2, Edit3, ExternalLink, RefreshCw, Zap, X, Save, Globe, PlusCircle, Bold, Italic, Heading2, Type, List, Eye, Code } from 'lucide-react';
 import { wpService, BlogPost } from '../services/wpService';
 import SEO from '../components/SEO';
 
@@ -34,6 +34,9 @@ export default function AdminBlog() {
   const [editCategory, setEditCategory] = useState('Mercado');
   const [editImageUrl, setEditImageUrl] = useState('');
   const [saving, setSaving] = useState(false);
+  const [previewMode, setPreviewMode] = useState(false);
+
+  const textareaRef = useRef<HTMLTextAreaElement>(null);
 
   const loadPostsAndSources = async () => {
     setLoading(true);
@@ -61,6 +64,25 @@ export default function AdminBlog() {
     } else {
       alert('Senha de administração incorreta.');
     }
+  };
+
+  // Funções de Formatação do Editor Visual
+  const applyFormatting = (tagOpen: string, tagClose: string) => {
+    const textarea = textareaRef.current;
+    if (!textarea) return;
+
+    const start = textarea.selectionStart;
+    const end = textarea.selectionEnd;
+    const selectedText = editContent.substring(start, end) || 'Texto aqui';
+    const replacement = `${tagOpen}${selectedText}${tagClose}`;
+
+    const newContent = editContent.substring(0, start) + replacement + editContent.substring(end);
+    setEditContent(newContent);
+
+    setTimeout(() => {
+      textarea.focus();
+      textarea.setSelectionRange(start + tagOpen.length, start + tagOpen.length + selectedText.length);
+    }, 50);
   };
 
   // Disparar Varredura Manual
@@ -141,6 +163,7 @@ export default function AdminBlog() {
     setEditContent(post.content || '');
     setEditCategory(post.category || 'Mercado');
     setEditImageUrl(post.featuredImage || post.imageUrl || '');
+    setPreviewMode(false);
   };
 
   // Salvar alterações da edição
@@ -227,15 +250,15 @@ export default function AdminBlog() {
           </div>
         ) : (
           <>
-            {/* SEÇÃO 1: PAINEL DE CONTROLE DAS MATÉRIAS */}
+            {/* SEÇÃO 1: PAINEL DE CONTROLE DAS MATÉRIAS CADASTRADAS */}
             <div className="bg-white rounded-2xl shadow-xl border border-gray-200 overflow-hidden">
               <div className="bg-[#19137a] text-white p-6 flex flex-col md:flex-row md:items-center justify-between gap-4">
                 <div>
                   <h1 className="text-lg font-bold flex items-center gap-2">
-                    <ShieldCheck size={20} className="text-[#00d1ff]" /> Gestão Privada de Artigos do Blog
+                    <ShieldCheck size={20} className="text-[#00d1ff]" /> Artigos Cadastrados no Blog ({posts.length})
                   </h1>
                   <p className="text-xs text-gray-300 mt-1">
-                    Edite o texto, exclua ou execute varreduras manuais com IA sem exposição ao público.
+                    Edite com o editor visual, veja matérias públicas ou exclua artigos com 1 clique.
                   </p>
                 </div>
 
@@ -285,6 +308,7 @@ export default function AdminBlog() {
                                   target="_blank"
                                   rel="noreferrer"
                                   className="text-blue-500 hover:text-blue-700"
+                                  title="Ver matéria pública no site"
                                 >
                                   <ExternalLink size={12} />
                                 </a>
@@ -300,7 +324,7 @@ export default function AdminBlog() {
                               <div className="flex items-center justify-end gap-2">
                                 <button
                                   onClick={() => handleOpenEdit(post)}
-                                  className="bg-amber-500 hover:bg-amber-600 text-white font-bold px-2.5 py-1.5 rounded-lg text-xs transition-all flex items-center gap-1 border-none cursor-pointer"
+                                  className="bg-amber-500 hover:bg-amber-600 text-white font-bold px-2.5 py-1.5 rounded-lg text-xs transition-all flex items-center gap-1 border-none cursor-pointer shadow-sm"
                                 >
                                   <Edit3 size={12} /> Editar
                                 </button>
@@ -308,7 +332,7 @@ export default function AdminBlog() {
                                 <button
                                   onClick={() => handleDeletePost(post)}
                                   disabled={deletingId === (post.id || post.slug)}
-                                  className="bg-red-500 hover:bg-red-700 text-white font-bold px-2.5 py-1.5 rounded-lg text-xs transition-all flex items-center gap-1 border-none cursor-pointer disabled:opacity-50"
+                                  className="bg-red-500 hover:bg-red-700 text-white font-bold px-2.5 py-1.5 rounded-lg text-xs transition-all flex items-center gap-1 border-none cursor-pointer disabled:opacity-50 shadow-sm"
                                 >
                                   <Trash2 size={12} />
                                   {deletingId === (post.id || post.slug) ? 'Excluindo...' : 'Excluir'}
@@ -329,10 +353,10 @@ export default function AdminBlog() {
               <div className="bg-gray-800 text-white p-6 flex items-center justify-between">
                 <div>
                   <h2 className="text-base font-bold flex items-center gap-2">
-                    <Globe size={18} className="text-[#00d1ff]" /> Fontes e Portais de Notícias Monitorados
+                    <Globe size={18} className="text-[#00d1ff]" /> Fontes e Portais Cadastrados ({sources.length})
                   </h2>
                   <p className="text-xs text-gray-300 mt-1">
-                    Cadastre novos blogs, portais ou sites institucionais para o robô monitorar automaticamente.
+                    Portais monitorados automaticamente pelo robô para a geração diária de artigos.
                   </p>
                 </div>
               </div>
@@ -409,7 +433,7 @@ export default function AdminBlog() {
         )}
       </div>
 
-      {/* MODAL DE EDIÇÃO DE CONTEÚDO */}
+      {/* MODAL DE EDIÇÃO DE CONTEÚDO COM EDITOR VISUAL */}
       {editingPost && (
         <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/60 backdrop-blur-sm">
           <div className="bg-white rounded-2xl shadow-2xl border border-gray-300 max-w-3xl w-full p-6 relative max-h-[90vh] overflow-y-auto">
@@ -421,7 +445,7 @@ export default function AdminBlog() {
             </button>
 
             <h2 className="text-lg font-bold text-[#19137a] mb-4 flex items-center gap-2 border-b pb-2 border-gray-100">
-              <Edit3 size={18} /> Editar Artigo do Blog
+              <Edit3 size={18} /> Editor de Artigo do Blog
             </h2>
 
             <form onSubmit={handleSaveEdit} className="space-y-4">
@@ -467,15 +491,78 @@ export default function AdminBlog() {
                 />
               </div>
 
+              {/* EDITOR VISUAL COM BARRA DE FERRAMENTAS */}
               <div>
-                <label className="font-bold text-gray-700 block mb-1 text-xs">Conteúdo da Matéria (HTML / Texto Formatado):</label>
-                <textarea
-                  value={editContent}
-                  onChange={(e) => setEditContent(e.target.value)}
-                  rows={10}
-                  className="w-full border border-gray-300 p-3 rounded-lg font-mono text-xs focus:outline-none focus:border-[#19137a] leading-relaxed"
-                  required
-                />
+                <div className="flex items-center justify-between mb-1">
+                  <label className="font-bold text-gray-700 text-xs">Conteúdo da Matéria:</label>
+                  
+                  <button
+                    type="button"
+                    onClick={() => setPreviewMode(!previewMode)}
+                    className="text-xs font-bold text-[#19137a] hover:underline flex items-center gap-1 border-none bg-transparent cursor-pointer"
+                  >
+                    {previewMode ? <Code size={14} /> : <Eye size={14} />}
+                    {previewMode ? 'Modo Código HTML' : 'Pré-visualização Visual'}
+                  </button>
+                </div>
+
+                {!previewMode ? (
+                  <div className="border border-gray-300 rounded-lg overflow-hidden focus-within:border-[#19137a]">
+                    {/* BARRA DE FERRAMENTAS FORMATADORAS DE TEXTO */}
+                    <div className="bg-gray-100 border-b border-gray-200 p-2 flex items-center gap-1 flex-wrap">
+                      <button
+                        type="button"
+                        onClick={() => applyFormatting('<strong>', '</strong>')}
+                        className="p-1.5 bg-white border border-gray-200 rounded hover:bg-gray-50 text-gray-700 font-bold text-xs flex items-center gap-1 cursor-pointer"
+                        title="Negrito (Strong)"
+                      >
+                        <Bold size={14} /> Negrito
+                      </button>
+
+                      <button
+                        type="button"
+                        onClick={() => applyFormatting('<em>', '</em>')}
+                        className="p-1.5 bg-white border border-gray-200 rounded hover:bg-gray-50 text-gray-700 font-bold text-xs flex items-center gap-1 cursor-pointer"
+                        title="Itálico (Em)"
+                      >
+                        <Italic size={14} /> Itálico
+                      </button>
+
+                      <button
+                        type="button"
+                        onClick={() => applyFormatting('<h2>', '</h2>')}
+                        className="p-1.5 bg-white border border-gray-200 rounded hover:bg-gray-50 text-gray-700 font-bold text-xs flex items-center gap-1 cursor-pointer"
+                        title="Subtítulo H2"
+                      >
+                        <Heading2 size={14} /> Subtítulo (H2)
+                      </button>
+
+                      <button
+                        type="button"
+                        onClick={() => applyFormatting('<p>', '</p>')}
+                        className="p-1.5 bg-white border border-gray-200 rounded hover:bg-gray-50 text-gray-700 font-bold text-xs flex items-center gap-1 cursor-pointer"
+                        title="Parágrafo"
+                      >
+                        <Type size={14} /> Parágrafo
+                      </button>
+                    </div>
+
+                    <textarea
+                      ref={textareaRef}
+                      value={editContent}
+                      onChange={(e) => setEditContent(e.target.value)}
+                      rows={10}
+                      className="w-full p-3 font-sans text-xs focus:outline-none leading-relaxed border-none resize-y"
+                      placeholder="Escreva ou edite o conteúdo do artigo aqui..."
+                      required
+                    />
+                  </div>
+                ) : (
+                  /* PRÉ-VISUALIZAÇÃO VISUAL DO CONTEÚDO FORMATADO */
+                  <div className="border border-gray-300 rounded-lg p-4 bg-gray-50 max-h-80 overflow-y-auto prose prose-sm max-w-none">
+                    <div dangerouslySetInnerHTML={{ __html: editContent }} />
+                  </div>
+                )}
               </div>
 
               <div className="flex justify-end gap-3 pt-3 border-t border-gray-100">
