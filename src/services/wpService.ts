@@ -311,6 +311,8 @@ export interface CompactTableUpdate {
 }
 
 const MOCK_COMPACT_UPDATES: CompactTableUpdate[] = [
+  // NOTÍCIA DO COMERCIAL
+  { id: 250, badge: 'ATUALIZ.', text: 'BRADESCO SAÚDE - PME - INTERIOR 1 / SP: Retirada dos produtos Flex e Ideal, e inclusão de novas tabelas', date: '25/08/2026', monthKey: 'agosto', monthLabel: 'Agosto' },
   // AGOSTO 2026 (Novas inclusões comerciais)
   { id: 200, badge: 'ATUALIZ.', text: 'ÔNIX SAÚDE (GRUPO CONTÉM) - RJ: Atualização de valores disponível no projeto Adesão', date: '24/08/2026', monthKey: 'agosto', monthLabel: 'Agosto' },
   { id: 201, badge: 'ATUALIZ.', text: 'OPLAN (GRUPO CONTÉM) - RJ: Atualização de valores disponível no projeto Adesão', date: '24/08/2026', monthKey: 'agosto', monthLabel: 'Agosto' },
