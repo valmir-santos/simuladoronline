@@ -311,7 +311,23 @@ export interface CompactTableUpdate {
 }
 
 const MOCK_COMPACT_UPDATES: CompactTableUpdate[] = [
-  // AGOSTO 2026
+  // AGOSTO 2026 (Novas inclusões comerciais)
+  { id: 200, badge: 'ATUALIZ.', text: 'ÔNIX SAÚDE (GRUPO CONTÉM) - RJ: Atualização de valores disponível no projeto Adesão', date: '24/08/2026', monthKey: 'agosto', monthLabel: 'Agosto' },
+  { id: 201, badge: 'ATUALIZ.', text: 'OPLAN (GRUPO CONTÉM) - RJ: Atualização de valores disponível no projeto Adesão', date: '24/08/2026', monthKey: 'agosto', monthLabel: 'Agosto' },
+  { id: 202, badge: 'ATUALIZ.', text: 'MEDSÊNIOR (SUPERMED) - RJ: Atualizações disponíveis no projeto Adesão', date: '21/08/2026', monthKey: 'agosto', monthLabel: 'Agosto' },
+  { id: 203, badge: 'NOVO', text: 'UNIMED NOVA IGUAÇU (CORPe SAÚDE) - RJ: Novo portfólio disponível no projeto PME ADMINISTRADO', date: '21/08/2026', monthKey: 'agosto', monthLabel: 'Agosto' },
+  { id: 204, badge: 'ATUALIZ.', text: 'HAPVIDA NOTREDAME - FLAMENGO (SOLUTIONS) - RJ: Projeto Adesão atualizado e disponível', date: '21/08/2026', monthKey: 'agosto', monthLabel: 'Agosto' },
+  { id: 205, badge: 'ATUALIZ.', text: 'HSMED (CORPe SAÚDE) - RJ: Atualização das regras de comercialização do projeto Adesão disponível', date: '21/08/2026', monthKey: 'agosto', monthLabel: 'Agosto' },
+  { id: 206, badge: 'ATUALIZ.', text: 'BLUE MED - SP: Tabelas PF e PME atualizadas e disponíveis', date: '21/08/2026', monthKey: 'agosto', monthLabel: 'Agosto' },
+  { id: 207, badge: 'NOVO', text: 'ÚNICA SAÚDE - SP: Novos hospitais credenciados (ZONA SUL - Hospital Dom Alvarenga / ZONA LESTE - Hospital Independência)', date: '21/08/2026', monthKey: 'agosto', monthLabel: 'Agosto' },
+  { id: 208, badge: 'REAJUSTE', text: 'SULAMÉRICA SAÚDE (QUALICORP) - SP / RJ: Reajuste de valores disponível no projeto Adesão', date: '20/08/2026', monthKey: 'agosto', monthLabel: 'Agosto' },
+  { id: 209, badge: 'ATUALIZ.', text: 'HAPVIDA NOTREDAME (CORPe SAÚDE) - SP / RJ: Atualizações disponíveis no projeto Adesão', date: '19/08/2026', monthKey: 'agosto', monthLabel: 'Agosto' },
+  { id: 210, badge: 'ATUALIZ.', text: 'UNIMED RECIFE - PE: Atualização de valores disponível no PME (1 até 99 vidas)', date: '19/08/2026', monthKey: 'agosto', monthLabel: 'Agosto' },
+  { id: 211, badge: 'ATUALIZ.', text: 'KLINI SAÚDE - RJ: Atualização de valores disponível na tabela PME (1 vida)', date: '19/08/2026', monthKey: 'agosto', monthLabel: 'Agosto' },
+  { id: 212, badge: 'ATUALIZ.', text: 'SÃO LUCAS (CORPe SAÚDE) - MG: Atualização do quadro de Coparticipação disponível no projeto Adesão', date: '18/08/2026', monthKey: 'agosto', monthLabel: 'Agosto' },
+  { id: 213, badge: 'NOVO', text: 'AMIL SAÚDE - PME: Plano (Amil Bronze SP Mais) disponível na acomodação Apartamento (Quarto privativo)', date: '17/08/2026', monthKey: 'agosto', monthLabel: 'Agosto' },
+
+  // AGOSTO 2026 (Anteriores)
   { id: 1, badge: 'ATUALIZ.', text: 'HSMED SAÚDE - RJ: Atualização de rede credenciada disponível (Individual, Familiar, PME e Adesão)', date: '17/08/2026', monthKey: 'agosto', monthLabel: 'Agosto' },
   { id: 2, badge: 'REAJUSTE', text: 'DENTALPAR (CORPe SAÚDE) - SP: Reajuste disponível no projeto Adesão Odontológico', date: '16/08/2026', monthKey: 'agosto', monthLabel: 'Agosto' },
   { id: 3, badge: 'REAJUSTE', text: 'PORTO SEGURO SAÚDE: Reajuste de valores disponível - PME (SP / RJ / DF)', date: '14/08/2026', monthKey: 'agosto', monthLabel: 'Agosto' },
