@@ -520,6 +520,43 @@ const MOCK_COMPACT_UPDATES: CompactTableUpdate[] = [
 ];
 
 export const wpService = {
+  getBlogPosts: async (): Promise<BlogPost[]> => {
+    try {
+      const res = await fetch('/api/blog');
+      if (res.ok) {
+        const remotePosts = await res.json();
+        if (Array.isArray(remotePosts) && remotePosts.length > 0) {
+          const remoteSlugs = new Set(remotePosts.map((p: any) => p.slug));
+          const extraLocal = MOCK_BLOG_POSTS.filter(l => !remoteSlugs.has(l.slug));
+          return [...remotePosts, ...extraLocal];
+        }
+      }
+    } catch (e) {
+      console.warn('Usando posts estáticos de reserva.');
+    }
+    return MOCK_BLOG_POSTS;
+  },
+  getBlogPostBySlug: async (slug: string): Promise<BlogPost | undefined> => {
+    try {
+      const posts = await wpService.getBlogPosts();
+      return posts.find(p => p.slug === slug);
+    } catch (e) {
+      return MOCK_BLOG_POSTS.find(p => p.slug === slug);
+    }
+  },
+  deleteBlogPost: async (idOrSlug: string, pin: string): Promise<boolean> => {
+    try {
+      const res = await fetch('/api/blog', {
+        method: 'DELETE',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ id: idOrSlug, pin })
+      });
+      return res.ok;
+    } catch (e) {
+      console.error('Erro ao excluir artigo:', e);
+      return false;
+    }
+  },
   getPosts: async (): Promise<WPPost[]> => {
     return new Promise((resolve) => setTimeout(() => {
       const now = new Date();
