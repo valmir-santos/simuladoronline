@@ -1,15 +1,30 @@
 import React, { useEffect, useState } from 'react';
-import { ShieldCheck, Lock, Trash2, Edit3, ExternalLink, RefreshCw, Zap, X, Save } from 'lucide-react';
+import { ShieldCheck, Lock, Trash2, Edit3, ExternalLink, RefreshCw, Zap, X, Save, Globe, PlusCircle } from 'lucide-react';
 import { wpService, BlogPost } from '../services/wpService';
 import SEO from '../components/SEO';
+
+interface NewsSource {
+  id: string;
+  name: string;
+  url: string;
+  feedUrl?: string;
+  category: string;
+}
 
 export default function AdminBlog() {
   const [accessCode, setAccessCode] = useState('');
   const [isAuthenticated, setIsAuthenticated] = useState(false);
   const [posts, setPosts] = useState<BlogPost[]>([]);
+  const [sources, setSources] = useState<NewsSource[]>([]);
   const [loading, setLoading] = useState(false);
   const [scanning, setScanning] = useState(false);
   const [deletingId, setDeletingId] = useState<string | null>(null);
+
+  // Form de Novo Portal
+  const [newPortalName, setNewPortalName] = useState('');
+  const [newPortalUrl, setNewPortalUrl] = useState('');
+  const [newPortalCategory, setNewPortalCategory] = useState('Notícias de Saúde');
+  const [addingPortal, setAddingPortal] = useState(false);
 
   // Modal de Edição de Notícia
   const [editingPost, setEditingPost] = useState<BlogPost | null>(null);
@@ -20,11 +35,19 @@ export default function AdminBlog() {
   const [editImageUrl, setEditImageUrl] = useState('');
   const [saving, setSaving] = useState(false);
 
-  const loadPosts = async () => {
+  const loadPostsAndSources = async () => {
     setLoading(true);
     try {
       const data = await wpService.getBlogPosts();
       setPosts(data);
+
+      const res = await fetch('/api/cron/news?action=sources');
+      if (res.ok) {
+        const sourcesData = await res.json();
+        setSources(sourcesData);
+      }
+    } catch (e) {
+      console.warn('Erro ao carregar fontes');
     } finally {
       setLoading(false);
     }
@@ -34,7 +57,7 @@ export default function AdminBlog() {
     e.preventDefault();
     if (accessCode.trim() === '2026' || accessCode.trim().toLowerCase() === 'simulador') {
       setIsAuthenticated(true);
-      loadPosts();
+      loadPostsAndSources();
     } else {
       alert('Senha de administração incorreta.');
     }
@@ -48,7 +71,7 @@ export default function AdminBlog() {
       const data = await res.json();
       if (res.ok && data.success) {
         alert(`Varredura concluída!\n\nNovo artigo gerado: "${data.article?.title || 'Artigo de Saúde'}"`);
-        await loadPosts();
+        await loadPostsAndSources();
       } else {
         alert('Erro ao executar varredura.');
       }
@@ -56,6 +79,57 @@ export default function AdminBlog() {
       alert('Erro ao conectar com a API de varredura.');
     } finally {
       setScanning(false);
+    }
+  };
+
+  // Cadastrar Novo Portal de Notícias
+  const handleAddPortal = async (e: React.FormEvent) => {
+    e.preventDefault();
+    if (!newPortalName.trim() || !newPortalUrl.trim()) return;
+
+    setAddingPortal(true);
+    try {
+      const res = await fetch('/api/cron/news?action=sources', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          action: 'sources',
+          name: newPortalName.trim(),
+          url: newPortalUrl.trim(),
+          category: newPortalCategory,
+          pin: accessCode
+        })
+      });
+
+      if (res.ok) {
+        alert('Novo portal cadastrado com sucesso nas fontes do robô!');
+        setNewPortalName('');
+        setNewPortalUrl('');
+        await loadPostsAndSources();
+      } else {
+        alert('Erro ao cadastrar portal.');
+      }
+    } finally {
+      setAddingPortal(false);
+    }
+  };
+
+  // Remover Portal
+  const handleDeletePortal = async (source: NewsSource) => {
+    if (!confirm(`Deseja remover o portal "${source.name}" da lista de fontes?`)) return;
+
+    try {
+      const res = await fetch('/api/cron/news?action=sources', {
+        method: 'DELETE',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ action: 'sources', id: source.id, pin: accessCode })
+      });
+
+      if (res.ok) {
+        await loadPostsAndSources();
+      }
+    } catch (e) {
+      alert('Erro ao remover portal.');
     }
   };
 
@@ -91,7 +165,7 @@ export default function AdminBlog() {
       if (success) {
         alert('Artigo atualizado com sucesso!');
         setEditingPost(null);
-        await loadPosts();
+        await loadPostsAndSources();
       } else {
         alert('Falha ao salvar as alterações do artigo.');
       }
@@ -110,7 +184,7 @@ export default function AdminBlog() {
       const success = await wpService.deleteBlogPost(post.id || post.slug, accessCode);
       if (success) {
         alert('Artigo removido com sucesso!');
-        await loadPosts();
+        await loadPostsAndSources();
       } else {
         alert('Falha ao remover o artigo. Tente novamente.');
       }
@@ -123,7 +197,7 @@ export default function AdminBlog() {
     <div className="bg-gray-50 min-h-screen py-12 px-4 font-sans">
       <SEO title="Painel de Administração do Blog | Simulador On-Line" noindex={true} />
 
-      <div className="max-w-5xl mx-auto">
+      <div className="max-w-5xl mx-auto space-y-8">
         {!isAuthenticated ? (
           /* TELA DE AUTENTICAÇÃO PRIVADA DA ADMINISTRAÇÃO */
           <div className="bg-white rounded-2xl shadow-xl border border-gray-200 p-8 max-w-md mx-auto text-center">
@@ -132,7 +206,7 @@ export default function AdminBlog() {
             </div>
             <h1 className="text-xl font-bold text-[#19137a] mb-2">Painel Privado de Gestão do Blog</h1>
             <p className="text-gray-500 text-xs mb-6">
-              Área restrita à gerência. Digite a senha comercial para gerenciar, editar ou excluir matérias:
+              Área restrita à gerência. Digite a senha comercial para gerenciar matérias e fontes:
             </p>
             <form onSubmit={handleLogin} className="space-y-4">
               <input
@@ -152,117 +226,186 @@ export default function AdminBlog() {
             </form>
           </div>
         ) : (
-          /* PAINEL DE CONTROLE DAS MATÉRIAS */
-          <div className="bg-white rounded-2xl shadow-xl border border-gray-200 overflow-hidden">
-            {/* CABEÇALHO DO PAINEL */}
-            <div className="bg-[#19137a] text-white p-6 flex flex-col md:flex-row md:items-center justify-between gap-4">
-              <div>
-                <h1 className="text-lg font-bold flex items-center gap-2">
-                  <ShieldCheck size={20} className="text-[#00d1ff]" /> Gestão Privada de Artigos do Blog
-                </h1>
-                <p className="text-xs text-gray-300 mt-1">
-                  Edite o texto, exclua ou execute varreduras manuais com Inteligência Artificial sem exposição ao público.
-                </p>
+          <>
+            {/* SEÇÃO 1: PAINEL DE CONTROLE DAS MATÉRIAS */}
+            <div className="bg-white rounded-2xl shadow-xl border border-gray-200 overflow-hidden">
+              <div className="bg-[#19137a] text-white p-6 flex flex-col md:flex-row md:items-center justify-between gap-4">
+                <div>
+                  <h1 className="text-lg font-bold flex items-center gap-2">
+                    <ShieldCheck size={20} className="text-[#00d1ff]" /> Gestão Privada de Artigos do Blog
+                  </h1>
+                  <p className="text-xs text-gray-300 mt-1">
+                    Edite o texto, exclua ou execute varreduras manuais com IA sem exposição ao público.
+                  </p>
+                </div>
+
+                <div className="flex items-center gap-2">
+                  <button
+                    onClick={handleTriggerScan}
+                    disabled={scanning}
+                    className="bg-[#00d1ff] hover:bg-cyan-300 text-[#19137a] font-extrabold px-3 py-2 rounded-lg text-xs transition-all flex items-center gap-1.5 border-none cursor-pointer disabled:opacity-50"
+                  >
+                    <Zap size={14} className={scanning ? 'animate-bounce' : ''} />
+                    {scanning ? 'Varrendo a Web...' : '⚡ Varredura com IA Agora'}
+                  </button>
+
+                  <button
+                    onClick={loadPostsAndSources}
+                    className="bg-white/10 hover:bg-white/20 text-white font-bold p-2 rounded-lg text-xs transition-all flex items-center gap-1 border-none cursor-pointer"
+                  >
+                    <RefreshCw size={14} className={loading ? 'animate-spin' : ''} />
+                  </button>
+                </div>
               </div>
 
-              <div className="flex items-center gap-2">
-                <button
-                  onClick={handleTriggerScan}
-                  disabled={scanning}
-                  className="bg-[#00d1ff] hover:bg-cyan-300 text-[#19137a] font-extrabold px-3 py-2 rounded-lg text-xs transition-all flex items-center gap-1.5 border-none cursor-pointer disabled:opacity-50"
-                  title="Buscar novas notícias no Blog do Corretor, ANS e Operadoras agora"
-                >
-                  <Zap size={14} className={scanning ? 'animate-bounce' : ''} />
-                  {scanning ? 'Varrendo a Web...' : '⚡ Varredura com IA Agora'}
-                </button>
-
-                <button
-                  onClick={loadPosts}
-                  className="bg-white/10 hover:bg-white/20 text-white font-bold p-2 rounded-lg text-xs transition-all flex items-center gap-1 border-none cursor-pointer"
-                  title="Atualizar lista"
-                >
-                  <RefreshCw size={14} className={loading ? 'animate-spin' : ''} />
-                </button>
-              </div>
-            </div>
-
-            {/* TABELA DE ARTIGOS */}
-            <div className="p-6">
-              {loading ? (
-                <div className="py-12 text-center text-gray-500 font-bold">
-                  Carregando artigos do blog...
-                </div>
-              ) : posts.length === 0 ? (
-                <div className="py-12 text-center text-gray-400 font-medium">
-                  Nenhum artigo encontrado no blog.
-                </div>
-              ) : (
-                <div className="overflow-x-auto">
-                  <table className="w-full border-collapse text-left text-xs">
-                    <thead>
-                      <tr className="border-b border-gray-200 text-gray-500 uppercase tracking-wider font-bold">
-                        <th className="py-3 px-2">Título do Artigo</th>
-                        <th className="py-3 px-2">Categoria</th>
-                        <th className="py-3 px-2">Data</th>
-                        <th className="py-3 px-2 text-right">Ações</th>
-                      </tr>
-                    </thead>
-                    <tbody className="divide-y divide-gray-100">
-                      {posts.map((post) => (
-                        <tr key={post.id || post.slug} className="hover:bg-gray-50 transition-colors">
-                          <td className="py-3.5 px-2 font-bold text-gray-800">
-                            <div className="flex items-center gap-2">
-                              <span>{post.title}</span>
-                              <a
-                                href={`/blog/${post.slug}`}
-                                target="_blank"
-                                rel="noreferrer"
-                                className="text-blue-500 hover:text-blue-700"
-                                title="Ver matéria pública"
-                              >
-                                <ExternalLink size={12} />
-                              </a>
-                            </div>
-                          </td>
-                          <td className="py-3.5 px-2">
-                            <span className="bg-blue-50 text-blue-700 px-2 py-0.5 rounded font-bold">
-                              {post.category}
-                            </span>
-                          </td>
-                          <td className="py-3.5 px-2 text-gray-500 whitespace-nowrap">
-                            {post.date}
-                          </td>
-                          <td className="py-3.5 px-2 text-right whitespace-nowrap">
-                            <div className="flex items-center justify-end gap-2">
-                              {/* Botão de Edição */}
-                              <button
-                                onClick={() => handleOpenEdit(post)}
-                                className="bg-amber-500 hover:bg-amber-600 text-white font-bold px-2.5 py-1.5 rounded-lg text-xs transition-all flex items-center gap-1 border-none cursor-pointer"
-                                title="Editar artigo"
-                              >
-                                <Edit3 size={12} /> Editar
-                              </button>
-
-                              {/* Botão de Exclusão */}
-                              <button
-                                onClick={() => handleDeletePost(post)}
-                                disabled={deletingId === (post.id || post.slug)}
-                                className="bg-red-500 hover:bg-red-700 text-white font-bold px-2.5 py-1.5 rounded-lg text-xs transition-all flex items-center gap-1 border-none cursor-pointer disabled:opacity-50"
-                                title="Excluir artigo"
-                              >
-                                <Trash2 size={12} />
-                                {deletingId === (post.id || post.slug) ? 'Excluindo...' : 'Excluir'}
-                              </button>
-                            </div>
-                          </td>
+              <div className="p-6">
+                {loading ? (
+                  <div className="py-12 text-center text-gray-500 font-bold">Carregando artigos...</div>
+                ) : posts.length === 0 ? (
+                  <div className="py-12 text-center text-gray-400 font-medium">Nenhum artigo no blog.</div>
+                ) : (
+                  <div className="overflow-x-auto">
+                    <table className="w-full border-collapse text-left text-xs">
+                      <thead>
+                        <tr className="border-b border-gray-200 text-gray-500 uppercase tracking-wider font-bold">
+                          <th className="py-3 px-2">Título do Artigo</th>
+                          <th className="py-3 px-2">Categoria</th>
+                          <th className="py-3 px-2">Data</th>
+                          <th className="py-3 px-2 text-right">Ações</th>
                         </tr>
-                      ))}
-                    </tbody>
-                  </table>
-                </div>
-              )}
+                      </thead>
+                      <tbody className="divide-y divide-gray-100">
+                        {posts.map((post) => (
+                          <tr key={post.id || post.slug} className="hover:bg-gray-50 transition-colors">
+                            <td className="py-3.5 px-2 font-bold text-gray-800">
+                              <div className="flex items-center gap-2">
+                                <span>{post.title}</span>
+                                <a
+                                  href={`/blog/${post.slug}`}
+                                  target="_blank"
+                                  rel="noreferrer"
+                                  className="text-blue-500 hover:text-blue-700"
+                                >
+                                  <ExternalLink size={12} />
+                                </a>
+                              </div>
+                            </td>
+                            <td className="py-3.5 px-2">
+                              <span className="bg-blue-50 text-blue-700 px-2 py-0.5 rounded font-bold">
+                                {post.category}
+                              </span>
+                            </td>
+                            <td className="py-3.5 px-2 text-gray-500 whitespace-nowrap">{post.date}</td>
+                            <td className="py-3.5 px-2 text-right whitespace-nowrap">
+                              <div className="flex items-center justify-end gap-2">
+                                <button
+                                  onClick={() => handleOpenEdit(post)}
+                                  className="bg-amber-500 hover:bg-amber-600 text-white font-bold px-2.5 py-1.5 rounded-lg text-xs transition-all flex items-center gap-1 border-none cursor-pointer"
+                                >
+                                  <Edit3 size={12} /> Editar
+                                </button>
+
+                                <button
+                                  onClick={() => handleDeletePost(post)}
+                                  disabled={deletingId === (post.id || post.slug)}
+                                  className="bg-red-500 hover:bg-red-700 text-white font-bold px-2.5 py-1.5 rounded-lg text-xs transition-all flex items-center gap-1 border-none cursor-pointer disabled:opacity-50"
+                                >
+                                  <Trash2 size={12} />
+                                  {deletingId === (post.id || post.slug) ? 'Excluindo...' : 'Excluir'}
+                                </button>
+                              </div>
+                            </td>
+                          </tr>
+                        ))}
+                      </tbody>
+                    </table>
+                  </div>
+                )}
+              </div>
             </div>
-          </div>
+
+            {/* SEÇÃO 2: GERENCIADOR DE FONTES & PORTAIS DE NOTÍCIAS */}
+            <div className="bg-white rounded-2xl shadow-xl border border-gray-200 overflow-hidden">
+              <div className="bg-gray-800 text-white p-6 flex items-center justify-between">
+                <div>
+                  <h2 className="text-base font-bold flex items-center gap-2">
+                    <Globe size={18} className="text-[#00d1ff]" /> Fontes e Portais de Notícias Monitorados
+                  </h2>
+                  <p className="text-xs text-gray-300 mt-1">
+                    Cadastre novos blogs, portais ou sites institucionais para o robô monitorar automaticamente.
+                  </p>
+                </div>
+              </div>
+
+              <div className="p-6 space-y-6">
+                {/* FORMULÁRIO DE NOVO PORTAL */}
+                <form onSubmit={handleAddPortal} className="bg-gray-50 border border-gray-200 p-4 rounded-xl space-y-3">
+                  <div className="text-xs font-bold text-gray-700 uppercase flex items-center gap-1.5">
+                    <PlusCircle size={14} className="text-[#19137a]" /> Cadastrar Novo Portal / Blog
+                  </div>
+
+                  <div className="grid grid-cols-1 md:grid-cols-3 gap-3">
+                    <input
+                      type="text"
+                      value={newPortalName}
+                      onChange={(e) => setNewPortalName(e.target.value)}
+                      placeholder="Nome do Portal (ex: Blog do Corretor)"
+                      className="border border-gray-300 p-2.5 rounded-lg text-xs font-bold focus:outline-none focus:border-[#19137a]"
+                      required
+                    />
+                    <input
+                      type="url"
+                      value={newPortalUrl}
+                      onChange={(e) => setNewPortalUrl(e.target.value)}
+                      placeholder="URL (ex: https://blogdocorretor.com.br/)"
+                      className="border border-gray-300 p-2.5 rounded-lg text-xs font-medium focus:outline-none focus:border-[#19137a]"
+                      required
+                    />
+                    <input
+                      type="text"
+                      value={newPortalCategory}
+                      onChange={(e) => setNewPortalCategory(e.target.value)}
+                      placeholder="Categoria (ex: Notícias de Saúde)"
+                      className="border border-gray-300 p-2.5 rounded-lg text-xs font-bold focus:outline-none focus:border-[#19137a]"
+                    />
+                  </div>
+
+                  <button
+                    type="submit"
+                    disabled={addingPortal}
+                    className="bg-[#19137a] hover:bg-blue-900 text-white font-bold px-4 py-2 rounded-lg text-xs uppercase transition-all border-none cursor-pointer disabled:opacity-50 flex items-center gap-1.5"
+                  >
+                    <PlusCircle size={14} /> {addingPortal ? 'Salvando Portal...' : 'Adicionar Fonte de Notícias'}
+                  </button>
+                </form>
+
+                {/* LISTA DE PORTAIS ATIVOS */}
+                <div className="grid grid-cols-1 md:grid-cols-2 gap-3">
+                  {sources.map((src) => (
+                    <div key={src.id} className="border border-gray-200 rounded-xl p-3.5 flex items-center justify-between bg-white hover:shadow-sm transition-shadow">
+                      <div className="overflow-hidden">
+                        <h4 className="font-bold text-gray-800 text-xs flex items-center gap-1.5">
+                          <span>{src.name}</span>
+                          <span className="bg-gray-100 text-gray-600 px-2 py-0.5 rounded text-[10px] font-bold">{src.category}</span>
+                        </h4>
+                        <a href={src.url} target="_blank" rel="noreferrer" className="text-[11px] text-blue-500 hover:underline truncate block mt-0.5">
+                          {src.url}
+                        </a>
+                      </div>
+
+                      <button
+                        onClick={() => handleDeletePortal(src)}
+                        className="text-red-400 hover:text-red-600 p-1.5 rounded-lg border-none bg-transparent cursor-pointer"
+                        title="Remover fonte"
+                      >
+                        <Trash2 size={14} />
+                      </button>
+                    </div>
+                  ))}
+                </div>
+              </div>
+            </div>
+          </>
         )}
       </div>
 

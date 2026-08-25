@@ -1,13 +1,21 @@
-import type { VercelRequest, VercelResponse } from '@vercel/node';
+export interface NewsSource {
+  id: string;
+  name: string;
+  url: string;
+  feedUrl?: string;
+  category: string;
+}
 
-// Pauta de backup e fontes de notícias de mercado em saúde
-const HEALTH_TOPICS = [
-  {
-    title: 'Notícias e Bastidores do Mercado de Saúde Suplementar',
-    source: 'Blog do Corretor (blogdocorretor.com)',
-    feedUrl: 'https://blogdocorretor.com/feed/',
-    topic: 'Novidades de Operadoras, Corretoras e Mercado de Saúde'
-  },
+// Lista dinâmica de portais monitorados
+let MONITORED_SOURCES: NewsSource[] = [
+  { id: '1', name: 'Blog do Corretor', url: 'https://blogdocorretor.com.br/', feedUrl: 'https://blogdocorretor.com.br/feed/', category: 'Notícias do Mercado' },
+  { id: '2', name: 'ANS - Portal Oficial', url: 'https://www.gov.br/ans/pt-br/assuntos/noticias', category: 'Regulamentação' },
+  { id: '3', name: 'Medicina S/A', url: 'https://medicinasa.com.br/category/planos-de-saude/', category: 'Saúde Suplementar' },
+  { id: '4', name: 'Amil Imprensa', url: 'https://www.amil.com.br', category: 'Operadoras' },
+  { id: '5', name: 'Bradesco Saúde', url: 'https://www.bradescosaude.com.br', category: 'Operadoras' },
+  { id: '6', name: 'SulAmérica Saúde', url: 'https://www.sulamericasaude.com.br', category: 'Operadoras' },
+  { id: '7', name: 'Porto Saúde', url: 'https://www.portoseguro.com.br/saude', category: 'Operadoras' }
+];
   {
     title: 'ANS divulga novo teto de reajuste para planos individuais e familiares',
     source: 'ANS - Agência Nacional de Saúde Suplementar',
@@ -30,8 +38,57 @@ const HEALTH_TOPICS = [
   }
 ];
 
-export default async function handler(req: VercelRequest, res: VercelResponse) {
+type ApiReq = any;
+type ApiRes = any;
+
+export default async function handler(req: ApiReq, res: ApiRes) {
   res.setHeader('Access-Control-Allow-Origin', '*');
+  res.setHeader('Access-Control-Allow-Methods', 'GET, POST, DELETE, OPTIONS');
+  res.setHeader('Access-Control-Allow-Headers', 'Content-Type');
+
+  if (req.method === 'OPTIONS') {
+    return res.status(200).end();
+  }
+
+  const action = req.query?.action || req.body?.action;
+
+  // GERENCIADOR DE FONTES DE NOTÍCIAS
+  if (action === 'sources') {
+    if (req.method === 'GET') {
+      return res.status(200).json(MONITORED_SOURCES);
+    }
+
+    if (req.method === 'POST') {
+      const { name, url, feedUrl, category, pin } = req.body || {};
+      if (pin !== '2026' && pin !== 'simulador') {
+        return res.status(401).json({ error: 'Senha incorreta' });
+      }
+      if (!name || !url) {
+        return res.status(400).json({ error: 'Nome e URL do portal são obrigatórios' });
+      }
+
+      const newSource: NewsSource = {
+        id: String(Date.now()),
+        name: name.trim(),
+        url: url.trim(),
+        feedUrl: feedUrl ? feedUrl.trim() : undefined,
+        category: category || 'Geral'
+      };
+
+      MONITORED_SOURCES.push(newSource);
+      return res.status(201).json({ success: true, source: newSource });
+    }
+
+    if (req.method === 'DELETE') {
+      const { id, pin } = req.body || req.query || {};
+      if (pin !== '2026' && pin !== 'simulador') {
+        return res.status(401).json({ error: 'Senha incorreta' });
+      }
+
+      MONITORED_SOURCES = MONITORED_SOURCES.filter(s => s.id !== id);
+      return res.status(200).json({ success: true, message: 'Portal removido' });
+    }
+  }
 
   try {
     // Escolher um tema dinâmico para gerar a nova matéria
