@@ -60,7 +60,10 @@
     </div>
 
     <div id="agosto" class="tab-content active">
-        <table class="table-container">
+        <table class="table-container" id="table-agosto">
+            <tr class="row"><td class="cell col-tag"><span class="badge bg-att">ATUALIZ.</span></td><td class="cell"><span class="operadora">VIDA TOP+ SAÚDE (CORPe SAÚDE) - SP:</span> <span class="descricao">Atualização de valores disponível no projeto Adesão</span></td><td class="cell col-data">25/08/2026</td></tr>
+            <tr class="row"><td class="cell col-tag"><span class="badge bg-att">ATUALIZ.</span></td><td class="cell"><span class="operadora">SÃO FRANCISCO VIDA (CORPe SAÚDE) - SP:</span> <span class="descricao">Atualização disponível no projeto Adesão</span></td><td class="cell col-data">25/08/2026</td></tr>
+            <tr class="row"><td class="cell col-tag"><span class="badge bg-att">ATUALIZ.</span></td><td class="cell"><span class="operadora">SEGUROS UNIMED (CORPe SAÚDE):</span> <span class="descricao">Comercialização do projeto Adesão retomada</span></td><td class="cell col-data">25/08/2026</td></tr>
             <tr class="row"><td class="cell col-tag"><span class="badge bg-att">ATUALIZ.</span></td><td class="cell"><span class="operadora">BRADESCO SAÚDE - PME - INTERIOR 1 / SP:</span> <span class="descricao">Retirada dos produtos Flex e Ideal, e inclusão de novas tabelas</span></td><td class="cell col-data">25/08/2026</td></tr>
             <tr class="row"><td class="cell col-tag"><span class="badge bg-att">ATUALIZ.</span></td><td class="cell"><span class="operadora">ÔNIX SAÚDE (GRUPO CONTÉM) - RJ:</span> <span class="descricao">Atualização de valores disponível no projeto Adesão</span></td><td class="cell col-data">24/08/2026</td></tr>
             <tr class="row"><td class="cell col-tag"><span class="badge bg-att">ATUALIZ.</span></td><td class="cell"><span class="operadora">OPLAN (GRUPO CONTÉM) - RJ:</span> <span class="descricao">Atualização de valores disponível no projeto Adesão</span></td><td class="cell col-data">24/08/2026</td></tr>
@@ -305,6 +308,39 @@
             document.getElementById(monthName).classList.add("active");
             evt.currentTarget.classList.add("active");
         }
+
+        // Sincronização Dinâmica em Tempo Real com a API /api/noticias
+        (function syncRealtimeNews() {
+            fetch('/api/noticias')
+                .then(function(r) { return r.json(); })
+                .then(function(items) {
+                    if (!Array.isArray(items) || items.length === 0) return;
+                    var tableAgosto = document.getElementById('table-agosto');
+                    if (!tableAgosto) return;
+
+                    var existingHtml = tableAgosto.innerHTML;
+
+                    // Inserir itens dinâmicos da API no topo se não estiverem no HTML
+                    items.reverse().forEach(function(item) {
+                        if (!item.operadora || !item.descricao) return;
+                        if (existingHtml.indexOf(item.operadora) !== -1 && existingHtml.indexOf(item.descricao) !== -1) return;
+
+                        var badgeClass = 'bg-att';
+                        if (item.tag === 'NOVO') badgeClass = 'bg-novo';
+                        else if (item.tag === 'SUSPENSO') badgeClass = 'bg-susp';
+                        else if (item.tag === 'REAJUSTE') badgeClass = 'bg-reaj';
+
+                        var tr = document.createElement('tr');
+                        tr.className = 'row';
+                        tr.innerHTML = '<td class="cell col-tag"><span class="badge ' + badgeClass + '">' + item.tag + '</span></td>' +
+                                       '<td class="cell"><span class="operadora">' + item.operadora + ':</span> <span class="descricao">' + item.descricao + '</span></td>' +
+                                       '<td class="cell col-data">' + item.data + '</td>';
+                        
+                        tableAgosto.insertBefore(tr, tableAgosto.firstChild);
+                    });
+                })
+                .catch(function(e) { console.log('Sync noticias static mode active'); });
+        })();
     </script>
 
 </body>
