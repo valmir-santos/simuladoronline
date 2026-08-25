@@ -51,7 +51,7 @@ export default async function handler(req: ApiReq, res: ApiRes) {
   }
 
   // Montar tweet otimizado para o perfil @SimuladorSP
-  const tweetText = `📢 ATUALIZAÇÃO SIMULADOR ON-LINE\n\n${title}\n\nHistorico completo:\nhttps://www.simuladoronline.com/noticias\n\n#SimuladorOnline #PlanosDeSaude #CorretorDeSeguros`;
+  const tweetText = `📢 ATUALIZAÇÃO SIMULADOR ON-LINE\n\n${title}\n\nHistorico completo:\nhttps://www.simuladoronline.com/noticias\n\n#SimuladorOnline #PlanosDeSaude #CorretorDeSeguros #Multicalculos #MulticalculosPlanosDeSaude`;
 
   const apiKey = process.env.X_API_KEY;
   const apiSecret = process.env.X_API_SECRET;
