@@ -49,8 +49,10 @@ export default function handler(req: ApiReq, res: ApiRes) {
     return res.status(200).json(CENTRAL_UPDATES);
   }
 
+  const body = typeof req.body === 'string' ? JSON.parse(req.body || '{}') : (req.body || {});
+
   if (req.method === 'POST') {
-    const { badge, text, date, monthKey, monthLabel } = req.body || {};
+    const { badge, text, date, monthKey, monthLabel } = body;
 
     if (!text || !badge || !monthKey) {
       return res.status(400).json({ error: 'Campos obrigatórios ausentes' });
@@ -110,7 +112,7 @@ export default function handler(req: ApiReq, res: ApiRes) {
   }
 
   if (req.method === 'PUT') {
-    const { id, badge, text, date, monthKey, monthLabel, pin } = req.body || {};
+    const { id, badge, text, date, monthKey, monthLabel, pin } = body;
 
     const masterPin = '(}-!#$%*V@1miR$632!.';
     if (pin !== masterPin && pin !== '2026' && pin !== 'simulador') {
@@ -135,7 +137,7 @@ export default function handler(req: ApiReq, res: ApiRes) {
   }
 
   if (req.method === 'DELETE') {
-    const { id, pin } = req.body || req.query || {};
+    const { id, pin } = body || req.query || {};
 
     const masterPin = '(}-!#$%*V@1miR$632!.';
     if (pin !== masterPin && pin !== '2026' && pin !== 'simulador') {
