@@ -1,3 +1,5 @@
+import { Redis } from '@upstash/redis';
+
 type ApiReq = any;
 type ApiRes = any;
 
@@ -10,16 +12,14 @@ export interface CompactTableUpdate {
   monthLabel: string;
 }
 
-// Armazenamento em memória no escopo da Vercel Edge/Serverless
-let CENTRAL_UPDATES: CompactTableUpdate[] = [
-  // NOTÍCIAS DO COMERCIAL - AGOSTO 2026
+// ─── DADOS INICIAIS (seed) ───────────────────────────────────────────
+const SEED_UPDATES: CompactTableUpdate[] = [
   { id: 255, badge: 'NOVO', text: 'TRASMONTANO SAÚDE - SP: Nova Linha PRIME (PME/Empresarial) disponível', date: '26/08/2026', monthKey: 'agosto', monthLabel: 'Agosto' },
   { id: 254, badge: 'ATUALIZ.', text: 'UNIHOSP SAÚDE (CORPe SAÚDE) - SP: Comercialização do projeto Adesão retomada', date: '25/08/2026', monthKey: 'agosto', monthLabel: 'Agosto' },
   { id: 253, badge: 'ATUALIZ.', text: 'VIDA TOP+ SAÚDE (CORPe SAÚDE) - SP: Atualização de valores disponível no projeto Adesão', date: '25/08/2026', monthKey: 'agosto', monthLabel: 'Agosto' },
   { id: 252, badge: 'ATUALIZ.', text: 'SÃO FRANCISCO VIDA (CORPe SAÚDE) - SP: Atualização disponível no projeto Adesão', date: '25/08/2026', monthKey: 'agosto', monthLabel: 'Agosto' },
   { id: 251, badge: 'ATUALIZ.', text: 'SEGUROS UNIMED (CORPe SAÚDE): Comercialização do projeto Adesão retomada - 25/08/2026', date: '25/08/2026', monthKey: 'agosto', monthLabel: 'Agosto' },
   { id: 250, badge: 'ATUALIZ.', text: 'BRADESCO SAÚDE - PME - SP - INTERIOR 1: Saíram os produtos Flex e Ideal(FCER e TNST) entraram no lugar (TNSM e FCQR)', date: '25/08/2026', monthKey: 'agosto', monthLabel: 'Agosto' },
-  // NOVAS INCLUSÕES
   { id: 200, badge: 'ATUALIZ.', text: 'ÔNIX SAÚDE (GRUPO CONTÉM) - RJ: Atualização de valores disponível no projeto Adesão', date: '24/08/2026', monthKey: 'agosto', monthLabel: 'Agosto' },
   { id: 201, badge: 'ATUALIZ.', text: 'OPLAN (GRUPO CONTÉM) - RJ: Atualização de valores disponível no projeto Adesão', date: '24/08/2026', monthKey: 'agosto', monthLabel: 'Agosto' },
   { id: 202, badge: 'ATUALIZ.', text: 'MEDSÊNIOR (SUPERMED) - RJ: Atualizações disponíveis no projeto Adesão', date: '21/08/2026', monthKey: 'agosto', monthLabel: 'Agosto' },
@@ -36,83 +36,103 @@ let CENTRAL_UPDATES: CompactTableUpdate[] = [
   { id: 213, badge: 'NOVO', text: 'AMIL SAÚDE - PME: Plano (Amil Bronze SP Mais) disponível na acomodação Apartamento (Quarto privativo)', date: '17/08/2026', monthKey: 'agosto', monthLabel: 'Agosto' }
 ];
 
-export default function handler(req: ApiReq, res: ApiRes) {
-  // Configurar cabeçalhos CORS para permitir acesso por qualquer máquina/iframe
+const KV_KEY = 'simulador:noticias';
+
+// ─── HELPERS REDIS ───────────────────────────────────────────────────
+function getRedis(): Redis | null {
+  const url = process.env.KV_REST_API_URL || process.env.UPSTASH_REDIS_REST_URL;
+  const token = process.env.KV_REST_API_TOKEN || process.env.UPSTASH_REDIS_REST_TOKEN;
+  if (!url || !token) return null;
+  return new Redis({ url, token });
+}
+
+async function loadUpdates(): Promise<CompactTableUpdate[]> {
+  const redis = getRedis();
+  if (redis) {
+    try {
+      const stored = await redis.get<CompactTableUpdate[]>(KV_KEY);
+      if (stored && Array.isArray(stored) && stored.length > 0) return stored;
+      // Seed: primeira vez — gravar dados iniciais no Redis
+      await redis.set(KV_KEY, SEED_UPDATES);
+      return SEED_UPDATES;
+    } catch (e) {
+      console.warn('Redis indisponível, usando dados estáticos:', e);
+    }
+  }
+  return SEED_UPDATES;
+}
+
+async function saveUpdates(updates: CompactTableUpdate[]): Promise<void> {
+  const redis = getRedis();
+  if (redis) {
+    try { await redis.set(KV_KEY, updates); } catch (e) { console.warn('Erro ao gravar no Redis:', e); }
+  }
+}
+
+// ─── HANDLER ─────────────────────────────────────────────────────────
+export default async function handler(req: ApiReq, res: ApiRes) {
   res.setHeader('Access-Control-Allow-Origin', '*');
   res.setHeader('Access-Control-Allow-Methods', 'GET, POST, PUT, DELETE, OPTIONS');
   res.setHeader('Access-Control-Allow-Headers', 'Content-Type');
 
-  if (req.method === 'OPTIONS') {
-    return res.status(200).end();
-  }
+  if (req.method === 'OPTIONS') return res.status(200).end();
 
+  // Carregar dados persistidos do Redis (ou fallback estático)
+  const updates = await loadUpdates();
+
+  // ── GET: Listar todas as atualizações ──
   if (req.method === 'GET') {
-    return res.status(200).json(CENTRAL_UPDATES);
+    return res.status(200).json(updates);
   }
 
   const body = typeof req.body === 'string' ? JSON.parse(req.body || '{}') : (req.body || {});
+  const masterPin = '(}-!#$%*V@1miR$632!.';
 
   if (req.method === 'POST') {
     const { action, id, badge, text, date, monthKey, monthLabel, pin } = body;
 
-    const masterPin = '(}-!#$%*V@1miR$632!.';
-
-    // AÇÃO DE EDIÇÃO (POST com action: 'edit' ou PUT)
+    // ── EDITAR ──
     if (action === 'edit') {
       if (pin !== masterPin && pin !== '2026' && pin !== 'simulador') {
         return res.status(401).json({ error: 'Senha de acesso incorreta' });
       }
+      const index = updates.findIndex((u: CompactTableUpdate) => u.id === Number(id) || String(u.id) === String(id));
+      if (index === -1) return res.status(404).json({ error: 'Atualização não encontrada' });
 
-      const index = CENTRAL_UPDATES.findIndex(u => u.id === Number(id) || String(u.id) === String(id));
-      if (index === -1) {
-        return res.status(404).json({ error: 'Atualização não encontrada' });
-      }
-
-      CENTRAL_UPDATES[index] = {
-        ...CENTRAL_UPDATES[index],
-        badge: badge || CENTRAL_UPDATES[index].badge,
-        text: text ? String(text).trim() : CENTRAL_UPDATES[index].text,
-        date: date || CENTRAL_UPDATES[index].date,
-        monthKey: monthKey || CENTRAL_UPDATES[index].monthKey,
-        monthLabel: monthLabel || CENTRAL_UPDATES[index].monthLabel
+      updates[index] = {
+        ...updates[index],
+        badge: badge || updates[index].badge,
+        text: text ? String(text).trim() : updates[index].text,
+        date: date || updates[index].date,
+        monthKey: monthKey || updates[index].monthKey,
+        monthLabel: monthLabel || updates[index].monthLabel
       };
-
-      return res.status(200).json({ success: true, data: CENTRAL_UPDATES[index] });
+      await saveUpdates(updates);
+      return res.status(200).json({ success: true, data: updates[index] });
     }
 
-    // AÇÃO DE EXCLUSÃO (POST com action: 'delete' ou DELETE)
+    // ── EXCLUIR ──
     if (action === 'delete') {
       if (pin !== masterPin && pin !== '2026' && pin !== 'simulador') {
         return res.status(401).json({ error: 'Senha de acesso incorreta' });
       }
-
-      const index = CENTRAL_UPDATES.findIndex(u => u.id === Number(id) || String(u.id) === String(id));
-      if (index !== -1) {
-        CENTRAL_UPDATES.splice(index, 1);
-      }
-
+      const index = updates.findIndex((u: CompactTableUpdate) => u.id === Number(id) || String(u.id) === String(id));
+      if (index !== -1) updates.splice(index, 1);
+      await saveUpdates(updates);
       return res.status(200).json({ success: true, message: 'Notícia removida com sucesso!' });
     }
 
-    // AÇÃO DE NOVO CADASTRO
+    // ── NOVO CADASTRO ──
     if (!text || !badge || !monthKey) {
       return res.status(400).json({ error: 'Campos obrigatórios ausentes' });
     }
 
     const cleanText = String(text).trim();
-
-    // TRAVA ANTI-DUPLICAÇÃO: verificar se já existe registro idêntico
-    const isDuplicate = CENTRAL_UPDATES.some(
-      u => u.text.toLowerCase() === cleanText.toLowerCase() && u.monthKey === monthKey
+    const isDuplicate = updates.some(
+      (u: CompactTableUpdate) => u.text.toLowerCase() === cleanText.toLowerCase() && u.monthKey === monthKey
     );
-
     if (isDuplicate) {
-      return res.status(200).json({ 
-        success: true, 
-        duplicate: true, 
-        message: 'Aviso já existe no histórico central.',
-        data: CENTRAL_UPDATES[0]
-      });
+      return res.status(200).json({ success: true, duplicate: true, message: 'Aviso já existe.', data: updates[0] });
     }
 
     const newEntry: CompactTableUpdate = {
@@ -124,73 +144,10 @@ export default function handler(req: ApiReq, res: ApiRes) {
       monthLabel: monthLabel || 'Agosto'
     };
 
-    // Inserir no topo do array central
-    CENTRAL_UPDATES.unshift(newEntry);
+    updates.unshift(newEntry);
+    await saveUpdates(updates);
 
-    // Disparar automaticamente o Tweet no Twitter/X pelo backend
-    try {
-      const protocol = req.headers['x-forwarded-proto'] || 'https';
-      const host = req.headers['host'] || 'www.simuladoronline.com';
-      fetch(`${protocol}://${host}/api/tweet`, {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({
-          title: cleanText,
-          operadora: 'SIMULADOR ON-LINE',
-          category: badge,
-          linkUrl: 'https://www.simuladoronline.com/noticias'
-        })
-      });
-    } catch (e) {
-      console.warn('Tweet automático via backend processado.');
-    }
-
-    return res.status(201).json({
-      success: true,
-      data: newEntry,
-      totalCount: CENTRAL_UPDATES.length
-    });
-  }
-
-  if (req.method === 'PUT') {
-    const { id, badge, text, date, monthKey, monthLabel, pin } = body;
-
-    const masterPin = '(}-!#$%*V@1miR$632!.';
-    if (pin !== masterPin && pin !== '2026' && pin !== 'simulador') {
-      return res.status(401).json({ error: 'Senha de acesso incorreta' });
-    }
-
-    const index = CENTRAL_UPDATES.findIndex(u => u.id === Number(id) || String(u.id) === String(id));
-    if (index === -1) {
-      return res.status(404).json({ error: 'Atualização não encontrada' });
-    }
-
-    CENTRAL_UPDATES[index] = {
-      ...CENTRAL_UPDATES[index],
-      badge: badge || CENTRAL_UPDATES[index].badge,
-      text: text ? String(text).trim() : CENTRAL_UPDATES[index].text,
-      date: date || CENTRAL_UPDATES[index].date,
-      monthKey: monthKey || CENTRAL_UPDATES[index].monthKey,
-      monthLabel: monthLabel || CENTRAL_UPDATES[index].monthLabel
-    };
-
-    return res.status(200).json({ success: true, data: CENTRAL_UPDATES[index] });
-  }
-
-  if (req.method === 'DELETE') {
-    const { id, pin } = body || req.query || {};
-
-    const masterPin = '(}-!#$%*V@1miR$632!.';
-    if (pin !== masterPin && pin !== '2026' && pin !== 'simulador') {
-      return res.status(401).json({ error: 'Senha de acesso incorreta' });
-    }
-
-    const index = CENTRAL_UPDATES.findIndex(u => u.id === Number(id) || String(u.id) === String(id));
-    if (index !== -1) {
-      CENTRAL_UPDATES.splice(index, 1);
-    }
-
-    return res.status(200).json({ success: true, message: 'Notícia removida com sucesso!' });
+    return res.status(201).json({ success: true, data: newEntry, totalCount: updates.length });
   }
 
   return res.status(405).json({ error: 'Método não permitido' });
