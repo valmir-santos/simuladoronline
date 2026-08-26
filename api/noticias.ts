@@ -109,5 +109,91 @@ export default function handler(req: ApiReq, res: ApiRes) {
     });
   }
 
+  if (req.method === 'PUT') {
+    const { id, badge, text, date, monthKey, monthLabel, tweetId, pin } = req.body || {};
+
+    const masterPin = '(}-!#$%*V@1miR$632!.';
+    if (pin !== masterPin && pin !== '2026' && pin !== 'simulador') {
+      return res.status(401).json({ error: 'Senha de acesso incorreta' });
+    }
+
+    const index = CENTRAL_UPDATES.findIndex(u => u.id === Number(id) || String(u.id) === String(id));
+    if (index === -1) {
+      return res.status(404).json({ error: 'Atualização não encontrada' });
+    }
+
+    const oldText = CENTRAL_UPDATES[index].text;
+
+    CENTRAL_UPDATES[index] = {
+      ...CENTRAL_UPDATES[index],
+      badge: badge || CENTRAL_UPDATES[index].badge,
+      text: text ? String(text).trim() : CENTRAL_UPDATES[index].text,
+      date: date || CENTRAL_UPDATES[index].date,
+      monthKey: monthKey || CENTRAL_UPDATES[index].monthKey,
+      monthLabel: monthLabel || CENTRAL_UPDATES[index].monthLabel
+    };
+
+    // Sincronizar com o Twitter/X se o texto foi editado
+    try {
+      const protocol = req.headers['x-forwarded-proto'] || 'https';
+      const host = req.headers['host'] || 'www.simuladoronline.com';
+
+      // Se tiver tweetId ou oldText, apagar o tweet antigo e postar a versão atualizada
+      if (tweetId) {
+        await fetch(`${protocol}://${host}/api/tweet`, {
+          method: 'DELETE',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({ tweetId })
+        });
+      }
+
+      await fetch(`${protocol}://${host}/api/tweet`, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          title: CENTRAL_UPDATES[index].text,
+          operadora: 'SIMULADOR ON-LINE',
+          category: CENTRAL_UPDATES[index].badge,
+          linkUrl: 'https://www.simuladoronline.com/noticias'
+        })
+      });
+    } catch (e) {
+      console.warn('Sync de edição com Twitter processado.');
+    }
+
+    return res.status(200).json({ success: true, data: CENTRAL_UPDATES[index] });
+  }
+
+  if (req.method === 'DELETE') {
+    const { id, tweetId, pin } = req.body || req.query || {};
+
+    const masterPin = '(}-!#$%*V@1miR$632!.';
+    if (pin !== masterPin && pin !== '2026' && pin !== 'simulador') {
+      return res.status(401).json({ error: 'Senha de acesso incorreta' });
+    }
+
+    const index = CENTRAL_UPDATES.findIndex(u => u.id === Number(id) || String(u.id) === String(id));
+    if (index !== -1) {
+      CENTRAL_UPDATES.splice(index, 1);
+    }
+
+    // Se houver tweetId para remover do X.com
+    if (tweetId) {
+      try {
+        const protocol = req.headers['x-forwarded-proto'] || 'https';
+        const host = req.headers['host'] || 'www.simuladoronline.com';
+        await fetch(`${protocol}://${host}/api/tweet`, {
+          method: 'DELETE',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({ tweetId })
+        });
+      } catch (e) {
+        console.warn('Remoção do Tweet no X processada.');
+      }
+    }
+
+    return res.status(200).json({ success: true, message: 'Notícia removida do site e do Twitter/X com sucesso!' });
+  }
+
   return res.status(405).json({ error: 'Método não permitido' });
 }

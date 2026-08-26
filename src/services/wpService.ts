@@ -630,5 +630,31 @@ export const wpService = {
     };
     MOCK_COMPACT_UPDATES.unshift(created);
     return created;
+  },
+  deleteCompactUpdate: async (id: number, pin: string, tweetId?: string): Promise<boolean> => {
+    try {
+      const res = await fetch('/api/noticias', {
+        method: 'DELETE',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ id, tweetId, pin })
+      });
+      return res.ok;
+    } catch (e) {
+      console.error('Erro ao excluir notícia:', e);
+      return false;
+    }
+  },
+  updateCompactUpdate: async (updated: CompactTableUpdate, pin: string, tweetId?: string): Promise<boolean> => {
+    try {
+      const res = await fetch('/api/noticias', {
+        method: 'PUT',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ ...updated, tweetId, pin })
+      });
+      return res.ok;
+    } catch (e) {
+      console.error('Erro ao editar notícia:', e);
+      return false;
+    }
   }
 };
