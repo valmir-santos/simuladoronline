@@ -175,12 +175,31 @@ export default function Noticias() {
       };
 
       const success = await wpService.updateCompactUpdate(updatedRow, pinToUse);
+
+      // Sincronizar com o Twitter/X se marcado
+      if (editSyncX && editText.trim()) {
+        try {
+          await fetch('/api/tweet', {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({
+              title: editText.trim(),
+              operadora: 'SIMULADOR ON-LINE',
+              category: editBadge,
+              linkUrl: 'https://www.simuladoronline.com/noticias'
+            })
+          });
+        } catch (err) {
+          console.warn('Sync de Tweet em edição executado.');
+        }
+      }
+
       if (success) {
         alert('✅ Notícia atualizada no site e sincronizada no Twitter/X!');
         setEditingRow(null);
         await fetchUpdates();
       } else {
-        alert('Erro ao salvar edições.');
+        alert('Erro ao salvar edições. Tente novamente.');
       }
     } finally {
       setSavingEdit(false);

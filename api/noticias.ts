@@ -110,7 +110,7 @@ export default function handler(req: ApiReq, res: ApiRes) {
   }
 
   if (req.method === 'PUT') {
-    const { id, badge, text, date, monthKey, monthLabel, tweetId, pin } = req.body || {};
+    const { id, badge, text, date, monthKey, monthLabel, pin } = req.body || {};
 
     const masterPin = '(}-!#$%*V@1miR$632!.';
     if (pin !== masterPin && pin !== '2026' && pin !== 'simulador') {
@@ -122,8 +122,6 @@ export default function handler(req: ApiReq, res: ApiRes) {
       return res.status(404).json({ error: 'Atualização não encontrada' });
     }
 
-    const oldText = CENTRAL_UPDATES[index].text;
-
     CENTRAL_UPDATES[index] = {
       ...CENTRAL_UPDATES[index],
       badge: badge || CENTRAL_UPDATES[index].badge,
@@ -133,35 +131,11 @@ export default function handler(req: ApiReq, res: ApiRes) {
       monthLabel: monthLabel || CENTRAL_UPDATES[index].monthLabel
     };
 
-    // Sincronizar com o Twitter/X em segundo plano sem travar a resposta 200 OK
-    try {
-      if (tweetId) {
-        fetch('https://www.simuladoronline.com/api/tweet', {
-          method: 'DELETE',
-          headers: { 'Content-Type': 'application/json' },
-          body: JSON.stringify({ tweetId })
-        }).catch(() => {});
-      }
-
-      fetch('https://www.simuladoronline.com/api/tweet', {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({
-          title: CENTRAL_UPDATES[index].text,
-          operadora: 'SIMULADOR ON-LINE',
-          category: CENTRAL_UPDATES[index].badge,
-          linkUrl: 'https://www.simuladoronline.com/noticias'
-        })
-      }).catch(() => {});
-    } catch (e) {
-      console.warn('Sync de edição com Twitter ignorou falha de rede.');
-    }
-
     return res.status(200).json({ success: true, data: CENTRAL_UPDATES[index] });
   }
 
   if (req.method === 'DELETE') {
-    const { id, tweetId, pin } = req.body || req.query || {};
+    const { id, pin } = req.body || req.query || {};
 
     const masterPin = '(}-!#$%*V@1miR$632!.';
     if (pin !== masterPin && pin !== '2026' && pin !== 'simulador') {
@@ -173,20 +147,7 @@ export default function handler(req: ApiReq, res: ApiRes) {
       CENTRAL_UPDATES.splice(index, 1);
     }
 
-    // Se houver tweetId para remover do X.com
-    if (tweetId) {
-      try {
-        fetch('https://www.simuladoronline.com/api/tweet', {
-          method: 'DELETE',
-          headers: { 'Content-Type': 'application/json' },
-          body: JSON.stringify({ tweetId })
-        }).catch(() => {});
-      } catch (e) {
-        console.warn('Remoção do Tweet no X processada.');
-      }
-    }
-
-    return res.status(200).json({ success: true, message: 'Notícia removida do site e do Twitter/X com sucesso!' });
+    return res.status(200).json({ success: true, message: 'Notícia removida com sucesso!' });
   }
 
   return res.status(405).json({ error: 'Método não permitido' });
