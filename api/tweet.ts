@@ -40,6 +40,48 @@ function generateOAuthHeader(
 }
 
 export default async function handler(req: ApiReq, res: ApiRes) {
+  res.setHeader('Access-Control-Allow-Origin', '*');
+  res.setHeader('Access-Control-Allow-Methods', 'POST, DELETE, OPTIONS');
+  res.setHeader('Access-Control-Allow-Headers', 'Content-Type');
+
+  if (req.method === 'OPTIONS') {
+    return res.status(200).end();
+  }
+
+  const apiKey = process.env.X_API_KEY;
+  const apiSecret = process.env.X_API_SECRET;
+  const accessToken = process.env.X_ACCESS_TOKEN;
+  const accessSecret = process.env.X_ACCESS_SECRET;
+
+  // SUPORTE A APAGAR TWEET NO X.COM (DELETE)
+  if (req.method === 'DELETE') {
+    const { tweetId, id } = req.body || req.query || {};
+    const targetTweetId = tweetId || id;
+
+    if (!targetTweetId) {
+      return res.status(400).json({ error: 'ID do Tweet ausente' });
+    }
+
+    if (!apiKey || !apiSecret || !accessToken || !accessSecret) {
+      return res.status(400).json({ error: 'Chaves do Twitter não configuradas no servidor' });
+    }
+
+    try {
+      const url = `https://api.twitter.com/2/tweets/${targetTweetId}`;
+      const authHeader = generateOAuthHeader('DELETE', url, apiKey, apiSecret, accessToken, accessSecret);
+
+      const twitterRes = await fetch(url, {
+        method: 'DELETE',
+        headers: { 'Authorization': authHeader }
+      });
+
+      const data = await twitterRes.json();
+      return res.status(200).json({ success: true, message: 'Tweet excluído do X.com com sucesso!', data });
+    } catch (e: any) {
+      return res.status(500).json({ error: 'Erro ao apagar tweet no X.com', details: e?.message });
+    }
+  }
+
   if (req.method !== 'POST') {
     return res.status(405).json({ error: 'Método não permitido' });
   }
