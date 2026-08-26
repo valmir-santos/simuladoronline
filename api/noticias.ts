@@ -38,7 +38,7 @@ let CENTRAL_UPDATES: CompactTableUpdate[] = [
 export default function handler(req: ApiReq, res: ApiRes) {
   // Configurar cabeçalhos CORS para permitir acesso por qualquer máquina/iframe
   res.setHeader('Access-Control-Allow-Origin', '*');
-  res.setHeader('Access-Control-Allow-Methods', 'GET, POST, OPTIONS');
+  res.setHeader('Access-Control-Allow-Methods', 'GET, POST, PUT, DELETE, OPTIONS');
   res.setHeader('Access-Control-Allow-Headers', 'Content-Type');
 
   if (req.method === 'OPTIONS') {
