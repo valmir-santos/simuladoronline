@@ -311,7 +311,11 @@ export interface CompactTableUpdate {
 }
 
 const MOCK_COMPACT_UPDATES: CompactTableUpdate[] = [
-  // NOTÍCIA DO COMERCIAL
+  // NOTÍCIAS DO COMERCIAL DA CORPE SAÚDE E BRADESCO SAÚDE
+  { id: 254, badge: 'ATUALIZ.', text: 'UNIHOSP SAÚDE (CORPe SAÚDE) - SP: Comercialização do projeto Adesão retomada', date: '25/08/2026', monthKey: 'agosto', monthLabel: 'Agosto' },
+  { id: 253, badge: 'ATUALIZ.', text: 'VIDA TOP+ SAÚDE (CORPe SAÚDE) - SP: Atualização de valores disponível no projeto Adesão', date: '25/08/2026', monthKey: 'agosto', monthLabel: 'Agosto' },
+  { id: 252, badge: 'ATUALIZ.', text: 'SÃO FRANCISCO VIDA (CORPe SAÚDE) - SP: Atualização disponível no projeto Adesão', date: '25/08/2026', monthKey: 'agosto', monthLabel: 'Agosto' },
+  { id: 251, badge: 'ATUALIZ.', text: 'SEGUROS UNIMED (CORPe SAÚDE): Comercialização do projeto Adesão retomada - 25/08/2026', date: '25/08/2026', monthKey: 'agosto', monthLabel: 'Agosto' },
   { id: 250, badge: 'ATUALIZ.', text: 'BRADESCO SAÚDE - PME - INTERIOR 1 / SP: Retirada dos produtos Flex e Ideal, e inclusão de novas tabelas', date: '25/08/2026', monthKey: 'agosto', monthLabel: 'Agosto' },
   // AGOSTO 2026 (Novas inclusões comerciais)
   { id: 200, badge: 'ATUALIZ.', text: 'ÔNIX SAÚDE (GRUPO CONTÉM) - RJ: Atualização de valores disponível no projeto Adesão', date: '24/08/2026', monthKey: 'agosto', monthLabel: 'Agosto' },

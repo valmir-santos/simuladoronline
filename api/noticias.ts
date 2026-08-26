@@ -133,21 +133,17 @@ export default function handler(req: ApiReq, res: ApiRes) {
       monthLabel: monthLabel || CENTRAL_UPDATES[index].monthLabel
     };
 
-    // Sincronizar com o Twitter/X se o texto foi editado
+    // Sincronizar com o Twitter/X em segundo plano sem travar a resposta 200 OK
     try {
-      const protocol = req.headers['x-forwarded-proto'] || 'https';
-      const host = req.headers['host'] || 'www.simuladoronline.com';
-
-      // Se tiver tweetId ou oldText, apagar o tweet antigo e postar a versão atualizada
       if (tweetId) {
-        await fetch(`${protocol}://${host}/api/tweet`, {
+        fetch('https://www.simuladoronline.com/api/tweet', {
           method: 'DELETE',
           headers: { 'Content-Type': 'application/json' },
           body: JSON.stringify({ tweetId })
-        });
+        }).catch(() => {});
       }
 
-      await fetch(`${protocol}://${host}/api/tweet`, {
+      fetch('https://www.simuladoronline.com/api/tweet', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({
@@ -156,9 +152,9 @@ export default function handler(req: ApiReq, res: ApiRes) {
           category: CENTRAL_UPDATES[index].badge,
           linkUrl: 'https://www.simuladoronline.com/noticias'
         })
-      });
+      }).catch(() => {});
     } catch (e) {
-      console.warn('Sync de edição com Twitter processado.');
+      console.warn('Sync de edição com Twitter ignorou falha de rede.');
     }
 
     return res.status(200).json({ success: true, data: CENTRAL_UPDATES[index] });
@@ -180,13 +176,11 @@ export default function handler(req: ApiReq, res: ApiRes) {
     // Se houver tweetId para remover do X.com
     if (tweetId) {
       try {
-        const protocol = req.headers['x-forwarded-proto'] || 'https';
-        const host = req.headers['host'] || 'www.simuladoronline.com';
-        await fetch(`${protocol}://${host}/api/tweet`, {
+        fetch('https://www.simuladoronline.com/api/tweet', {
           method: 'DELETE',
           headers: { 'Content-Type': 'application/json' },
           body: JSON.stringify({ tweetId })
-        });
+        }).catch(() => {});
       } catch (e) {
         console.warn('Remoção do Tweet no X processada.');
       }
