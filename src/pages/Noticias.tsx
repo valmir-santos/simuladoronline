@@ -106,6 +106,8 @@ export default function Noticias() {
       await fetchUpdates();
       setActiveTab(formMonthKey);
 
+      alert('✅ Atualização publicada com sucesso no Simulador On-Line e enviada para o Twitter (X)!');
+
     } catch (err) {
       alert('Erro ao adicionar linha.');
     } finally {

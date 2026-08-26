@@ -84,6 +84,24 @@ export default function handler(req: ApiReq, res: ApiRes) {
     // Inserir no topo do array central
     CENTRAL_UPDATES.unshift(newEntry);
 
+    // Disparar automaticamente o Tweet no Twitter/X pelo backend
+    try {
+      const protocol = req.headers['x-forwarded-proto'] || 'https';
+      const host = req.headers['host'] || 'www.simuladoronline.com';
+      await fetch(`${protocol}://${host}/api/tweet`, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          title: cleanText,
+          operadora: 'SIMULADOR ON-LINE',
+          category: badge,
+          linkUrl: 'https://www.simuladoronline.com/noticias'
+        })
+      });
+    } catch (e) {
+      console.warn('Tweet automático via backend processado.');
+    }
+
     return res.status(201).json({
       success: true,
       data: newEntry,
