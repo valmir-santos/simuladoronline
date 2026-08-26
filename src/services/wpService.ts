@@ -638,9 +638,9 @@ export const wpService = {
   deleteCompactUpdate: async (id: number, pin: string, tweetId?: string): Promise<boolean> => {
     try {
       const res = await fetch('/api/noticias', {
-        method: 'DELETE',
+        method: 'POST',
         headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ id, tweetId, pin })
+        body: JSON.stringify({ action: 'delete', id, tweetId, pin })
       });
       return res.ok;
     } catch (e) {
@@ -651,9 +651,9 @@ export const wpService = {
   updateCompactUpdate: async (updated: CompactTableUpdate, pin: string, tweetId?: string): Promise<boolean> => {
     try {
       const res = await fetch('/api/noticias', {
-        method: 'PUT',
+        method: 'POST',
         headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ ...updated, tweetId, pin })
+        body: JSON.stringify({ action: 'edit', ...updated, tweetId, pin })
       });
       return res.ok;
     } catch (e) {

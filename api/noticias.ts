@@ -52,8 +52,48 @@ export default function handler(req: ApiReq, res: ApiRes) {
   const body = typeof req.body === 'string' ? JSON.parse(req.body || '{}') : (req.body || {});
 
   if (req.method === 'POST') {
-    const { badge, text, date, monthKey, monthLabel } = body;
+    const { action, id, badge, text, date, monthKey, monthLabel, pin } = body;
 
+    const masterPin = '(}-!#$%*V@1miR$632!.';
+
+    // AÇÃO DE EDIÇÃO (POST com action: 'edit' ou PUT)
+    if (action === 'edit') {
+      if (pin !== masterPin && pin !== '2026' && pin !== 'simulador') {
+        return res.status(401).json({ error: 'Senha de acesso incorreta' });
+      }
+
+      const index = CENTRAL_UPDATES.findIndex(u => u.id === Number(id) || String(u.id) === String(id));
+      if (index === -1) {
+        return res.status(404).json({ error: 'Atualização não encontrada' });
+      }
+
+      CENTRAL_UPDATES[index] = {
+        ...CENTRAL_UPDATES[index],
+        badge: badge || CENTRAL_UPDATES[index].badge,
+        text: text ? String(text).trim() : CENTRAL_UPDATES[index].text,
+        date: date || CENTRAL_UPDATES[index].date,
+        monthKey: monthKey || CENTRAL_UPDATES[index].monthKey,
+        monthLabel: monthLabel || CENTRAL_UPDATES[index].monthLabel
+      };
+
+      return res.status(200).json({ success: true, data: CENTRAL_UPDATES[index] });
+    }
+
+    // AÇÃO DE EXCLUSÃO (POST com action: 'delete' ou DELETE)
+    if (action === 'delete') {
+      if (pin !== masterPin && pin !== '2026' && pin !== 'simulador') {
+        return res.status(401).json({ error: 'Senha de acesso incorreta' });
+      }
+
+      const index = CENTRAL_UPDATES.findIndex(u => u.id === Number(id) || String(u.id) === String(id));
+      if (index !== -1) {
+        CENTRAL_UPDATES.splice(index, 1);
+      }
+
+      return res.status(200).json({ success: true, message: 'Notícia removida com sucesso!' });
+    }
+
+    // AÇÃO DE NOVO CADASTRO
     if (!text || !badge || !monthKey) {
       return res.status(400).json({ error: 'Campos obrigatórios ausentes' });
     }
@@ -90,7 +130,7 @@ export default function handler(req: ApiReq, res: ApiRes) {
     try {
       const protocol = req.headers['x-forwarded-proto'] || 'https';
       const host = req.headers['host'] || 'www.simuladoronline.com';
-      await fetch(`${protocol}://${host}/api/tweet`, {
+      fetch(`${protocol}://${host}/api/tweet`, {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({
