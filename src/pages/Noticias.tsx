@@ -374,7 +374,7 @@ export default function Noticias() {
                   type="password" 
                   value={accessCode}
                   onChange={(e) => setAccessCode(e.target.value)}
-                  placeholder="Digite a senha (ex: 2026)" 
+                  placeholder="Digite a senha de acesso" 
                   className="w-full border border-gray-300 p-2.5 rounded-lg text-center font-bold text-xs focus:outline-none focus:border-[#19137a]"
                   autoFocus
                 />
