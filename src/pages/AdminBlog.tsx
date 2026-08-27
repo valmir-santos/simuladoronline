@@ -308,7 +308,7 @@ export default function AdminBlog() {
 
   return (
     <div className="bg-gray-50 min-h-screen py-12 px-4 font-sans">
-      <SEO title="Painel de Administração do Blog | Simulador On-Line" noindex={true} />
+      <SEO title="Painel de Administração do Blog | Simulador On-Line" description="Painel administrativo para gestão do blog do Simulador On-Line." noindex={true} />
 
       <div className="max-w-5xl mx-auto space-y-8">
         {!isAuthenticated ? (

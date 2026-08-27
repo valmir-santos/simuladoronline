@@ -16,6 +16,7 @@ interface SEOProps {
   imageUrl?: string;
   articleData?: ArticleData;
   customSchema?: object;
+  noindex?: boolean;
 }
 
 const updateTag = (selector: string, attribute: string, value: string, tagType: string = 'meta') => {
@@ -40,7 +41,8 @@ export default function SEO({
   type = 'website',
   imageUrl = 'https://www.simuladoronline.com/assets/og-image.jpg',
   articleData,
-  customSchema
+  customSchema,
+  noindex
 }: SEOProps) {
   useEffect(() => {
     const siteName = "Simulador On-Line";
@@ -50,7 +52,14 @@ export default function SEO({
     // 1. Update Title
     document.title = fullTitle;
 
-    // 2. Update Meta Description
+    // 2. Update Robots tag
+    if (noindex) {
+      updateTag('meta[name="robots"]', 'content', 'noindex, nofollow');
+    } else {
+      updateTag('meta[name="robots"]', 'content', 'index, follow');
+    }
+
+    // 3. Update Meta Description
     updateTag('meta[name="description"]', 'content', description);
 
     // 3. Update Open Graph tags

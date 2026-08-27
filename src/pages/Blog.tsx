@@ -5,6 +5,17 @@ import { Link } from 'react-router-dom';
 import { wpService, WPPost } from '../services/wpService';
 import SEO from '../components/SEO';
 
+const formatDate = (dateStr: string) => {
+  try {
+    const d = new Date(dateStr);
+    if (!isNaN(d.getTime())) {
+      // Formata como "25 de Agosto, 2026"
+      return d.toLocaleDateString('pt-BR', { day: '2-digit', month: 'long', year: 'numeric' });
+    }
+  } catch (e) {}
+  return dateStr;
+};
+
 export default function Blog() {
   const [posts, setPosts] = useState<WPPost[]>([]);
   const [loading, setLoading] = useState(true);
@@ -107,7 +118,7 @@ export default function Blog() {
                     </div>
                   </Link>
                   <div className="flex items-center gap-6 text-sm text-gray-400 font-bold uppercase tracking-widest mb-4">
-                    <span className="flex items-center gap-2"><Calendar size={14} className="text-brand-primary" /> {post.date}</span>
+                    <span className="flex items-center gap-2"><Calendar size={14} className="text-brand-primary" /> {formatDate(post.date)}</span>
                     <span className="flex items-center gap-2"><User size={14} className="text-brand-primary" /> Por {(post as any).author || "Equipe Simulador"}</span>
                   </div>
                   <Link to={`/blog/${post.slug}`}>

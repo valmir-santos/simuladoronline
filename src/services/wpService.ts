@@ -12,7 +12,12 @@ export interface WPPost {
   date: string;
   featuredImage: string;
   category: string;
+  tags?: string[];
+  imageUrl?: string;
+  sourceUrl?: string;
 }
+
+export type BlogPost = WPPost;
 
 export interface Product {
   id: number;
@@ -549,7 +554,7 @@ export const wpService = {
       return MOCK_BLOG_POSTS.find(p => p.slug === slug);
     }
   },
-  deleteBlogPost: async (idOrSlug: string, pin: string): Promise<boolean> => {
+  deleteBlogPost: async (idOrSlug: string | number, pin: string): Promise<boolean> => {
     try {
       const res = await fetch('/api/blog', {
         method: 'DELETE',
@@ -562,7 +567,7 @@ export const wpService = {
       return false;
     }
   },
-  updateBlogPost: async (updatedPost: Partial<BlogPost> & { id: string }, pin: string): Promise<boolean> => {
+  updateBlogPost: async (updatedPost: Partial<BlogPost> & { id: string | number }, pin: string): Promise<boolean> => {
     try {
       const res = await fetch('/api/blog', {
         method: 'PUT',

@@ -16,6 +16,7 @@ let MONITORED_SOURCES: NewsSource[] = [
   { id: '6', name: 'SulAmérica Saúde', url: 'https://www.sulamericasaude.com.br', category: 'Operadoras' },
   { id: '7', name: 'Porto Saúde', url: 'https://www.portoseguro.com.br/saude', category: 'Operadoras' }
 ];
+const HEALTH_TOPICS = [
   {
     title: 'ANS divulga novo teto de reajuste para planos individuais e familiares',
     source: 'ANS - Agência Nacional de Saúde Suplementar',
