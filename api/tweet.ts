@@ -94,8 +94,22 @@ export default async function handler(req: ApiReq, res: ApiRes) {
 
   const targetUrl = linkUrl || 'https://www.simuladoronline.com/noticias';
 
-  // Montar tweet otimizado para o perfil @SimuladorSP
-  const tweetText = `📢 ATUALIZAÇÃO SIMULADOR ON-LINE\n\n${title}\n\nHistorico completo:\n${targetUrl}\n\n#SimuladorOnline #PlanosDeSaude #CorretorDeSeguros #Multicalculos #MulticalculosPlanosDeSaude`;
+  // Montar tweet garantindo que não ultrapasse o limite rígido de 280 caracteres do Twitter/X
+  let tweetText = `📢 ATUALIZAÇÃO SIMULADOR ON-LINE\n\n${title}\n\nHistorico completo:\n${targetUrl}\n\n#SimuladorOnline #PlanosDeSaude #CorretorDeSeguros #Multicalculos #MulticalculosPlanosDeSaude`;
+
+  if (tweetText.length > 275) {
+    tweetText = `📢 ATUALIZAÇÃO SIMULADOR ON-LINE\n\n${title}\n\nHistorico completo:\n${targetUrl}\n\n#SimuladorOnline #PlanosDeSaude #CorretorDeSeguros`;
+  }
+
+  if (tweetText.length > 275) {
+    tweetText = `📢 ATUALIZAÇÃO SIMULADOR ON-LINE\n\n${title}\n\nHistorico:\n${targetUrl}\n\n#SimuladorOnline #PlanosDeSaude`;
+  }
+
+  if (tweetText.length > 275) {
+    const maxTitleLen = 275 - (`📢 ATUALIZAÇÃO SIMULADOR ON-LINE\n\n\n\nHistorico:\n${targetUrl}\n\n#SimuladorOnline`).length;
+    const truncatedTitle = title.substring(0, maxTitleLen - 3) + '...';
+    tweetText = `📢 ATUALIZAÇÃO SIMULADOR ON-LINE\n\n${truncatedTitle}\n\nHistorico:\n${targetUrl}\n\n#SimuladorOnline`;
+  }
 
   if (!apiKey || !apiSecret || !accessToken || !accessSecret) {
     return res.status(200).json({
