@@ -255,50 +255,6 @@ async function saveBlogPosts(posts: BlogPostItem[]): Promise<void> {
   }
 }
 
-async function checkAndAutoTweet(posts: BlogPostItem[], req: VercelRequest): Promise<void> {
-  const redis = getRedis();
-  if (!redis) return;
-
-  try {
-    const now = new Date();
-    // Encontrar matérias ativas cuja data passou e que ainda não foram postadas no Twitter/X
-    const pendingTweet = posts.filter(p => new Date(p.date) <= now);
-    if (pendingTweet.length === 0) return;
-
-    // Buscar lista de slugs já tweetados
-    const tweetedSlugs: string[] = (await redis.get<string[]>(KV_TWEETED_KEY)) || [];
-    const tweetedSet = new Set(tweetedSlugs);
-
-    for (const post of pendingTweet) {
-      if (!tweetedSet.has(post.slug)) {
-        console.log(`[Auto-Tweet] Disparando tweet para o post: ${post.title}`);
-        
-        // Registrar imediatamente para evitar reentrância
-        tweetedSlugs.push(post.slug);
-        await redis.set(KV_TWEETED_KEY, tweetedSlugs);
-
-        // Disparar o tweet
-        const host = req.headers.host || 'www.simuladoronline.com';
-        const protocol = host.includes('localhost') ? 'http' : 'https';
-        const articleUrl = `https://www.simuladoronline.com/blog/${post.slug}`;
-
-        await fetch(`${protocol}://${host}/api/tweet`, {
-          method: 'POST',
-          headers: { 'Content-Type': 'application/json' },
-          body: JSON.stringify({
-            title: post.title,
-            operadora: 'MERCADO SAÚDE',
-            category: 'BLOG',
-            linkUrl: articleUrl
-          })
-        }).catch(err => console.error('Erro ao chamar /api/tweet:', err));
-      }
-    }
-  } catch (e) {
-    console.error('Erro no fluxo de auto-tweet:', e);
-  }
-}
-
 export default async function handler(req: VercelRequest, res: VercelResponse) {
   res.setHeader('Access-Control-Allow-Origin', '*');
   res.setHeader('Access-Control-Allow-Methods', 'GET, POST, PUT, DELETE, OPTIONS');
@@ -310,10 +266,6 @@ export default async function handler(req: VercelRequest, res: VercelResponse) {
 
   const posts = await loadBlogPosts();
   const now = new Date();
-
-  // Executar fluxo assíncrono de verificação de auto-tweet de artigos agendados
-  // Isso verifica se algum artigo agendado no banco ultrapassou a hora e deve ser tweetado.
-  await checkAndAutoTweet(posts, req);
 
   // GET: Listar todos os posts do blog
   if (req.method === 'GET') {
