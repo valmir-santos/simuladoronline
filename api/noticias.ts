@@ -14,6 +14,10 @@ export interface CompactTableUpdate {
 
 // ─── DADOS INICIAIS (seed) ───────────────────────────────────────────
 const SEED_UPDATES: CompactTableUpdate[] = [
+  { id: 1787917429070, badge: 'ATUALIZ.', text: 'PROASA (TEC GROUP) - Operadoras HAPVIDA / GNDI não fazem mais parte das congêneres no projeto.', date: '28/08/2026', monthKey: 'agosto', monthLabel: 'Agosto' },
+  { id: 1787865789513, badge: 'NOVO', text: 'ANGELI - Plano de Saúde do Hospital Angelina Caron (CORPe SAÚDE) - PR - Comercialização do projeto Adesão retomada.', date: '27/08/2026', monthKey: 'agosto', monthLabel: 'Agosto' },
+  { id: 1787845144073, badge: 'NOVO', text: 'SEGUROS UNIMED(UNISALUS) - Projeto na Cidade de São Paulo', date: '27/08/2026', monthKey: 'agosto', monthLabel: 'Agosto' },
+  { id: 1787845058124, badge: 'NOVO', text: 'UNIMED(UNISALUS) - Projetos nas Cidades de Jundiaí e Marilia(SP), Maringá(PR) e Nova Iguaçu(RJ)', date: '27/08/2026', monthKey: 'agosto', monthLabel: 'Agosto' },
   { id: 255, badge: 'NOVO', text: 'TRASMONTANO SAÚDE - SP: Nova Linha PRIME (PME/Empresarial) disponível', date: '26/08/2026', monthKey: 'agosto', monthLabel: 'Agosto' },
   { id: 254, badge: 'ATUALIZ.', text: 'UNIHOSP SAÚDE (CORPe SAÚDE) - SP: Comercialização do projeto Adesão retomada', date: '25/08/2026', monthKey: 'agosto', monthLabel: 'Agosto' },
   { id: 253, badge: 'ATUALIZ.', text: 'VIDA TOP+ SAÚDE (CORPe SAÚDE) - SP: Atualização de valores disponível no projeto Adesão', date: '25/08/2026', monthKey: 'agosto', monthLabel: 'Agosto' },

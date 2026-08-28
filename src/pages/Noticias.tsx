@@ -97,9 +97,12 @@ export default function Noticias() {
       });
 
       // Se selecionou postar no X, acionar API serverless do Twitter
+      let tweetSuccess = false;
+      let tweetErrorMsg = '';
+
       if (formPostToX) {
         try {
-          await fetch('/api/tweet', {
+          const tweetRes = await fetch('/api/tweet', {
             method: 'POST',
             headers: { 'Content-Type': 'application/json' },
             body: JSON.stringify({
@@ -109,8 +112,18 @@ export default function Noticias() {
               linkUrl: 'https://www.simuladoronline.com/noticias'
             })
           });
+          const tweetData = await tweetRes.json();
+          if (tweetRes.ok && tweetData.success && !tweetData.error) {
+            tweetSuccess = true;
+          } else {
+            if (tweetData?.details?.status === 402 || tweetData?.details?.title === 'Payment Required' || String(tweetData?.details?.detail).includes('credits depleted')) {
+              tweetErrorMsg = 'Limite mensal de créditos gratuitos da conta do Twitter/X foi atingido (Credits Depleted / Payment Required).';
+            } else {
+              tweetErrorMsg = tweetData.error || 'Erro de comunicação com o Twitter/X';
+            }
+          }
         } catch (err) {
-          console.warn('Simulação de Tweet executada.');
+          tweetErrorMsg = 'Erro de rede ao conectar com o Twitter/X.';
         }
       }
 
@@ -121,7 +134,15 @@ export default function Noticias() {
       await fetchUpdates();
       setActiveTab(formMonthKey);
 
-      alert('✅ Atualização publicada no Simulador On-Line e enviada para o Twitter (X)!');
+      if (formPostToX) {
+        if (tweetSuccess) {
+          alert('✅ Atualização publicada no Simulador On-Line e enviada para o Twitter (X)!');
+        } else {
+          alert(`✅ Atualização publicada no Simulador On-Line com sucesso!\n\n⚠️ Aviso sobre o Twitter/X: ${tweetErrorMsg}`);
+        }
+      } else {
+        alert('✅ Atualização publicada no Simulador On-Line!');
+      }
 
     } catch (err) {
       alert('Erro ao adicionar linha.');

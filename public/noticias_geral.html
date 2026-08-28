@@ -61,6 +61,10 @@
 
     <div id="agosto" class="tab-content active">
         <table class="table-container" id="table-agosto">
+            <tr class="row"><td class="cell col-tag"><span class="badge bg-att">ATUALIZ.</span></td><td class="cell"><span class="operadora">PROASA (TEC GROUP):</span> <span class="descricao">Operadoras HAPVIDA / GNDI não fazem mais parte das congêneres no projeto.</span></td><td class="cell col-data">28/08/2026</td></tr>
+            <tr class="row"><td class="cell col-tag"><span class="badge bg-novo">NOVO</span></td><td class="cell"><span class="operadora">ANGELI (CORPe SAÚDE) - PR:</span> <span class="descricao">Plano de Saúde do Hospital Angelina Caron - Comercialização do projeto Adesão retomada.</span></td><td class="cell col-data">27/08/2026</td></tr>
+            <tr class="row"><td class="cell col-tag"><span class="badge bg-novo">NOVO</span></td><td class="cell"><span class="operadora">SEGUROS UNIMED (UNISALUS):</span> <span class="descricao">Projeto na Cidade de São Paulo</span></td><td class="cell col-data">27/08/2026</td></tr>
+            <tr class="row"><td class="cell col-tag"><span class="badge bg-novo">NOVO</span></td><td class="cell"><span class="operadora">UNIMED (UNISALUS):</span> <span class="descricao">Projetos nas Cidades de Jundiaí e Marília (SP), Maringá (PR) e Nova Iguaçu (RJ)</span></td><td class="cell col-data">27/08/2026</td></tr>
             <tr class="row"><td class="cell col-tag"><span class="badge bg-novo">NOVO</span></td><td class="cell"><span class="operadora">TRASMONTANO SAÚDE - SP:</span> <span class="descricao">Nova Linha PRIME (PME/Empresarial) disponível</span></td><td class="cell col-data">26/08/2026</td></tr>
             <tr class="row"><td class="cell col-tag"><span class="badge bg-att">ATUALIZ.</span></td><td class="cell"><span class="operadora">UNIHOSP SAÚDE (CORPe SAÚDE) - SP:</span> <span class="descricao">Comercialização do projeto Adesão retomada</span></td><td class="cell col-data">25/08/2026</td></tr>
             <tr class="row"><td class="cell col-tag"><span class="badge bg-att">ATUALIZ.</span></td><td class="cell"><span class="operadora">VIDA TOP+ SAÚDE (CORPe SAÚDE) - SP:</span> <span class="descricao">Atualização de valores disponível no projeto Adesão</span></td><td class="cell col-data">25/08/2026</td></tr>
@@ -313,32 +317,52 @@
 
         // Sincronização Dinâmica em Tempo Real com a API /api/noticias
         (function syncRealtimeNews() {
-            fetch('/api/noticias')
+            fetch('/api/noticias?t=' + Date.now())
                 .then(function(r) { return r.json(); })
                 .then(function(items) {
                     if (!Array.isArray(items) || items.length === 0) return;
-                    var tableAgosto = document.getElementById('table-agosto');
-                    if (!tableAgosto) return;
+                    
+                    var groupedByMonth = {};
+                    items.forEach(function(item) {
+                        var mKey = item.monthKey || 'agosto';
+                        if (!groupedByMonth[mKey]) groupedByMonth[mKey] = [];
+                        groupedByMonth[mKey].push(item);
+                    });
 
-                    var existingHtml = tableAgosto.innerHTML;
+                    Object.keys(groupedByMonth).forEach(function(monthKey) {
+                        var table = document.getElementById('table-' + monthKey);
+                        if (!table) return;
 
-                    // Inserir itens dinâmicos da API no topo se não estiverem no HTML
-                    items.reverse().forEach(function(item) {
-                        if (!item.operadora || !item.descricao) return;
-                        if (existingHtml.indexOf(item.operadora) !== -1 && existingHtml.indexOf(item.descricao) !== -1) return;
+                        var existingHtml = table.innerHTML;
+                        var monthItems = groupedByMonth[monthKey];
 
-                        var badgeClass = 'bg-att';
-                        if (item.tag === 'NOVO') badgeClass = 'bg-novo';
-                        else if (item.tag === 'SUSPENSO') badgeClass = 'bg-susp';
-                        else if (item.tag === 'REAJUSTE') badgeClass = 'bg-reaj';
+                        // Inserir itens dinâmicos que não estejam no HTML estático
+                        monthItems.slice().reverse().forEach(function(item) {
+                            var text = (item.text || '').trim();
+                            if (!text) return;
+                            
+                            // Normalizar para checar duplicação no HTML
+                            var searchKey = text.substring(0, 30);
+                            if (existingHtml.indexOf(searchKey) !== -1) return;
 
-                        var tr = document.createElement('tr');
-                        tr.className = 'row';
-                        tr.innerHTML = '<td class="cell col-tag"><span class="badge ' + badgeClass + '">' + item.tag + '</span></td>' +
-                                       '<td class="cell"><span class="operadora">' + item.operadora + ':</span> <span class="descricao">' + item.descricao + '</span></td>' +
-                                       '<td class="cell col-data">' + item.data + '</td>';
-                        
-                        tableAgosto.insertBefore(tr, tableAgosto.firstChild);
+                            var badge = item.badge || item.tag || 'ATUALIZ.';
+                            var badgeClass = 'bg-att';
+                            if (badge === 'NOVO') badgeClass = 'bg-novo';
+                            else if (badge === 'SUSPENSO') badgeClass = 'bg-susp';
+                            else if (badge === 'REAJUSTE') badgeClass = 'bg-reaj';
+
+                            var parts = text.split(':');
+                            var op = parts.length > 1 ? parts[0] + ':' : text;
+                            var desc = parts.length > 1 ? parts.slice(1).join(':').trim() : '';
+
+                            var tr = document.createElement('tr');
+                            tr.className = 'row';
+                            tr.innerHTML = '<td class="cell col-tag"><span class="badge ' + badgeClass + '">' + badge + '</span></td>' +
+                                           '<td class="cell"><span class="operadora">' + op + '</span> <span class="descricao">' + desc + '</span></td>' +
+                                           '<td class="cell col-data">' + (item.date || item.data || '') + '</td>';
+                            
+                            table.insertBefore(tr, table.firstChild);
+                        });
                     });
                 })
                 .catch(function(e) { console.log('Sync noticias static mode active'); });
