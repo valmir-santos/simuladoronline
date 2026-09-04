@@ -61,8 +61,8 @@ export default function Home() {
       <section className="py-24 bg-brand-bg">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="text-center max-w-3xl mx-auto mb-20">
-            <h2 className="text-brand-primary text-sm font-black tracking-[0.2em] uppercase mb-4">Por que escolher o Simulador On-line?</h2>
-            <p className="text-4xl md:text-5xl font-black text-brand-secondary mb-6 tracking-tight">Tudo o que você precisa para <span className="text-transparent bg-clip-text bg-gradient-to-r from-brand-primary to-brand-secondary">dominar o mercado</span>.</p>
+            <span className="text-brand-primary text-sm font-black tracking-[0.2em] uppercase mb-4 block">Por que escolher o Simulador On-line?</span>
+            <h2 className="text-4xl md:text-5xl font-black text-brand-secondary mb-6 tracking-tight">Tudo o que você precisa para <span className="text-transparent bg-clip-text bg-gradient-to-r from-brand-primary to-brand-secondary">dominar o mercado</span>.</h2>
             <p className="text-lg text-gray-500 font-medium">Desde o primeiro contato até o fechamento, fornecemos as ferramentas que tornam o processo simples para você e transparente para o cliente.</p>
           </div>
 
@@ -107,8 +107,8 @@ export default function Home() {
       <section className="py-24 bg-white">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="text-center mb-16">
-            <h2 className="text-brand-primary text-sm font-black tracking-[0.2em] uppercase mb-4">Planos Flexíveis</h2>
-            <p className="text-4xl md:text-5xl font-black text-brand-secondary tracking-tight">Cresça com a gente.</p>
+            <span className="text-brand-primary text-sm font-black tracking-[0.2em] uppercase mb-4 block">Planos Flexíveis</span>
+            <h2 className="text-4xl md:text-5xl font-black text-brand-secondary tracking-tight">Cresça com a gente</h2>
           </div>
 
           <PricingTable />
@@ -119,8 +119,8 @@ export default function Home() {
       <section className="py-24 bg-gray-50 border-t border-gray-100">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="text-center max-w-3xl mx-auto mb-20">
-            <h2 className="text-brand-primary text-sm font-black tracking-[0.2em] uppercase mb-4">Conteúdo Exclusivo</h2>
-            <p className="text-4xl md:text-5xl font-black text-brand-secondary mb-6 tracking-tight">Últimas do nosso Blog</p>
+            <span className="text-brand-primary text-sm font-black tracking-[0.2em] uppercase mb-4 block">Conteúdo Exclusivo</span>
+            <h2 className="text-4xl md:text-5xl font-black text-brand-secondary mb-6 tracking-tight">Últimas do nosso Blog</h2>
           </div>
           
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">

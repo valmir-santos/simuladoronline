@@ -1,5 +1,5 @@
 import React from 'react';
-import { CheckCircle2, Info, X } from 'lucide-react';
+import { CheckCircle2 } from 'lucide-react';
 import { motion } from 'motion/react';
 import { Link } from 'react-router-dom';
 
@@ -52,7 +52,7 @@ export default function PricingTable() {
         className="bg-[#F2EDE6] rounded-3xl md:rounded-[4rem] p-6 md:p-20 shadow-xl border border-gray-200"
       >
         <div className="text-center mb-10 md:mb-16">
-          <h2 className="text-3xl md:text-5xl font-black text-brand-secondary mb-2">Relação de Planos por Estado</h2>
+          <h3 className="text-3xl md:text-5xl font-black text-brand-secondary mb-2">Relação de Planos por Estado</h3>
           <p className="text-xl md:text-2xl font-bold text-brand-secondary">Assinatura mensal</p>
         </div>
 
@@ -98,7 +98,7 @@ export default function PricingTable() {
         <div className="absolute inset-0 bg-[url('https://www.transparenttextures.com/patterns/cubes.png')] opacity-10 pointer-events-none" />
         
         <div className="text-center mb-10 md:mb-16 relative z-10">
-          <h2 className="text-3xl md:text-5xl font-black text-white mb-2">Relação de Planos Nacionais</h2>
+          <h3 className="text-3xl md:text-5xl font-black text-white mb-2">Relação de Planos Nacionais</h3>
           <p className="text-xl md:text-2xl font-bold text-white/80">Assinatura mensal</p>
         </div>
 
@@ -130,7 +130,7 @@ export default function PricingTable() {
         </div>
 
         <PricingFooter 
-          theme="dark"
+          theme="dark" 
           urlContratar="https://app.simuladoronline.com/contratacao/1"
         />
       </motion.div>
@@ -145,13 +145,11 @@ function PricingFooter({ theme, urlContratar }: { theme: 'light' | 'dark', urlCo
     <div className="relative z-10">
       <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 mb-16">
         <div className="bg-[#D1E9F6]/50 p-6 rounded-xl border border-brand-primary/20 relative group">
-          <X size={14} className="absolute top-2 right-2 text-brand-secondary/50 cursor-pointer" />
           <p className="text-sm font-bold text-brand-secondary leading-relaxed">
             * A partir do plano de 02 acessos será adicionado uma taxa única de implantação/configuração no valor de R$ 50,00.
           </p>
         </div>
         <div className="bg-[#D1E9F6]/50 p-6 rounded-xl border border-brand-primary/20 relative group">
-          <X size={14} className="absolute top-2 right-2 text-brand-secondary/50 cursor-pointer" />
           <p className="text-sm font-bold text-brand-secondary leading-relaxed">
             ** Para fazermos a Integração do seu site com as tabelas e cálculos do Simulador On-Line, cobramos uma taxa única (O valor será informado após avaliação do site).
           </p>
@@ -159,10 +157,10 @@ function PricingFooter({ theme, urlContratar }: { theme: 'light' | 'dark', urlCo
       </div>
 
       <div className="flex flex-col sm:flex-row justify-center gap-6">
-        <a href={urlContratar} target="_blank" rel="noopener noreferrer" className={`flex items-center justify-center ${isDark ? 'bg-brand-primary' : 'bg-[#002F5D]'} text-white px-16 py-5 rounded-xl font-black text-lg hover:scale-105 transition-all shadow-xl`}>
+        <a href={urlContratar} target="_blank" rel="noopener noreferrer" className={`flex items-center justify-center ${isDark ? 'bg-brand-primary hover:bg-[#3298cc]' : 'bg-[#002F5D] hover:bg-[#001f3f]'} text-white px-16 py-5 rounded-xl font-black text-lg hover:scale-105 transition-all shadow-xl`}>
           Contratar
         </a>
-        <Link to="/testar-gratis" className={`flex items-center justify-center ${isDark ? 'bg-brand-primary' : 'bg-[#002F5D]'} text-white px-16 py-5 rounded-xl font-black text-lg hover:scale-105 transition-all shadow-xl`}>
+        <Link to="/testar-gratis" className={`flex items-center justify-center ${isDark ? 'bg-brand-primary hover:bg-[#3298cc]' : 'bg-[#002F5D] hover:bg-[#001f3f]'} text-white px-16 py-5 rounded-xl font-black text-lg hover:scale-105 transition-all shadow-xl`}>
           Senha Teste
         </Link>
       </div>

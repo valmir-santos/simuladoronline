@@ -182,12 +182,14 @@ export default function HeroCarousel() {
       <div className="absolute inset-x-0 top-1/2 -translate-y-1/2 z-20 flex justify-between px-4 md:px-8 pointer-events-none">
         <button
           onClick={prevSlide}
+          aria-label="Slide anterior"
           className="w-12 h-12 md:w-16 md:h-16 rounded-full bg-white/10 backdrop-blur-md border border-white/20 flex items-center justify-center text-white hover:bg-white/20 transition-all pointer-events-auto"
         >
           <ChevronLeft size={32} />
         </button>
         <button
           onClick={nextSlide}
+          aria-label="Próximo slide"
           className="w-12 h-12 md:w-16 md:h-16 rounded-full bg-white/10 backdrop-blur-md border border-white/20 flex items-center justify-center text-white hover:bg-white/20 transition-all pointer-events-auto"
         >
           <ChevronRight size={32} />
@@ -195,7 +197,7 @@ export default function HeroCarousel() {
       </div>
 
       {/* Indicators */}
-      <div className="absolute bottom-10 inset-x-0 z-20 flex justify-center gap-3">
+      <div className="absolute bottom-10 inset-x-0 z-20 flex justify-center gap-3" role="tablist" aria-label="Indicadores dos slides">
         {slides.map((_, i) => (
           <button
             key={i}
@@ -203,6 +205,9 @@ export default function HeroCarousel() {
               setDirection(i > current ? 1 : -1);
               setCurrent(i);
             }}
+            aria-label={`Ir para o slide ${i + 1}`}
+            role="tab"
+            aria-selected={current === i}
             className={`h-2 rounded-full transition-all duration-300 ${
               current === i ? 'w-10 bg-brand-primary' : 'w-2 bg-white/30 hover:bg-white/50'
             }`}

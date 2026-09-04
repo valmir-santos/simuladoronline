@@ -67,10 +67,10 @@ export function Topbar() {
         </div>
 
         <div className="flex gap-4 justify-center mt-2 md:mt-0">
-          <a href="https://x.com/simuladorsp" target="_blank" rel="noreferrer" className="hover:text-brand-primary transition-colors"><Twitter size={16} /></a>
-          <a href="https://www.instagram.com/simuladoronline" target="_blank" rel="noreferrer" className="hover:text-brand-primary transition-colors"><Instagram size={16} /></a>
-          <a href="https://www.facebook.com/simuladoronline" target="_blank" rel="noreferrer" className="hover:text-brand-primary transition-colors"><Facebook size={16} /></a>
-          <a href="https://www.youtube.com/@simulador-online" target="_blank" rel="noreferrer" className="hover:text-brand-primary transition-colors"><Youtube size={16} /></a>
+          <a href="https://x.com/simuladorsp" target="_blank" rel="noreferrer" aria-label="Perfil oficial no X (Twitter)" className="hover:text-brand-primary transition-colors"><Twitter size={16} /></a>
+          <a href="https://www.instagram.com/simuladoronline" target="_blank" rel="noreferrer" aria-label="Perfil oficial no Instagram" className="hover:text-brand-primary transition-colors"><Instagram size={16} /></a>
+          <a href="https://www.facebook.com/simuladoronline" target="_blank" rel="noreferrer" aria-label="Página oficial no Facebook" className="hover:text-brand-primary transition-colors"><Facebook size={16} /></a>
+          <a href="https://www.youtube.com/@simulador-online" target="_blank" rel="noreferrer" aria-label="Canal oficial no YouTube" className="hover:text-brand-primary transition-colors"><Youtube size={16} /></a>
         </div>
       </div>
     </div>
@@ -98,13 +98,13 @@ export function Header() {
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="flex justify-between items-center h-20">
           <div className="flex-shrink-0 flex items-center">
-            <Link to="/" className="flex items-center">
+            <Link to="/" aria-label="Simulador On-Line - Página Inicial" className="flex items-center">
               <img src="/logo_simulador_alta.jpg" alt="Simulador On-Line" className="h-12 w-auto object-contain" />
             </Link>
           </div>
 
           {/* Desktop Menu */}
-          <nav className="hidden lg:flex gap-8 items-center">
+          <nav className="hidden lg:flex gap-8 items-center" aria-label="Menu principal">
             {menuItems.map((item) => (
               <Link
                 key={item.path}
@@ -124,6 +124,8 @@ export function Header() {
           <div className="lg:hidden flex items-center">
             <button
               onClick={() => setIsOpen(!isOpen)}
+              aria-label={isOpen ? "Fechar menu de navegação" : "Abrir menu de navegação"}
+              aria-expanded={isOpen}
               className="text-brand-secondary p-2 hover:bg-gray-100 rounded-lg transition-colors"
             >
               {isOpen ? <X size={28} /> : <Menu size={28} />}
@@ -263,17 +265,17 @@ export function Footer() {
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-12 mb-16">
           <div className="space-y-6">
-            <Link to="/" className="flex items-center">
+            <Link to="/" aria-label="Simulador On-Line - Página Inicial" className="flex items-center">
               <img src="/logo_simulador_alta.jpg" alt="Simulador On-Line" className="h-12 w-auto object-contain bg-white rounded-md p-1" />
             </Link>
             <p className="text-sm leading-relaxed text-gray-400">
               Desde 2006 transformando o dia a dia do corretor de planos de saúde com ferramentas SaaS de alta performance e sites especializados.
             </p>
             <div className="flex gap-4">
-              <a href="https://x.com/simuladorsp" target="_blank" rel="noreferrer" className="p-2 bg-white/5 rounded-full hover:bg-brand-primary hover:text-white transition-all"><Twitter size={18} /></a>
-              <a href="https://www.instagram.com/simuladoronline" target="_blank" rel="noreferrer" className="p-2 bg-white/5 rounded-full hover:bg-brand-primary hover:text-white transition-all"><Instagram size={18} /></a>
-              <a href="https://www.facebook.com/simuladoronline" target="_blank" rel="noreferrer" className="p-2 bg-white/5 rounded-full hover:bg-brand-primary hover:text-white transition-all"><Facebook size={18} /></a>
-              <a href="https://www.youtube.com/@simulador-online" target="_blank" rel="noreferrer" className="p-2 bg-white/5 rounded-full hover:bg-brand-primary hover:text-white transition-all"><Youtube size={18} /></a>
+              <a href="https://x.com/simuladorsp" target="_blank" rel="noreferrer" aria-label="Perfil oficial no X (Twitter)" className="p-2 bg-white/5 rounded-full hover:bg-brand-primary hover:text-white transition-all"><Twitter size={18} /></a>
+              <a href="https://www.instagram.com/simuladoronline" target="_blank" rel="noreferrer" aria-label="Perfil oficial no Instagram" className="p-2 bg-white/5 rounded-full hover:bg-brand-primary hover:text-white transition-all"><Instagram size={18} /></a>
+              <a href="https://www.facebook.com/simuladoronline" target="_blank" rel="noreferrer" aria-label="Página oficial no Facebook" className="p-2 bg-white/5 rounded-full hover:bg-brand-primary hover:text-white transition-all"><Facebook size={18} /></a>
+              <a href="https://www.youtube.com/@simulador-online" target="_blank" rel="noreferrer" aria-label="Canal oficial no YouTube" className="p-2 bg-white/5 rounded-full hover:bg-brand-primary hover:text-white transition-all"><Youtube size={18} /></a>
             </div>
 
             {/* Selo Reclame Aqui Estratégico */}
@@ -310,14 +312,14 @@ export function Footer() {
           <div>
             <h4 className="text-white font-bold mb-6 text-lg">Canais de Vendas</h4>
             <div className="space-y-4 text-sm">
-              <a href="https://api.whatsapp.com/send?phone=551132190409&text=Olá sou corretor e gostaria de algumas informações" target="_blank" rel="noopener noreferrer" className="flex items-start gap-3 hover:text-brand-primary transition-colors">
+              <a href="https://api.whatsapp.com/send?phone=551132190409&text=Olá sou corretor e gostaria de algumas informações" target="_blank" rel="noopener noreferrer" aria-label="Ligar para o telefone de São Paulo ou Rio de Janeiro" className="flex items-start gap-3 hover:text-brand-primary transition-colors">
                 <Phone size={18} className="text-brand-primary shrink-0 mt-0.5" />
                 <div>
                   <p>(11) 3219-0409 (São Paulo)</p>
                   <p>(21) 3527-0540 (Rio de Janeiro)</p>
                 </div>
               </a>
-              <a href="https://api.whatsapp.com/send?phone=551132190409&text=Olá sou corretor e gostaria de algumas informações" target="_blank" rel="noopener noreferrer" className="flex items-center gap-3 hover:text-brand-primary transition-colors">
+              <a href="https://api.whatsapp.com/send?phone=551132190409&text=Olá sou corretor e gostaria de algumas informações" target="_blank" rel="noopener noreferrer" aria-label="Atendimento via WhatsApp do Simulador On-Line" className="flex items-center gap-3 hover:text-brand-primary transition-colors">
                 <MessageCircle size={18} className="text-green-500 shrink-0" />
                 <p>Atendimento via WhatsApp</p>
               </a>
@@ -337,6 +339,7 @@ export function Footer() {
         href="https://api.whatsapp.com/send?phone=551132190409&text=Olá sou corretor e gostaria de algumas informações" 
         target="_blank" 
         rel="noopener noreferrer"
+        aria-label="Falar com especialista de suporte e vendas no WhatsApp"
         className="fixed bottom-8 right-8 z-50 bg-green-500 text-white p-4 rounded-full shadow-2xl hover:scale-110 active:scale-95 transition-all animate-bounce"
       >
         <MessageCircle size={28} fill="white" />

@@ -43,21 +43,12 @@ export default function Testimonials() {
     <section className="py-24 bg-gray-50 overflow-hidden">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="text-center mb-20">
-          <motion.h2 
-            initial={{ opacity: 0, y: 20 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            className="text-brand-primary text-sm font-black tracking-[0.2em] uppercase mb-4"
-          >
+          <span className="text-brand-primary text-sm font-black tracking-[0.2em] uppercase mb-4 block">
             Depoimentos
-          </motion.h2>
-          <motion.p 
-            initial={{ opacity: 0, y: 20 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            transition={{ delay: 0.1 }}
-            className="text-4xl md:text-5xl font-black text-brand-secondary tracking-tight"
-          >
+          </span>
+          <h2 className="text-4xl md:text-5xl font-black text-brand-secondary tracking-tight">
             O que dizem os <span className="text-brand-primary">especialistas</span>
-          </motion.p>
+          </h2>
         </div>
 
         <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
