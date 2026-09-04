@@ -83,13 +83,13 @@ export default function HeroCarousel() {
   };
 
   return (
-    <section className="relative h-[100svh] md:h-[80vh] min-h-[800px] md:min-h-[600px] w-full overflow-hidden bg-brand-secondary">
+    <section className="relative h-[85vh] md:h-[80vh] min-h-[550px] md:min-h-[600px] w-full overflow-hidden bg-brand-secondary">
       <AnimatePresence initial={false} custom={direction}>
         <motion.div
           key={current}
           custom={direction}
           variants={variants}
-          initial="enter"
+          initial={false}
           animate="center"
           exit="exit"
           className="absolute inset-0 w-full h-full flex items-center justify-center"
@@ -132,45 +132,26 @@ export default function HeroCarousel() {
 
           {slides[current].type !== 'image-only' && (
             <div className="max-w-5xl mx-auto px-4 text-center relative z-10">
-              <motion.h1
-                initial={{ opacity: 0, y: 30 }}
-                animate={{ opacity: 1, y: 0 }}
-                transition={{ delay: 0.2, duration: 0.6 }}
-                className="text-3xl md:text-7xl font-black text-white mb-4 md:mb-8 leading-[1.1] tracking-tight pt-10 md:pt-0"
-              >
+              <h1 className="text-3xl md:text-7xl font-black text-white mb-4 md:mb-8 leading-[1.1] tracking-tight pt-6 md:pt-0">
                 {slides[current].title}
-              </motion.h1>
+              </h1>
               
-              <motion.p
-                initial={{ opacity: 0, y: 20 }}
-                animate={{ opacity: 1, y: 0 }}
-                transition={{ delay: 0.4, duration: 0.6 }}
-                className={`text-lg md:text-2xl font-bold mb-6 md:mb-12 ${slides[current].accent || 'text-white/80'} underline underline-offset-8 decoration-2`}
-              >
+              <p className={`text-lg md:text-2xl font-bold mb-6 md:mb-12 ${slides[current].accent || 'text-white/80'} underline underline-offset-8 decoration-2`}>
                 {slides[current].subtitle}
-              </motion.p>
+              </p>
 
               {slides[current].features && (
-                <motion.div 
-                  initial={{ opacity: 0, y: 20 }}
-                  animate={{ opacity: 1, y: 0 }}
-                  transition={{ delay: 0.5, duration: 0.6 }}
-                  className="flex flex-col md:flex-row justify-center gap-3 md:gap-4 mb-6 md:mb-10 text-white text-sm md:text-base text-left max-w-4xl mx-auto"
-                >
+                <div className="flex flex-col md:flex-row justify-center gap-3 md:gap-4 mb-6 md:mb-10 text-white text-sm md:text-base text-left max-w-4xl mx-auto">
                   {slides[current].features.map((feat, i) => (
                     <div key={i} className="flex items-start gap-2 md:gap-3 bg-black/30 p-4 md:p-6 rounded-2xl backdrop-blur-md flex-1 border border-white/10 shadow-lg">
                       <ShieldCheck className="text-green-400 shrink-0 mt-0.5" size={28} />
                       <p className="leading-relaxed">{feat}</p>
                     </div>
                   ))}
-                </motion.div>
+                </div>
               )}
 
-              <motion.div
-                initial={{ opacity: 0, scale: 0.9 }}
-                animate={{ opacity: 1, scale: 1 }}
-                transition={{ delay: 0.6, duration: 0.4 }}
-              >
+              <div>
                 {slides[current].actionUrl?.startsWith('http') ? (
                   <a 
                     href={slides[current].actionUrl}
@@ -191,7 +172,7 @@ export default function HeroCarousel() {
                     <ArrowRight size={22} />
                   </Link>
                 )}
-              </motion.div>
+              </div>
             </div>
           )}
         </motion.div>
