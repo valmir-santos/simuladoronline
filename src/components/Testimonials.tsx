@@ -84,7 +84,7 @@ export default function Testimonials() {
                   loading="lazy"
                 />
                 <div>
-                  <h4 className="font-black text-brand-secondary">{t.name}</h4>
+                  <p className="font-black text-brand-secondary text-base">{t.name}</p>
                   <p className="text-xs text-gray-400 font-bold uppercase tracking-wider">{t.role}</p>
                 </div>
               </div>

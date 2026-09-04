@@ -286,7 +286,7 @@ export function Footer() {
           </div>
 
           <div>
-            <h4 className="text-white font-bold mb-6 text-lg">Produtos</h4>
+            <h3 className="text-white font-bold mb-6 text-lg">Produtos</h3>
             <ul className="space-y-4 text-sm">
               <li><Link to="/produtos#simuladores" className="hover:text-brand-primary transition-colors">Simulador Estadual</Link></li>
               <li><Link to="/produtos#simuladores" className="hover:text-brand-primary transition-colors">Simulador Nacional</Link></li>
@@ -296,7 +296,7 @@ export function Footer() {
           </div>
 
           <div>
-            <h4 className="text-white font-bold mb-6 text-lg">Links Úteis</h4>
+            <h3 className="text-white font-bold mb-6 text-lg">Links Úteis</h3>
             <ul className="space-y-4 text-sm">
               <li><Link to="/sobre" className="hover:text-brand-primary transition-colors">Quem Somos</Link></li>
               <li><Link to="/noticias" className="hover:text-brand-primary transition-colors">Notícias de Tabelas</Link></li>
@@ -310,7 +310,7 @@ export function Footer() {
           </div>
 
           <div>
-            <h4 className="text-white font-bold mb-6 text-lg">Canais de Vendas</h4>
+            <h3 className="text-white font-bold mb-6 text-lg">Canais de Vendas</h3>
             <div className="space-y-4 text-sm">
               <a href="https://api.whatsapp.com/send?phone=551132190409&text=Olá sou corretor e gostaria de algumas informações" target="_blank" rel="noopener noreferrer" aria-label="Ligar para o telefone de São Paulo ou Rio de Janeiro" className="flex items-start gap-3 hover:text-brand-primary transition-colors">
                 <Phone size={18} className="text-brand-primary shrink-0 mt-0.5" />

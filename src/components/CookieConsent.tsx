@@ -47,7 +47,7 @@ export default function CookieConsent() {
                 <Cookie className="text-brand-primary" size={28} />
               </div>
               <div>
-                <h3 className="text-[#002F5D] font-black text-lg mb-1">Nós respeitamos sua privacidade</h3>
+                <p className="text-[#002F5D] font-black text-lg mb-1">Nós respeitamos sua privacidade</p>
                 <p className="text-gray-600 text-sm leading-relaxed">
                   Usamos cookies para oferecer a melhor experiência, analisar o tráfego do site e personalizar conteúdo. 
                   Ao clicar em "Aceitar Todos", você concorda com o uso de cookies. Você pode ler mais detalhes e alterar suas 
