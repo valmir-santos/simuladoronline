@@ -24,7 +24,7 @@ const slides = [
     title: 'CORRETOR, COMECE 2026 COM O SEU NOME LIMPO!',
     subtitle: 'VOCÊ ESTÁ COM O NOME SUJO E NÃO CONSEGUE CRÉDITO?',
     cta: 'ENTRE EM CONTATO AGORA PELO WHATSAPP',
-    image: 'https://images.unsplash.com/photo-1522071823991-b1ae5e6a3048?q=80&w=2070&auto=format&fit=crop',
+    image: 'https://images.unsplash.com/photo-1522071823991-b1ae5e6a3048?q=75&w=1200&auto=format&fit=crop',
     overlay: 'bg-[#002F5D]/85',
     actionUrl: 'https://api.whatsapp.com/send?phone=5511994227649&text=Ol%C3%A1+Guilherme,+sou+cliente+do+*Simulador+On-Line(Valmir)*+tenho+interesse+em+regularizar+meu+nome+',
     icon: 'whatsapp',
@@ -106,6 +106,7 @@ export default function HeroCarousel() {
                       src={slides[current].image}
                       alt="Banner Slide"
                       className="w-full h-full object-cover"
+                      decoding="async"
                     />
                   </picture>
                 </a>
@@ -120,6 +121,7 @@ export default function HeroCarousel() {
                       alt={slides[current].title}
                       className="w-full h-full object-cover"
                       referrerPolicy="no-referrer"
+                      decoding="async"
                     />
                   </picture>
                   <div className={`absolute inset-0 ${slides[current].overlay} backdrop-blur-[2px]`} />

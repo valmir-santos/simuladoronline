@@ -71,8 +71,33 @@ export default function BlogPost() {
               className="prose prose-lg max-w-none prose-headings:text-brand-secondary prose-headings:font-black prose-p:text-gray-600 prose-p:font-medium prose-p:leading-relaxed prose-li:text-gray-600 prose-li:font-medium prose-strong:text-brand-secondary prose-a:text-brand-primary prose-a:font-bold prose-img:rounded-3xl"
               dangerouslySetInnerHTML={{ __html: post.content }} 
             />
+
+            {/* BANNER DE CONVERSÃO / CRO */}
+            <div className="mt-14 p-8 md:p-10 rounded-3xl bg-gradient-to-br from-brand-secondary via-[#19137a] to-brand-primary text-white shadow-2xl relative overflow-hidden">
+              <div className="relative z-10 text-center md:text-left flex flex-col md:flex-row items-center justify-between gap-6">
+                <div>
+                  <span className="inline-block px-3 py-1 bg-white/20 rounded-full text-xs font-black uppercase tracking-wider mb-3 text-cyan-300">
+                    Otimize sua Corretora
+                  </span>
+                  <h3 className="text-2xl md:text-3xl font-black text-white leading-tight mb-2">
+                    Acelere suas Vendas de Planos de Saúde
+                  </h3>
+                  <p className="text-gray-200 text-sm md:text-base font-medium max-w-xl">
+                    Tenha acesso instantâneo ao Multicálculo de Saúde e Odonto, criação de Sites Profissionais e CRM de Leads integrado.
+                  </p>
+                </div>
+                <div className="flex-shrink-0">
+                  <Link 
+                    to="/testar-gratis"
+                    className="inline-block px-8 py-4 bg-brand-button hover:bg-orange-600 text-white font-black text-sm uppercase tracking-wider rounded-2xl shadow-xl transition-transform hover:scale-105"
+                  >
+                    Testar Grátis 7 Dias
+                  </Link>
+                </div>
+              </div>
+            </div>
             
-            <div className="mt-20 pt-10 border-t border-gray-100 flex flex-col md:flex-row justify-between items-center gap-6">
+            <div className="mt-14 pt-10 border-t border-gray-100 flex flex-col md:flex-row justify-between items-center gap-6">
               <div className="flex flex-wrap gap-2">
                 {(post.tags || ['Vendas', 'Saúde', 'Digital']).map(tag => (
                   <span key={tag} className="px-4 py-2 bg-gray-50 text-gray-500 font-bold text-xs rounded-xl border border-gray-100 italic">#{tag}</span>
