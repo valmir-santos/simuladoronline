@@ -62,6 +62,16 @@
 
     <div id="setembro" class="tab-content active">
         <table class="table-container" id="table-setembro">
+            <tr class="row"><td class="cell col-tag"><span class="badge bg-reaj">REAJUSTE</span></td><td class="cell"><span class="operadora">BRADESCO SAÚDE - PME:</span> <span class="descricao">Reajuste de valores disponível no projeto Adesão e PME.</span></td><td class="cell col-data">14/09/2026</td></tr>
+            <tr class="row"><td class="cell col-tag"><span class="badge bg-att">ATUALIZ.</span></td><td class="cell"><span class="operadora">ALICE SAÚDE - SP:</span> <span class="descricao">Tabela promocional para contratos de 3 a 29 vidas disponível.</span></td><td class="cell col-data">11/09/2026</td></tr>
+            <tr class="row"><td class="cell col-tag"><span class="badge bg-att">ATUALIZ.</span></td><td class="cell"><span class="operadora">UNIHOSP SAÚDE (CORPe SAÚDE) - SP:</span> <span class="descricao">Regras de comercialização atualizadas no projeto Adesão.</span></td><td class="cell col-data">09/09/2026</td></tr>
+            <tr class="row"><td class="cell col-tag"><span class="badge bg-att">ATUALIZ.</span></td><td class="cell"><span class="operadora">SÃO CAMILO (CORPe SAÚDE) - SP:</span> <span class="descricao">Atualização na rede de atendimento e inclusão da operadora Cruz Azul como congênere disponível.</span></td><td class="cell col-data">09/09/2026</td></tr>
+            <tr class="row"><td class="cell col-tag"><span class="badge bg-att">ATUALIZ.</span></td><td class="cell"><span class="operadora">NOTREDAME SAÚDE - RJ:</span> <span class="descricao">Linha PME Premium atualizada e disponível.</span></td><td class="cell col-data">09/09/2026</td></tr>
+            <tr class="row"><td class="cell col-tag"><span class="badge bg-att">ATUALIZ.</span></td><td class="cell"><span class="operadora">PROASA SAÚDE (TEC GROUP):</span> <span class="descricao">Atualizações disponíveis nas praças (SP/DF/BA) do projeto Adesão.</span></td><td class="cell col-data">08/09/2026</td></tr>
+            <tr class="row"><td class="cell col-tag"><span class="badge bg-att">ATUALIZ.</span></td><td class="cell"><span class="operadora">SÃO MIGUEL SAÚDE - SP:</span> <span class="descricao">Tabelas (Individual, Familiar, PME e Sênior) atualizadas e disponíveis.</span></td><td class="cell col-data">04/09/2026</td></tr>
+            <tr class="row"><td class="cell col-tag"><span class="badge bg-att">ATUALIZ.</span></td><td class="cell"><span class="operadora">SULMED (GRUPO CONTÉM) - RS:</span> <span class="descricao">Atualizações disponíveis no projeto Adesão.</span></td><td class="cell col-data">04/09/2026</td></tr>
+            <tr class="row"><td class="cell col-tag"><span class="badge bg-att">ATUALIZ.</span></td><td class="cell"><span class="operadora">LEVE SAÚDE - RJ:</span> <span class="descricao">Rede credenciada atualizada e novo produto SMART SÊNIOR disponível.</span></td><td class="cell col-data">03/09/2026</td></tr>
+            <tr class="row"><td class="cell col-tag"><span class="badge bg-reaj">REAJUSTE</span></td><td class="cell"><span class="operadora">ODONTOPREV (HEBROM) - SP:</span> <span class="descricao">Reajuste anual disponível no projeto Odontológico.</span></td><td class="cell col-data">01/09/2026</td></tr>
         </table>
     </div>
 
@@ -369,7 +379,11 @@
 
         // Sincronização Dinâmica em Tempo Real com a API /api/noticias
         (function syncRealtimeNews() {
-            fetch('/api/noticias?t=' + Date.now())
+            var apiUrl = (window.location.origin && window.location.origin.indexOf('simuladoronline.com') !== -1 && window.location.hostname !== 'app.simuladoronline.com')
+                ? '/api/noticias'
+                : 'https://www.simuladoronline.com/api/noticias';
+
+            fetch(apiUrl + '?t=' + Date.now())
                 .then(function(r) { return r.json(); })
                 .then(function(items) {
                     if (!Array.isArray(items) || items.length === 0) return;
@@ -394,7 +408,7 @@
                             if (!text) return;
                             
                             var parsed = parseNoticiaText(text);
-                            var searchKey = (parsed.op || text).substring(0, 25);
+                            var searchKey = (parsed.op || text).substring(0, 20);
                             if (existingHtml.indexOf(searchKey) !== -1) return;
 
                             var badge = item.badge || item.tag || 'ATUALIZ.';
