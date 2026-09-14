@@ -316,7 +316,21 @@ export interface CompactTableUpdate {
 }
 
 const MOCK_COMPACT_UPDATES: CompactTableUpdate[] = [
+  // NOTÍCIAS DO COMERCIAL - SETEMBRO 2026
+  { id: 1789398809001, badge: 'REAJUSTE', text: 'BRADESCO SAÚDE - PME - Reajuste de valores disponível no projeto Adesão e PME.', date: '14/09/2026', monthKey: 'setembro', monthLabel: 'Setembro' },
+  { id: 1789398809002, badge: 'ATUALIZ.', text: 'ALICE SAÚDE - SP - Tabela promocional para contratos de 3 a 29 vidas disponível.', date: '11/09/2026', monthKey: 'setembro', monthLabel: 'Setembro' },
+  { id: 1789398809003, badge: 'ATUALIZ.', text: 'UNIHOSP SAÚDE (CORPe SAÚDE) - SP - Regras de comercialização atualizadas no projeto Adesão.', date: '09/09/2026', monthKey: 'setembro', monthLabel: 'Setembro' },
+  { id: 1789398809004, badge: 'ATUALIZ.', text: 'SÃO CAMILO (CORPe SAÚDE) - SP - Atualização na rede de atendimento e inclusão da operadora Cruz Azul como congênere disponível.', date: '09/09/2026', monthKey: 'setembro', monthLabel: 'Setembro' },
+  { id: 1789398809005, badge: 'ATUALIZ.', text: 'NOTREDAME SAÚDE - RJ - Linha PME Premium atualizada e disponível.', date: '09/09/2026', monthKey: 'setembro', monthLabel: 'Setembro' },
+  { id: 1789398809006, badge: 'ATUALIZ.', text: 'PROASA SAÚDE (TEC GROUP) - Atualizações disponíveis nas praças (SP/DF/BA) do projeto Adesão.', date: '08/09/2026', monthKey: 'setembro', monthLabel: 'Setembro' },
+  { id: 1789398809007, badge: 'ATUALIZ.', text: 'SÃO MIGUEL SAÚDE - SP - Tabelas (Individual, Familiar, PME e Sênior) atualizadas e disponíveis.', date: '04/09/2026', monthKey: 'setembro', monthLabel: 'Setembro' },
+  { id: 1789398809008, badge: 'ATUALIZ.', text: 'SULMED (GRUPO CONTÉM) - RS - Atualizações disponíveis no projeto Adesão.', date: '04/09/2026', monthKey: 'setembro', monthLabel: 'Setembro' },
+  { id: 1789398809009, badge: 'ATUALIZ.', text: 'LEVE SAÚDE - RJ - Rede credenciada atualizada e novo produto SMART SÊNIOR disponível.', date: '03/09/2026', monthKey: 'setembro', monthLabel: 'Setembro' },
+  { id: 1789398809010, badge: 'REAJUSTE', text: 'ODONTOPREV (HEBROM) - SP - Reajuste anual disponível no projeto Odontológico.', date: '01/09/2026', monthKey: 'setembro', monthLabel: 'Setembro' },
+
   // NOTÍCIAS DO COMERCIAL - AGOSTO 2026
+  { id: 1789398809011, badge: 'SUSPENSO', text: 'TRASMONTANO SAÚDE - SP - Linha Mix PME descontinuada.', date: '31/08/2026', monthKey: 'agosto', monthLabel: 'Agosto' },
+  { id: 1789398809012, badge: 'ATUALIZ.', text: 'PORTO SEGURO SAÚDE - Atualização de valores disponível - PME (SP / RJ / DF)', date: '28/08/2026', monthKey: 'agosto', monthLabel: 'Agosto' },
   { id: 1787917429070, badge: 'ATUALIZ.', text: 'PROASA (TEC GROUP) - Operadoras HAPVIDA / GNDI não fazem mais parte das congêneres no projeto.', date: '28/08/2026', monthKey: 'agosto', monthLabel: 'Agosto' },
   { id: 1787865789513, badge: 'NOVO', text: 'ANGELI - Plano de Saúde do Hospital Angelina Caron (CORPe SAÚDE) - PR - Comercialização do projeto Adesão retomada.', date: '27/08/2026', monthKey: 'agosto', monthLabel: 'Agosto' },
   { id: 1787845144073, badge: 'NOVO', text: 'SEGUROS UNIMED(UNISALUS) - Projeto na Cidade de São Paulo', date: '27/08/2026', monthKey: 'agosto', monthLabel: 'Agosto' },

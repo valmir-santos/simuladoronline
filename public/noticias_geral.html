@@ -49,7 +49,8 @@
     </div>
 
     <div class="tabs">
-        <button class="tab-btn active" onclick="openTab(event, 'agosto')">Agosto</button>
+        <button class="tab-btn active" onclick="openTab(event, 'setembro')">Setembro</button>
+        <button class="tab-btn" onclick="openTab(event, 'agosto')">Agosto</button>
         <button class="tab-btn" onclick="openTab(event, 'julho')">Julho</button>
         <button class="tab-btn" onclick="openTab(event, 'junho')">Junho</button>
         <button class="tab-btn" onclick="openTab(event, 'maio')">Maio</button>
@@ -59,7 +60,12 @@
         <button class="tab-btn" onclick="openTab(event, 'janeiro')">Janeiro</button>
     </div>
 
-    <div id="agosto" class="tab-content active">
+    <div id="setembro" class="tab-content active">
+        <table class="table-container" id="table-setembro">
+        </table>
+    </div>
+
+    <div id="agosto" class="tab-content">
         <table class="table-container" id="table-agosto">
             <tr class="row"><td class="cell col-tag"><span class="badge bg-att">ATUALIZ.</span></td><td class="cell"><span class="operadora">PROASA (TEC GROUP):</span> <span class="descricao">Operadoras HAPVIDA / GNDI não fazem mais parte das congêneres no projeto.</span></td><td class="cell col-data">28/08/2026</td></tr>
             <tr class="row"><td class="cell col-tag"><span class="badge bg-novo">NOVO</span></td><td class="cell"><span class="operadora">ANGELI (CORPe SAÚDE) - PR:</span> <span class="descricao">Plano de Saúde do Hospital Angelina Caron - Comercialização do projeto Adesão retomada.</span></td><td class="cell col-data">27/08/2026</td></tr>
@@ -315,6 +321,52 @@
             evt.currentTarget.classList.add("active");
         }
 
+        function parseNoticiaText(text) {
+            text = (text || '').trim();
+            if (!text) return { op: '', desc: '' };
+
+            var colonIndex = text.indexOf(':');
+            if (colonIndex !== -1) {
+                return {
+                    op: text.substring(0, colonIndex + 1).trim(),
+                    desc: text.substring(colonIndex + 1).trim()
+                };
+            }
+
+            var parts = text.split(' - ');
+            if (parts.length === 2) {
+                return {
+                    op: parts[0].trim() + ':',
+                    desc: parts[1].trim()
+                };
+            } else if (parts.length >= 3) {
+                var second = parts[1].trim();
+                var ufList = ['SP', 'RJ', 'MG', 'RS', 'PR', 'SC', 'BA', 'PE', 'CE', 'DF', 'GO', 'ES', 'AM', 'PA', 'MA', 'MT', 'MS', 'RN', 'PB', 'AL', 'SE', 'PI', 'TO', 'RO', 'AC', 'AP', 'RR'];
+                if (
+                    ufList.indexOf(second.toUpperCase()) !== -1 || 
+                    second.length <= 4 || 
+                    second.toUpperCase().indexOf('INTERIOR') === 0 || 
+                    second.toUpperCase().indexOf('CAPITAL') === 0 ||
+                    second.toUpperCase().indexOf('SAÚDE') !== -1 ||
+                    second.toUpperCase().indexOf('GROUP') !== -1 ||
+                    second.toUpperCase().indexOf('UNISALUS') !== -1 ||
+                    second.toUpperCase().indexOf('CORPE') !== -1
+                ) {
+                    return {
+                        op: parts[0].trim() + ' - ' + second + ':',
+                        desc: parts.slice(2).join(' - ').trim()
+                    };
+                } else {
+                    return {
+                        op: parts[0].trim() + ':',
+                        desc: parts.slice(1).join(' - ').trim()
+                    };
+                }
+            }
+
+            return { op: text, desc: '' };
+        }
+
         // Sincronização Dinâmica em Tempo Real com a API /api/noticias
         (function syncRealtimeNews() {
             fetch('/api/noticias?t=' + Date.now())
@@ -324,7 +376,7 @@
                     
                     var groupedByMonth = {};
                     items.forEach(function(item) {
-                        var mKey = item.monthKey || 'agosto';
+                        var mKey = item.monthKey || 'setembro';
                         if (!groupedByMonth[mKey]) groupedByMonth[mKey] = [];
                         groupedByMonth[mKey].push(item);
                     });
@@ -341,8 +393,8 @@
                             var text = (item.text || '').trim();
                             if (!text) return;
                             
-                            // Normalizar para checar duplicação no HTML
-                            var searchKey = text.substring(0, 30);
+                            var parsed = parseNoticiaText(text);
+                            var searchKey = (parsed.op || text).substring(0, 25);
                             if (existingHtml.indexOf(searchKey) !== -1) return;
 
                             var badge = item.badge || item.tag || 'ATUALIZ.';
@@ -351,14 +403,10 @@
                             else if (badge === 'SUSPENSO') badgeClass = 'bg-susp';
                             else if (badge === 'REAJUSTE') badgeClass = 'bg-reaj';
 
-                            var parts = text.split(':');
-                            var op = parts.length > 1 ? parts[0] + ':' : text;
-                            var desc = parts.length > 1 ? parts.slice(1).join(':').trim() : '';
-
                             var tr = document.createElement('tr');
                             tr.className = 'row';
                             tr.innerHTML = '<td class="cell col-tag"><span class="badge ' + badgeClass + '">' + badge + '</span></td>' +
-                                           '<td class="cell"><span class="operadora">' + op + '</span> <span class="descricao">' + desc + '</span></td>' +
+                                           '<td class="cell"><span class="operadora">' + parsed.op + '</span> <span class="descricao">' + parsed.desc + '</span></td>' +
                                            '<td class="cell col-data">' + (item.date || item.data || '') + '</td>';
                             
                             table.insertBefore(tr, table.firstChild);

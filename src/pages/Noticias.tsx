@@ -4,6 +4,7 @@ import { wpService, CompactTableUpdate } from '../services/wpService';
 import SEO from '../components/SEO';
 
 const MONTH_TABS = [
+  { key: 'setembro', label: 'Setembro' },
   { key: 'agosto', label: 'Agosto' },
   { key: 'julho', label: 'Julho' },
   { key: 'junho', label: 'Junho' },
@@ -14,9 +15,57 @@ const MONTH_TABS = [
   { key: 'janeiro', label: 'Janeiro' }
 ];
 
+export function parseNoticiaText(text: string): { operadora: string; descricao: string } {
+  text = (text || '').trim();
+  if (!text) return { operadora: '', descricao: '' };
+
+  // Caso 1: Separador com dois-pontos ":"
+  const colonIndex = text.indexOf(':');
+  if (colonIndex !== -1) {
+    return {
+      operadora: text.substring(0, colonIndex + 1).trim(),
+      descricao: text.substring(colonIndex + 1).trim()
+    };
+  }
+
+  // Caso 2: Separador por traço " - "
+  const parts = text.split(' - ');
+  if (parts.length === 2) {
+    return {
+      operadora: parts[0].trim() + ':',
+      descricao: parts[1].trim()
+    };
+  } else if (parts.length >= 3) {
+    const second = parts[1].trim();
+    const ufList = ['SP', 'RJ', 'MG', 'RS', 'PR', 'SC', 'BA', 'PE', 'CE', 'DF', 'GO', 'ES', 'AM', 'PA', 'MA', 'MT', 'MS', 'RN', 'PB', 'AL', 'SE', 'PI', 'TO', 'RO', 'AC', 'AP', 'RR'];
+    if (
+      ufList.includes(second.toUpperCase()) || 
+      second.length <= 4 || 
+      second.toUpperCase().startsWith('INTERIOR') || 
+      second.toUpperCase().startsWith('CAPITAL') ||
+      second.toUpperCase().includes('SAÚDE') ||
+      second.toUpperCase().includes('GROUP') ||
+      second.toUpperCase().includes('UNISALUS') ||
+      second.toUpperCase().includes('CORPE')
+    ) {
+      return {
+        operadora: parts[0].trim() + ' - ' + second + ':',
+        descricao: parts.slice(2).join(' - ').trim()
+      };
+    } else {
+      return {
+        operadora: parts[0].trim() + ':',
+        descricao: parts.slice(1).join(' - ').trim()
+      };
+    }
+  }
+
+  return { operadora: text, descricao: '' };
+}
+
 export default function Noticias() {
   const [items, setItems] = useState<CompactTableUpdate[]>([]);
-  const [activeTab, setActiveTab] = useState<string>('agosto');
+  const [activeTab, setActiveTab] = useState<string>('setembro');
   const [loading, setLoading] = useState(true);
 
   // Modal / Commercial Quick Add State
@@ -36,7 +85,7 @@ export default function Noticias() {
   const [formBadge, setFormBadge] = useState<CompactTableUpdate['badge']>('ATUALIZ.');
   const [formText, setFormText] = useState('');
   const [formDate, setFormDate] = useState('');
-  const [formMonthKey, setFormMonthKey] = useState('agosto');
+  const [formMonthKey, setFormMonthKey] = useState('setembro');
   const [formPostToX, setFormPostToX] = useState(true);
   const [submitting, setSubmitting] = useState(false);
 
@@ -244,18 +293,16 @@ export default function Noticias() {
   };
 
   const formatTextContent = (text: string) => {
-    const colonIndex = text.indexOf(':');
-    if (colonIndex !== -1) {
-      const operadora = text.substring(0, colonIndex + 1);
-      const descricao = text.substring(colonIndex + 1);
+    const { operadora, descricao } = parseNoticiaText(text);
+    if (descricao) {
       return (
         <>
-          <span className="operadora font-bold text-[#19137a]">{operadora}</span>
+          <span className="operadora font-bold text-[#19137a] mr-1">{operadora}</span>
           <span className="descricao text-[#444]">{descricao}</span>
         </>
       );
     }
-    return <span className="descricao text-[#444]">{text}</span>;
+    return <span className="operadora font-bold text-[#19137a]">{text}</span>;
   };
 
   return (
