@@ -271,6 +271,192 @@ const MOCK_TEMPLATES: Template[] = [
   }
 ];
 
+export interface LandingPageItem {
+  id: number;
+  name: string;
+  operator: string;
+  category: string;
+  demoUrl: string;
+  badge: string;
+  badgeColor: string;
+  gradient: string;
+  iconBg: string;
+  description: string;
+  features: string[];
+}
+
+export const MOCK_LANDING_PAGES: LandingPageItem[] = [
+  {
+    id: 1,
+    name: "Bradesco Saúde",
+    operator: "Bradesco Saúde",
+    category: "Saúde PME & Empresarial",
+    demoUrl: "https://segurosaude.assistenciamedica.emp.br",
+    badge: "Mais Procurada",
+    badgeColor: "bg-red-600 text-white",
+    gradient: "from-red-600 via-rose-700 to-red-900",
+    iconBg: "bg-red-50 text-red-600",
+    description: "Focada em planos de saúde empresariais e PME Bradesco, com formulário de cotação e botão WhatsApp de alta conversão.",
+    features: ["Formulário de Cotação Rápida", "Botão de WhatsApp Direto", "Tabelas e Redes de Destaque", "Compatível com Meta e Google Ads"]
+  },
+  {
+    id: 2,
+    name: "SulAmérica Saúde",
+    operator: "SulAmérica",
+    category: "Saúde & Odonto PME",
+    demoUrl: "https://sul-america-saude.segurosparticulares.com.br",
+    badge: "Destaque PME",
+    badgeColor: "bg-orange-500 text-white",
+    gradient: "from-orange-500 via-amber-600 to-orange-700",
+    iconBg: "bg-orange-50 text-orange-600",
+    description: "Design moderno e persuasivo para captação de clientes interessados em planos de saúde e odontológicos SulAmérica.",
+    features: ["Apresentação de Hospitais", "Simulação Online Integrada", "Layout Otimizado para Mobile", "Pixel e Tags Prontos"]
+  },
+  {
+    id: 3,
+    name: "Porto Seguro Saúde",
+    operator: "Porto Seguro",
+    category: "Saúde PME & Tradicional",
+    demoUrl: "https://portosaude.segurosparticulares.com.br",
+    badge: "Alta Conversão",
+    badgeColor: "bg-blue-600 text-white",
+    gradient: "from-blue-600 via-sky-600 to-blue-800",
+    iconBg: "bg-blue-50 text-blue-600",
+    description: "Linhas Porto Tradicional, P e Pro com apresentação clara de diferenciais, reembolso e cobertura.",
+    features: ["Linha Tradicional, P e Pro", "Captura de Leads Automática", "Carregamento Ultra-Rápido", "Integração WhatsApp"]
+  },
+  {
+    id: 4,
+    name: "Porto Saúde Bairros",
+    operator: "Porto Seguro",
+    category: "Regional São Paulo",
+    demoUrl: "https://porto-bairros.segurosparticulares.com.br",
+    badge: "Regional SP",
+    badgeColor: "bg-cyan-600 text-white",
+    gradient: "from-cyan-600 via-teal-700 to-blue-800",
+    iconBg: "bg-cyan-50 text-cyan-600",
+    description: "Especializada nos planos de saúde Porto Bairros para a capital paulista e Grande São Paulo.",
+    features: ["Foco em Zonas de SP", "Hospitais de Referência Bairros", "Preço Acessível em Destaque", "CTA Direto para Fechamento"]
+  },
+  {
+    id: 5,
+    name: "Alice Saúde",
+    operator: "Alice",
+    category: "Saúde Digital / Individual & PME",
+    demoUrl: "https://alicesaude.assistenciamedica.emp.br",
+    badge: "Inovadora",
+    badgeColor: "bg-pink-600 text-white",
+    gradient: "from-pink-500 via-rose-600 to-pink-800",
+    iconBg: "bg-pink-50 text-pink-600",
+    description: "Visual clean e moderno para atrair clientes que buscam tecnologia, time de saúde dedicado e hospitais premium.",
+    features: ["Design Minimalista e Clean", "Destaque para Casa Alice", "Formulário Inteligente", "Foco em PME e Individual"]
+  },
+  {
+    id: 6,
+    name: "Amil Saúde",
+    operator: "Amil",
+    category: "Linha Completa & One",
+    demoUrl: "https://amilsaude-vendas.assistenciamedica.emp.br",
+    badge: "Nacional",
+    badgeColor: "bg-blue-700 text-white",
+    gradient: "from-blue-700 via-indigo-700 to-blue-900",
+    iconBg: "bg-blue-50 text-blue-700",
+    description: "Captação de leads para linhas Amil Fácil, Amil Saúde e Amil One com abrangência regional e nacional.",
+    features: ["Linha Amil e Amil One", "Rede Própria e Credenciada", "Cotação para Empresas e Famílias", "Pronta para Anúncios"]
+  },
+  {
+    id: 7,
+    name: "Amil Dental",
+    operator: "Amil Dental",
+    category: "Odontológico Individual & PME",
+    demoUrl: "https://amildental-vendas.assistenciamedica.emp.br",
+    badge: "Odonto",
+    badgeColor: "bg-teal-600 text-white",
+    gradient: "from-teal-600 via-emerald-600 to-teal-800",
+    iconBg: "bg-teal-50 text-teal-600",
+    description: "Página focada na contratação de planos odontológicos individuais, familiares e corporativos Amil Dental.",
+    features: ["Planos PF, Familiar e PME", "Coberturas e Carências Claras", "Preço Popular e Ticket Rápido", "Botão WhatsApp 24h"]
+  },
+  {
+    id: 8,
+    name: "MedSênior Infinite",
+    operator: "MedSênior",
+    category: "Planos 49+ / Terceira Idade",
+    demoUrl: "https://planosenior-infinite.assistenciamedica.emp.br",
+    badge: "Sênior 49+",
+    badgeColor: "bg-emerald-600 text-white",
+    gradient: "from-emerald-600 via-teal-700 to-emerald-900",
+    iconBg: "bg-emerald-50 text-emerald-600",
+    description: "Especializada no plano MedSênior Infinite, destacando medicina preventiva, oficinas de saúde e sem coparticipação.",
+    features: ["Foco no Público 49+", "Medicina Preventiva e Autonomia", "Centros de Diagnóstico Próprios", "Alta Taxa de Conversão"]
+  },
+  {
+    id: 9,
+    name: "Prevent Senior",
+    operator: "Prevent Senior",
+    category: "Melhor Idade / Especialistas",
+    demoUrl: "https://preventsaudevendas.assistenciamedica.emp.br",
+    badge: "Melhor Idade",
+    badgeColor: "bg-slate-800 text-white",
+    gradient: "from-slate-800 via-slate-900 to-indigo-950",
+    iconBg: "bg-slate-100 text-slate-800",
+    description: "Página com forte autoridade para captação do público maduro com destaque para a rede Sancta Maggiore.",
+    features: ["Rede Sancta Maggiore", "Planos Individuais para Idosos", "Formulário Direto de Proposta", "Botão de Ligação e WhatsApp"]
+  },
+  {
+    id: 10,
+    name: "Hapvida GNDI",
+    operator: "Hapvida NotreDame",
+    category: "Saúde Integrada / Custo-Benefício",
+    demoUrl: "https://hapvida-gndi-vendas.assistenciamedica.emp.br",
+    badge: "Líder de Vendas",
+    badgeColor: "bg-blue-600 text-white",
+    gradient: "from-blue-600 via-indigo-600 to-amber-600",
+    iconBg: "bg-blue-50 text-blue-600",
+    description: "Excelente para quem busca planos acessíveis e ampla rede integrada NotreDame Intermédica e Hapvida.",
+    features: ["Linha Smart e Advance", "Melhor Custo x Benefício", "Cotações PME e Coletivo", "Preparada para Meta Ads"]
+  },
+  {
+    id: 11,
+    name: "Leve Saúde",
+    operator: "Leve Saúde",
+    category: "Rio de Janeiro / PME & Sênior",
+    demoUrl: "https://levesaude-vendas.assistenciamedica.emp.br",
+    badge: "Destaque RJ",
+    badgeColor: "bg-emerald-600 text-white",
+    gradient: "from-emerald-500 via-green-600 to-teal-800",
+    iconBg: "bg-green-50 text-green-600",
+    description: "Página moderna otimizada para o Rio de Janeiro com os planos Leve Saúde, SMART Sênior e clínicas Leve.",
+    features: ["Foco no Estado do RJ", "Linha SMART Sênior", "Clínicas e Hospitais de Destaque", "WhatsApp Comercial Integrado"]
+  },
+  {
+    id: 12,
+    name: "Seguro Automóvel",
+    operator: "Seguros Auto",
+    category: "Seguros Gerais / Auto",
+    demoUrl: "https://seguroautomovel-vendas.segurosparticulares.com.br",
+    badge: "Auto",
+    badgeColor: "bg-indigo-600 text-white",
+    gradient: "from-indigo-600 via-blue-700 to-indigo-900",
+    iconBg: "bg-indigo-50 text-indigo-600",
+    description: "Landing Page completa para captar clientes interessados em seguro auto para as principais seguradoras do país.",
+    features: ["Multicálculo Auto Promessa", "Formulário de Veículo e Perfil", "Coberturas Compreensivas", "Pronta para Google Ads"]
+  },
+  {
+    id: 13,
+    name: "Consórcio",
+    operator: "Consórcios",
+    category: "Imóveis & Automóveis",
+    demoUrl: "https://consorcio-vendas.segurosparticulares.com.br",
+    badge: "Consórcios",
+    badgeColor: "bg-amber-600 text-white",
+    gradient: "from-amber-500 via-amber-600 to-yellow-700",
+    iconBg: "bg-amber-50 text-amber-600",
+    description: "Página persuasiva para captação de clientes para consórcio imobiliário, veicular e de serviços.",
+    features: ["Simulação de Cartas de Crédito", "Consórcio Imobiliário e Auto", "Sem Juros em Destaque", "WhatsApp de Fechamento"]
+  }
+];
+
 export interface Partner {
   id: number;
   name: string;
@@ -614,6 +800,9 @@ export const wpService = {
   },
   getTemplates: async (): Promise<Template[]> => {
     return new Promise((resolve) => setTimeout(() => resolve(MOCK_TEMPLATES), 400));
+  },
+  getLandingPages: async (): Promise<LandingPageItem[]> => {
+    return new Promise((resolve) => setTimeout(() => resolve(MOCK_LANDING_PAGES), 300));
   },
   getPartners: async (): Promise<Partner[]> => {
     return new Promise((resolve) => setTimeout(() => resolve(MOCK_PARTNERS), 300));

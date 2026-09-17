@@ -129,6 +129,21 @@ export default function PricingTable() {
           </div>
         </div>
 
+        {/* PROMO CALLOUT FOR NACIONAL PLAN */}
+        <div className="max-w-3xl mx-auto mb-12 relative z-10">
+          <div className="bg-gradient-to-r from-amber-500/20 via-amber-400/30 to-amber-500/20 border border-amber-400/50 rounded-2xl p-4 md:p-6 text-center backdrop-blur-md">
+            <span className="inline-block bg-amber-400 text-brand-secondary text-[11px] font-black uppercase px-3 py-1 rounded-full mb-2">
+              ⭐ Bônus Exclusivo Assinante Nacional
+            </span>
+            <p className="text-white text-sm md:text-base font-bold">
+              Assine o <span className="text-amber-300">Plano Nacional</span> e tenha direito a ativar <span className="text-amber-300 underline">1 Landing Page profissional</span> para captar leads por uma taxa única de apenas <span className="text-amber-300">R$ 50,00</span>!
+            </p>
+            <p className="text-xs text-white/70 mt-1">
+              (Escolha 1 entre 13 modelos de operadoras. Válido 1 Landing Page por CPF/Plano ativo).
+            </p>
+          </div>
+        </div>
+
         <PricingFooter 
           theme="dark" 
           urlContratar="https://app.simuladoronline.com/contratacao/1"
