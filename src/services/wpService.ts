@@ -473,14 +473,14 @@ export const MOCK_LANDING_PAGES: LandingPageItem[] = [
     features: [
       "Desenvolvimento Sob Demanda",
       "Prazo de criação: até 5 dias úteis",
-      "Início após contratação do Plano 01 Nacional",
+      "Início após contratação do Plano 01 Nacional ou Superior",
       "Pronta para Meta Ads e Google Ads",
       "Suporte e TI: (11) 98259-0485"
     ],
     isCustomRequest: true,
     customWhatsApp: "5511982590485",
     customWhatsAppPhone: "(11) 98259-0485",
-    note: "Prazo de entrega em até 5 dias úteis. O trabalho de criação só se inicia após a contratação do Plano 01 Nacional."
+    note: "Prazo de entrega em até 5 dias úteis. O trabalho de criação só se inicia após a confirmação da contratação do Plano 01 Nacional ou Superior."
   }
 ];
 

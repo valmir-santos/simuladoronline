@@ -324,7 +324,7 @@ export default function Products() {
                                     Prazo de entrega: até 5 dias úteis
                                   </p>
                                   <p className="text-[11px] text-purple-800 leading-snug">
-                                    * O trabalho de criação e configuração da página só é iniciado após a confirmação da contratação do <strong>Plano 01 Nacional</strong>.
+                                    * O trabalho de criação e configuração da página só se inicia após a confirmação da contratação do <strong>Plano 01 Nacional ou Superior</strong>.
                                   </p>
                                 </div>
                               )}
