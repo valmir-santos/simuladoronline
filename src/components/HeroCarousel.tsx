@@ -14,18 +14,9 @@ const slides = [
     actionUrl: '/testar-gratis'
   },
   {
-    type: 'image',
-    title: 'ECONOMIZE ATÉ R$ 500 NA CRIAÇÃO DA SUA LANDING PAGE!',
-    subtitle: 'ASSINANTES DO PLANO 01 NACIONAL (OU SUPERIOR) GANHAM 1 LANDING PAGE PROFISSIONAL INCLUSA',
-    cta: 'QUERO MINHA LANDING PAGE INCLUSA',
-    image: 'https://images.unsplash.com/photo-1460925895917-afdab827c52f?q=80&w=1200&auto=format&fit=crop',
-    overlay: 'bg-[#002F5D]/90',
-    actionUrl: '/produtos#sites',
-    accent: 'text-amber-300 font-black',
-    features: [
-      'Sem custo de criação (valor de mercado de R$ 300 a R$ 500) • 1 LP por CPF/Plano das principais operadoras ou sob demanda.',
-      '100% pronta para Meta Ads, Google Ads e Pixel • Apenas taxa única de R$ 50 de configuração técnica.'
-    ]
+    type: 'image-only',
+    image: '/banner-projeto-landing-page.jpg',
+    link: 'https://api.whatsapp.com/send?phone=551132190409&text=Ol%C3%A1!%20Gostaria%20de%20saber%20mais%20sobre%20as%20Landing%20Pages%20inclusas%20no%20Plano%20Nacional.'
   },
   {
     type: 'image-only',
