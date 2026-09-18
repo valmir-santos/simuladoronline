@@ -14,7 +14,8 @@ import {
   Layers,
   Globe,
   Tag,
-  ShieldAlert
+  ShieldAlert,
+  Clock
 } from 'lucide-react';
 import { useLocation } from 'react-router-dom';
 import { wpService, Product, Template, LandingPageItem } from '../services/wpService';
@@ -315,6 +316,18 @@ export default function Products() {
                                   </li>
                                 ))}
                               </ul>
+
+                              {isCustom && (
+                                <div className="mt-4 bg-purple-50/90 border border-purple-200 rounded-2xl p-3.5 text-xs text-purple-950 font-medium space-y-1.5 shadow-sm">
+                                  <p className="font-black text-purple-900 flex items-center gap-1.5">
+                                    <Clock size={14} className="text-purple-600 shrink-0" />
+                                    Prazo de entrega: até 5 dias úteis
+                                  </p>
+                                  <p className="text-[11px] text-purple-800 leading-snug">
+                                    * O trabalho de criação e configuração da página só é iniciado após a confirmação da contratação do <strong>Plano 01 Nacional</strong>.
+                                  </p>
+                                </div>
+                              )}
                             </div>
 
                             {/* ACTIONS */}

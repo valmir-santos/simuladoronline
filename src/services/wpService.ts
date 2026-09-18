@@ -286,6 +286,7 @@ export interface LandingPageItem {
   isCustomRequest?: boolean;
   customWhatsApp?: string;
   customWhatsAppPhone?: string;
+  note?: string;
 }
 
 export const MOCK_LANDING_PAGES: LandingPageItem[] = [
@@ -469,10 +470,17 @@ export const MOCK_LANDING_PAGES: LandingPageItem[] = [
     gradient: "from-purple-800 via-indigo-900 to-slate-900",
     iconBg: "bg-purple-50 text-purple-600",
     description: "A operadora, seguradora ou produto que você precisa não está na lista? Solicite o desenvolvimento direto com o nosso Depto. de Desenvolvimento e Suporte.",
-    features: ["Desenvolvimento Sob Demanda", "Para qualquer Operadora do Brasil", "Pronta para Meta Ads e Google Ads", "Suporte e TI: (11) 98259-0485"],
+    features: [
+      "Desenvolvimento Sob Demanda",
+      "Prazo de criação: até 5 dias úteis",
+      "Início após contratação do Plano 01 Nacional",
+      "Pronta para Meta Ads e Google Ads",
+      "Suporte e TI: (11) 98259-0485"
+    ],
     isCustomRequest: true,
     customWhatsApp: "5511982590485",
-    customWhatsAppPhone: "(11) 98259-0485"
+    customWhatsAppPhone: "(11) 98259-0485",
+    note: "Prazo de entrega em até 5 dias úteis. O trabalho de criação só se inicia após a contratação do Plano 01 Nacional."
   }
 ];
 
