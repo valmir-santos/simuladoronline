@@ -168,7 +168,7 @@ export default function Products() {
                   }`}
                 >
                   <Sparkles size={16} className="text-amber-400" />
-                  Landing Pages de Operadoras (Campanha R$ 50)
+                  Landing Pages de Operadoras (Inclusas no Plano Nacional)
                 </button>
                 <button
                   onClick={() => setSiteSubTab('templates')}
@@ -196,45 +196,45 @@ export default function Products() {
                   
                   <div className="max-w-4xl relative z-10 space-y-6">
                     <div className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-amber-400/20 border border-amber-300/40 text-amber-300 text-xs font-black uppercase tracking-wider">
-                      <Sparkles size={14} /> Oferta Especial para Assinantes
+                      <Sparkles size={14} /> Benefício Exclusivo Incluso
                     </div>
 
                     <h2 className="text-3xl md:text-5xl font-black tracking-tight leading-tight">
-                      Landing Pages Prontas para Captar Leads por apenas <span className="text-amber-300">R$ 50,00</span> (Taxa Única)
+                      Economize de <span className="text-emerald-400 line-through text-2xl md:text-3xl opacity-75">R$ 300 a R$ 500</span> na Criação da sua Landing Page!
                     </h2>
 
                     <p className="text-lg md:text-xl text-blue-100 font-medium leading-relaxed">
-                      Assinantes do <strong>Plano 01 Nacional</strong> (ou superior) podem escolher <strong className="text-white underline decoration-amber-400 decoration-2">1 Landing Page por CPF / Plano</strong> com taxa única de ativação de apenas <strong>R$ 50,00</strong>. Sem mensalidades adicionais enquanto mantiver sua assinatura ativa!
+                      No mercado, o desenvolvimento de uma Landing Page profissional custa entre <strong>R$ 300 e R$ 500</strong>. Assinantes do <strong>Plano 01 Nacional (ou superior)</strong> têm direito a <strong className="text-white underline decoration-amber-400 decoration-2">1 Landing Page profissional inclusa</strong>, pagando apenas uma pequena taxa única de R$ 50 para configuração e hospedagem técnica!
                     </p>
 
                     <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 pt-4">
                       <div className="bg-white/10 backdrop-blur-md p-4 rounded-2xl border border-white/10">
-                        <p className="text-amber-300 font-black text-sm mb-1">🎯 1 LP por CPF/Plano</p>
-                        <p className="text-xs text-blue-100">Escolha o modelo da sua operadora preferida.</p>
+                        <p className="text-amber-300 font-black text-sm mb-1">🎁 Sem Custo de Criação</p>
+                        <p className="text-xs text-blue-100">Economia real de até R$ 500 por modelo.</p>
                       </div>
                       <div className="bg-white/10 backdrop-blur-md p-4 rounded-2xl border border-white/10">
-                        <p className="text-amber-300 font-black text-sm mb-1">🌐 Subdomínio Grátis</p>
-                        <p className="text-xs text-blue-100">Ou use seu domínio próprio sem complicação.</p>
+                        <p className="text-amber-300 font-black text-sm mb-1">🎯 1 LP por CPF/Plano</p>
+                        <p className="text-xs text-blue-100">Escolha a operadora de sua preferência.</p>
                       </div>
                       <div className="bg-white/10 backdrop-blur-md p-4 rounded-2xl border border-white/10">
                         <p className="text-amber-300 font-black text-sm mb-1">📊 Pronta p/ Anúncios</p>
                         <p className="text-xs text-blue-100">Pixel Meta, Google Ads e TikTok integrados.</p>
                       </div>
                       <div className="bg-white/10 backdrop-blur-md p-4 rounded-2xl border border-white/10">
-                        <p className="text-amber-300 font-black text-sm mb-1">⚡ Sem Mensalidade Extra</p>
-                        <p className="text-xs text-blue-100">Ativa enquanto durar sua assinatura Nacional.</p>
+                        <p className="text-amber-300 font-black text-sm mb-1">⚡ Taxa Única de R$ 50</p>
+                        <p className="text-xs text-blue-100">Apenas para configuração técnica inicial.</p>
                       </div>
                     </div>
 
                     <div className="pt-2 flex flex-wrap gap-4 items-center">
                       <a 
-                        href="https://api.whatsapp.com/send?phone=551132190409&text=Ol%C3%A1!%20J%C3%A1%20sou%20assinante%20do%20Plano%20Nacional%20e%20gostaria%20de%20ativar%20minha%20Landing%20Page%20por%20R$%2050,00." 
+                        href="https://api.whatsapp.com/send?phone=551132190409&text=Ol%C3%A1!%20Sou%20assinante%20do%20Plano%20Nacional%20e%20gostaria%20de%20ativar%20minha%20Landing%20Page%20inclusa%20(com%20a%20taxa%20de%20configura%C3%A7%C3%A3o%20de%20R$%2050)." 
                         target="_blank" 
                         rel="noopener noreferrer"
                         className="bg-amber-400 hover:bg-amber-300 text-brand-secondary font-black px-6 py-3.5 rounded-xl shadow-lg transition-all flex items-center justify-center gap-2 text-sm w-full sm:w-auto"
                       >
                         <MessageCircle size={18} />
-                        Já sou Assinante: Ativar por R$ 50
+                        Já sou Assinante: Ativar Minha Landing Page
                       </a>
                       
                       <a 
@@ -244,11 +244,11 @@ export default function Products() {
                         className="bg-white hover:bg-blue-50 text-brand-secondary font-black px-6 py-3.5 rounded-xl shadow-lg transition-all flex items-center justify-center gap-2 text-sm w-full sm:w-auto"
                       >
                         <Zap size={18} className="text-amber-500 fill-amber-500" />
-                        Contratar Plano Nacional
+                        Contratar Plano Nacional (LP Inclusa)
                       </a>
 
                       <a 
-                        href="https://api.whatsapp.com/send?phone=551132190409&text=Ol%C3%A1!%20Ainda%20n%C3%A3o%20sou%20cliente%20do%20Simulador%20e%20gostaria%20de%20saber%20mais%20sobre%20a%20campanha%20de%20Landing%20Pages%20e%20o%20Plano%20Nacional." 
+                        href="https://api.whatsapp.com/send?phone=551132190409&text=Ol%C3%A1!%20Ainda%20n%C3%A3o%20sou%20cliente%20do%20Simulador%20e%20gostaria%20de%20saber%20mais%20sobre%20o%20Plano%20Nacional%20com%20Landing%20Page%20inclusa." 
                         target="_blank" 
                         rel="noopener noreferrer"
                         className="bg-white/15 hover:bg-white/25 text-white border border-white/30 font-bold px-5 py-3.5 rounded-xl transition-all flex items-center justify-center gap-2 text-sm w-full sm:w-auto"
@@ -272,7 +272,7 @@ export default function Products() {
                       Conheça os Modelos Disponíveis
                     </h3>
                     <p className="text-gray-500 font-medium max-w-2xl mx-auto">
-                      Clique em <strong>Ver Demonstração</strong> para navegar na página em tempo real. Caso sua operadora não esteja na lista, você pode solicitar o desenvolvimento diretamente com nosso suporte!
+                      Clique em <strong>Ver Demonstração</strong> para navegar na página em tempo real. Escolha a sua e ative pelo WhatsApp com apenas uma taxa única de configuração de R$ 50!
                     </p>
                   </div>
 
@@ -351,12 +351,12 @@ export default function Products() {
                               {/* PRIMARY CTA */}
                               {!isCustom ? (
                                 <a
-                                  href={`https://api.whatsapp.com/send?phone=${targetPhone}&text=Ol%C3%A1!%20Sou%20assinante%20do%20Plano%20Nacional%20e%20quero%20ativar%20a%20Landing%20Page%20da%20*${encodeURIComponent(lp.name)}*%20por%20R$%2050,00.`}
+                                  href={`https://api.whatsapp.com/send?phone=${targetPhone}&text=Ol%C3%A1!%20Sou%20assinante%20do%20Plano%20Nacional%20e%20quero%20ativar%20minha%20Landing%20Page%20inclusa%20da%20*${encodeURIComponent(lp.name)}*%20(taxa%20de%20configura%C3%A7%C3%A3o%20de%20R$%2050).`}
                                   target="_blank"
                                   rel="noopener noreferrer"
                                   className="w-full bg-[#25D366] hover:bg-[#128C7E] text-white py-3 px-4 rounded-xl font-black text-xs transition-colors flex items-center justify-center gap-2 text-center shadow-md"
                                 >
-                                  <MessageCircle size={16} /> Já sou Assinante: Ativar por R$ 50
+                                  <MessageCircle size={16} /> Já sou Assinante: Ativar Landing Page
                                 </a>
                               ) : (
                                 <a
@@ -378,12 +378,12 @@ export default function Products() {
                                   className="w-full bg-brand-secondary hover:bg-brand-primary text-white py-2.5 px-3 rounded-xl font-bold text-xs transition-colors flex items-center justify-center gap-1.5 text-center shadow-sm"
                                 >
                                   <Zap size={14} className="text-amber-400 fill-amber-400" />
-                                  Contratar Plano Nacional
+                                  Contratar Plano Nacional (LP Inclusa)
                                 </a>
 
                                 {!isCustom ? (
                                   <a
-                                    href={`https://api.whatsapp.com/send?phone=${targetPhone}&text=Ol%C3%A1!%20Ainda%20n%C3%A3o%20sou%20cliente%20do%20Simulador%20e%20gostaria%20de%20informa%C3%A7%C3%B5es%20sobre%20o%20Plano%20Nacional%20e%20a%20Landing%20Page%20da%20*${encodeURIComponent(lp.name)}*.`}
+                                    href={`https://api.whatsapp.com/send?phone=${targetPhone}&text=Ol%C3%A1!%20Ainda%20n%C3%A3o%20sou%20cliente%20do%20Simulador%20e%20gostaria%20de%20informa%C3%A7%C3%B5es%20sobre%20o%20Plano%20Nacional%20com%20Landing%20Page%20inclusa%20da%20*${encodeURIComponent(lp.name)}*.`}
                                     target="_blank"
                                     rel="noopener noreferrer"
                                     className="w-full bg-emerald-50 hover:bg-emerald-100 text-emerald-800 border border-emerald-200 py-2 px-3 rounded-xl font-bold text-xs transition-colors flex items-center justify-center gap-1.5 text-center"

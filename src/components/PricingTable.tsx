@@ -133,13 +133,13 @@ export default function PricingTable() {
         <div className="max-w-3xl mx-auto mb-12 relative z-10">
           <div className="bg-gradient-to-r from-amber-500/20 via-amber-400/30 to-amber-500/20 border border-amber-400/50 rounded-2xl p-4 md:p-6 text-center backdrop-blur-md">
             <span className="inline-block bg-amber-400 text-brand-secondary text-[11px] font-black uppercase px-3 py-1 rounded-full mb-2">
-              ⭐ Bônus Exclusivo Assinante Nacional
+              ⭐ Economize de R$ 300 a R$ 500 na sua Landing Page
             </span>
             <p className="text-white text-sm md:text-base font-bold">
-              Assine o <span className="text-amber-300">Plano Nacional</span> e tenha direito a ativar <span className="text-amber-300 underline">1 Landing Page profissional</span> para captar leads por uma taxa única de apenas <span className="text-amber-300">R$ 50,00</span>!
+              Assinantes do <span className="text-amber-300">Plano Nacional</span> ganham <span className="text-amber-300 underline">1 Landing Page Profissional Inclusa</span> (sem custo de desenvolvimento)!
             </p>
-            <p className="text-xs text-white/70 mt-1">
-              (Escolha 1 entre 13 modelos de operadoras. Válido 1 Landing Page por CPF/Plano ativo).
+            <p className="text-xs text-white/80 mt-1">
+              Taxa única de apenas <span className="text-amber-300 font-bold">R$ 50,00</span> para configuração técnica e hospedagem. Escolha 1 entre diversos modelos de operadoras (1 por CPF/Plano ativo).
             </p>
           </div>
         </div>

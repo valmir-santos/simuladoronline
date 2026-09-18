@@ -15,16 +15,16 @@ const slides = [
   },
   {
     type: 'image',
-    title: 'TURBINE SUAS VENDAS COM LANDING PAGES DE ALTA CONVERSÃO!',
-    subtitle: 'EXCLUSIVO PARA ASSINANTES DO PLANO 01 NACIONAL (OU SUPERIOR) POR APENAS R$ 50,00',
-    cta: 'ESCOLHA SUA LANDING PAGE POR R$ 50',
+    title: 'ECONOMIZE ATÉ R$ 500 NA CRIAÇÃO DA SUA LANDING PAGE!',
+    subtitle: 'ASSINANTES DO PLANO 01 NACIONAL (OU SUPERIOR) GANHAM 1 LANDING PAGE PROFISSIONAL INCLUSA',
+    cta: 'QUERO MINHA LANDING PAGE INCLUSA',
     image: 'https://images.unsplash.com/photo-1460925895917-afdab827c52f?q=80&w=1200&auto=format&fit=crop',
     overlay: 'bg-[#002F5D]/90',
     actionUrl: '/produtos#sites',
     accent: 'text-amber-300 font-black',
     features: [
-      '1 Landing Page por CPF/Plano das principais operadoras (Bradesco, SulAmérica, Amil, Porto, etc.) ou Sob Demanda.',
-      '100% pronta para Meta Ads, Google Ads e Pixel • Taxa única de ativação de R$ 50 e sem mensalidade adicional!'
+      'Sem custo de criação (valor de mercado de R$ 300 a R$ 500) • 1 LP por CPF/Plano das principais operadoras ou sob demanda.',
+      '100% pronta para Meta Ads, Google Ads e Pixel • Apenas taxa única de R$ 50 de configuração técnica.'
     ]
   },
   {
