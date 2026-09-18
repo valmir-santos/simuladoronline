@@ -16,6 +16,7 @@ const slides = [
   {
     type: 'image-only',
     image: '/banner-projeto-landing-page.jpg',
+    mobileImage: '/banner-projeto-landing-page-mobile.jpg',
     link: '/produtos#sites'
   },
   {
