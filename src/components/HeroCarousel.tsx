@@ -16,7 +16,7 @@ const slides = [
   {
     type: 'image-only',
     image: '/banner-projeto-landing-page.jpg',
-    link: 'https://api.whatsapp.com/send?phone=551132190409&text=Ol%C3%A1!%20Gostaria%20de%20saber%20mais%20sobre%20as%20Landing%20Pages%20inclusas%20no%20Plano%20Nacional.'
+    link: '/produtos#sites'
   },
   {
     type: 'image-only',
@@ -102,19 +102,35 @@ export default function HeroCarousel() {
           {(slides[current].type === 'image' || slides[current].type === 'image-only') && (
             <div className="absolute inset-0 z-0">
               {slides[current].type === 'image-only' && slides[current].link ? (
-                <a href={slides[current].link} target="_blank" rel="noopener noreferrer" className="block w-full h-full">
-                  <picture className="w-full h-full block">
-                    {slides[current].mobileImage && (
-                      <source media="(max-width: 768px)" srcSet={slides[current].mobileImage} />
-                    )}
-                    <img
-                      src={slides[current].image}
-                      alt="Banner Slide"
-                      className="w-full h-full object-cover"
-                      decoding="async"
-                    />
-                  </picture>
-                </a>
+                slides[current].link.startsWith('/') ? (
+                  <Link to={slides[current].link} className="block w-full h-full">
+                    <picture className="w-full h-full block">
+                      {slides[current].mobileImage && (
+                        <source media="(max-width: 768px)" srcSet={slides[current].mobileImage} />
+                      )}
+                      <img
+                        src={slides[current].image}
+                        alt="Banner Slide"
+                        className="w-full h-full object-cover"
+                        decoding="async"
+                      />
+                    </picture>
+                  </Link>
+                ) : (
+                  <a href={slides[current].link} target="_blank" rel="noopener noreferrer" className="block w-full h-full">
+                    <picture className="w-full h-full block">
+                      {slides[current].mobileImage && (
+                        <source media="(max-width: 768px)" srcSet={slides[current].mobileImage} />
+                      )}
+                      <img
+                        src={slides[current].image}
+                        alt="Banner Slide"
+                        className="w-full h-full object-cover"
+                        decoding="async"
+                      />
+                    </picture>
+                  </a>
+                )
               ) : (
                 <>
                   <picture className="w-full h-full block">
