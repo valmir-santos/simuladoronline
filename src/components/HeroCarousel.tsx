@@ -14,6 +14,20 @@ const slides = [
     actionUrl: '/testar-gratis'
   },
   {
+    type: 'image',
+    title: 'TURBINE SUAS VENDAS COM LANDING PAGES DE ALTA CONVERSÃO!',
+    subtitle: 'EXCLUSIVO PARA ASSINANTES DO PLANO 01 NACIONAL (OU SUPERIOR) POR APENAS R$ 50,00',
+    cta: 'ESCOLHA SUA LANDING PAGE POR R$ 50',
+    image: 'https://images.unsplash.com/photo-1460925895917-afdab827c52f?q=80&w=1200&auto=format&fit=crop',
+    overlay: 'bg-[#002F5D]/90',
+    actionUrl: '/produtos#sites',
+    accent: 'text-amber-300 font-black',
+    features: [
+      '1 Landing Page por CPF/Plano das principais operadoras (Bradesco, SulAmérica, Amil, Porto, etc.) ou Sob Demanda.',
+      '100% pronta para Meta Ads, Google Ads e Pixel • Taxa única de ativação de R$ 50 e sem mensalidade adicional!'
+    ]
+  },
+  {
     type: 'image-only',
     image: '/banner-allcare-suas-vendas-podem-valer-muito-mais.jpg',
     mobileImage: '/banner-allcare-suas-vendas-podem-valer-muito-mais-1080x1350.jpg',
