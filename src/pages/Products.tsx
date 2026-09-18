@@ -225,16 +225,38 @@ export default function Products() {
                       </div>
                     </div>
 
-                    <div className="pt-2 flex flex-col sm:flex-row gap-4 items-center">
+                    <div className="pt-2 flex flex-wrap gap-4 items-center">
                       <a 
-                        href="https://api.whatsapp.com/send?phone=551132190409&text=Ol%C3%A1!%20Sou%20assinante%20do%20Plano%20Nacional%20e%20gostaria%20de%20ativar%20minha%20Landing%20Page%20por%20R$%2050,00." 
+                        href="https://api.whatsapp.com/send?phone=551132190409&text=Ol%C3%A1!%20J%C3%A1%20sou%20assinante%20do%20Plano%20Nacional%20e%20gostaria%20de%20ativar%20minha%20Landing%20Page%20por%20R$%2050,00." 
                         target="_blank" 
                         rel="noopener noreferrer"
-                        className="bg-amber-400 hover:bg-amber-300 text-brand-secondary font-black px-8 py-4 rounded-xl shadow-lg transition-all flex items-center justify-center gap-2 text-base w-full sm:w-auto"
+                        className="bg-amber-400 hover:bg-amber-300 text-brand-secondary font-black px-6 py-3.5 rounded-xl shadow-lg transition-all flex items-center justify-center gap-2 text-sm w-full sm:w-auto"
                       >
-                        <MessageCircle size={20} />
-                        Quero Ativar Minha Landing Page
+                        <MessageCircle size={18} />
+                        Já sou Assinante: Ativar por R$ 50
                       </a>
+                      
+                      <a 
+                        href="https://app.simuladoronline.com/contratacao/1" 
+                        target="_blank" 
+                        rel="noopener noreferrer"
+                        className="bg-white hover:bg-blue-50 text-brand-secondary font-black px-6 py-3.5 rounded-xl shadow-lg transition-all flex items-center justify-center gap-2 text-sm w-full sm:w-auto"
+                      >
+                        <Zap size={18} className="text-amber-500 fill-amber-500" />
+                        Contratar Plano Nacional
+                      </a>
+
+                      <a 
+                        href="https://api.whatsapp.com/send?phone=551132190409&text=Ol%C3%A1!%20Ainda%20n%C3%A3o%20sou%20cliente%20do%20Simulador%20e%20gostaria%20de%20saber%20mais%20sobre%20a%20campanha%20de%20Landing%20Pages%20e%20o%20Plano%20Nacional." 
+                        target="_blank" 
+                        rel="noopener noreferrer"
+                        className="bg-white/15 hover:bg-white/25 text-white border border-white/30 font-bold px-5 py-3.5 rounded-xl transition-all flex items-center justify-center gap-2 text-sm w-full sm:w-auto"
+                      >
+                        <MessageCircle size={18} />
+                        Ainda não sou cliente: Falar no WhatsApp
+                      </a>
+                    </div>
+                    <div>
                       <span className="text-xs text-blue-200 italic">
                         * Contas de e-mail corporativo não inclusas. Tráfego e anúncios por conta do corretor.
                       </span>
@@ -292,23 +314,49 @@ export default function Products() {
                           </div>
 
                           {/* ACTIONS */}
-                          <div className="space-y-2 pt-4 border-t border-gray-100">
+                          <div className="space-y-3 pt-4 border-t border-gray-100">
+                            {/* DEMO LINK */}
                             <a
                               href={lp.demoUrl}
                               target="_blank"
                               rel="noreferrer"
-                              className="w-full bg-gray-100 hover:bg-gray-200 text-brand-secondary py-3 px-4 rounded-xl font-bold text-xs transition-colors flex items-center justify-center gap-2 text-center"
+                              className="w-full bg-gray-100 hover:bg-gray-200 text-brand-secondary py-2.5 px-4 rounded-xl font-bold text-xs transition-colors flex items-center justify-center gap-2 text-center"
                             >
                               <ExternalLink size={15} /> Ver Demonstração Online
                             </a>
+
+                            {/* PRIMARY CTA: JÁ SOU ASSINANTE */}
                             <a
                               href={`https://api.whatsapp.com/send?phone=551132190409&text=Ol%C3%A1!%20Sou%20assinante%20do%20Plano%20Nacional%20e%20quero%20ativar%20a%20Landing%20Page%20da%20*${encodeURIComponent(lp.name)}*%20por%20R$%2050,00.`}
                               target="_blank"
                               rel="noopener noreferrer"
-                              className="w-full bg-[#25D366] hover:bg-[#128C7E] text-white py-3 px-4 rounded-xl font-bold text-xs transition-colors flex items-center justify-center gap-2 text-center shadow-md"
+                              className="w-full bg-[#25D366] hover:bg-[#128C7E] text-white py-3 px-4 rounded-xl font-black text-xs transition-colors flex items-center justify-center gap-2 text-center shadow-md"
                             >
-                              <MessageCircle size={15} /> Ativar Esta Landing Page
+                              <MessageCircle size={16} /> Já sou Assinante: Ativar por R$ 50
                             </a>
+
+                            {/* CTAs FOR NON-CLIENTS */}
+                            <div className="pt-2 border-t border-dashed border-gray-200 flex flex-col gap-2">
+                              <a
+                                href="https://app.simuladoronline.com/contratacao/1"
+                                target="_blank"
+                                rel="noopener noreferrer"
+                                className="w-full bg-brand-secondary hover:bg-brand-primary text-white py-2.5 px-3 rounded-xl font-bold text-xs transition-colors flex items-center justify-center gap-1.5 text-center shadow-sm"
+                              >
+                                <Zap size={14} className="text-amber-400 fill-amber-400" />
+                                Contratar Plano Nacional
+                              </a>
+
+                              <a
+                                href={`https://api.whatsapp.com/send?phone=551132190409&text=Ol%C3%A1!%20Ainda%20n%C3%A3o%20sou%20cliente%20do%20Simulador%20e%20gostaria%20de%20informa%C3%A7%C3%B5es%20sobre%20o%20Plano%20Nacional%20e%20a%20Landing%20Page%20da%20*${encodeURIComponent(lp.name)}*.`}
+                                target="_blank"
+                                rel="noopener noreferrer"
+                                className="w-full bg-emerald-50 hover:bg-emerald-100 text-emerald-800 border border-emerald-200 py-2 px-3 rounded-xl font-bold text-xs transition-colors flex items-center justify-center gap-1.5 text-center"
+                              >
+                                <MessageCircle size={14} className="text-emerald-600" />
+                                Não é cliente? Chamar no WhatsApp
+                              </a>
+                            </div>
                           </div>
                         </div>
                       </motion.div>
