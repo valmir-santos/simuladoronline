@@ -283,6 +283,9 @@ export interface LandingPageItem {
   iconBg: string;
   description: string;
   features: string[];
+  isCustomRequest?: boolean;
+  customWhatsApp?: string;
+  customWhatsAppPhone?: string;
 }
 
 export const MOCK_LANDING_PAGES: LandingPageItem[] = [
@@ -454,6 +457,22 @@ export const MOCK_LANDING_PAGES: LandingPageItem[] = [
     iconBg: "bg-amber-50 text-amber-600",
     description: "Página persuasiva para captação de clientes para consórcio imobiliário, veicular e de serviços.",
     features: ["Simulação de Cartas de Crédito", "Consórcio Imobiliário e Auto", "Sem Juros em Destaque", "WhatsApp de Fechamento"]
+  },
+  {
+    id: 14,
+    name: "Outra Operadora",
+    operator: "Sob Demanda",
+    category: "Depto. de Desenvolvimento & Suporte",
+    demoUrl: "",
+    badge: "Sob Encomenda",
+    badgeColor: "bg-purple-600 text-white",
+    gradient: "from-purple-800 via-indigo-900 to-slate-900",
+    iconBg: "bg-purple-50 text-purple-600",
+    description: "A operadora, seguradora ou produto que você precisa não está na lista? Solicite o desenvolvimento direto com o nosso Depto. de Desenvolvimento e Suporte.",
+    features: ["Desenvolvimento Sob Demanda", "Para qualquer Operadora do Brasil", "Pronta para Meta Ads e Google Ads", "Suporte e TI: (11) 98259-0485"],
+    isCustomRequest: true,
+    customWhatsApp: "5511982590485",
+    customWhatsAppPhone: "(11) 98259-0485"
   }
 ];
 

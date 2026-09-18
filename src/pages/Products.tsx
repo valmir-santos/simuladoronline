@@ -264,103 +264,137 @@ export default function Products() {
                   </div>
                 </motion.div>
 
-                {/* 13 LANDING PAGES GRID */}
+                {/* 13 LANDING PAGES GRID + CUSTOM OPERATOR CARD */}
                 <div>
                   <div className="text-center mb-10">
                     <h3 className="text-2xl md:text-4xl font-black text-brand-secondary mb-3">
-                      Conheça os 13 Modelos Disponíveis
+                      Conheça os Modelos Disponíveis
                     </h3>
                     <p className="text-gray-500 font-medium max-w-2xl mx-auto">
-                      Clique em <strong>Ver Demonstração</strong> para navegar na página em tempo real. Escolha a sua e ative pelo WhatsApp!
+                      Clique em <strong>Ver Demonstração</strong> para navegar na página em tempo real. Caso sua operadora não esteja na lista, você pode solicitar o desenvolvimento diretamente com nosso suporte!
                     </p>
                   </div>
 
                   <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-                    {landingPages.map((lp) => (
-                      <motion.div
-                        key={lp.id}
-                        layout
-                        initial={{ opacity: 0, y: 15 }}
-                        animate={{ opacity: 1, y: 0 }}
-                        whileHover={{ y: -6 }}
-                        className="bg-white rounded-3xl border border-gray-200 overflow-hidden shadow-sm hover:shadow-xl transition-all duration-300 flex flex-col"
-                      >
-                        {/* CARD HEADER WITH GRADIENT */}
-                        <div className={`p-6 bg-gradient-to-r ${lp.gradient} text-white flex justify-between items-start relative`}>
-                          <div>
-                            <span className="text-xs uppercase font-bold tracking-wider text-white/80">{lp.category}</span>
-                            <h4 className="text-2xl font-black mt-1">{lp.name}</h4>
-                          </div>
-                          <span className={`text-[10px] font-black uppercase px-2.5 py-1 rounded-full shadow-sm ${lp.badgeColor}`}>
-                            {lp.badge}
-                          </span>
-                        </div>
+                    {landingPages.map((lp) => {
+                      const isCustom = !!lp.isCustomRequest;
+                      const targetPhone = isCustom ? "5511982590485" : "551132190409";
 
-                        {/* CARD BODY */}
-                        <div className="p-6 flex-1 flex flex-col justify-between space-y-6">
-                          <div>
-                            <p className="text-gray-600 text-sm leading-relaxed mb-4">
-                              {lp.description}
-                            </p>
-
-                            <ul className="space-y-2.5">
-                              {lp.features.map((feat, idx) => (
-                                <li key={idx} className="flex items-center gap-2.5 text-xs font-semibold text-gray-700">
-                                  <CheckCircle2 size={16} className="text-emerald-500 shrink-0" />
-                                  <span>{feat}</span>
-                                </li>
-                              ))}
-                            </ul>
+                      return (
+                        <motion.div
+                          key={lp.id}
+                          layout
+                          initial={{ opacity: 0, y: 15 }}
+                          animate={{ opacity: 1, y: 0 }}
+                          whileHover={{ y: -6 }}
+                          className={`bg-white rounded-3xl border ${isCustom ? 'border-purple-300 ring-2 ring-purple-500/20' : 'border-gray-200'} overflow-hidden shadow-sm hover:shadow-xl transition-all duration-300 flex flex-col`}
+                        >
+                          {/* CARD HEADER WITH GRADIENT */}
+                          <div className={`p-6 bg-gradient-to-r ${lp.gradient} text-white flex justify-between items-start relative`}>
+                            <div>
+                              <span className="text-xs uppercase font-bold tracking-wider text-white/80">{lp.category}</span>
+                              <h4 className="text-2xl font-black mt-1">{lp.name}</h4>
+                            </div>
+                            <span className={`text-[10px] font-black uppercase px-2.5 py-1 rounded-full shadow-sm ${lp.badgeColor}`}>
+                              {lp.badge}
+                            </span>
                           </div>
 
-                          {/* ACTIONS */}
-                          <div className="space-y-3 pt-4 border-t border-gray-100">
-                            {/* DEMO LINK */}
-                            <a
-                              href={lp.demoUrl}
-                              target="_blank"
-                              rel="noreferrer"
-                              className="w-full bg-gray-100 hover:bg-gray-200 text-brand-secondary py-2.5 px-4 rounded-xl font-bold text-xs transition-colors flex items-center justify-center gap-2 text-center"
-                            >
-                              <ExternalLink size={15} /> Ver Demonstração Online
-                            </a>
+                          {/* CARD BODY */}
+                          <div className="p-6 flex-1 flex flex-col justify-between space-y-6">
+                            <div>
+                              <p className="text-gray-600 text-sm leading-relaxed mb-4">
+                                {lp.description}
+                              </p>
 
-                            {/* PRIMARY CTA: JÁ SOU ASSINANTE */}
-                            <a
-                              href={`https://api.whatsapp.com/send?phone=551132190409&text=Ol%C3%A1!%20Sou%20assinante%20do%20Plano%20Nacional%20e%20quero%20ativar%20a%20Landing%20Page%20da%20*${encodeURIComponent(lp.name)}*%20por%20R$%2050,00.`}
-                              target="_blank"
-                              rel="noopener noreferrer"
-                              className="w-full bg-[#25D366] hover:bg-[#128C7E] text-white py-3 px-4 rounded-xl font-black text-xs transition-colors flex items-center justify-center gap-2 text-center shadow-md"
-                            >
-                              <MessageCircle size={16} /> Já sou Assinante: Ativar por R$ 50
-                            </a>
+                              <ul className="space-y-2.5">
+                                {lp.features.map((feat, idx) => (
+                                  <li key={idx} className="flex items-center gap-2.5 text-xs font-semibold text-gray-700">
+                                    <CheckCircle2 size={16} className={isCustom ? "text-purple-500 shrink-0" : "text-emerald-500 shrink-0"} />
+                                    <span>{feat}</span>
+                                  </li>
+                                ))}
+                              </ul>
+                            </div>
 
-                            {/* CTAs FOR NON-CLIENTS */}
-                            <div className="pt-2 border-t border-dashed border-gray-200 flex flex-col gap-2">
-                              <a
-                                href="https://app.simuladoronline.com/contratacao/1"
-                                target="_blank"
-                                rel="noopener noreferrer"
-                                className="w-full bg-brand-secondary hover:bg-brand-primary text-white py-2.5 px-3 rounded-xl font-bold text-xs transition-colors flex items-center justify-center gap-1.5 text-center shadow-sm"
-                              >
-                                <Zap size={14} className="text-amber-400 fill-amber-400" />
-                                Contratar Plano Nacional
-                              </a>
+                            {/* ACTIONS */}
+                            <div className="space-y-3 pt-4 border-t border-gray-100">
+                              {/* DEMO LINK OR CUSTOM BANNER */}
+                              {!isCustom ? (
+                                <a
+                                  href={lp.demoUrl}
+                                  target="_blank"
+                                  rel="noreferrer"
+                                  className="w-full bg-gray-100 hover:bg-gray-200 text-brand-secondary py-2.5 px-4 rounded-xl font-bold text-xs transition-colors flex items-center justify-center gap-2 text-center"
+                                >
+                                  <ExternalLink size={15} /> Ver Demonstração Online
+                                </a>
+                              ) : (
+                                <div className="w-full bg-purple-50 text-purple-900 border border-purple-200 py-2.5 px-4 rounded-xl font-bold text-xs flex items-center justify-center gap-2 text-center">
+                                  <Sparkles size={15} className="text-purple-600" /> Projeto Customizado / TI
+                                </div>
+                              )}
 
-                              <a
-                                href={`https://api.whatsapp.com/send?phone=551132190409&text=Ol%C3%A1!%20Ainda%20n%C3%A3o%20sou%20cliente%20do%20Simulador%20e%20gostaria%20de%20informa%C3%A7%C3%B5es%20sobre%20o%20Plano%20Nacional%20e%20a%20Landing%20Page%20da%20*${encodeURIComponent(lp.name)}*.`}
-                                target="_blank"
-                                rel="noopener noreferrer"
-                                className="w-full bg-emerald-50 hover:bg-emerald-100 text-emerald-800 border border-emerald-200 py-2 px-3 rounded-xl font-bold text-xs transition-colors flex items-center justify-center gap-1.5 text-center"
-                              >
-                                <MessageCircle size={14} className="text-emerald-600" />
-                                Não é cliente? Chamar no WhatsApp
-                              </a>
+                              {/* PRIMARY CTA */}
+                              {!isCustom ? (
+                                <a
+                                  href={`https://api.whatsapp.com/send?phone=${targetPhone}&text=Ol%C3%A1!%20Sou%20assinante%20do%20Plano%20Nacional%20e%20quero%20ativar%20a%20Landing%20Page%20da%20*${encodeURIComponent(lp.name)}*%20por%20R$%2050,00.`}
+                                  target="_blank"
+                                  rel="noopener noreferrer"
+                                  className="w-full bg-[#25D366] hover:bg-[#128C7E] text-white py-3 px-4 rounded-xl font-black text-xs transition-colors flex items-center justify-center gap-2 text-center shadow-md"
+                                >
+                                  <MessageCircle size={16} /> Já sou Assinante: Ativar por R$ 50
+                                </a>
+                              ) : (
+                                <a
+                                  href={`https://api.whatsapp.com/send?phone=5511982590485&text=Ol%C3%A1!%20Sou%20corretor%20e%20gostaria%20de%20solicitar%20uma%20Landing%20Page%20para%20uma%20operadora%20que%20n%C3%A3o%20est%C3%A1%20na%20lista.%20Gostaria%20de%20falar%20com%20o%20Depto.%20de%20Desenvolvimento%20e%20Suporte.`}
+                                  target="_blank"
+                                  rel="noopener noreferrer"
+                                  className="w-full bg-[#25D366] hover:bg-[#128C7E] text-white py-3 px-4 rounded-xl font-black text-xs transition-colors flex items-center justify-center gap-2 text-center shadow-md"
+                                >
+                                  <MessageCircle size={16} /> Falar com Depto. de Desenvolvimento
+                                </a>
+                              )}
+
+                              {/* CTAs FOR NON-CLIENTS / SUPPORT */}
+                              <div className="pt-2 border-t border-dashed border-gray-200 flex flex-col gap-2">
+                                <a
+                                  href="https://app.simuladoronline.com/contratacao/1"
+                                  target="_blank"
+                                  rel="noopener noreferrer"
+                                  className="w-full bg-brand-secondary hover:bg-brand-primary text-white py-2.5 px-3 rounded-xl font-bold text-xs transition-colors flex items-center justify-center gap-1.5 text-center shadow-sm"
+                                >
+                                  <Zap size={14} className="text-amber-400 fill-amber-400" />
+                                  Contratar Plano Nacional
+                                </a>
+
+                                {!isCustom ? (
+                                  <a
+                                    href={`https://api.whatsapp.com/send?phone=${targetPhone}&text=Ol%C3%A1!%20Ainda%20n%C3%A3o%20sou%20cliente%20do%20Simulador%20e%20gostaria%20de%20informa%C3%A7%C3%B5es%20sobre%20o%20Plano%20Nacional%20e%20a%20Landing%20Page%20da%20*${encodeURIComponent(lp.name)}*.`}
+                                    target="_blank"
+                                    rel="noopener noreferrer"
+                                    className="w-full bg-emerald-50 hover:bg-emerald-100 text-emerald-800 border border-emerald-200 py-2 px-3 rounded-xl font-bold text-xs transition-colors flex items-center justify-center gap-1.5 text-center"
+                                  >
+                                    <MessageCircle size={14} className="text-emerald-600" />
+                                    Não é cliente? Chamar no WhatsApp
+                                  </a>
+                                ) : (
+                                  <a
+                                    href="https://api.whatsapp.com/send?phone=5511982590485&text=Ol%C3%A1!%20Gostaria%20de%20falar%20com%20o%20Depto.%20de%20Desenvolvimento%20e%20Suporte%20sobre%20o%20desenvolvimento%20de%20uma%20Landing%20Page%20personalizada."
+                                    target="_blank"
+                                    rel="noopener noreferrer"
+                                    className="w-full bg-purple-50 hover:bg-purple-100 text-purple-900 border border-purple-200 py-2 px-3 rounded-xl font-bold text-xs transition-colors flex items-center justify-center gap-1.5 text-center"
+                                  >
+                                    <MessageCircle size={14} className="text-purple-600" />
+                                    Suporte TI: (11) 98259-0485
+                                  </a>
+                                )}
+                              </div>
                             </div>
                           </div>
-                        </div>
-                      </motion.div>
-                    ))}
+                        </motion.div>
+                      );
+                    })}
                   </div>
                 </div>
               </div>
