@@ -62,6 +62,16 @@
 
     <div id="setembro" class="tab-content active">
         <table class="table-container" id="table-setembro">
+            <tr class="row"><td class="cell col-tag"><span class="badge bg-att">ATUALIZ.</span></td><td class="cell"><span class="operadora">PROASA SAÚDE (TEC GROUP) - SP / DF / BA / AM / PA:</span> <span class="descricao">Atualização de valores disponível no projeto PME.</span></td><td class="cell col-data">22/09/2026</td></tr>
+            <tr class="row"><td class="cell col-tag"><span class="badge bg-reaj">REAJUSTE</span></td><td class="cell"><span class="operadora">GARANTIA DE SAÚDE (CORPe SAÚDE) - SP:</span> <span class="descricao">Reajuste de valores Anual disponível no projeto Adesão.</span></td><td class="cell col-data">18/09/2026</td></tr>
+            <tr class="row"><td class="cell col-tag"><span class="badge bg-att">ATUALIZ.</span></td><td class="cell"><span class="operadora">NORDESTE SAÚDE (CORPe SAÚDE) - BA:</span> <span class="descricao">Atualizações disponíveis no projeto Adesão.</span></td><td class="cell col-data">18/09/2026</td></tr>
+            <tr class="row"><td class="cell col-tag"><span class="badge bg-novo">NOVO</span></td><td class="cell"><span class="operadora">SÃO CAMILO (TEC GROUP) - SP:</span> <span class="descricao">Novo projeto PME disponível.</span></td><td class="cell col-data">18/09/2026</td></tr>
+            <tr class="row"><td class="cell col-tag"><span class="badge bg-novo">NOVO</span></td><td class="cell"><span class="operadora">HUMANA SAÚDE (CORPe):</span> <span class="descricao">Maringá/Londrina-PR - Novo projeto PME disponível.</span></td><td class="cell col-data">18/09/2026</td></tr>
+            <tr class="row"><td class="cell col-tag"><span class="badge bg-att">ATUALIZ.</span></td><td class="cell"><span class="operadora">CENTRO CLÍNICO GAÚCHO (CORPe SAÚDE) - RS:</span> <span class="descricao">Atualizações disponíveis no projeto Adesão.</span></td><td class="cell col-data">16/09/2026</td></tr>
+            <tr class="row"><td class="cell col-tag"><span class="badge bg-att">ATUALIZ.</span></td><td class="cell"><span class="operadora">DENTALPAR (HEBROM) - SP:</span> <span class="descricao">Alteração de valores disponível no projetos Adesão e PME.</span></td><td class="cell col-data">15/09/2026</td></tr>
+            <tr class="row"><td class="cell col-tag"><span class="badge bg-reaj">REAJUSTE</span></td><td class="cell"><span class="operadora">PREVENT SÊNIOR:</span> <span class="descricao">Reajuste de valores disponível (SP / RJ).</span></td><td class="cell col-data">15/09/2026</td></tr>
+            <tr class="row"><td class="cell col-tag"><span class="badge bg-reaj">REAJUSTE</span></td><td class="cell"><span class="operadora">GARANTIA DE SAÚDE (HEBROM) - SP:</span> <span class="descricao">Reajuste de valores disponível no projeto Adesão.</span></td><td class="cell col-data">14/09/2026</td></tr>
+            <tr class="row"><td class="cell col-tag"><span class="badge bg-att">ATUALIZ.</span></td><td class="cell"><span class="operadora">NOTREDAME SAÚDE - SP:</span> <span class="descricao">Linha PME Premium atualizada e disponível.</span></td><td class="cell col-data">14/09/2026</td></tr>
             <tr class="row"><td class="cell col-tag"><span class="badge bg-reaj">REAJUSTE</span></td><td class="cell"><span class="operadora">BRADESCO SAÚDE - PME:</span> <span class="descricao">Reajuste de valores disponível no projeto Adesão e PME.</span></td><td class="cell col-data">14/09/2026</td></tr>
             <tr class="row"><td class="cell col-tag"><span class="badge bg-att">ATUALIZ.</span></td><td class="cell"><span class="operadora">ALICE SAÚDE - SP:</span> <span class="descricao">Tabela promocional para contratos de 3 a 29 vidas disponível.</span></td><td class="cell col-data">11/09/2026</td></tr>
             <tr class="row"><td class="cell col-tag"><span class="badge bg-att">ATUALIZ.</span></td><td class="cell"><span class="operadora">UNIHOSP SAÚDE (CORPe SAÚDE) - SP:</span> <span class="descricao">Regras de comercialização atualizadas no projeto Adesão.</span></td><td class="cell col-data">09/09/2026</td></tr>
@@ -399,32 +409,31 @@
                         var table = document.getElementById('table-' + monthKey);
                         if (!table) return;
 
-                        var existingHtml = table.innerHTML;
                         var monthItems = groupedByMonth[monthKey];
+                        if (!monthItems || monthItems.length === 0) return;
 
-                        // Inserir itens dinâmicos que não estejam no HTML estático
-                        monthItems.slice().reverse().forEach(function(item) {
+                        var rowsHtml = '';
+                        monthItems.forEach(function(item) {
                             var text = (item.text || '').trim();
                             if (!text) return;
                             
                             var parsed = parseNoticiaText(text);
-                            var searchKey = (parsed.op || text).substring(0, 20);
-                            if (existingHtml.indexOf(searchKey) !== -1) return;
-
                             var badge = item.badge || item.tag || 'ATUALIZ.';
                             var badgeClass = 'bg-att';
                             if (badge === 'NOVO') badgeClass = 'bg-novo';
                             else if (badge === 'SUSPENSO') badgeClass = 'bg-susp';
                             else if (badge === 'REAJUSTE') badgeClass = 'bg-reaj';
 
-                            var tr = document.createElement('tr');
-                            tr.className = 'row';
-                            tr.innerHTML = '<td class="cell col-tag"><span class="badge ' + badgeClass + '">' + badge + '</span></td>' +
-                                           '<td class="cell"><span class="operadora">' + parsed.op + '</span> <span class="descricao">' + parsed.desc + '</span></td>' +
-                                           '<td class="cell col-data">' + (item.date || item.data || '') + '</td>';
-                            
-                            table.insertBefore(tr, table.firstChild);
+                            rowsHtml += '<tr class="row">' +
+                                        '<td class="cell col-tag"><span class="badge ' + badgeClass + '">' + badge + '</span></td>' +
+                                        '<td class="cell"><span class="operadora">' + parsed.op + '</span> <span class="descricao">' + parsed.desc + '</span></td>' +
+                                        '<td class="cell col-data">' + (item.date || item.data || '') + '</td>' +
+                                        '</tr>';
                         });
+
+                        if (rowsHtml) {
+                            table.innerHTML = rowsHtml;
+                        }
                     });
                 })
                 .catch(function(e) { console.log('Sync noticias static mode active'); });

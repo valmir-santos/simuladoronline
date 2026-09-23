@@ -15,6 +15,16 @@ export interface CompactTableUpdate {
 // ─── DADOS INICIAIS (seed) ───────────────────────────────────────────
 const SEED_UPDATES: CompactTableUpdate[] = [
   // SETEMBRO 2026
+  { id: 1790121855631, badge: 'ATUALIZ.', text: 'PROASA SAÚDE (TEC GROUP) - SP / DF / BA / AM / PA - Atualização de valores disponível no projeto PME.', date: '22/09/2026', monthKey: 'setembro', monthLabel: 'Setembro' },
+  { id: 1789777393466, badge: 'REAJUSTE', text: 'GARANTIA DE SAÚDE (CORPe SAÚDE) - SP - Reajuste de valores Anual disponível no projeto Adesão.', date: '18/09/2026', monthKey: 'setembro', monthLabel: 'Setembro' },
+  { id: 1789777324114, badge: 'ATUALIZ.', text: 'NORDESTE SAÚDE (CORPe SAÚDE) - BA - Atualizações disponíveis no projeto Adesão.', date: '18/09/2026', monthKey: 'setembro', monthLabel: 'Setembro' },
+  { id: 1789777290383, badge: 'NOVO', text: 'SÃO CAMILO (TEC GROUP) - SP - Novo projeto PME disponível.', date: '18/09/2026', monthKey: 'setembro', monthLabel: 'Setembro' },
+  { id: 1789777261649, badge: 'NOVO', text: 'HUMANA SAÚDE (CORPe): Maringá/Londrina-PR - Novo projeto PME disponível.', date: '18/09/2026', monthKey: 'setembro', monthLabel: 'Setembro' },
+  { id: 1789598451720, badge: 'ATUALIZ.', text: 'CENTRO CLÍNICO GAÚCHO (CORPe SAÚDE) - RS - Atualizações disponíveis no projeto Adesão.', date: '16/09/2026', monthKey: 'setembro', monthLabel: 'Setembro' },
+  { id: 1789506168283, badge: 'ATUALIZ.', text: 'DENTALPAR (HEBROM) - SP - Alteração de valores disponível no projetos Adesão e PME.', date: '15/09/2026', monthKey: 'setembro', monthLabel: 'Setembro' },
+  { id: 1789483168732, badge: 'REAJUSTE', text: 'PREVENT SÊNIOR - Reajuste de valores disponível (SP / RJ).', date: '15/09/2026', monthKey: 'setembro', monthLabel: 'Setembro' },
+  { id: 1789423310219, badge: 'REAJUSTE', text: 'GARANTIA DE SAÚDE (HEBROM) - SP - Reajuste de valores disponível no projeto Adesão.', date: '14/09/2026', monthKey: 'setembro', monthLabel: 'Setembro' },
+  { id: 1789423250571, badge: 'ATUALIZ.', text: 'NOTREDAME SAÚDE - SP - Linha PME Premium atualizada e disponível.', date: '14/09/2026', monthKey: 'setembro', monthLabel: 'Setembro' },
   { id: 1789398809001, badge: 'REAJUSTE', text: 'BRADESCO SAÚDE - PME - Reajuste de valores disponível no projeto Adesão e PME.', date: '14/09/2026', monthKey: 'setembro', monthLabel: 'Setembro' },
   { id: 1789398809002, badge: 'ATUALIZ.', text: 'ALICE SAÚDE - SP - Tabela promocional para contratos de 3 a 29 vidas disponível.', date: '11/09/2026', monthKey: 'setembro', monthLabel: 'Setembro' },
   { id: 1789398809003, badge: 'ATUALIZ.', text: 'UNIHOSP SAÚDE (CORPe SAÚDE) - SP - Regras de comercialização atualizadas no projeto Adesão.', date: '09/09/2026', monthKey: 'setembro', monthLabel: 'Setembro' },
@@ -70,7 +80,17 @@ async function loadUpdates(): Promise<CompactTableUpdate[]> {
   if (redis) {
     try {
       const stored = await redis.get<CompactTableUpdate[]>(KV_KEY);
-      if (stored && Array.isArray(stored) && stored.length > 0) return stored;
+      if (stored && Array.isArray(stored) && stored.length > 0) {
+        // Garantir que todos os itens do seed estejam presentes sem duplicar
+        const existingTexts = new Set(stored.map((s: CompactTableUpdate) => s.text.toLowerCase().trim()));
+        const missingSeeds = SEED_UPDATES.filter(s => !existingTexts.has(s.text.toLowerCase().trim()));
+        if (missingSeeds.length > 0) {
+          const merged = [...stored, ...missingSeeds];
+          await redis.set(KV_KEY, merged);
+          return merged;
+        }
+        return stored;
+      }
       // Seed: primeira vez — gravar dados iniciais no Redis
       await redis.set(KV_KEY, SEED_UPDATES);
       return SEED_UPDATES;
