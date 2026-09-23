@@ -257,10 +257,13 @@ export default function Products() {
                         Ainda não sou cliente: Falar no WhatsApp
                       </a>
                     </div>
-                    <div>
-                      <span className="text-xs text-blue-200 italic">
+                    <div className="space-y-1.5 pt-1">
+                      <p className="text-xs text-blue-200 italic">
                         * Contas de e-mail corporativo não inclusas. Tráfego e anúncios por conta do corretor.
-                      </span>
+                      </p>
+                      <p className="text-xs text-amber-200/90 font-medium">
+                        * <strong>Nota sobre marcas:</strong> Autorizações de uso das marcas das operadoras (Bradesco, SulAmérica, Porto Seguro, Amil, Hapvida e outras) devem ser providenciadas pelo corretor contratante. O Simulador On-Line não se responsabiliza pelo uso não autorizado.
+                      </p>
                     </div>
                   </div>
                 </motion.div>
@@ -479,6 +482,24 @@ export default function Products() {
                 </div>
               </>
             )}
+
+            {/* AVISO LEGAL SOBRE USO DAS MARCAS DAS OPERADORAS */}
+            <div className="mt-16 bg-amber-50/90 border border-amber-200/90 rounded-3xl p-6 md:p-8 text-amber-950 shadow-sm flex flex-col md:flex-row items-start gap-5">
+              <div className="bg-amber-100 p-3.5 rounded-2xl text-amber-700 shrink-0">
+                <ShieldAlert size={28} />
+              </div>
+              <div className="space-y-2">
+                <h4 className="font-black text-base md:text-lg text-amber-950 uppercase tracking-wide">
+                  Aviso Legal sobre o Uso de Marcas e Logotipos das Operadoras
+                </h4>
+                <p className="text-xs md:text-sm text-amber-900/90 leading-relaxed font-medium">
+                  As autorizações e permissões para o uso das marcas, logotipos e materiais institucionais das operadoras de saúde (como <strong>Bradesco Saúde, SulAmérica, Porto Seguro, Amil, Hapvida, NotreDame Intermédica, Unimed, Prevent Senior, MedSênior</strong> e todas as outras) devem ser providenciadas obrigatoriamente pelo <strong>corretor contratante</strong> diretamente junto a cada respectiva operadora.
+                </p>
+                <p className="text-xs md:text-sm text-amber-900/90 leading-relaxed font-medium">
+                  O <strong>Simulador On-Line</strong> fornece exclusivamente a infraestrutura de software, tecnologia e templates, <strong>não se responsabilizando pelo uso indevido ou não autorizado</strong> de marcas e materiais de terceiros.
+                </p>
+              </div>
+            </div>
           </div>
         )}
       </div>
