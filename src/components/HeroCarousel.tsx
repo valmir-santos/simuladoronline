@@ -32,7 +32,7 @@ const slides = [
     cta: 'ENTRE EM CONTATO AGORA PELO WHATSAPP',
     image: 'https://images.unsplash.com/photo-1522071823991-b1ae5e6a3048?q=75&w=1200&auto=format&fit=crop',
     overlay: 'bg-[#002F5D]/85',
-    actionUrl: 'https://api.whatsapp.com/send?phone=5511994227649&text=Ol%C3%A1+Guilherme,+sou+cliente+do+*Simulador+On-Line(Valmir)*+tenho+interesse+em+regularizar+meu+nome+',
+    actionUrl: 'https://api.whatsapp.com/send?phone=5511966226001&text=Ol%C3%A1+Guilherme,+sou+cliente+do+*Simulador+On-Line(Valmir)*+tenho+interesse+em+regularizar+meu+nome+',
     icon: 'whatsapp',
     features: [
       'Na Lex Reabilita Nome, limpamos seu CPF/CNPJ em até 30 dias, de forma 100% judicial, baseada na Súmula 359 do STJ.',
