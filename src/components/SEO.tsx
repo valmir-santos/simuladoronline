@@ -166,10 +166,11 @@ export default function SEO({
       };
     }
 
-    let scriptElement = document.querySelector('script[type="application/ld+json"]');
+    let scriptElement = document.querySelector('script#schema-org-dynamic');
     if (!scriptElement) {
       scriptElement = document.createElement('script');
       scriptElement.setAttribute('type', 'application/ld+json');
+      scriptElement.setAttribute('id', 'schema-org-dynamic');
       document.head.appendChild(scriptElement);
     }
     scriptElement.textContent = JSON.stringify(schemaJson);
