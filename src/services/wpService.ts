@@ -939,6 +939,19 @@ const MOCK_COMPACT_UPDATES: CompactTableUpdate[] = [
 ];
 
 export const wpService = {
+  // A senha é conferida só no servidor (variável ADMIN_PIN na Vercel)
+  checkAdminPin: async (pin: string): Promise<boolean> => {
+    try {
+      const res = await fetch('/api/admin-check', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ pin })
+      });
+      return res.ok;
+    } catch (e) {
+      return false;
+    }
+  },
   getBlogPosts: async (): Promise<BlogPost[]> => {
     try {
       const res = await fetch('/api/blog');
@@ -1029,12 +1042,12 @@ export const wpService = {
     }
     return MOCK_COMPACT_UPDATES;
   },
-  addCompactUpdate: async (newUpdate: Omit<CompactTableUpdate, 'id'>): Promise<CompactTableUpdate> => {
+  addCompactUpdate: async (newUpdate: Omit<CompactTableUpdate, 'id'>, pin: string): Promise<CompactTableUpdate> => {
     try {
       const res = await fetch('/api/noticias', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify(newUpdate)
+        body: JSON.stringify({ ...newUpdate, pin })
       });
       if (res.ok) {
         const json = await res.json();

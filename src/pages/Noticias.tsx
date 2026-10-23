@@ -115,15 +115,9 @@ export default function Noticias() {
     if (!ssr.compactUpdates) fetchUpdates();
   }, []);
 
-  const MASTER_PIN = '(}-!#$%*V@1miR$632!.';
-
-  const handleAuthorize = (e: React.FormEvent) => {
+  const handleAuthorize = async (e: React.FormEvent) => {
     e.preventDefault();
-    if (
-      accessCode.trim() === MASTER_PIN ||
-      accessCode.trim() === '2026' ||
-      accessCode.trim().toLowerCase() === 'simulador'
-    ) {
+    if (await wpService.checkAdminPin(accessCode.trim())) {
       setIsAuthorized(true);
     } else {
       alert('Código de acesso incorreto.');
@@ -145,7 +139,7 @@ export default function Noticias() {
         date: formDate.trim() || new Date().toLocaleDateString('pt-BR'),
         monthKey: formMonthKey,
         monthLabel: targetMonth ? targetMonth.label : 'Agosto'
-      });
+      }, accessCode.trim());
 
       // Se selecionou postar no X, acionar API serverless do Twitter
       let tweetSuccess = false;
@@ -155,7 +149,7 @@ export default function Noticias() {
         try {
           const tweetRes = await fetch('/api/tweet', {
             method: 'POST',
-            headers: { 'Content-Type': 'application/json' },
+            headers: { 'Content-Type': 'application/json', 'X-Admin-Pin': accessCode.trim() },
             body: JSON.stringify({
               title: formText.trim(),
               operadora: 'SIMULADOR ON-LINE',
@@ -209,7 +203,7 @@ export default function Noticias() {
     }
 
     try {
-      const pinToUse = accessCode || '2026';
+      const pinToUse = accessCode.trim();
       const success = await wpService.deleteCompactUpdate(row.id, pinToUse);
       if (success) {
         alert('✅ Notícia removida do site e sincronizada no Twitter/X com sucesso!');
@@ -238,7 +232,7 @@ export default function Noticias() {
 
     setSavingEdit(true);
     try {
-      const pinToUse = accessCode || '2026';
+      const pinToUse = accessCode.trim();
       const updatedRow: CompactTableUpdate = {
         ...editingRow,
         badge: editBadge,
@@ -253,7 +247,7 @@ export default function Noticias() {
         try {
           await fetch('/api/tweet', {
             method: 'POST',
-            headers: { 'Content-Type': 'application/json' },
+            headers: { 'Content-Type': 'application/json', 'X-Admin-Pin': accessCode.trim() },
             body: JSON.stringify({
               title: editText.trim(),
               operadora: 'SIMULADOR ON-LINE',

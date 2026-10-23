@@ -1,4 +1,5 @@
 import { Redis } from '@upstash/redis';
+import { isAdmin } from './_auth.js';
 
 type ApiReq = any;
 type ApiRes = any;
@@ -112,7 +113,7 @@ async function saveUpdates(updates: CompactTableUpdate[]): Promise<void> {
 export default async function handler(req: ApiReq, res: ApiRes) {
   res.setHeader('Access-Control-Allow-Origin', '*');
   res.setHeader('Access-Control-Allow-Methods', 'GET, POST, PUT, DELETE, OPTIONS');
-  res.setHeader('Access-Control-Allow-Headers', 'Content-Type');
+  res.setHeader('Access-Control-Allow-Headers', 'Content-Type, X-Admin-Pin');
 
   if (req.method === 'OPTIONS') return res.status(200).end();
 
@@ -125,16 +126,17 @@ export default async function handler(req: ApiReq, res: ApiRes) {
   }
 
   const body = typeof req.body === 'string' ? JSON.parse(req.body || '{}') : (req.body || {});
-  const masterPin = '(}-!#$%*V@1miR$632!.';
 
   if (req.method === 'POST') {
-    const { action, id, badge, text, date, monthKey, monthLabel, pin } = body;
+    const { action, id, badge, text, date, monthKey, monthLabel } = body;
+
+    // Cadastrar, editar e excluir exigem a senha do painel (ADMIN_PIN)
+    if (!isAdmin({ headers: req.headers, body })) {
+      return res.status(401).json({ error: 'Senha de acesso incorreta' });
+    }
 
     // ── EDITAR ──
     if (action === 'edit') {
-      if (pin !== masterPin && pin !== '2026' && pin !== 'simulador') {
-        return res.status(401).json({ error: 'Senha de acesso incorreta' });
-      }
       const index = updates.findIndex((u: CompactTableUpdate) => u.id === Number(id) || String(u.id) === String(id));
       if (index === -1) return res.status(404).json({ error: 'Atualização não encontrada' });
 
@@ -152,9 +154,6 @@ export default async function handler(req: ApiReq, res: ApiRes) {
 
     // ── EXCLUIR ──
     if (action === 'delete') {
-      if (pin !== masterPin && pin !== '2026' && pin !== 'simulador') {
-        return res.status(401).json({ error: 'Senha de acesso incorreta' });
-      }
       const index = updates.findIndex((u: CompactTableUpdate) => u.id === Number(id) || String(u.id) === String(id));
       if (index !== -1) updates.splice(index, 1);
       await saveUpdates(updates);

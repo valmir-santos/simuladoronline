@@ -1,4 +1,5 @@
 import crypto from 'crypto';
+import { isAdmin, isInternal } from './_auth.js';
 
 type ApiReq = any;
 type ApiRes = any;
@@ -42,10 +43,15 @@ function generateOAuthHeader(
 export default async function handler(req: ApiReq, res: ApiRes) {
   res.setHeader('Access-Control-Allow-Origin', '*');
   res.setHeader('Access-Control-Allow-Methods', 'POST, DELETE, OPTIONS');
-  res.setHeader('Access-Control-Allow-Headers', 'Content-Type');
+  res.setHeader('Access-Control-Allow-Headers', 'Content-Type, Authorization, X-Admin-Pin');
 
   if (req.method === 'OPTIONS') {
     return res.status(200).end();
+  }
+
+  // Publicar ou apagar no X exige a senha do painel ou o segredo do robô de notícias
+  if (!isAdmin(req) && !isInternal(req)) {
+    return res.status(401).json({ error: 'Não autorizado' });
   }
 
   const apiKey = process.env.X_API_KEY;

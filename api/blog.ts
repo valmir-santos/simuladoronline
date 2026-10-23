@@ -1,5 +1,6 @@
 import { Redis } from '@upstash/redis';
 import type { VercelRequest, VercelResponse } from '@vercel/node';
+import { isAdmin, isInternal } from './_auth.js';
 
 export interface BlogPostItem {
   id: string;
@@ -589,7 +590,7 @@ async function saveBlogPosts(posts: BlogPostItem[]): Promise<void> {
 export default async function handler(req: VercelRequest, res: VercelResponse) {
   res.setHeader('Access-Control-Allow-Origin', '*');
   res.setHeader('Access-Control-Allow-Methods', 'GET, POST, PUT, DELETE, OPTIONS');
-  res.setHeader('Access-Control-Allow-Headers', 'Content-Type');
+  res.setHeader('Access-Control-Allow-Headers', 'Content-Type, Authorization, X-Admin-Pin');
 
   if (req.method === 'OPTIONS') {
     return res.status(200).end();
@@ -601,7 +602,7 @@ export default async function handler(req: VercelRequest, res: VercelResponse) {
   // GET: Listar todos os posts do blog
   if (req.method === 'GET') {
     const isAll = req.query?.all === 'true';
-    if (isAll) {
+    if (isAll && isAdmin(req)) {
       // Painel administrativo recebe todos os posts, incluindo futuros agendamentos
       return res.status(200).json(posts);
     }
@@ -611,13 +612,12 @@ export default async function handler(req: VercelRequest, res: VercelResponse) {
   }
 
   const body = req.body || {};
-  const masterPin = '(}-!#$%*V@1miR$632!.';
 
   // PUT: Editar um post existente
   if (req.method === 'PUT') {
-    const { id, title, excerpt, content, category, imageUrl, sourceUrl, date, pin } = body;
+    const { id, title, excerpt, content, category, imageUrl, sourceUrl, date } = body;
 
-    if (pin !== masterPin && pin !== '2026' && pin !== 'simulador') {
+    if (!isAdmin(req)) {
       return res.status(401).json({ error: 'Senha de acesso incorreta' });
     }
 
@@ -647,7 +647,13 @@ export default async function handler(req: VercelRequest, res: VercelResponse) {
 
   // POST: Adicionar um novo post (Robô IA ou Manual)
   if (req.method === 'POST') {
-    const { title, excerpt, content, category, imageUrl, sourceUrl, date, pin } = body;
+    const { title, excerpt, content, category, imageUrl, sourceUrl, date } = body;
+
+    // Só o painel (senha) ou o robô de notícias (CRON_SECRET) podem publicar
+    const fromAdmin = isAdmin(req);
+    if (!fromAdmin && !isInternal(req)) {
+      return res.status(401).json({ error: 'Não autorizado' });
+    }
 
     if (!title || !content) {
       return res.status(400).json({ error: 'Título e conteúdo são obrigatórios' });
@@ -667,7 +673,7 @@ export default async function handler(req: VercelRequest, res: VercelResponse) {
       excerpt: excerpt || title.substring(0, 150),
       content,
       category: category || 'Mercado',
-      author: pin === masterPin || pin === '2026' || pin === 'simulador' ? 'Redação Simulador On-Line' : 'IA Simulador On-Line',
+      author: fromAdmin ? 'Redação Simulador On-Line' : 'IA Simulador On-Line',
       date: date || new Date().toISOString(),
       readTime: '4 min de leitura',
       imageUrl: imageUrl || 'https://images.unsplash.com/photo-1505751172876-fa1923c5c528?auto=format&fit=crop&q=80&w=1200',
@@ -686,9 +692,9 @@ export default async function handler(req: VercelRequest, res: VercelResponse) {
 
   // DELETE: Remover um post do blog
   if (req.method === 'DELETE') {
-    const { id, pin } = body || req.query || {};
+    const { id } = body || req.query || {};
 
-    if (pin !== masterPin && pin !== '2026' && pin !== 'simulador') {
+    if (!isAdmin(req)) {
       return res.status(401).json({ error: 'Senha incorreta' });
     }
 

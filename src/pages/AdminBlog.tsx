@@ -73,15 +73,9 @@ export default function AdminBlog() {
     }
   };
 
-  const MASTER_PIN = '(}-!#$%*V@1miR$632!.';
-
-  const handleLogin = (e: React.FormEvent) => {
+  const handleLogin = async (e: React.FormEvent) => {
     e.preventDefault();
-    if (
-      accessCode.trim() === MASTER_PIN ||
-      accessCode.trim() === '2026' ||
-      accessCode.trim().toLowerCase() === 'simulador'
-    ) {
+    if (await wpService.checkAdminPin(accessCode.trim())) {
       setIsAuthenticated(true);
       loadPostsAndSources();
     } else {
@@ -132,7 +126,7 @@ export default function AdminBlog() {
   const handleTriggerScan = async () => {
     setScanning(true);
     try {
-      const res = await fetch('/api/cron/news');
+      const res = await fetch('/api/cron/news', { headers: { 'X-Admin-Pin': accessCode.trim() } });
       const data = await res.json();
       if (res.ok && data.success) {
         alert(`Varredura concluída!\n\nNovo artigo gerado: "${data.article?.title || 'Artigo de Saúde'}"`);

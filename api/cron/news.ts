@@ -1,3 +1,5 @@
+import { isAdmin, isInternal, internalHeaders } from '../_auth.js';
+
 export interface NewsSource {
   id: string;
   name: string;
@@ -45,7 +47,7 @@ type ApiRes = any;
 export default async function handler(req: ApiReq, res: ApiRes) {
   res.setHeader('Access-Control-Allow-Origin', '*');
   res.setHeader('Access-Control-Allow-Methods', 'GET, POST, DELETE, OPTIONS');
-  res.setHeader('Access-Control-Allow-Headers', 'Content-Type');
+  res.setHeader('Access-Control-Allow-Headers', 'Content-Type, Authorization, X-Admin-Pin');
 
   if (req.method === 'OPTIONS') {
     return res.status(200).end();
@@ -71,8 +73,8 @@ export default async function handler(req: ApiReq, res: ApiRes) {
     }
 
     if (req.method === 'POST') {
-      const { name, url, feedUrl, category, pin } = req.body || {};
-      if (pin !== '2026' && pin !== 'simulador') {
+      const { name, url, feedUrl, category } = req.body || {};
+      if (!isAdmin(req)) {
         return res.status(401).json({ error: 'Senha incorreta' });
       }
       if (!name || !url) {
@@ -92,9 +94,8 @@ export default async function handler(req: ApiReq, res: ApiRes) {
     }
 
     if (req.method === 'PUT') {
-      const { id, name, url, category, pin } = req.body || {};
-      const masterPin = '(}-!#$%*V@1miR$632!.';
-      if (pin !== masterPin && pin !== '2026' && pin !== 'simulador') {
+      const { id, name, url, category } = req.body || {};
+      if (!isAdmin(req)) {
         return res.status(401).json({ error: 'Senha incorreta' });
       }
 
@@ -112,14 +113,19 @@ export default async function handler(req: ApiReq, res: ApiRes) {
     }
 
     if (req.method === 'DELETE') {
-      const { id, pin } = req.body || req.query || {};
-      if (pin !== '2026' && pin !== 'simulador') {
+      const { id } = req.body || req.query || {};
+      if (!isAdmin(req)) {
         return res.status(401).json({ error: 'Senha incorreta' });
       }
 
       MONITORED_SOURCES = MONITORED_SOURCES.filter(s => s.id !== id);
       return res.status(200).json({ success: true, message: 'Portal removido' });
     }
+  }
+
+  // Gerar e publicar artigo: só o cron da Vercel (CRON_SECRET) ou o painel (senha)
+  if (!isInternal(req) && !isAdmin(req)) {
+    return res.status(401).json({ error: 'Não autorizado' });
   }
 
   try {
@@ -184,7 +190,7 @@ Retorne um JSON estrito com o seguinte formato:
     
     const blogRes = await fetch(`${protocol}://${host}/api/blog`, {
       method: 'POST',
-      headers: { 'Content-Type': 'application/json' },
+      headers: { 'Content-Type': 'application/json', ...internalHeaders() },
       body: JSON.stringify({
         title: articleTitle,
         excerpt: articleExcerpt,
@@ -204,7 +210,7 @@ Retorne um JSON estrito com o seguinte formato:
 
       await fetch(`${protocol}://${host}/api/tweet`, {
         method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
+        headers: { 'Content-Type': 'application/json', ...internalHeaders() },
         body: JSON.stringify({
           title: articleTitle,
           operadora: 'MERCADO SAÚDE',
