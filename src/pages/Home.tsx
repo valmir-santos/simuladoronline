@@ -18,15 +18,17 @@ import { wpService, Product, WPPost } from '../services/wpService';
 import HeroCarousel from '../components/HeroCarousel';
 import PricingTable from '../components/PricingTable';
 import Testimonials from '../components/Testimonials';
+import { useSsrData, formatDateBR } from '../lib/ssr';
 import SEO from '../components/SEO';
 
 export default function Home() {
-  const [products, setProducts] = useState<Product[]>([]);
-  const [recentPosts, setRecentPosts] = useState<WPPost[]>([]);
+  const ssr = useSsrData();
+  const [products, setProducts] = useState<Product[]>(ssr.products ?? []);
+  const [recentPosts, setRecentPosts] = useState<WPPost[]>(ssr.recentPosts ?? []);
 
   useEffect(() => {
-    wpService.getProducts().then(setProducts);
-    wpService.getPosts().then(data => setRecentPosts(data.slice(0, 4)));
+    if (!ssr.products) wpService.getProducts().then(setProducts);
+    if (!ssr.recentPosts) wpService.getPosts().then(data => setRecentPosts(data.slice(0, 4)));
   }, []);
 
   return (
@@ -138,7 +140,7 @@ export default function Home() {
                 </Link>
                 <div className="p-6 flex flex-col flex-1">
                   <div className="flex items-center gap-4 text-xs font-medium text-gray-400 mb-4">
-                    <span className="flex items-center gap-1"><Calendar size={14}/> {new Date(post.date).toLocaleDateString('pt-BR')}</span>
+                    <span className="flex items-center gap-1"><Calendar size={14}/> {formatDateBR(post.date)}</span>
                   </div>
                   <h3 className="text-xl font-bold text-brand-secondary mb-3 line-clamp-2 leading-tight">
                     <Link to={`/blog/${post.slug}`} className="hover:text-brand-primary transition-colors">

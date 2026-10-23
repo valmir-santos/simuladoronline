@@ -1,9 +1,11 @@
 import React from 'react';
+import SEO from '../components/SEO';
 import { motion } from 'motion/react';
 
 export default function Termos() {
   return (
     <div className="bg-[#F2EDE6] min-h-[calc(100vh-80px)] py-16 md:py-24 px-4 sm:px-6 lg:px-8 font-sans">
+      <SEO title="Termos de Uso" description="Termos de uso do Simulador On-Line: condições de acesso ao multicálculo de planos de saúde, sites e CRM para corretores de seguros." />
       <div className="max-w-4xl mx-auto bg-white rounded-3xl shadow-xl p-8 md:p-12 lg:p-16">
         <motion.div 
           initial={{ opacity: 0, y: 20 }}

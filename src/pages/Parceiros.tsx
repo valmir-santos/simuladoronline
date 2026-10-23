@@ -13,13 +13,16 @@ import {
   Handshake
 } from 'lucide-react';
 import { wpService, Partner } from '../services/wpService';
+import { useSsrData } from '../lib/ssr';
 import SEO from '../components/SEO';
 
 export default function Parceiros() {
-  const [partners, setPartners] = useState<Partner[]>([]);
-  const [loading, setLoading] = useState(true);
+  const ssr = useSsrData();
+  const [partners, setPartners] = useState<Partner[]>(ssr.partners ?? []);
+  const [loading, setLoading] = useState(!ssr.partners);
 
   useEffect(() => {
+    if (ssr.partners) return;
     wpService.getPartners().then((data) => {
       setPartners(data);
       setLoading(false);

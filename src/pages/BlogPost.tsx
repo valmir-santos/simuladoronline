@@ -3,14 +3,18 @@ import { useParams, Link } from 'react-router-dom';
 import { wpService, WPPost } from '../services/wpService';
 import { Calendar, User, ArrowLeft, MessageCircle, Facebook, Twitter } from 'lucide-react';
 
+import { useSsrData, formatDateBR, SITE_URL } from '../lib/ssr';
+import NotFound from './NotFound';
 import SEO from '../components/SEO';
 
 export default function BlogPost() {
   const { slug } = useParams();
-  const [post, setPost] = useState<WPPost | undefined>(undefined);
-  const [loading, setLoading] = useState(true);
+  const ssr = useSsrData();
+  const [post, setPost] = useState<WPPost | undefined>(ssr.post ?? undefined);
+  const [loading, setLoading] = useState(!ssr.post);
 
   useEffect(() => {
+    if (ssr.post) return;
     if (slug) {
       wpService.getBlogPostBySlug(slug).then(data => {
         setPost(data as any);
@@ -20,7 +24,9 @@ export default function BlogPost() {
   }, [slug]);
 
   if (loading) return <div className="py-40 text-center font-black text-brand-secondary">Carregando Artigo...</div>;
-  if (!post) return <div className="py-40 text-center">Artigo não encontrado.</div>;
+  if (!post) return <NotFound />;
+
+  const shareUrl = `${SITE_URL}/blog/${post.slug}`;
 
   return (
     <div className="bg-white pb-32">
@@ -58,7 +64,7 @@ export default function BlogPost() {
              {post.title}
            </h1>
            <div className="flex flex-wrap justify-center gap-8 text-white/70 font-bold uppercase tracking-widest text-xs">
-              <span className="flex items-center gap-2"><Calendar size={14} /> {new Date(post.date).toLocaleDateString('pt-BR')}</span>
+              <span className="flex items-center gap-2"><Calendar size={14} /> {formatDateBR(post.date)}</span>
               <span className="flex items-center gap-2"><User size={14} /> Por Equipe Simulador</span>
               <span className="flex items-center gap-2"><MessageCircle size={14} /> 12 Comentários</span>
            </div>
@@ -106,7 +112,7 @@ export default function BlogPost() {
               <div className="flex gap-4 font-black text-brand-secondary text-sm tracking-widest items-center">
                 Compartilhar:
                 <a 
-                  href={`https://www.facebook.com/sharer/sharer.php?u=${encodeURIComponent(window.location.href)}`} 
+                  href={`https://www.facebook.com/sharer/sharer.php?u=${encodeURIComponent(shareUrl)}`} 
                   target="_blank" 
                   rel="noreferrer" 
                   className="text-blue-600 hover:opacity-70 transition-opacity"
@@ -115,7 +121,7 @@ export default function BlogPost() {
                   <Facebook size={20} />
                 </a>
                 <a 
-                  href={`https://twitter.com/intent/tweet?url=${encodeURIComponent(window.location.href)}&text=${encodeURIComponent(post.title)}`} 
+                  href={`https://twitter.com/intent/tweet?url=${encodeURIComponent(shareUrl)}&text=${encodeURIComponent(post.title)}`} 
                   target="_blank" 
                   rel="noreferrer" 
                   className="text-blue-400 hover:opacity-70 transition-opacity"
@@ -124,7 +130,7 @@ export default function BlogPost() {
                   <Twitter size={20} />
                 </a>
                 <a 
-                  href={`https://api.whatsapp.com/send?text=${encodeURIComponent(post.title + " - " + window.location.href)}`} 
+                  href={`https://api.whatsapp.com/send?text=${encodeURIComponent(post.title + " - " + shareUrl)}`} 
                   target="_blank" 
                   rel="noreferrer" 
                   className="text-green-500 hover:opacity-70 transition-opacity"

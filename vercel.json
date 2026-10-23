@@ -1,19 +1,55 @@
 {
   "version": 2,
+  "buildCommand": "npm run build",
+  "outputDirectory": "dist",
+  "cleanUrls": true,
+  "trailingSlash": false,
   "redirects": [
-    { "source": "/simulador", "destination": "/produtos#simuladores", "permanent": true },
-    { "source": "/simulador-online", "destination": "/", "permanent": true },
-    { "source": "/cotador", "destination": "/produtos#simuladores", "permanent": true },
-    { "source": "/multicalculo", "destination": "/produtos#simuladores", "permanent": true },
-    { "source": "/index.php", "destination": "/", "permanent": true },
-    { "source": "/index.html", "destination": "/", "permanent": true },
-    { "source": "/noticias.php", "destination": "/noticias", "permanent": true },
-    { "source": "/blog.php", "destination": "/blog", "permanent": true }
+    {
+      "source": "/simulador",
+      "destination": "/produtos#simuladores",
+      "permanent": true
+    },
+    {
+      "source": "/simulador-online",
+      "destination": "/",
+      "permanent": true
+    },
+    {
+      "source": "/cotador",
+      "destination": "/produtos#simuladores",
+      "permanent": true
+    },
+    {
+      "source": "/multicalculo",
+      "destination": "/produtos#simuladores",
+      "permanent": true
+    },
+    {
+      "source": "/index.php",
+      "destination": "/",
+      "permanent": true
+    },
+    {
+      "source": "/index.html",
+      "destination": "/",
+      "permanent": true
+    },
+    {
+      "source": "/noticias.php",
+      "destination": "/noticias",
+      "permanent": true
+    },
+    {
+      "source": "/blog.php",
+      "destination": "/blog",
+      "permanent": true
+    }
   ],
   "rewrites": [
     {
-      "source": "/((?!api/|assets/|.*\\..*).*)",
-      "destination": "/index.html"
+      "source": "/blog/:slug",
+      "destination": "/_shell"
     }
   ],
   "crons": [

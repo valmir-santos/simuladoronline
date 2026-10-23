@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { PlusCircle, X, Lock, Send, Edit3, Trash2, ShieldCheck } from 'lucide-react';
 import { wpService, CompactTableUpdate } from '../services/wpService';
+import { useSsrData } from '../lib/ssr';
 import SEO from '../components/SEO';
 
 const MONTH_TABS = [
@@ -64,9 +65,10 @@ export function parseNoticiaText(text: string): { operadora: string; descricao: 
 }
 
 export default function Noticias() {
-  const [items, setItems] = useState<CompactTableUpdate[]>([]);
+  const ssr = useSsrData();
+  const [items, setItems] = useState<CompactTableUpdate[]>(ssr.compactUpdates ?? []);
   const [activeTab, setActiveTab] = useState<string>('setembro');
-  const [loading, setLoading] = useState(true);
+  const [loading, setLoading] = useState(!ssr.compactUpdates);
 
   // Modal / Commercial Quick Add State
   const [isModalOpen, setIsModalOpen] = useState(false);
@@ -110,7 +112,7 @@ export default function Noticias() {
     const today = new Date();
     const formattedDate = `${String(today.getDate()).padStart(2, '0')}/${String(today.getMonth() + 1).padStart(2, '0')}/${today.getFullYear()}`;
     setFormDate(formattedDate);
-    fetchUpdates();
+    if (!ssr.compactUpdates) fetchUpdates();
   }, []);
 
   const MASTER_PIN = '(}-!#$%*V@1miR$632!.';

@@ -1,10 +1,12 @@
 import React from 'react';
+import SEO from '../components/SEO';
 import { motion } from 'motion/react';
 import { Cookie } from 'lucide-react';
 
 export default function PoliticaCookies() {
   return (
     <div className="bg-[#F2EDE6] min-h-[calc(100vh-80px)] py-16 md:py-24 px-4 sm:px-6 lg:px-8 font-sans">
+      <SEO title="Política de Cookies" description="Quais cookies o Simulador On-Line utiliza, para que servem e como gerenciar suas preferências de consentimento." />
       <div className="max-w-4xl mx-auto bg-white rounded-3xl shadow-xl p-8 md:p-12 lg:p-16">
         <motion.div 
           initial={{ opacity: 0, y: 20 }}

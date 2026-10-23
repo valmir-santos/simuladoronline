@@ -1,5 +1,5 @@
 import React, { useEffect, Suspense, lazy } from 'react';
-import { BrowserRouter as Router, Routes, Route, useLocation } from 'react-router-dom';
+import { Routes, Route, useLocation } from 'react-router-dom';
 import { Header, Topbar, Footer, Breadcrumbs } from './components/Navigation';
 import Home from './pages/Home';
 import CookieConsent from './components/CookieConsent';
@@ -19,6 +19,7 @@ const ObrigadoNewsletter = lazy(() => import('./pages/ObrigadoNewsletter'));
 const Parceiros = lazy(() => import('./pages/Parceiros'));
 const Noticias = lazy(() => import('./pages/Noticias'));
 const AdminBlog = lazy(() => import('./pages/AdminBlog'));
+const NotFound = lazy(() => import('./pages/NotFound'));
 
 // Scroll to top on route change
 function ScrollToTop() {
@@ -36,9 +37,11 @@ const PageLoader = () => (
   </div>
 );
 
+// O roteador fica de fora (BrowserRouter no navegador, StaticRouter no build),
+// para o mesmo App gerar o HTML de cada página na pré-renderização.
 export default function App() {
   return (
-    <Router>
+    <>
       <ScrollToTop />
       <CookieConsent />
       <div className="flex flex-col min-h-screen font-sans selection:bg-brand-primary selection:text-white">
@@ -63,13 +66,13 @@ export default function App() {
               <Route path="/termos" element={<Termos />} />
               <Route path="/politica-de-privacidade" element={<PoliticaPrivacidade />} />
               <Route path="/politica-de-cookies" element={<PoliticaCookies />} />
-              {/* Fallback */}
-              <Route path="*" element={<Home />} />
+              {/* Página inexistente: 404 de verdade, sem mostrar a home */}
+              <Route path="*" element={<NotFound />} />
             </Routes>
           </Suspense>
         </main>
         <Footer />
       </div>
-    </Router>
+    </>
   );
 }

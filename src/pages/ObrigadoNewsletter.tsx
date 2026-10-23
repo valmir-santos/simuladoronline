@@ -1,10 +1,12 @@
 import React from 'react';
+import SEO from '../components/SEO';
 import { Link } from 'react-router-dom';
 import { CheckCircle2, ArrowLeft } from 'lucide-react';
 
 export default function ObrigadoNewsletter() {
   return (
     <div className="min-h-[70vh] bg-gray-50 flex items-center justify-center py-20 px-4">
+      <SEO title="Inscrição Confirmada" description="Sua inscrição na newsletter do Simulador On-Line foi confirmada." noindex />
       <div className="bg-white p-10 md:p-16 rounded-[3rem] shadow-xl text-center max-w-2xl w-full border border-gray-100">
         <div className="w-24 h-24 bg-green-100 rounded-full flex items-center justify-center mx-auto mb-8">
           <CheckCircle2 size={48} className="text-green-500" />

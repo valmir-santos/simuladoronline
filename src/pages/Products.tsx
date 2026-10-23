@@ -20,6 +20,7 @@ import {
 import { useLocation } from 'react-router-dom';
 import { wpService, Product, Template, LandingPageItem } from '../services/wpService';
 import PricingTable from '../components/PricingTable';
+import { useSsrData } from '../lib/ssr';
 import SEO from '../components/SEO';
 
 export default function Products() {
@@ -31,9 +32,10 @@ export default function Products() {
     return 'simuladores';
   };
 
-  const [products, setProducts] = useState<Product[]>([]);
-  const [templates, setTemplates] = useState<Template[]>([]);
-  const [landingPages, setLandingPages] = useState<LandingPageItem[]>([]);
+  const ssr = useSsrData();
+  const [products, setProducts] = useState<Product[]>(ssr.products ?? []);
+  const [templates, setTemplates] = useState<Template[]>(ssr.templates ?? []);
+  const [landingPages, setLandingPages] = useState<LandingPageItem[]>(ssr.landingPages ?? []);
   const [siteSubTab, setSiteSubTab] = useState<'lps' | 'templates'>('lps');
   const [activeTab, setActiveTab] = useState<'simuladores' | 'sites' | 'crm'>(getInitialTab());
 
@@ -51,9 +53,9 @@ export default function Products() {
   };
 
   useEffect(() => {
-    wpService.getProducts().then(setProducts);
-    wpService.getTemplates().then(setTemplates);
-    wpService.getLandingPages().then(setLandingPages);
+    if (!ssr.products) wpService.getProducts().then(setProducts);
+    if (!ssr.templates) wpService.getTemplates().then(setTemplates);
+    if (!ssr.landingPages) wpService.getLandingPages().then(setLandingPages);
   }, []);
 
   return (

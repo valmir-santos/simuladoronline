@@ -3,6 +3,7 @@ import { motion } from 'motion/react';
 import { Calendar, User, ChevronRight, Search, Tag, Filter } from 'lucide-react';
 import { Link } from 'react-router-dom';
 import { wpService, WPPost } from '../services/wpService';
+import { useSsrData, formatDateBR, SITE_URL } from '../lib/ssr';
 import SEO from '../components/SEO';
 
 const formatDate = (dateStr: string) => {
@@ -10,19 +11,21 @@ const formatDate = (dateStr: string) => {
     const d = new Date(dateStr);
     if (!isNaN(d.getTime())) {
       // Formata como "25 de Agosto, 2026"
-      return d.toLocaleDateString('pt-BR', { day: '2-digit', month: 'long', year: 'numeric' });
+      return formatDateBR(dateStr, { day: '2-digit', month: 'long', year: 'numeric' });
     }
   } catch (e) {}
   return dateStr;
 };
 
 export default function Blog() {
-  const [posts, setPosts] = useState<WPPost[]>([]);
-  const [loading, setLoading] = useState(true);
+  const ssr = useSsrData();
+  const [posts, setPosts] = useState<WPPost[]>(ssr.posts ?? []);
+  const [loading, setLoading] = useState(!ssr.posts);
   const [searchQuery, setSearchQuery] = useState('');
   const [selectedCategory, setSelectedCategory] = useState<string>('Todas');
 
   useEffect(() => {
+    if (ssr.posts) return;
     wpService.getBlogPosts().then(data => {
       setPosts(data as any);
       setLoading(false);
@@ -206,7 +209,7 @@ export default function Blog() {
                <p className="text-gray-300 text-xs font-medium mb-6">Apenas conteúdo estratégico sobre o mercado de saúde.</p>
                <form action="https://formsubmit.co/suporte@simuladoronline.com" method="POST" className="space-y-3">
                  <input type="hidden" name="_subject" value="Cadastro de News" />
-                 <input type="hidden" name="_next" value={window.location.origin + "/obrigado-newsletter"} />
+                 <input type="hidden" name="_next" value={SITE_URL + "/obrigado-newsletter"} />
                  <input type="hidden" name="_captcha" value="false" />
                  <input type="email" name="email" required placeholder="Seu e-mail profissional" className="w-full bg-white/10 border border-white/20 p-3 rounded-xl focus:outline-none focus:ring-2 focus:ring-brand-primary/50 font-medium text-xs text-white placeholder:text-gray-400" />
                  <button type="submit" className="w-full bg-brand-primary text-white py-3 rounded-xl font-black tracking-widest text-xs uppercase flex items-center justify-center gap-2 hover:bg-brand-primary/90 transition-colors">
