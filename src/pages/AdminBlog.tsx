@@ -24,6 +24,8 @@ const DEFAULT_SOURCES: NewsSource[] = [
 export default function AdminBlog() {
   const [accessCode, setAccessCode] = useState('');
   const [isAuthenticated, setIsAuthenticated] = useState(false);
+  const [loginError, setLoginError] = useState('');
+  const [checkingLogin, setCheckingLogin] = useState(false);
   const [posts, setPosts] = useState<BlogPost[]>([]);
   const [sources, setSources] = useState<NewsSource[]>(DEFAULT_SOURCES);
   const [loading, setLoading] = useState(false);
@@ -75,11 +77,15 @@ export default function AdminBlog() {
 
   const handleLogin = async (e: React.FormEvent) => {
     e.preventDefault();
-    if (await wpService.checkAdminPin(accessCode.trim())) {
+    setLoginError('');
+    setCheckingLogin(true);
+    const result = await wpService.checkAdminPin(accessCode.trim());
+    setCheckingLogin(false);
+    if (result.ok) {
       setIsAuthenticated(true);
       loadPostsAndSources();
     } else {
-      alert('Senha de administração incorreta.');
+      setLoginError(result.message || 'Senha de administração incorreta.');
     }
   };
 
@@ -320,15 +326,19 @@ export default function AdminBlog() {
                 type="password"
                 value={accessCode}
                 onChange={(e) => setAccessCode(e.target.value)}
-                placeholder="Digite a senha (ex: 2026)"
+                placeholder="Digite a senha"
                 className="w-full border border-gray-300 p-3 rounded-lg text-center font-bold text-sm focus:outline-none focus:border-[#19137a]"
                 autoFocus
               />
+              {loginError && (
+                <p role="alert" className="text-xs font-bold text-red-600">{loginError}</p>
+              )}
               <button
                 type="submit"
-                className="w-full bg-[#19137a] hover:bg-blue-900 text-white font-bold py-3 rounded-lg text-xs uppercase tracking-wider transition-all border-none cursor-pointer"
+                disabled={checkingLogin}
+                className="w-full bg-[#19137a] hover:bg-blue-900 text-white font-bold py-3 rounded-lg text-xs uppercase tracking-wider transition-all border-none cursor-pointer disabled:opacity-60"
               >
-                Acessar Painel Restrito
+                {checkingLogin ? 'Conferindo...' : 'Acessar Painel Restrito'}
               </button>
             </form>
           </div>

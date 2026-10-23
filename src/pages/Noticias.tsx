@@ -74,6 +74,8 @@ export default function Noticias() {
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [accessCode, setAccessCode] = useState('');
   const [isAuthorized, setIsAuthorized] = useState(false);
+  const [loginError, setLoginError] = useState('');
+  const [checkingLogin, setCheckingLogin] = useState(false);
 
   // Modal de Edição de Linha
   const [editingRow, setEditingRow] = useState<CompactTableUpdate | null>(null);
@@ -117,10 +119,14 @@ export default function Noticias() {
 
   const handleAuthorize = async (e: React.FormEvent) => {
     e.preventDefault();
-    if (await wpService.checkAdminPin(accessCode.trim())) {
+    setLoginError('');
+    setCheckingLogin(true);
+    const result = await wpService.checkAdminPin(accessCode.trim());
+    setCheckingLogin(false);
+    if (result.ok) {
       setIsAuthorized(true);
     } else {
-      alert('Código de acesso incorreto.');
+      setLoginError(result.message || 'Código de acesso incorreto.');
     }
   };
 
@@ -442,11 +448,15 @@ export default function Noticias() {
                   className="w-full border border-gray-300 p-2.5 rounded-lg text-center font-bold text-xs focus:outline-none focus:border-[#19137a]"
                   autoFocus
                 />
+                {loginError && (
+                  <p role="alert" className="text-xs font-bold text-red-600">{loginError}</p>
+                )}
                 <button 
                   type="submit" 
-                  className="w-full bg-[#19137a] hover:bg-blue-900 text-white font-bold py-2.5 rounded-lg text-xs uppercase tracking-wider transition-all border-none cursor-pointer"
+                  disabled={checkingLogin}
+                  className="w-full bg-[#19137a] hover:bg-blue-900 text-white font-bold py-2.5 rounded-lg text-xs uppercase tracking-wider transition-all border-none cursor-pointer disabled:opacity-60"
                 >
-                  Desbloquear Painel
+                  {checkingLogin ? 'Conferindo...' : 'Desbloquear Painel'}
                 </button>
               </form>
             ) : (

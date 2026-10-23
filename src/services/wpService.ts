@@ -940,16 +940,18 @@ const MOCK_COMPACT_UPDATES: CompactTableUpdate[] = [
 
 export const wpService = {
   // A senha é conferida só no servidor (variável ADMIN_PIN na Vercel)
-  checkAdminPin: async (pin: string): Promise<boolean> => {
+  checkAdminPin: async (pin: string): Promise<{ ok: boolean; message?: string }> => {
     try {
       const res = await fetch('/api/admin-check', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({ pin })
       });
-      return res.ok;
+      if (res.ok) return { ok: true };
+      const data = await res.json().catch(() => ({}));
+      return { ok: false, message: data.error || 'Senha incorreta.' };
     } catch (e) {
-      return false;
+      return { ok: false, message: 'Não foi possível conferir a senha. Verifique a conexão.' };
     }
   },
   getBlogPosts: async (): Promise<BlogPost[]> => {

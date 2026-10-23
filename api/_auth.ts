@@ -20,18 +20,23 @@ const header = (req: Req, name: string) => {
   return Array.isArray(value) ? value[0] : value;
 };
 
+// Valor da variável sem espaços ou quebras de linha coladas sem querer no painel da Vercel.
+const env = (name: string) => (process.env[name] || '').trim();
+
+export const adminPinConfigured = () => env('ADMIN_PIN') !== '';
+
 // Senha digitada no painel: vem no corpo (pin) ou no cabeçalho x-admin-pin.
 export const isAdmin = (req: Req) => {
-  const expected = process.env.ADMIN_PIN;
+  const expected = env('ADMIN_PIN');
   const pin = header(req, 'x-admin-pin') ?? req.body?.pin;
   return !!expected && typeof pin === 'string' && safeEqual(pin.trim(), expected);
 };
 
 // Chamada do cron da Vercel ou de uma rota interna (Authorization: Bearer CRON_SECRET).
 export const isInternal = (req: Req) => {
-  const secret = process.env.CRON_SECRET;
+  const secret = env('CRON_SECRET');
   const auth = header(req, 'authorization');
   return !!secret && typeof auth === 'string' && safeEqual(auth, `Bearer ${secret}`);
 };
 
-export const internalHeaders = () => ({ Authorization: `Bearer ${process.env.CRON_SECRET || ''}` });
+export const internalHeaders = () => ({ Authorization: `Bearer ${env('CRON_SECRET')}` });
