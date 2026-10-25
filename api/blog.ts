@@ -649,7 +649,7 @@ export default async function handler(req: VercelRequest, res: VercelResponse) {
   if (req.method === 'POST') {
     const { title, excerpt, content, category, imageUrl, sourceUrl, date } = body;
 
-    // Só o painel (senha) ou o robô de notícias (CRON_SECRET) podem publicar
+    // Só o painel (senha) ou uma rotina interna com CRON_SECRET podem publicar
     const fromAdmin = isAdmin(req);
     if (!fromAdmin && !isInternal(req)) {
       return res.status(401).json({ error: 'Não autorizado' });

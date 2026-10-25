@@ -38,5 +38,3 @@ export const isInternal = (req: Req) => {
   const auth = header(req, 'authorization');
   return !!secret && typeof auth === 'string' && safeEqual(auth, `Bearer ${secret}`);
 };
-
-export const internalHeaders = () => ({ Authorization: `Bearer ${env('CRON_SECRET')}` });

@@ -1,25 +1,7 @@
 import React, { useEffect, useState, useRef } from 'react';
-import { ShieldCheck, Lock, Trash2, Edit3, ExternalLink, RefreshCw, Zap, X, Save, Globe, PlusCircle, Bold, Italic, Heading2, Type, Code, Layout } from 'lucide-react';
+import { ShieldCheck, Lock, Trash2, Edit3, ExternalLink, RefreshCw, X, Save, Bold, Italic, Heading2, Type, Code, Layout } from 'lucide-react';
 import { wpService, BlogPost } from '../services/wpService';
 import SEO from '../components/SEO';
-
-interface NewsSource {
-  id: string;
-  name: string;
-  url: string;
-  feedUrl?: string;
-  category: string;
-}
-
-const DEFAULT_SOURCES: NewsSource[] = [
-  { id: '1', name: 'Blog do Corretor', url: 'https://blogdocorretor.com.br/', feedUrl: 'https://blogdocorretor.com.br/feed/', category: 'Notícias do Mercado' },
-  { id: '2', name: 'ANS - Portal Oficial', url: 'https://www.gov.br/ans/pt-br/assuntos/noticias', category: 'Regulamentação' },
-  { id: '3', name: 'Medicina S/A', url: 'https://medicinasa.com.br/category/planos-de-saude/', category: 'Saúde Suplementar' },
-  { id: '4', name: 'Amil Imprensa', url: 'https://www.amil.com.br', category: 'Operadoras' },
-  { id: '5', name: 'Bradesco Saúde', url: 'https://www.bradescosaude.com.br', category: 'Operadoras' },
-  { id: '6', name: 'SulAmérica Saúde', url: 'https://www.sulamericasaude.com.br', category: 'Operadoras' },
-  { id: '7', name: 'Porto Saúde', url: 'https://www.portoseguro.com.br/saude', category: 'Operadoras' }
-];
 
 export default function AdminBlog() {
   const [accessCode, setAccessCode] = useState('');
@@ -27,16 +9,8 @@ export default function AdminBlog() {
   const [loginError, setLoginError] = useState('');
   const [checkingLogin, setCheckingLogin] = useState(false);
   const [posts, setPosts] = useState<BlogPost[]>([]);
-  const [sources, setSources] = useState<NewsSource[]>(DEFAULT_SOURCES);
   const [loading, setLoading] = useState(false);
-  const [scanning, setScanning] = useState(false);
   const [deletingId, setDeletingId] = useState<string | null>(null);
-
-  // Form de Novo Portal
-  const [newPortalName, setNewPortalName] = useState('');
-  const [newPortalUrl, setNewPortalUrl] = useState('');
-  const [newPortalCategory, setNewPortalCategory] = useState('Notícias de Saúde');
-  const [addingPortal, setAddingPortal] = useState(false);
 
   // Modal de Edição de Notícia
   const [editingPost, setEditingPost] = useState<BlogPost | null>(null);
@@ -51,25 +25,11 @@ export default function AdminBlog() {
   const visualEditorRef = useRef<HTMLDivElement>(null);
   const codeTextareaRef = useRef<HTMLTextAreaElement>(null);
 
-  const loadPostsAndSources = async () => {
+  const loadPosts = async () => {
     setLoading(true);
     try {
       const data = await wpService.getBlogPosts();
       setPosts(data);
-
-      const res = await fetch('/api/cron/news?action=sources');
-      if (res.ok) {
-        const sourcesData = await res.json();
-        if (Array.isArray(sourcesData) && sourcesData.length > 0) {
-          setSources(sourcesData);
-        } else {
-          setSources(DEFAULT_SOURCES);
-        }
-      } else {
-        setSources(DEFAULT_SOURCES);
-      }
-    } catch (e) {
-      setSources(DEFAULT_SOURCES);
     } finally {
       setLoading(false);
     }
@@ -83,7 +43,7 @@ export default function AdminBlog() {
     setCheckingLogin(false);
     if (result.ok) {
       setIsAuthenticated(true);
-      loadPostsAndSources();
+      loadPosts();
     } else {
       setLoginError(result.message || 'Senha de administração incorreta.');
     }
@@ -128,114 +88,6 @@ export default function AdminBlog() {
     setEditorMode(mode);
   };
 
-  // Disparar Varredura Manual
-  const handleTriggerScan = async () => {
-    setScanning(true);
-    try {
-      const res = await fetch('/api/cron/news', { headers: { 'X-Admin-Pin': accessCode.trim() } });
-      const data = await res.json();
-      if (res.ok && data.success) {
-        alert(`Varredura concluída!\n\nNovo artigo gerado: "${data.article?.title || 'Artigo de Saúde'}"`);
-        await loadPostsAndSources();
-      } else {
-        alert('Erro ao executar varredura.');
-      }
-    } catch (e) {
-      alert('Erro ao conectar com a API de varredura.');
-    } finally {
-      setScanning(false);
-    }
-  };
-
-  // Cadastrar Novo Portal
-  const handleAddPortal = async (e: React.FormEvent) => {
-    e.preventDefault();
-    if (!newPortalName.trim() || !newPortalUrl.trim()) return;
-
-    setAddingPortal(true);
-    try {
-      const res = await fetch('/api/cron/news?action=sources', {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({
-          action: 'sources',
-          name: newPortalName.trim(),
-          url: newPortalUrl.trim(),
-          category: newPortalCategory,
-          pin: accessCode
-        })
-      });
-
-      if (res.ok) {
-        alert('Novo portal cadastrado com sucesso!');
-        setNewPortalName('');
-        setNewPortalUrl('');
-        await loadPostsAndSources();
-      } else {
-        // Fallback local se estiver sem servidor
-        const newSrc: NewsSource = {
-          id: String(Date.now()),
-          name: newPortalName.trim(),
-          url: newPortalUrl.trim(),
-          category: newPortalCategory
-        };
-        setSources([newSrc, ...sources]);
-        setNewPortalName('');
-        setNewPortalUrl('');
-      }
-    } finally {
-      setAddingPortal(false);
-    }
-  };
-
-  // Editar Portal Cadastrado
-  const handleEditPortal = async (source: NewsSource) => {
-    const name = prompt('Nome do portal:', source.name);
-    if (name === null) return;
-    const url = prompt('URL do portal:', source.url);
-    if (url === null) return;
-    const category = prompt('Categoria:', source.category);
-    if (category === null) return;
-
-    try {
-      const res = await fetch('/api/cron/news?action=sources', {
-        method: 'PUT',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ action: 'sources', id: source.id, name, url, category, pin: accessCode })
-      });
-
-      if (res.ok) {
-        await loadPostsAndSources();
-      } else {
-        // Atualização local
-        setSources(sources.map(s => s.id === source.id ? { ...s, name, url, category } : s));
-      }
-    } catch (e) {
-      setSources(sources.map(s => s.id === source.id ? { ...s, name, url, category } : s));
-    }
-  };
-
-  // Remover Portal Cadastrado
-  const handleDeletePortal = async (source: NewsSource) => {
-    if (!confirm(`Deseja remover o portal "${source.name}" da lista de fontes?`)) return;
-
-    try {
-      const res = await fetch('/api/cron/news?action=sources', {
-        method: 'DELETE',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ action: 'sources', id: source.id, pin: accessCode })
-      });
-
-      if (res.ok) {
-        await loadPostsAndSources();
-      } else {
-        setSources(sources.filter(s => s.id !== source.id));
-      }
-    } catch (e) {
-      setSources(sources.filter(s => s.id !== source.id));
-    }
-  };
-
   // Abrir modal de edição
   const handleOpenEdit = (post: BlogPost) => {
     setEditingPost(post);
@@ -278,7 +130,7 @@ export default function AdminBlog() {
       if (success) {
         alert('Artigo atualizado com sucesso!');
         setEditingPost(null);
-        await loadPostsAndSources();
+        await loadPosts();
       } else {
         alert('Falha ao salvar as alterações do artigo.');
       }
@@ -297,7 +149,7 @@ export default function AdminBlog() {
       const success = await wpService.deleteBlogPost(post.id || post.slug, accessCode);
       if (success) {
         alert('Artigo removido com sucesso!');
-        await loadPostsAndSources();
+        await loadPosts();
       } else {
         alert('Falha ao remover o artigo. Tente novamente.');
       }
@@ -358,16 +210,7 @@ export default function AdminBlog() {
 
                 <div className="flex items-center gap-2">
                   <button
-                    onClick={handleTriggerScan}
-                    disabled={scanning}
-                    className="bg-[#00d1ff] hover:bg-cyan-300 text-[#19137a] font-extrabold px-3 py-2 rounded-lg text-xs transition-all flex items-center gap-1.5 border-none cursor-pointer disabled:opacity-50"
-                  >
-                    <Zap size={14} className={scanning ? 'animate-bounce' : ''} />
-                    {scanning ? 'Varrendo a Web...' : '⚡ Varredura com IA Agora'}
-                  </button>
-
-                  <button
-                    onClick={loadPostsAndSources}
+                    onClick={loadPosts}
                     className="bg-white/10 hover:bg-white/20 text-white font-bold p-2 rounded-lg text-xs transition-all flex items-center gap-1 border-none cursor-pointer"
                   >
                     <RefreshCw size={14} className={loading ? 'animate-spin' : ''} />
@@ -441,118 +284,6 @@ export default function AdminBlog() {
               </div>
             </div>
 
-            {/* SEÇÃO 2: GERENCIADOR DE FONTES & PORTAIS CADASTRADOS */}
-            <div className="bg-white rounded-2xl shadow-xl border border-gray-200 overflow-hidden">
-              <div className="bg-gray-800 text-white p-6 flex items-center justify-between">
-                <div>
-                  <h2 className="text-base font-bold flex items-center gap-2">
-                    <Globe size={18} className="text-[#00d1ff]" /> Fontes e Portais Cadastrados ({sources.length})
-                  </h2>
-                  <p className="text-xs text-gray-300 mt-1">
-                    Portais monitorados automaticamente pelo robô para a geração diária de artigos.
-                  </p>
-                </div>
-              </div>
-
-              <div className="p-6 space-y-6">
-                {/* FORMULÁRIO DE NOVO PORTAL */}
-                <form onSubmit={handleAddPortal} className="bg-gray-50 border border-gray-200 p-4 rounded-xl space-y-3">
-                  <div className="text-xs font-bold text-gray-700 uppercase flex items-center gap-1.5">
-                    <PlusCircle size={14} className="text-[#19137a]" /> Cadastrar Novo Portal / Blog
-                  </div>
-
-                  <div className="grid grid-cols-1 md:grid-cols-3 gap-3">
-                    <input
-                      type="text"
-                      value={newPortalName}
-                      onChange={(e) => setNewPortalName(e.target.value)}
-                      placeholder="Nome do Portal (ex: Blog do Corretor)"
-                      className="border border-gray-300 p-2.5 rounded-lg text-xs font-bold focus:outline-none focus:border-[#19137a]"
-                      required
-                    />
-                    <input
-                      type="url"
-                      value={newPortalUrl}
-                      onChange={(e) => setNewPortalUrl(e.target.value)}
-                      placeholder="URL (ex: https://blogdocorretor.com.br/)"
-                      className="border border-gray-300 p-2.5 rounded-lg text-xs font-medium focus:outline-none focus:border-[#19137a]"
-                      required
-                    />
-                    <input
-                      type="text"
-                      value={newPortalCategory}
-                      onChange={(e) => setNewPortalCategory(e.target.value)}
-                      placeholder="Categoria (ex: Notícias de Saúde)"
-                      className="border border-gray-300 p-2.5 rounded-lg text-xs font-bold focus:outline-none focus:border-[#19137a]"
-                    />
-                  </div>
-
-                  <button
-                    type="submit"
-                    disabled={addingPortal}
-                    className="bg-[#19137a] hover:bg-blue-900 text-white font-bold px-4 py-2 rounded-lg text-xs uppercase transition-all border-none cursor-pointer disabled:opacity-50 flex items-center gap-1.5"
-                  >
-                    <PlusCircle size={14} /> {addingPortal ? 'Salvando Portal...' : 'Adicionar Fonte de Notícias'}
-                  </button>
-                </form>
-
-                {/* TABELA COMPLETA DE PORTAIS CADASTRADOS COM EDIÇÃO E EXCLUSÃO */}
-                <div className="overflow-x-auto border border-gray-200 rounded-xl">
-                  <table className="w-full border-collapse text-left text-xs bg-white">
-                    <thead>
-                      <tr className="bg-gray-100 border-b border-gray-200 text-gray-600 font-bold uppercase">
-                        <th className="py-3 px-3">Nome do Portal</th>
-                        <th className="py-3 px-3">Endereço (URL)</th>
-                        <th className="py-3 px-3">Categoria</th>
-                        <th className="py-3 px-3 text-right">Ações</th>
-                      </tr>
-                    </thead>
-                    <tbody className="divide-y divide-gray-100">
-                      {sources.map((src) => (
-                        <tr key={src.id} className="hover:bg-gray-50 transition-colors">
-                          <td className="py-3 px-3 font-bold text-gray-800">{src.name}</td>
-                          <td className="py-3 px-3">
-                            <a
-                              href={src.url}
-                              target="_blank"
-                              rel="noreferrer"
-                              className="text-blue-600 hover:underline flex items-center gap-1"
-                            >
-                              <span>{src.url}</span>
-                              <ExternalLink size={10} />
-                            </a>
-                          </td>
-                          <td className="py-3 px-3">
-                            <span className="bg-gray-100 text-gray-700 px-2 py-0.5 rounded font-bold">
-                              {src.category}
-                            </span>
-                          </td>
-                          <td className="py-3 px-3 text-right whitespace-nowrap">
-                            <div className="flex items-center justify-end gap-2">
-                              <button
-                                onClick={() => handleEditPortal(src)}
-                                className="bg-amber-500 hover:bg-amber-600 text-white font-bold px-2.5 py-1 rounded text-xs transition-all flex items-center gap-1 border-none cursor-pointer"
-                                title="Editar portal"
-                              >
-                                <Edit3 size={12} /> Editar
-                              </button>
-
-                              <button
-                                onClick={() => handleDeletePortal(src)}
-                                className="bg-red-500 hover:bg-red-700 text-white font-bold px-2.5 py-1 rounded text-xs transition-all flex items-center gap-1 border-none cursor-pointer"
-                                title="Remover fonte"
-                              >
-                                <Trash2 size={12} /> Excluir
-                              </button>
-                            </div>
-                          </td>
-                        </tr>
-                      ))}
-                    </tbody>
-                  </table>
-                </div>
-              </div>
-            </div>
           </>
         )}
       </div>
