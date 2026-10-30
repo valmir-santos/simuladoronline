@@ -1,6 +1,6 @@
 # Instruções para agentes (Antigravity, Claude, Gemini)
 
-Site do **Simulador On-Line** (multicálculo, sites e CRM para corretores de planos de saúde) —
+Site do **Simulador On-Line** (cotação de planos de saúde, sites e CRM para corretores) —
 React 19 + Vite, publicado na Vercel a partir da branch `main`. As páginas são pré-renderizadas no build (`scripts/prerender.mjs`).
 
 ## Antes de escrever ou editar artigo do blog

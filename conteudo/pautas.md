@@ -14,14 +14,14 @@ no WhatsApp e no suporte passam na frente — anote na seção "Perguntas reais"
 
 | Data | Tema | Palavra-alvo | Onde o Simulador entra | Status |
 |---|---|---|---|---|
-| 03/11 (ter) | Estadual ou Nacional: quanto custa o multicálculo por corretor quando a equipe cresce | preço sistema multicálculo plano de saúde | tabela de preços por usuário (`fatos.md`) | escrito — `quanto-custa-multicalculo-por-corretor-estadual-nacional` |
+| 03/11 (ter) | Estadual ou Nacional: quanto custa o Simulador On-Line por corretor quando a equipe cresce | preço sistema de cotação de plano de saúde | tabela de preços por usuário (`fatos.md`) | escrito — `quanto-custa-simulador-online-por-corretor-estadual-nacional` |
 | 05/11 (qui) | Como distribuir os leads entre os corretores da equipe sem perder nenhum | distribuir leads entre corretores | CRM: distribuição e origem do lead | escrito — `como-distribuir-leads-entre-corretores-da-equipe` |
 | 10/11 (ter) | Landing page com a marca da operadora: como pedir a autorização de uso | autorização uso de marca operadora corretor | landing pages por operadora | escrito — `landing-page-marca-operadora-autorizacao-uso` |
-| 12/11 (qui) | Família com idades diferentes: como montar a cotação por faixa etária sem erro | cotação plano de saúde família faixa etária | multicálculo por faixa etária | escrito — `cotacao-plano-saude-familia-faixa-etaria` — faixas etárias só com link para a ANS |
+| 12/11 (qui) | Família com idades diferentes: como montar a cotação por faixa etária sem erro | cotação plano de saúde família faixa etária | cotação por faixa etária no Simulador | escrito — `cotacao-plano-saude-familia-faixa-etaria` — faixas etárias só com link para a ANS |
 | 17/11 (ter) | Rede credenciada: como comparar hospitais entre operadoras antes de indicar | comparar rede credenciada operadoras | tabelas com rede credenciada | escrito — `comparar-rede-credenciada-operadoras-antes-de-indicar` |
 | 19/11 (qui) | Proposta devolvida pela operadora: o que conferir antes de enviar | proposta plano de saúde devolvida | cotação e PDF | escrito — `proposta-plano-saude-devolvida-o-que-conferir` |
 | 24/11 (ter) | Cotação que esfriou: roteiro de retomada para leads antigos | follow-up cotação plano de saúde | CRM: histórico e cotações | escrito — `follow-up-cotacao-plano-saude-leads-antigos` |
-| 26/11 (qui) | MEI pedindo plano empresarial: o que o corretor precisa conferir antes | plano de saúde MEI corretor | multicálculo PME | escrito — `mei-plano-saude-empresarial-o-que-corretor-confere` — regra varia por operadora; sem citar prazo sem fonte |
+| 26/11 (qui) | MEI pedindo plano empresarial: o que o corretor precisa conferir antes | plano de saúde MEI corretor | cotação PME, adesão e pessoa física no Simulador | escrito — `mei-plano-saude-empresarial-o-que-corretor-confere` — regra varia por operadora; sem citar prazo sem fonte |
 
 ## Perguntas reais (WhatsApp, suporte, comercial)
 

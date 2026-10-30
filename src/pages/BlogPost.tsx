@@ -88,7 +88,7 @@ export default function BlogPost() {
                     Acelere suas Vendas de Planos de Saúde
                   </h3>
                   <p className="text-gray-200 text-sm md:text-base font-medium max-w-xl">
-                    Tenha acesso instantâneo ao Multicálculo de Saúde e Odonto, criação de Sites Profissionais e CRM de Leads integrado.
+                    Cote planos de saúde e odonto de várias operadoras no Simulador On-Line, com sites profissionais e CRM de leads integrado.
                   </p>
                 </div>
                 <div className="flex-shrink-0">

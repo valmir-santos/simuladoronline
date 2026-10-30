@@ -38,7 +38,7 @@ credibilidade com o próprio corretor, que é o público.
 | "18+ anos" (desatualizado: 2006 → 20 anos em 2026) | `About.tsx` | NÃO USAR |
 | "ferramenta nº1", "a principal do mercado", "mais rápida e confiável" | `index.html`, `HeroCarousel.tsx`, `About.tsx` | NÃO USAR |
 
-## Planos do multicálculo (preço mensal por quantidade de usuários)
+## Planos do Simulador On-Line (preço mensal por quantidade de usuários)
 
 Fonte: `src/components/PricingTable.tsx` (tabela em vigor no site). Os valores antigos
 R$ 49,90 e R$ 89,90 que aparecem em `wpService.ts` estão **desatualizados** e não valem.
@@ -84,7 +84,7 @@ R$ 49,90 e R$ 89,90 que aparecem em `wpService.ts` estão **desatualizados** e n
 | Uso de marca de operadora | o corretor providencia a autorização da operadora | `Products.tsx` | a confirmar |
 | Landing pages prontas por operadora | Bradesco Saúde, SulAmérica, Porto Seguro Saúde, Porto Saúde Bairros, Alice, Amil, Amil Dental, MedSênior, Prevent Senior, Hapvida/NotreDame, Leve Saúde (RJ); mais Seguro Auto e Consórcio | `wpService.ts` (MOCK_LANDING_PAGES) | a confirmar |
 
-## Multicálculo e CRM — funcionalidades
+## Simulador On-Line e CRM — funcionalidades
 
 | Fato | Fonte | Confirmado |
 |---|---|---|

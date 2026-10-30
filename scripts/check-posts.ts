@@ -33,6 +33,7 @@ const fatos = fatosAll.replace(/## Números de mercado da empresa — NÃO USAR[
 const allowedNumbers = new Set([...fatos.matchAll(/\d+(?:[.,]\d+)?/g)].map((m) => m[0].replace(',', '.')));
 
 const FORBIDDEN: { re: RegExp; msg: string; level: Level }[] = [
+  { re: /multic[aá]lculos?/i, msg: 'chama o produto de "multicálculo", nome de um concorrente: use "Simulador On-Line" (regra 0)', level: 'ERRO' },
   { re: /35\s?(mil|k|\.000)\s*corretores|800\s?(mil|k)\s*c[áa]lculos|99[.,]9\s*%|120\+?\s*colaboradores/i, msg: 'usa número marcado NÃO USAR em fatos.md (regra 1)', level: 'ERRO' },
   { re: /\bn[ºo°]\s?1\b|número 1 do|a (principal|melhor) (ferramenta|plataforma) do mercado|mais r[áa]pid[ao] e confi[áa]vel/i, msg: 'afirmação de liderança sem prova (regra 1)', level: 'ERRO' },
   { re: /\b(um|uma) (corretor|corretora|cliente) (que|nosso|nossa) (atendemos|acompanhamos)|nossos clientes relatam|depoimento|case de sucesso/i, msg: 'parece experiência ou caso inventado (regra 4)', level: 'ERRO' },
@@ -93,8 +94,9 @@ for (const p of ARTIGOS) {
     add(s, 'ERRO', 'parece notícia de operadora sem link para a fonte (regra 2)');
   }
 
+  const meta = `${p.title} ${p.excerpt} ${(p.tags || []).join(' ')} ${p.slug.replace(/-/g, ' ')}`;
   for (const f of FORBIDDEN) {
-    const m = text.match(f.re) || html.match(f.re);
+    const m = text.match(f.re) || html.match(f.re) || meta.match(f.re);
     if (m) add(s, f.level, `${f.msg}: "…${m[0]}…"`);
   }
 

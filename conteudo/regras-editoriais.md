@@ -17,6 +17,10 @@ regras e avise no resumo final.
 
 ## Proibido
 
+0. **Chamar o produto de "multicálculo" (ou "MultiCálculos")**, em qualquer grafia. É o nome de um
+   concorrente. O produto é **Simulador On-Line** (ou só "o Simulador"). Para a atividade, escreva
+   "cotação", "comparativo de operadoras" ou "cotar várias operadoras de uma vez".
+
 1. **Número, preço ou afirmação sobre a empresa ou o produto que não esteja em
    `conteudo/fatos.md`.** Itens marcados `NÃO USAR` não entram (35 mil corretores, 800 mil
    cálculos, nº1 etc.). Precisou de um dado que não está lá? Pare e peça ao dono.

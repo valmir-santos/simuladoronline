@@ -12,17 +12,17 @@ const img = (id: string) => `https://images.unsplash.com/${id}?auto=format&fit=c
 
 export const ARTIGOS: WPPost[] = [
   {
-    id: 'quanto-custa-multicalculo-por-corretor-estadual-nacional',
-    slug: 'quanto-custa-multicalculo-por-corretor-estadual-nacional',
+    id: 'quanto-custa-simulador-online-por-corretor-estadual-nacional',
+    slug: 'quanto-custa-simulador-online-por-corretor-estadual-nacional',
     date: '2026-11-03T06:00:00-03:00',
-    title: 'Estadual ou Nacional: quanto custa o multicálculo por corretor quando a equipe cresce',
-    excerpt: 'Veja como a mensalidade do multicálculo muda conforme a equipe cresce, quanto sai por corretor em cada faixa e quando o plano Nacional compensa o Estadual.',
+    title: 'Estadual ou Nacional: quanto custa o Simulador On-Line por corretor quando a equipe cresce',
+    excerpt: 'Veja como a mensalidade do Simulador On-Line muda conforme a equipe cresce, quanto sai por corretor em cada faixa e quando o plano Nacional compensa o Estadual.',
     category: 'Ferramentas',
     author: AUTOR,
     readTime: '5 min de leitura',
     featuredImage: img('photo-1554224155-6726b3ff858f'),
-    tags: ['Multicálculo', 'Preços', 'Gestão de Equipe'],
-    content: `<p>Quanto maior a equipe, menor o custo do multicálculo por corretor. No Simulador On-Line, um acesso no plano Estadual custa R$ 30 por mês; com 10 acessos, a mensalidade vai para R$ 90, o que dá R$ 9 por corretor. No Nacional, o mesmo salto vai de R$ 50 para R$ 160, ou R$ 16 por corretor. A escolha entre os dois não depende do tamanho da equipe, e sim de onde estão os clientes que vocês atendem.</p>
+    tags: ['Simulador On-Line', 'Preços', 'Gestão de Equipe'],
+    content: `<p>Quanto maior a equipe, menor o custo do Simulador On-Line por corretor. Um acesso no plano Estadual custa R$ 30 por mês; com 10 acessos, a mensalidade vai para R$ 90, o que dá R$ 9 por corretor. No Nacional, o mesmo salto vai de R$ 50 para R$ 160, ou R$ 16 por corretor. A escolha entre os dois não depende do tamanho da equipe, e sim de onde estão os clientes que vocês atendem.</p>
 
 <h2>Como a cobrança funciona?</h2>
 <p>A mensalidade é definida pela quantidade de usuários, ou seja, de corretores com acesso próprio. Cada faixa tem um valor fixo por mês, e a partir do plano de 2 acessos há uma taxa única de implantação de R$ 50, cobrada uma vez só, para configurar a conta da corretora.</p>
@@ -126,7 +126,7 @@ export const ARTIGOS: WPPost[] = [
 <p>Nenhum desses erros exige sistema caro para ser resolvido. A maior parte se resolve com combinado claro e com um lugar único para registrar cada contato.</p>
 
 <h2>Onde o Simulador entra</h2>
-<p>O Gestor de Clientes do Simulador On-Line permite cadastrar leads um a um ou importar em massa, distribuir entre os corretores, registrar a origem de cada lead, criar formulários personalizados e tirar relatórios. A cotação feita no multicálculo fica ligada ao cliente e pode ser enviada por WhatsApp ou e-mail. Veja os detalhes na <a href="/produtos">página de produtos</a>.</p>`,
+<p>O Gestor de Clientes do Simulador On-Line permite cadastrar leads um a um ou importar em massa, distribuir entre os corretores, registrar a origem de cada lead, criar formulários personalizados e tirar relatórios. A cotação feita no Simulador fica ligada ao cliente e pode ser enviada por WhatsApp ou e-mail. Veja os detalhes na <a href="/produtos">página de produtos</a>.</p>`,
   },
   {
     id: 'landing-page-marca-operadora-autorizacao-uso',
@@ -234,7 +234,7 @@ export const ARTIGOS: WPPost[] = [
 <p>Registrar a data de nascimento de cada integrante no cadastro do cliente ajuda a antecipar essas conversas, e cada uma delas é uma chance de mostrar cuidado e manter o cliente na carteira.</p>
 
 <h2>Onde o Simulador entra</h2>
-<p>No multicálculo do Simulador On-Line, a cotação é feita por faixa etária, com os valores por padrão de acomodação e categoria, e o comparativo sai em PDF para enviar ao cliente. Com as datas de nascimento em mãos, o corretor monta a cotação da família inteira de uma vez. Conheça os planos na <a href="/produtos">página de produtos</a>.</p>`,
+<p>No Simulador On-Line, a cotação é feita por faixa etária, com os valores por padrão de acomodação e categoria, e o comparativo sai em PDF para enviar ao cliente. Com as datas de nascimento em mãos, o corretor monta a cotação da família inteira de uma vez. Conheça os planos na <a href="/produtos">página de produtos</a>.</p>`,
   },
   {
     id: 'comparar-rede-credenciada-operadoras-antes-de-indicar',
@@ -490,6 +490,6 @@ export const ARTIGOS: WPPost[] = [
 <p><strong>"Não sai mais em conta de qualquer jeito?"</strong> Em muitos casos sai, mas compare com as outras opções no mesmo comparativo. Às vezes a diferença é pequena e não compensa o risco.</p>
 
 <h2>Onde o Simulador entra</h2>
-<p>No multicálculo do Simulador On-Line, os planos PME, de adesão e para pessoa física estão no mesmo sistema, no Estadual e no Nacional. Isso permite montar o comparativo das três opções para o mesmo cliente e enviar em PDF. Veja os planos na <a href="/produtos">página de produtos</a> ou faça o <a href="/testar-gratis">teste grátis de 5 dias</a>.</p>`,
+<p>No Simulador On-Line, os planos PME, de adesão e para pessoa física estão no mesmo sistema, no Estadual e no Nacional. Isso permite montar o comparativo das três opções para o mesmo cliente e enviar em PDF. Veja os planos na <a href="/produtos">página de produtos</a> ou faça o <a href="/testar-gratis">teste grátis de 5 dias</a>.</p>`,
   },
 ];
