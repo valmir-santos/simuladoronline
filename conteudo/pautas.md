@@ -23,6 +23,38 @@ no WhatsApp e no suporte passam na frente — anote na seção "Perguntas reais"
 | 24/11 (ter) | Cotação que esfriou: roteiro de retomada para leads antigos | follow-up cotação plano de saúde | CRM: histórico e cotações | escrito — `follow-up-cotacao-plano-saude-leads-antigos` |
 | 26/11 (qui) | MEI pedindo plano empresarial: o que o corretor precisa conferir antes | plano de saúde MEI corretor | cotação PME, adesão e pessoa física no Simulador | escrito — `mei-plano-saude-empresarial-o-que-corretor-confere` — regra varia por operadora; sem citar prazo sem fonte |
 
+## Clusters (grupos de artigos)
+
+Cada artigo pertence a um grupo. Cada grupo terá uma **página pilar**: um guia que resume o tema e
+liga todos os artigos do grupo, e que todo artigo do grupo liga de volta. É isso que mostra ao
+Google e às IAs que o blog cobre o assunto por inteiro (SEO semântico).
+
+**Ao publicar artigo novo:** coloque-o no grupo certo, faça o artigo linkar a pilar do grupo e,
+depois que ele sair, acrescente o link dele na pilar.
+
+### 1. Gestão comercial da corretora — pilar: `gestao-comercial-corretora-plano-saude-guia` (31/10)
+
+Captar, responder, distribuir, cotar, propor, pós-venda e métricas.
+
+- Na pilar: `site-vendedor-24-horas`, `landing-pages-alta-conversao`, `whatsapp-business-corretores-planos-saude-automacao`, `importancia-atendimento-agil-corretagem`, `crm-corretor-seguros`, `sistema-cotacao-plano-saude`, `proposta-plano-de-saude-em-pdf-impacto-visual`, `objecoes-vendas-planos-saude-como-contornar`, `venda-consultiva-vs-tirador-de-pedidos-corretor-autoridade`, `gestao-pos-venda-corretagem-reduzir-cancelamentos`, `guia-reajustes-troca-operadoras-blindar-carteira-2027`, `metricas-corretor-seguros`, `rotina-corretor-alta-performance-dobrar-resultados`
+- **Acrescentar na pilar depois que saírem:** `como-distribuir-leads-entre-corretores-da-equipe` (05/11), `proposta-plano-saude-devolvida-o-que-conferir` (19/11), `follow-up-cotacao-plano-saude-leads-antigos` (24/11)
+- Também do grupo: `como-aumentar-vendas-planos-saude`, `fechamento-fim-de-ano-vender-planos-pme-4-trimestre`, `futuro-corretagem-planos-saude`
+
+### 2. Marketing e captação digital — pilar: a escrever
+
+- `site-para-corretor-de-plano-de-saude`, `site-vendedor-24-horas`, `landing-pages-alta-conversao`, `como-criar-landing-page-plano-saude-gerar-leads-baixo-custo`, `trafego-pago-google-ads-para-corretores-seguros`, `whatsapp-business-corretores-planos-saude-automacao`, `automacao-whatsapp-corretores-chatbots-sem-banimento`, `3-ferramentas-de-prospeccao-e-marketing-para-corretores-em-2026`, `inteligencia-de-dados-prospeccao-empresas-cnpj`, `outubro-rosa-na-corretagem-planos-saude-prevencao`
+- Novembro: `landing-page-marca-operadora-autorizacao-uso` (10/11)
+
+### 3. Produtos e regras dos planos (o que o corretor precisa saber para vender) — pilar: a escrever
+
+- `coparticipacao-em-planos-de-saude-como-explicar`, `coparticipacao-sem-sustos-estruturar-contratos-empresariais`, `guia-portabilidade-carencias-ans-corretor`, `regras-da-ans-para-portabilidade-de-carencias-sem-cumprimento-de-novos-prazos`, `planos-saude-pme-vs-adesao-estrategias-corretores`, `como-fechar-planos-saude-empresariais-pme`, `multicalculo-saude-odonto`, `combo-saude-mais-odonto-cross-selling-receita-recorrente`, `hapvida-confirma-reajuste-cancelamento-947-mil-contratos`
+- Novembro: `cotacao-plano-saude-familia-faixa-etaria` (12/11), `comparar-rede-credenciada-operadoras-antes-de-indicar` (17/11), `mei-plano-saude-empresarial-o-que-corretor-confere` (26/11)
+
+### 4. Ferramentas de cotação (o Simulador On-Line) — pilar: a escrever
+
+- `vantagens-simulador-nacional-estadual`, `simulador-planos-saude-corretores`, `tudo-sobre-multicalculo-plano-de-saude`, `tabelas-planos-saude-atualizacao-tempo-real`
+- Novembro: `quanto-custa-simulador-online-por-corretor-estadual-nacional` (03/11)
+
 ## Perguntas reais (WhatsApp, suporte, comercial)
 
 | Data | Pergunta como chegou | Vira artigo? |

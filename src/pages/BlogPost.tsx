@@ -5,6 +5,7 @@ import { Calendar, User, ArrowLeft, MessageCircle, Facebook, Twitter } from 'luc
 
 import { useSsrData, formatDateBR, SITE_URL } from '../lib/ssr';
 import NotFound from './NotFound';
+import { extractFaqs } from '../lib/semantica';
 import SEO from '../components/SEO';
 
 export default function BlogPost() {
@@ -27,6 +28,7 @@ export default function BlogPost() {
   if (!post) return <NotFound />;
 
   const shareUrl = `${SITE_URL}/blog/${post.slug}`;
+  const faqs = extractFaqs(post.content || '');
 
   return (
     <div className="bg-white pb-32">
@@ -40,7 +42,8 @@ export default function BlogPost() {
           publishedTime: post.date,
           author: post.author || "Equipe Simulador On-Line",
           category: post.category,
-          tags: post.tags
+          tags: post.tags,
+          faqs
         }}
       />
       <div className="relative h-[60vh] md:h-[70vh] flex items-end">

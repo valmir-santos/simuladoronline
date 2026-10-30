@@ -11,6 +11,59 @@ const AUTOR = 'Valmir J Santos, Gerente de Marketing';
 const img = (id: string) => `https://images.unsplash.com/${id}?auto=format&fit=crop&q=80&w=1200`;
 
 export const ARTIGOS: WPPost[] = [
+  // Página pilar do cluster "Gestão comercial da corretora" (mapa em conteudo/pautas.md).
+  // Liga só artigos já publicados; os novos do cluster entram aqui depois que saírem.
+  {
+    id: 'gestao-comercial-corretora-plano-saude-guia',
+    slug: 'gestao-comercial-corretora-plano-saude-guia',
+    date: '2026-10-31T06:00:00-03:00',
+    title: 'Gestão comercial da corretora de planos de saúde: o guia do lead à renovação',
+    excerpt: 'As etapas da gestão comercial de uma corretora de planos de saúde, do primeiro contato à renovação, com o que acompanhar em cada uma e os guias de cada etapa.',
+    category: 'Gestão',
+    author: AUTOR,
+    readTime: '7 min de leitura',
+    featuredImage: img('photo-1517245386807-bb43f82c33c4'),
+    tags: ['Gestão Comercial', 'Leads', 'Pós-venda', 'Guia'],
+    content: `<p>Gestão comercial, numa corretora de planos de saúde, é o caminho que o cliente faz do primeiro contato até a renovação do contrato, e o que a corretora faz para ninguém se perder nesse caminho. São cinco etapas: captar e registrar o lead, responder e distribuir, cotar e propor, cuidar do cliente depois da venda e medir o resultado. Este guia resume cada etapa e aponta os artigos do blog que aprofundam cada uma.</p>
+
+<h2>Quais são as etapas da gestão comercial?</h2>
+<p>Cada etapa responde a uma pergunta diferente e tem um sinal claro de que algo está errado. A tabela serve de mapa para encontrar onde a corretora está perdendo venda.</p>
+<table>
+<thead><tr><th>Etapa</th><th>Pergunta que ela responde</th><th>Sinal de problema</th></tr></thead>
+<tbody>
+<tr><td>Captar e registrar</td><td>De onde vêm os clientes e onde eles ficam anotados?</td><td>Lead que chega pelo celular de alguém e nunca entra em lugar nenhum</td></tr>
+<tr><td>Responder e distribuir</td><td>Quem atende cada contato, e em quanto tempo?</td><td>Cliente que diz "já tinha fechado com outro corretor"</td></tr>
+<tr><td>Cotar e propor</td><td>A cotação certa chega rápido e a proposta passa de primeira?</td><td>Retrabalho, proposta devolvida, cliente comparando por semanas</td></tr>
+<tr><td>Pós-venda e renovação</td><td>O cliente lembra do corretor depois de assinar?</td><td>Cancelamento ou troca de corretor na época do reajuste</td></tr>
+<tr><td>Medir e ajustar</td><td>O que funciona, e o que só consome tempo?</td><td>Decisões tomadas por sensação, sem número</td></tr>
+</tbody>
+</table>
+
+<h2>Como captar sem perder contato pelo caminho?</h2>
+<p>O primeiro passo não é captar mais, e sim não perder o que já chega. Contatos vêm do site, do Instagram, do WhatsApp, de anúncios e de indicação, e cada canal tende a cair num lugar diferente. Antes de investir em novo canal, garanta que todo contato seja registrado num lugar só, com a origem anotada.</p>
+<p>Com isso resolvido, vale olhar os canais um a um. O site da corretora trabalha enquanto ninguém está atendendo, como mostra o artigo sobre o <a href="/blog/site-vendedor-24-horas">site que vende enquanto a equipe descansa</a>. As páginas de captação precisam ser pensadas para conversão, como explica o guia de <a href="/blog/landing-pages-alta-conversao">landing pages de alta conversão</a>. E o WhatsApp, onde a maioria das conversas acontece, pede organização própria, tema do artigo sobre <a href="/blog/whatsapp-business-corretores-planos-saude-automacao">WhatsApp Business para corretores</a>.</p>
+
+<h2>Como responder e distribuir os leads?</h2>
+<p>Quem responde primeiro costuma sair na frente, porque o cliente que pede cotação quase sempre pede a mais de um corretor. Por isso, a corretora precisa de uma regra clara de quem atende cada contato e de um prazo combinado para o primeiro retorno. O artigo sobre <a href="/blog/importancia-atendimento-agil-corretagem">atendimento ágil na corretagem</a> mostra por que esse prazo pesa tanto.</p>
+<p>Em equipe, a distribuição precisa ser combinada e visível para todos, senão o lead bom vai para quem viu primeiro e o difícil fica esquecido. Um <a href="/blog/crm-corretor-seguros">CRM para corretor</a> resolve a parte prática: registra a origem, mostra quem está com cada lead e o que ficou parado.</p>
+
+<h2>Como cotar e propor sem retrabalho?</h2>
+<p>A cotação é o momento em que o cliente compara. Ela precisa ser rápida, correta e fácil de entender. Rápida, para não perder o cliente para quem respondeu antes; correta, para o preço não mudar entre a cotação e a proposta; fácil, para o cliente decidir sem precisar de três ligações.</p>
+<ul>
+<li>Para entender o que esperar de uma ferramenta de cotação, veja o artigo sobre o <a href="/blog/sistema-cotacao-plano-saude">sistema de cotação de plano de saúde</a>.</li>
+<li>Para apresentar o comparativo de um jeito que o cliente entenda, leia sobre a <a href="/blog/proposta-plano-de-saude-em-pdf-impacto-visual">proposta em PDF</a>.</li>
+<li>Para as perguntas difíceis que surgem nessa hora, como preço e coparticipação, use o guia de <a href="/blog/objecoes-vendas-planos-saude-como-contornar">objeções em vendas de planos de saúde</a>.</li>
+<li>Para se posicionar como quem orienta, e não só quem tira pedido, leia sobre <a href="/blog/venda-consultiva-vs-tirador-de-pedidos-corretor-autoridade">venda consultiva</a>.</li>
+</ul>
+
+<h2>Como manter o cliente depois da venda?</h2>
+<p>A venda não termina na assinatura. O cliente que não ouve falar do corretor até o primeiro reajuste é o mais fácil de perder, para a concorrência ou para o cancelamento. O pós-venda é feito de contatos simples e úteis: confirmar que a carteirinha chegou, avisar sobre mudança de faixa etária, explicar o reajuste antes de ele aparecer no boleto.</p>
+<p>O artigo sobre <a href="/blog/gestao-pos-venda-corretagem-reduzir-cancelamentos">gestão de pós-venda</a> traz um roteiro para isso, e o <a href="/blog/guia-reajustes-troca-operadoras-blindar-carteira-2027">guia de reajustes e troca de operadoras</a> mostra como se preparar para a época de renovação, quando a carteira fica mais exposta.</p>
+
+<h2>Como saber se está funcionando?</h2>
+<p>Gestão sem número vira opinião. Poucos indicadores bastam para começar: quantos contatos chegaram e de onde, quantos receberam resposta no prazo, quantos viraram cotação, quantos viraram proposta e quantos fecharam. Com esses números lado a lado, fica claro em qual etapa a corretora perde mais. O artigo sobre <a href="/blog/metricas-corretor-seguros">métricas que todo corretor deve acompanhar</a> detalha cada um, e o de <a href="/blog/rotina-corretor-alta-performance-dobrar-resultados">rotina do corretor</a> mostra como encaixar esse acompanhamento na semana.</p>
+<p>No Simulador On-Line, a cotação de várias operadoras, o comparativo em PDF e o CRM ficam no mesmo sistema, o que ajuda a juntar essas etapas num lugar só. Veja os recursos na <a href="/produtos">página de produtos</a> ou faça o <a href="/testar-gratis">teste grátis de 5 dias</a>.</p>`,
+  },
   {
     id: 'quanto-custa-simulador-online-por-corretor-estadual-nacional',
     slug: 'quanto-custa-simulador-online-por-corretor-estadual-nacional',
@@ -75,6 +128,7 @@ export const ARTIGOS: WPPost[] = [
     featuredImage: img('photo-1552664730-d307ca884978'),
     tags: ['CRM', 'Leads', 'Gestão de Equipe'],
     content: `<p>A melhor forma de distribuir leads é a que a equipe entende e que ninguém consegue contornar: uma regra escrita, aplicada no momento em que o lead chega, com prazo para o primeiro contato e com redistribuição do que ficar parado. Sem isso, o lead bom vai para quem viu primeiro, e o lead difícil fica esquecido na caixa de entrada.</p>
+<p>Este artigo faz parte do <a href="/blog/gestao-comercial-corretora-plano-saude-guia">guia de gestão comercial da corretora</a>, que reúne as etapas do primeiro contato à renovação.</p>
 
 <h2>Por que lead se perde dentro da própria corretora?</h2>
 <p>Quase nunca é falta de interesse do cliente. Os motivos mais comuns são internos:</p>
@@ -312,6 +366,7 @@ export const ARTIGOS: WPPost[] = [
     featuredImage: img('photo-1450101499163-c8848c66ca85'),
     tags: ['Proposta', 'Documentação', 'Checklist'],
     content: `<p>Muitas propostas voltam por motivos simples: documento faltando, assinatura em lugar errado, declaração de saúde incompleta ou dado que não bate entre a proposta e os documentos. Uma conferência rápida antes do envio evita dias de atraso na vigência e a ligação desconfortável para o cliente pedindo tudo de novo.</p>
+<p>Este artigo faz parte do <a href="/blog/gestao-comercial-corretora-plano-saude-guia">guia de gestão comercial da corretora</a>, na etapa de cotar e propor.</p>
 
 <h2>Por que a devolução custa caro?</h2>
 <p>Cada devolução empurra a data de início do plano. Para o cliente, isso significa ficar mais tempo sem cobertura ou pagando o plano antigo. Para o corretor, significa refazer trabalho e correr o risco de o cliente desistir ou ser procurado por outro corretor nesse intervalo.</p>
@@ -381,6 +436,7 @@ export const ARTIGOS: WPPost[] = [
     featuredImage: img('photo-1600880292203-757bb62b4baf'),
     tags: ['Follow-up', 'Leads', 'WhatsApp'],
     content: `<p>Cotação parada não é venda perdida. Muita gente pede cotação, compara, adia a decisão e esquece. Para retomar, separe os leads antigos pelo motivo de terem parado e mande para cada grupo uma mensagem com um motivo novo para conversar, e não só um "e aí, pensou na proposta?".</p>
+<p>Este artigo faz parte do <a href="/blog/gestao-comercial-corretora-plano-saude-guia">guia de gestão comercial da corretora</a>, que mostra onde a retomada se encaixa no processo comercial.</p>
 
 <h2>Por que o lead esfria?</h2>
 <p>Os motivos se repetem em quase toda corretora:</p>

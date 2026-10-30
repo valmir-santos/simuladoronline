@@ -1,6 +1,7 @@
 import { createContext, useContext, useEffect } from 'react';
 import { useLocation } from 'react-router-dom';
 import { SITE_URL } from '../lib/ssr';
+import { authorNode, organization, Faq } from '../lib/semantica';
 
 interface ArticleData {
   publishedTime?: string;
@@ -8,6 +9,7 @@ interface ArticleData {
   author?: string;
   category?: string;
   tags?: string[];
+  faqs?: Faq[];
 }
 
 export interface SEOProps {
@@ -37,28 +39,46 @@ export const buildSeo = (props: SEOProps, url: string) => {
   if (customSchema) {
     schemaJson = customSchema;
   } else if (type === 'article' && articleData) {
-    schemaJson = {
-      "@context": "https://schema.org",
-      "@type": "BlogPosting",
-      "headline": title,
-      "description": description,
-      "image": imageUrl,
-      "url": currentUrl,
-      "datePublished": articleData.publishedTime,
-      "author": {
-        "@type": "Organization",
-        "name": articleData.author || SITE_NAME,
-        "url": "https://www.simuladoronline.com"
+    // Artigo, perguntas do próprio texto (FAQ) e caminho no site, num grafo só
+    const graph: object[] = [
+      {
+        "@type": "BlogPosting",
+        "@id": `${currentUrl}#artigo`,
+        "headline": title,
+        "description": description,
+        "image": imageUrl,
+        "url": currentUrl,
+        "mainEntityOfPage": currentUrl,
+        "inLanguage": "pt-BR",
+        "datePublished": articleData.publishedTime,
+        "dateModified": articleData.modifiedTime || articleData.publishedTime,
+        ...(articleData.category ? { "articleSection": articleData.category } : {}),
+        ...(articleData.tags?.length ? { "keywords": articleData.tags.join(', ') } : {}),
+        "author": authorNode(articleData.author),
+        "publisher": { "@id": `${SITE_URL}/#organization` }
       },
-      "publisher": {
-        "@type": "Organization",
-        "name": SITE_NAME,
-        "logo": {
-          "@type": "ImageObject",
-          "url": "https://www.simuladoronline.com/favicon.ico"
-        }
+      organization,
+      {
+        "@type": "BreadcrumbList",
+        "itemListElement": [
+          { "@type": "ListItem", "position": 1, "name": "Home", "item": `${SITE_URL}/` },
+          { "@type": "ListItem", "position": 2, "name": "Blog", "item": `${SITE_URL}/blog` },
+          { "@type": "ListItem", "position": 3, "name": title, "item": currentUrl }
+        ]
       }
-    };
+    ];
+    if ((articleData.faqs || []).length >= 2) {
+      graph.push({
+        "@type": "FAQPage",
+        "@id": `${currentUrl}#perguntas`,
+        "mainEntity": articleData.faqs!.map((f) => ({
+          "@type": "Question",
+          "name": f.question,
+          "acceptedAnswer": { "@type": "Answer", "text": f.answer }
+        }))
+      });
+    }
+    schemaJson = { "@context": "https://schema.org", "@graph": graph };
   } else if (type === 'contact') {
     schemaJson = {
       "@context": "https://schema.org",
