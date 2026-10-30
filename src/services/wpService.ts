@@ -2,9 +2,10 @@
  * Mock Service for WordPress Headless / WooCommerce
  * Simulates API responses for the "Simulador On-Line" platform.
  */
+import { ARTIGOS } from '../data/artigos';
 
 export interface WPPost {
-  id: number;
+  id: number | string;
   title: string;
   slug: string;
   excerpt: string;
@@ -15,9 +16,20 @@ export interface WPPost {
   tags?: string[];
   imageUrl?: string;
   sourceUrl?: string;
+  author?: string;
+  readTime?: string;
 }
 
 export type BlogPost = WPPost;
+
+declare global {
+  interface Window { __SHOW_SCHEDULED__?: boolean }
+}
+
+// Artigo com data futura fica agendado: só aparece a partir da data (ou nas prévias da Vercel).
+const isPublished = (post: WPPost, now = new Date()) => new Date(post.date) <= now;
+const byNewest = (a: WPPost, b: WPPost) => new Date(b.date).getTime() - new Date(a.date).getTime();
+const showScheduledDefault = () => typeof window !== 'undefined' && !!window.__SHOW_SCHEDULED__;
 
 export interface Product {
   id: number;
@@ -954,21 +966,24 @@ export const wpService = {
       return { ok: false, message: 'Não foi possível conferir a senha. Verifique a conexão.' };
     }
   },
-  getBlogPosts: async (): Promise<BlogPost[]> => {
+  // Junta os artigos do banco (painel) com os do código (src/data/artigos.ts e os antigos de reserva).
+  // Os do código com data futura ficam de fora, salvo nas prévias de revisão.
+  getBlogPosts: async ({ incluirAgendados = showScheduledDefault() } = {}): Promise<BlogPost[]> => {
+    const local = [...ARTIGOS, ...MOCK_BLOG_POSTS].filter(p => incluirAgendados || isPublished(p));
     try {
       const res = await fetch('/api/blog');
       if (res.ok) {
         const remotePosts = await res.json();
         if (Array.isArray(remotePosts) && remotePosts.length > 0) {
           const remoteSlugs = new Set(remotePosts.map((p: any) => p.slug));
-          const extraLocal = MOCK_BLOG_POSTS.filter(l => !remoteSlugs.has(l.slug));
-          return [...remotePosts, ...extraLocal];
+          const extraLocal = local.filter(l => !remoteSlugs.has(l.slug));
+          return [...remotePosts, ...extraLocal].sort(byNewest);
         }
       }
     } catch (e) {
       console.warn('Usando posts estáticos de reserva.');
     }
-    return MOCK_BLOG_POSTS;
+    return local.sort(byNewest);
   },
   getBlogPostBySlug: async (slug: string): Promise<BlogPost | undefined> => {
     try {
@@ -1004,14 +1019,8 @@ export const wpService = {
       return false;
     }
   },
-  getPosts: async (): Promise<WPPost[]> => {
-    return new Promise((resolve) => setTimeout(() => {
-      const now = new Date();
-      const published = MOCK_BLOG_POSTS.filter(post => new Date(post.date) <= now);
-      const sorted = published.sort((a, b) => new Date(b.date).getTime() - new Date(a.date).getTime());
-      resolve(sorted);
-    }, 500));
-  },
+  // Mais recentes primeiro (usado nos destaques da home)
+  getPosts: async (opts?: { incluirAgendados?: boolean }): Promise<WPPost[]> => wpService.getBlogPosts(opts),
   getPostBySlug: async (slug: string): Promise<WPPost | undefined> => {
     return new Promise((resolve) => setTimeout(() => resolve(MOCK_BLOG_POSTS.find(p => p.slug === slug)), 300));
   },

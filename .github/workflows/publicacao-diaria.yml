@@ -1,0 +1,66 @@
+# Publica os artigos agendados: todo dia às 06h (Brasília), se houver artigo com a data de
+# hoje em src/data/artigos.ts, dispara um deploy na Vercel (o build gera o HTML pronto e o
+# sitemap com o artigo) e avisa Bing e outros buscadores pelo IndexNow.
+#
+# Precisa de um segredo no GitHub (Settings > Secrets and variables > Actions):
+#   VERCEL_DEPLOY_HOOK  URL do Deploy Hook criado na Vercel (Settings > Git > Deploy Hooks, branch main)
+name: Publicação diária
+
+on:
+  schedule:
+    - cron: '15 9 * * *' # 09h15 UTC = 06h15 em Brasília (os artigos são marcados para 06h)
+  workflow_dispatch: # permite rodar na mão pela aba Actions
+
+jobs:
+  publicar:
+    runs-on: ubuntu-latest
+    env:
+      SITE: https://www.simuladoronline.com
+      INDEXNOW_KEY: 8edf09031c2bfa1816d662d3f04e3f02
+    steps:
+      - uses: actions/checkout@v7
+
+      - name: Ver se há artigo para hoje
+        id: hoje
+        run: |
+          HOJE=$(TZ=America/Sao_Paulo date +%F)
+          # Em src/data/artigos.ts a linha da data vem logo depois do slug (a checagem garante)
+          SLUGS=$(grep -A1 "slug: '" src/data/artigos.ts | grep -B1 "date: '$HOJE" | grep -o "slug: '[^']*'" | sed "s/slug: '\(.*\)'/\1/" | tr '\n' ' ')
+          echo "hoje=$HOJE" >> "$GITHUB_OUTPUT"
+          echo "slugs=$SLUGS" >> "$GITHUB_OUTPUT"
+          if [ -z "$SLUGS" ]; then echo "Nenhum artigo agendado para $HOJE."; else echo "Artigos de $HOJE: $SLUGS"; fi
+
+      - name: Disparar deploy na Vercel
+        if: steps.hoje.outputs.slugs != ''
+        env:
+          DEPLOY_HOOK: ${{ secrets.VERCEL_DEPLOY_HOOK }}
+        run: |
+          if [ -z "$DEPLOY_HOOK" ]; then
+            echo "::error::Falta o segredo VERCEL_DEPLOY_HOOK (veja o topo deste arquivo)."
+            exit 1
+          fi
+          curl -fsS -X POST "$DEPLOY_HOOK"
+
+      - name: Esperar o artigo entrar no ar
+        if: steps.hoje.outputs.slugs != ''
+        run: |
+          PRIMEIRO=$(echo "${{ steps.hoje.outputs.slugs }}" | awk '{print $1}')
+          for i in $(seq 1 40); do
+            # O endereço responde 200 mesmo antes do deploy (casca); só vale quando o HTML já traz o artigo
+            if curl -s "$SITE/blog/$PRIMEIRO" | grep -q "rel=\"canonical\" href=\"$SITE/blog/$PRIMEIRO\""; then
+              echo "No ar: $SITE/blog/$PRIMEIRO"; exit 0
+            fi
+            echo "Ainda não, tentando de novo em 30s..."
+            sleep 30
+          done
+          echo "::error::O artigo não entrou no ar em 20 minutos. Veja o deploy na Vercel."
+          exit 1
+
+      - name: Avisar os buscadores (IndexNow)
+        if: steps.hoje.outputs.slugs != ''
+        run: |
+          URLS=$(for s in ${{ steps.hoje.outputs.slugs }}; do printf '"%s/blog/%s",' "$SITE" "$s"; done)
+          BODY="{\"host\":\"www.simuladoronline.com\",\"key\":\"$INDEXNOW_KEY\",\"keyLocation\":\"$SITE/$INDEXNOW_KEY.txt\",\"urlList\":[${URLS}\"$SITE/blog\"]}"
+          echo "$BODY"
+          curl -sS -o /dev/null -w "IndexNow respondeu %{http_code}\n" -X POST "https://api.indexnow.org/indexnow" \
+            -H "Content-Type: application/json; charset=utf-8" -d "$BODY"

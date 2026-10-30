@@ -25,9 +25,14 @@ if (!HEAD_RE.test(template) || !template.includes('<!--app-html-->')) {
   throw new Error('index.html sem os marcadores <!--seo-head-start/end--> ou <!--app-html-->');
 }
 
+// Na prévia da Vercel (branch de revisão) os artigos agendados aparecem, para o dono ler antes do merge.
+const SHOW_SCHEDULED = process.env.VERCEL_ENV === 'preview';
+if (SHOW_SCHEDULED) console.log('Prévia: artigos agendados incluídos para revisão.');
+const previewScript = SHOW_SCHEDULED ? '<script>window.__SHOW_SCHEDULED__=true</script>' : '';
+
 const [posts, recentPosts, products, templates, landingPages, partners, compactUpdates] = await Promise.all([
-  wpService.getBlogPosts(),
-  wpService.getPosts().then((list) => list.slice(0, 4)),
+  wpService.getBlogPosts({ incluirAgendados: SHOW_SCHEDULED }),
+  wpService.getPosts({ incluirAgendados: SHOW_SCHEDULED }).then((list) => list.slice(0, 4)),
   wpService.getProducts(),
   wpService.getTemplates(),
   wpService.getLandingPages(),
@@ -69,7 +74,7 @@ const writePage = async (route, file) => {
     template
       .replace(HEAD_RE, `<!--seo-head-start-->\n  ${head}\n  <!--seo-head-end-->`)
       .replace('<!--app-html-->', html)
-      .replace('</body>', `${dataScript}\n</body>`),
+      .replace('</body>', `${dataScript}${previewScript}\n</body>`),
   );
   return seo;
 };

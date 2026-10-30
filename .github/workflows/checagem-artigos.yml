@@ -1,0 +1,26 @@
+# Roda `npm run check:posts` em todo envio de branch, para a revisão já mostrar se o
+# artigo novo quebra alguma regra editorial (conteudo/regras-editoriais.md).
+name: Checagem dos artigos
+
+on:
+  push:
+    paths:
+      - 'src/data/artigos.ts'
+      - 'src/pages/**'
+      - 'conteudo/**'
+      - 'scripts/check-posts.ts'
+      - '.github/workflows/**'
+  pull_request:
+  workflow_dispatch: # permite rodar na mão pela aba Actions
+
+jobs:
+  checar:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v7
+      - uses: actions/setup-node@v7
+        with:
+          node-version: 24
+          cache: npm
+      - run: npm ci
+      - run: npm run check:posts

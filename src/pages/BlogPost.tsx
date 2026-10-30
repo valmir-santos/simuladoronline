@@ -65,8 +65,7 @@ export default function BlogPost() {
            </h1>
            <div className="flex flex-wrap justify-center gap-8 text-white/70 font-bold uppercase tracking-widest text-xs">
               <span className="flex items-center gap-2"><Calendar size={14} /> {formatDateBR(post.date)}</span>
-              <span className="flex items-center gap-2"><User size={14} /> Por Equipe Simulador</span>
-              <span className="flex items-center gap-2"><MessageCircle size={14} /> 12 Comentários</span>
+              <span className="flex items-center gap-2"><User size={14} /> Por {post.author || 'Equipe Simulador On-Line'}</span>
            </div>
         </div>
       </div>
@@ -97,7 +96,7 @@ export default function BlogPost() {
                     to="/testar-gratis"
                     className="inline-block px-8 py-4 bg-brand-button hover:bg-orange-600 text-white font-black text-sm uppercase tracking-wider rounded-2xl shadow-xl transition-transform hover:scale-105"
                   >
-                    Testar Grátis 7 Dias
+                    Testar Grátis 5 Dias
                   </Link>
                 </div>
               </div>

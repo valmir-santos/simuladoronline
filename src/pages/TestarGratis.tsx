@@ -7,7 +7,7 @@ export default function TestarGratis() {
   return (
     <div className="bg-[#F2EDE6] min-h-[calc(100vh-80px)] py-16 md:py-24 px-4 sm:px-6 lg:px-8 font-sans">
       <SEO 
-        title="Teste Grátis por 7 Dias" 
+        title="Teste Grátis por 5 Dias" 
         description="Experimente o Simulador On-line gratuitamente. Acesse o multicálculo de planos de saúde e descubra como aumentar suas vendas." 
         canonical="https://www.simuladoronline.com/testar-gratis" 
       />
