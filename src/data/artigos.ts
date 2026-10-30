@@ -6,7 +6,7 @@
 import type { WPPost } from '../services/wpService';
 
 // Quem assina os artigos (nome e cargo de uma pessoa da equipe).
-const AUTOR = 'Equipe Simulador On-Line';
+const AUTOR = 'Valmir J Santos, Gerente de Marketing';
 
 const img = (id: string) => `https://images.unsplash.com/${id}?auto=format&fit=crop&q=80&w=1200`;
 

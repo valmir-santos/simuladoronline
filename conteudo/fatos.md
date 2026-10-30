@@ -12,6 +12,7 @@ dos artigos novos com os desta página.
 | Fato | Valor | Fonte | Confirmado |
 |---|---|---|---|
 | Nome | Simulador On-Line | `index.html` | sim |
+| Autor dos artigos do blog | Valmir J Santos, Gerente de Marketing | decisão do dono em 30/10/2026 | sim |
 | Endereço | Rua Gonçalves Crespo, 324 — Tatuapé — São Paulo/SP — CEP 03067-030 | `index.html`, `Contact.tsx` | a confirmar |
 | Telefone / WhatsApp de vendas (SP) | (11) 3219-0409 | `Contact.tsx` | a confirmar |
 | Telefone (RJ) | (21) 3527-0540 | `Contact.tsx` | a confirmar |

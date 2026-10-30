@@ -13,6 +13,8 @@ regras e avise no resumo final.
 - Tom: de colega experiente para colega. Concreto, sem jargão de marketing ("revolucionário",
   "alavancar", "potencializar") e sem promessa.
 
+- **Quem assina:** Valmir J Santos, Gerente de Marketing (constante `AUTOR` em `src/data/artigos.ts`).
+
 ## Proibido
 
 1. **Número, preço ou afirmação sobre a empresa ou o produto que não esteja em
