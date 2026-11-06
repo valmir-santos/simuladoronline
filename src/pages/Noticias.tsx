@@ -5,6 +5,7 @@ import { useSsrData } from '../lib/ssr';
 import SEO from '../components/SEO';
 
 const MONTH_TABS = [
+  { key: 'dezembro', label: 'Dezembro' },
   { key: 'novembro', label: 'Novembro' },
   { key: 'outubro', label: 'Outubro' },
   { key: 'setembro', label: 'Setembro' },
@@ -17,6 +18,16 @@ const MONTH_TABS = [
   { key: 'fevereiro', label: 'Fevereiro' },
   { key: 'janeiro', label: 'Janeiro' }
 ];
+
+export function getDefaultActiveMonth(): string {
+  const curMonthNum = new Date().getMonth() + 1; // 1 = Jan ... 11 = Nov, 12 = Dez
+  const map: Record<number, string> = {
+    1: 'janeiro', 2: 'fevereiro', 3: 'marco', 4: 'abril',
+    5: 'maio', 6: 'junho', 7: 'julho', 8: 'agosto',
+    9: 'setembro', 10: 'outubro', 11: 'novembro', 12: 'dezembro'
+  };
+  return map[curMonthNum] || 'novembro';
+}
 
 export function getMonthInfoFromDate(dateStr: string): { key: string; label: string } | null {
   if (!dateStr) return null;
@@ -100,7 +111,7 @@ export default function Noticias() {
       return item;
     });
   });
-  const [activeTab, setActiveTab] = useState<string>('novembro');
+  const [activeTab, setActiveTab] = useState<string>(() => getDefaultActiveMonth());
   const [loading, setLoading] = useState(!ssr.compactUpdates);
 
   // Modal / Commercial Quick Add State
@@ -122,7 +133,7 @@ export default function Noticias() {
   const [formBadge, setFormBadge] = useState<CompactTableUpdate['badge']>('ATUALIZ.');
   const [formText, setFormText] = useState('');
   const [formDate, setFormDate] = useState('');
-  const [formMonthKey, setFormMonthKey] = useState('novembro');
+  const [formMonthKey, setFormMonthKey] = useState<string>(() => getDefaultActiveMonth());
   const [formPostToX, setFormPostToX] = useState(true);
   const [submitting, setSubmitting] = useState(false);
 

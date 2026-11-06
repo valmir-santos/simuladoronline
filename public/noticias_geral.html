@@ -49,17 +49,22 @@
     </div>
 
     <div class="tabs">
-        <button class="tab-btn active" onclick="openTab(event, 'novembro')">Novembro</button>
-        <button class="tab-btn" onclick="openTab(event, 'outubro')">Outubro</button>
-        <button class="tab-btn" onclick="openTab(event, 'setembro')">Setembro</button>
-        <button class="tab-btn" onclick="openTab(event, 'agosto')">Agosto</button>
-        <button class="tab-btn" onclick="openTab(event, 'julho')">Julho</button>
-        <button class="tab-btn" onclick="openTab(event, 'junho')">Junho</button>
-        <button class="tab-btn" onclick="openTab(event, 'maio')">Maio</button>
-        <button class="tab-btn" onclick="openTab(event, 'abril')">Abril</button>
-        <button class="tab-btn" onclick="openTab(event, 'marco')">Março</button>
-        <button class="tab-btn" onclick="openTab(event, 'fevereiro')">Fevereiro</button>
-        <button class="tab-btn" onclick="openTab(event, 'janeiro')">Janeiro</button>
+        <button class="tab-btn" onclick="openTab(event, 'dezembro')" id="btn-tab-dezembro">Dezembro</button>
+        <button class="tab-btn active" onclick="openTab(event, 'novembro')" id="btn-tab-novembro">Novembro</button>
+        <button class="tab-btn" onclick="openTab(event, 'outubro')" id="btn-tab-outubro">Outubro</button>
+        <button class="tab-btn" onclick="openTab(event, 'setembro')" id="btn-tab-setembro">Setembro</button>
+        <button class="tab-btn" onclick="openTab(event, 'agosto')" id="btn-tab-agosto">Agosto</button>
+        <button class="tab-btn" onclick="openTab(event, 'julho')" id="btn-tab-julho">Julho</button>
+        <button class="tab-btn" onclick="openTab(event, 'junho')" id="btn-tab-junho">Junho</button>
+        <button class="tab-btn" onclick="openTab(event, 'maio')" id="btn-tab-maio">Maio</button>
+        <button class="tab-btn" onclick="openTab(event, 'abril')" id="btn-tab-abril">Abril</button>
+        <button class="tab-btn" onclick="openTab(event, 'marco')" id="btn-tab-marco">Março</button>
+        <button class="tab-btn" onclick="openTab(event, 'fevereiro')" id="btn-tab-fevereiro">Fevereiro</button>
+        <button class="tab-btn" onclick="openTab(event, 'janeiro')" id="btn-tab-janeiro">Janeiro</button>
+    </div>
+
+    <div id="dezembro" class="tab-content" style="display:none;">
+        <table class="table-container" id="table-dezembro"></table>
     </div>
 
     <div id="novembro" class="tab-content active">
@@ -362,10 +367,33 @@
                 tablinks[i].classList.remove("active");
             }
 
-            document.getElementById(monthName).style.display = "block";
-            document.getElementById(monthName).classList.add("active");
-            evt.currentTarget.classList.add("active");
+            var target = document.getElementById(monthName);
+            if (target) {
+                target.style.display = "block";
+                target.classList.add("active");
+            }
+            if (evt && evt.currentTarget) {
+                evt.currentTarget.classList.add("active");
+            } else {
+                var btn = document.getElementById('btn-tab-' + monthName);
+                if (btn) btn.classList.add("active");
+            }
         }
+
+        // Auto-selecionar o mês corrente ou mais recente na inicialização
+        (function autoSelectCurrentMonth() {
+            var curMonth = new Date().getMonth() + 1;
+            var map = {
+                1: 'janeiro', 2: 'fevereiro', 3: 'marco', 4: 'abril',
+                5: 'maio', 6: 'junho', 7: 'julho', 8: 'agosto',
+                9: 'setembro', 10: 'outubro', 11: 'novembro', 12: 'dezembro'
+            };
+            var activeKey = map[curMonth] || 'novembro';
+            var activeBtn = document.getElementById('btn-tab-' + activeKey);
+            if (activeBtn) {
+                openTab({ currentTarget: activeBtn }, activeKey);
+            }
+        })();
 
         function parseNoticiaText(text) {
             text = (text || '').trim();
@@ -447,6 +475,27 @@
 
                     Object.keys(groupedByMonth).forEach(function(monthKey) {
                         var table = document.getElementById('table-' + monthKey);
+                        if (!table) {
+                            var tabsBar = document.querySelector('.tabs');
+                            if (tabsBar) {
+                                var monthLabel = monthKey.charAt(0).toUpperCase() + monthKey.slice(1);
+                                if (monthKey === 'marco') monthLabel = 'Março';
+                                var newBtn = document.createElement('button');
+                                newBtn.className = 'tab-btn';
+                                newBtn.id = 'btn-tab-' + monthKey;
+                                newBtn.textContent = monthLabel;
+                                newBtn.onclick = function(e) { openTab(e, monthKey); };
+                                tabsBar.insertBefore(newBtn, tabsBar.firstChild);
+
+                                var newDiv = document.createElement('div');
+                                newDiv.id = monthKey;
+                                newDiv.className = 'tab-content';
+                                newDiv.style.display = 'none';
+                                newDiv.innerHTML = '<table class="table-container" id="table-' + monthKey + '"></table>';
+                                tabsBar.parentNode.insertBefore(newDiv, tabsBar.nextSibling);
+                                table = document.getElementById('table-' + monthKey);
+                            }
+                        }
                         if (!table) return;
 
                         var monthItems = groupedByMonth[monthKey];
