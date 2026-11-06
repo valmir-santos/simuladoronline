@@ -5,6 +5,8 @@ import { useSsrData } from '../lib/ssr';
 import SEO from '../components/SEO';
 
 const MONTH_TABS = [
+  { key: 'novembro', label: 'Novembro' },
+  { key: 'outubro', label: 'Outubro' },
   { key: 'setembro', label: 'Setembro' },
   { key: 'agosto', label: 'Agosto' },
   { key: 'julho', label: 'Julho' },
@@ -15,6 +17,28 @@ const MONTH_TABS = [
   { key: 'fevereiro', label: 'Fevereiro' },
   { key: 'janeiro', label: 'Janeiro' }
 ];
+
+export function getMonthInfoFromDate(dateStr: string): { key: string; label: string } | null {
+  if (!dateStr) return null;
+  const dmy = dateStr.match(/^(\d{1,2})[\/\-](\d{1,2})[\/\-](\d{4})/);
+  if (!dmy) return null;
+  const monthNum = parseInt(dmy[2], 10);
+  const MONTH_MAP: Record<number, { key: string; label: string }> = {
+    1: { key: 'janeiro', label: 'Janeiro' },
+    2: { key: 'fevereiro', label: 'Fevereiro' },
+    3: { key: 'marco', label: 'Março' },
+    4: { key: 'abril', label: 'Abril' },
+    5: { key: 'maio', label: 'Maio' },
+    6: { key: 'junho', label: 'Junho' },
+    7: { key: 'julho', label: 'Julho' },
+    8: { key: 'agosto', label: 'Agosto' },
+    9: { key: 'setembro', label: 'Setembro' },
+    10: { key: 'outubro', label: 'Outubro' },
+    11: { key: 'novembro', label: 'Novembro' },
+    12: { key: 'dezembro', label: 'Dezembro' }
+  };
+  return MONTH_MAP[monthNum] || null;
+}
 
 export function parseNoticiaText(text: string): { operadora: string; descricao: string } {
   text = (text || '').trim();
@@ -66,8 +90,17 @@ export function parseNoticiaText(text: string): { operadora: string; descricao: 
 
 export default function Noticias() {
   const ssr = useSsrData();
-  const [items, setItems] = useState<CompactTableUpdate[]>(ssr.compactUpdates ?? []);
-  const [activeTab, setActiveTab] = useState<string>('setembro');
+  const [items, setItems] = useState<CompactTableUpdate[]>(() => {
+    const raw = ssr.compactUpdates ?? [];
+    return raw.map(item => {
+      const mInfo = getMonthInfoFromDate(item.date);
+      if (mInfo && item.monthKey !== mInfo.key) {
+        return { ...item, monthKey: mInfo.key, monthLabel: mInfo.label };
+      }
+      return item;
+    });
+  });
+  const [activeTab, setActiveTab] = useState<string>('novembro');
   const [loading, setLoading] = useState(!ssr.compactUpdates);
 
   // Modal / Commercial Quick Add State
@@ -89,21 +122,29 @@ export default function Noticias() {
   const [formBadge, setFormBadge] = useState<CompactTableUpdate['badge']>('ATUALIZ.');
   const [formText, setFormText] = useState('');
   const [formDate, setFormDate] = useState('');
-  const [formMonthKey, setFormMonthKey] = useState('setembro');
+  const [formMonthKey, setFormMonthKey] = useState('novembro');
   const [formPostToX, setFormPostToX] = useState(true);
   const [submitting, setSubmitting] = useState(false);
 
   const fetchUpdates = async () => {
     try {
       const data = await wpService.getCompactUpdates();
-      // Deduplicar por id e texto
+      // Deduplicar por id e texto, normalizando mês pela data
       const seen = new Set();
-      const uniqueData = data.filter(item => {
-        const key = `${item.monthKey}_${item.text.toLowerCase()}`;
-        if (seen.has(key)) return false;
-        seen.add(key);
-        return true;
-      });
+      const uniqueData = data
+        .map(item => {
+          const mInfo = getMonthInfoFromDate(item.date);
+          if (mInfo && item.monthKey !== mInfo.key) {
+            return { ...item, monthKey: mInfo.key, monthLabel: mInfo.label };
+          }
+          return item;
+        })
+        .filter(item => {
+          const key = `${item.monthKey}_${item.text.toLowerCase()}`;
+          if (seen.has(key)) return false;
+          seen.add(key);
+          return true;
+        });
       setItems(uniqueData);
     } finally {
       setLoading(false);
@@ -136,15 +177,18 @@ export default function Noticias() {
 
     setSubmitting(true);
 
-    const targetMonth = MONTH_TABS.find(m => m.key === formMonthKey);
+    const cleanDate = formDate.trim() || new Date().toLocaleDateString('pt-BR');
+    const dateMonth = getMonthInfoFromDate(cleanDate);
+    const targetKey = dateMonth?.key || formMonthKey;
+    const targetMonth = MONTH_TABS.find(m => m.key === targetKey);
 
     try {
       await wpService.addCompactUpdate({
         badge: formBadge,
         text: formText.trim(),
-        date: formDate.trim() || new Date().toLocaleDateString('pt-BR'),
-        monthKey: formMonthKey,
-        monthLabel: targetMonth ? targetMonth.label : 'Agosto'
+        date: cleanDate,
+        monthKey: targetKey,
+        monthLabel: targetMonth ? targetMonth.label : (dateMonth ? dateMonth.label : 'Novembro')
       }, accessCode.trim());
 
       // Se selecionou postar no X, acionar API serverless do Twitter
@@ -183,7 +227,7 @@ export default function Noticias() {
       
       // Recarregar dados centralizados atualizados
       await fetchUpdates();
-      setActiveTab(formMonthKey);
+      setActiveTab(targetKey);
 
       if (formPostToX) {
         if (tweetSuccess) {
@@ -239,11 +283,15 @@ export default function Noticias() {
     setSavingEdit(true);
     try {
       const pinToUse = accessCode.trim();
+      const dateVal = editDate.trim();
+      const dateMonth = getMonthInfoFromDate(dateVal);
       const updatedRow: CompactTableUpdate = {
         ...editingRow,
         badge: editBadge,
         text: editText.trim(),
-        date: editDate.trim()
+        date: dateVal,
+        monthKey: dateMonth?.key || editingRow.monthKey,
+        monthLabel: dateMonth?.label || editingRow.monthLabel
       };
 
       const success = await wpService.updateCompactUpdate(updatedRow, pinToUse);
@@ -278,7 +326,10 @@ export default function Noticias() {
     }
   };
 
-  const currentTabItems = items.filter(i => i.monthKey === activeTab);
+  const currentTabItems = items.filter(i => {
+    const resolvedKey = getMonthInfoFromDate(i.date)?.key || i.monthKey;
+    return resolvedKey === activeTab;
+  });
 
   const renderBadge = (badge: CompactTableUpdate['badge']) => {
     switch (badge) {

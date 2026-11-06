@@ -49,7 +49,9 @@
     </div>
 
     <div class="tabs">
-        <button class="tab-btn active" onclick="openTab(event, 'setembro')">Setembro</button>
+        <button class="tab-btn active" onclick="openTab(event, 'novembro')">Novembro</button>
+        <button class="tab-btn" onclick="openTab(event, 'outubro')">Outubro</button>
+        <button class="tab-btn" onclick="openTab(event, 'setembro')">Setembro</button>
         <button class="tab-btn" onclick="openTab(event, 'agosto')">Agosto</button>
         <button class="tab-btn" onclick="openTab(event, 'julho')">Julho</button>
         <button class="tab-btn" onclick="openTab(event, 'junho')">Junho</button>
@@ -60,7 +62,31 @@
         <button class="tab-btn" onclick="openTab(event, 'janeiro')">Janeiro</button>
     </div>
 
-    <div id="setembro" class="tab-content active">
+    <div id="novembro" class="tab-content active">
+        <table class="table-container" id="table-novembro">
+            <tr class="row"><td class="cell col-tag"><span class="badge bg-att">ATUALIZ.</span></td><td class="cell"><span class="operadora">UNIHOSP SAÚDE - SP:</span> <span class="descricao">Atualização de rede em todos os produtos com novos credenciamentos disponível.</span></td><td class="cell col-data">05/11/2026</td></tr>
+            <tr class="row"><td class="cell col-tag"><span class="badge bg-att">ATUALIZ.</span></td><td class="cell"><span class="operadora">AMPLA SAÚDE (TEC GROUP):</span> <span class="descricao">Regra de Dependentes atualizada (Sobrinhos, netos e irmãos a partir dos 12 anos de idade).</span></td><td class="cell col-data">05/11/2026</td></tr>
+            <tr class="row"><td class="cell col-tag"><span class="badge bg-att">ATUALIZ.</span></td><td class="cell"><span class="operadora">UNIMED SERRANA (SUPERMED) - RJ:</span> <span class="descricao">Atualização de valores disponível no projeto Adesão.</span></td><td class="cell col-data">05/11/2026</td></tr>
+            <tr class="row"><td class="cell col-tag"><span class="badge bg-att">ATUALIZ.</span></td><td class="cell"><span class="operadora">AMIL (SUPERMED) SP/RJ:</span> <span class="descricao">Atualizações disponíveis no projeto Adesão.</span></td><td class="cell col-data">05/11/2026</td></tr>
+        </table>
+    </div>
+
+    <div id="outubro" class="tab-content">
+        <table class="table-container" id="table-outubro">
+            <tr class="row"><td class="cell col-tag"><span class="badge bg-novo">NOVO</span></td><td class="cell"><span class="operadora">DENTAL KLIN - SP:</span> <span class="descricao">Novo projeto PME odontológico disponível.</span></td><td class="cell col-data">28/10/2026</td></tr>
+            <tr class="row"><td class="cell col-tag"><span class="badge bg-novo">NOVO</span></td><td class="cell"><span class="operadora">NOTREDAME SAÚDE SP/RJ:</span> <span class="descricao">Rede credenciada da nova Linha Metais disponível.</span></td><td class="cell col-data">28/10/2026</td></tr>
+            <tr class="row"><td class="cell col-tag"><span class="badge bg-att">ATUALIZ.</span></td><td class="cell"><span class="operadora">HAPVIDA SAÚDE - SP/RJ:</span> <span class="descricao">Atualização dos valores dos produtos Smart 500 e Smart Prime no PME.</span></td><td class="cell col-data">23/10/2026</td></tr>
+            <tr class="row"><td class="cell col-tag"><span class="badge bg-susp">SUSPENSO</span></td><td class="cell"><span class="operadora">HAPVIDA SAÚDE:</span> <span class="descricao">Comercialização do produto Nosso Médico Apartamento nas filiais de São Paulo, Mogi das Cruzes, São Bernardo do Campo, Guarulhos, Santo André, Santos e Osasco suspensa.</span></td><td class="cell col-data">23/10/2026</td></tr>
+            <tr class="row"><td class="cell col-tag"><span class="badge bg-novo">NOVO</span></td><td class="cell"><span class="operadora">NOTREDAME SAÚDE - SP/RJ:</span> <span class="descricao">Inclusão da nova linha de produtos premium nas tabelas dos canais Super Simples (1 vida e 2 a 29 vidas) e PME.</span></td><td class="cell col-data">23/10/2026</td></tr>
+            <tr class="row"><td class="cell col-tag"><span class="badge bg-att">ATUALIZ.</span></td><td class="cell"><span class="operadora">SÃO FRANCISCO VIDA (CORPe SAÚDE) - SP:</span> <span class="descricao">Atualização na idade mínima da entidade estudantil UCE disponível.</span></td><td class="cell col-data">23/10/2026</td></tr>
+            <tr class="row"><td class="cell col-tag"><span class="badge bg-att">ATUALIZ.</span></td><td class="cell"><span class="operadora">AMPLA SAÚDE (TEC GROUP):</span> <span class="descricao">Atualização de faixa etária disponível nos projetos Adesão (SP/RJ/DF/PE) e PME (SP).</span></td><td class="cell col-data">23/10/2026</td></tr>
+            <tr class="row"><td class="cell col-tag"><span class="badge bg-susp">SUSPENSO</span></td><td class="cell"><span class="operadora">ASSIM SAÚDE - RJ:</span> <span class="descricao">Comercialização do produto médico (individual/familiar) suspensa.</span></td><td class="cell col-data">23/10/2026</td></tr>
+            <tr class="row"><td class="cell col-tag"><span class="badge bg-novo">NOVO</span></td><td class="cell"><span class="operadora">ALICE SAÚDE - SP:</span> <span class="descricao">Tabelas com contratos de 24 meses para PME porte 1 disponíveis na operadora.</span></td><td class="cell col-data">23/10/2026</td></tr>
+            <tr class="row"><td class="cell col-tag"><span class="badge bg-att">ATUALIZ.</span></td><td class="cell"><span class="operadora">SÃO CAMILO (CORPe SAÚDE) - SP:</span> <span class="descricao">Campanha promocional de carência zero disponível nos projetos Adesão e PME.</span></td><td class="cell col-data">22/10/2026</td></tr>
+        </table>
+    </div>
+
+    <div id="setembro" class="tab-content">
         <table class="table-container" id="table-setembro">
             <tr class="row"><td class="cell col-tag"><span class="badge bg-att">ATUALIZ.</span></td><td class="cell"><span class="operadora">PROASA SAÚDE (TEC GROUP) - SP / DF / BA / AM / PA:</span> <span class="descricao">Atualização de valores disponível no projeto PME.</span></td><td class="cell col-data">22/09/2026</td></tr>
             <tr class="row"><td class="cell col-tag"><span class="badge bg-reaj">REAJUSTE</span></td><td class="cell"><span class="operadora">GARANTIA DE SAÚDE (CORPe SAÚDE) - SP:</span> <span class="descricao">Reajuste de valores Anual disponível no projeto Adesão.</span></td><td class="cell col-data">18/09/2026</td></tr>
@@ -387,6 +413,19 @@
             return { op: text, desc: '' };
         }
 
+        function getMonthKeyFromDate(dateStr) {
+            if (!dateStr) return null;
+            var m = dateStr.match(/^(\d{1,2})[\/\-](\d{1,2})[\/\-](\d{4})/);
+            if (!m) return null;
+            var monthNum = parseInt(m[2], 10);
+            var map = {
+                1: 'janeiro', 2: 'fevereiro', 3: 'marco', 4: 'abril',
+                5: 'maio', 6: 'junho', 7: 'julho', 8: 'agosto',
+                9: 'setembro', 10: 'outubro', 11: 'novembro', 12: 'dezembro'
+            };
+            return map[monthNum] || null;
+        }
+
         // Sincronização Dinâmica em Tempo Real com a API /api/noticias
         (function syncRealtimeNews() {
             var apiUrl = (window.location.origin && window.location.origin.indexOf('simuladoronline.com') !== -1 && window.location.hostname !== 'app.simuladoronline.com')
@@ -400,7 +439,8 @@
                     
                     var groupedByMonth = {};
                     items.forEach(function(item) {
-                        var mKey = item.monthKey || 'setembro';
+                        var dateVal = item.date || item.data || '';
+                        var mKey = getMonthKeyFromDate(dateVal) || item.monthKey || 'novembro';
                         if (!groupedByMonth[mKey]) groupedByMonth[mKey] = [];
                         groupedByMonth[mKey].push(item);
                     });

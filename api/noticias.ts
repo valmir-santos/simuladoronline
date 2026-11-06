@@ -13,8 +13,48 @@ export interface CompactTableUpdate {
   monthLabel: string;
 }
 
+export function getMonthInfoFromDate(dateStr: string): { key: string; label: string } | null {
+  if (!dateStr) return null;
+  const dmy = dateStr.match(/^(\d{1,2})[\/\-](\d{1,2})[\/\-](\d{4})/);
+  if (!dmy) return null;
+  const monthNum = parseInt(dmy[2], 10);
+  const MONTH_MAP: Record<number, { key: string; label: string }> = {
+    1: { key: 'janeiro', label: 'Janeiro' },
+    2: { key: 'fevereiro', label: 'Fevereiro' },
+    3: { key: 'marco', label: 'Março' },
+    4: { key: 'abril', label: 'Abril' },
+    5: { key: 'maio', label: 'Maio' },
+    6: { key: 'junho', label: 'Junho' },
+    7: { key: 'julho', label: 'Julho' },
+    8: { key: 'agosto', label: 'Agosto' },
+    9: { key: 'setembro', label: 'Setembro' },
+    10: { key: 'outubro', label: 'Outubro' },
+    11: { key: 'novembro', label: 'Novembro' },
+    12: { key: 'dezembro', label: 'Dezembro' }
+  };
+  return MONTH_MAP[monthNum] || null;
+}
+
 // ─── DADOS INICIAIS (seed) ───────────────────────────────────────────
 const SEED_UPDATES: CompactTableUpdate[] = [
+  // NOVEMBRO 2026
+  { id: 1793972865001, badge: 'ATUALIZ.', text: 'UNIHOSP SAÚDE - SP: Atualização de rede em todos os produtos com novos credenciamentos disponível.', date: '05/11/2026', monthKey: 'novembro', monthLabel: 'Novembro' },
+  { id: 1793972865002, badge: 'ATUALIZ.', text: 'AMPLA SAÚDE (TEC GROUP): Regra de Dependentes atualizada (Sobrinhos, netos e irmãos a partir dos 12 anos de idade).', date: '05/11/2026', monthKey: 'novembro', monthLabel: 'Novembro' },
+  { id: 1793972865003, badge: 'ATUALIZ.', text: 'UNIMED SERRANA (SUPERMED) - RJ: Atualização de valores disponível no projeto Adesão.', date: '05/11/2026', monthKey: 'novembro', monthLabel: 'Novembro' },
+  { id: 1793972865004, badge: 'ATUALIZ.', text: 'AMIL (SUPERMED) SP/RJ: Atualizações disponíveis no projeto Adesão.', date: '05/11/2026', monthKey: 'novembro', monthLabel: 'Novembro' },
+
+  // OUTUBRO 2026
+  { id: 1793972865005, badge: 'NOVO', text: 'DENTAL KLIN - SP: Novo projeto PME odontológico disponível.', date: '28/10/2026', monthKey: 'outubro', monthLabel: 'Outubro' },
+  { id: 1793972865006, badge: 'NOVO', text: 'NOTREDAME SAÚDE SP/RJ: Rede credenciada da nova Linha Metais disponível.', date: '28/10/2026', monthKey: 'outubro', monthLabel: 'Outubro' },
+  { id: 1793972865007, badge: 'ATUALIZ.', text: 'HAPVIDA SAÚDE: SP/RJ - Atualização dos valores dos produtos Smart 500 e Smart Prime no PME.', date: '23/10/2026', monthKey: 'outubro', monthLabel: 'Outubro' },
+  { id: 1793972865008, badge: 'SUSPENSO', text: 'HAPVIDA SAÚDE: Comercialização do produto Nosso Médico Apartamento nas filiais de São Paulo, Mogi das Cruzes, São Bernardo do Campo, Guarulhos, Santo André, Santos e Osasco suspensa.', date: '23/10/2026', monthKey: 'outubro', monthLabel: 'Outubro' },
+  { id: 1793972865009, badge: 'NOVO', text: 'NOTREDAME SAÚDE: SP/RJ - Inclusão da nova linha de produtos premium nas tabelas dos canais Super Simples (1 vida e 2 a 29 vidas) e PME.', date: '23/10/2026', monthKey: 'outubro', monthLabel: 'Outubro' },
+  { id: 1793972865010, badge: 'ATUALIZ.', text: 'SÃO FRANCISCO VIDA (CORPe SAÚDE) - SP: Atualização na idade mínima da entidade estudantil UCE disponível.', date: '23/10/2026', monthKey: 'outubro', monthLabel: 'Outubro' },
+  { id: 1793972865011, badge: 'ATUALIZ.', text: 'AMPLA SAÚDE (TEC GROUP): Atualização de faixa etária disponível nos projetos Adesão (SP/RJ/DF/PE) e PME (SP).', date: '23/10/2026', monthKey: 'outubro', monthLabel: 'Outubro' },
+  { id: 1793972865012, badge: 'SUSPENSO', text: 'ASSIM SAÚDE - RJ: Comercialização do produto médico (individual/familiar) suspensa.', date: '23/10/2026', monthKey: 'outubro', monthLabel: 'Outubro' },
+  { id: 1793972865013, badge: 'NOVO', text: 'ALICE SAÚDE - SP: Tabelas com contratos de 24 meses para PME porte 1 disponíveis na operadora.', date: '23/10/2026', monthKey: 'outubro', monthLabel: 'Outubro' },
+  { id: 1793972865014, badge: 'ATUALIZ.', text: 'SÃO CAMILO (CORPe SAÚDE) - SP: Campanha promocional de carência zero disponível nos projetos Adesão e PME.', date: '22/10/2026', monthKey: 'outubro', monthLabel: 'Outubro' },
+
   // SETEMBRO 2026
   { id: 1790121855631, badge: 'ATUALIZ.', text: 'PROASA SAÚDE (TEC GROUP) - SP / DF / BA / AM / PA - Atualização de valores disponível no projeto PME.', date: '22/09/2026', monthKey: 'setembro', monthLabel: 'Setembro' },
   { id: 1789777393466, badge: 'REAJUSTE', text: 'GARANTIA DE SAÚDE (CORPe SAÚDE) - SP - Reajuste de valores Anual disponível no projeto Adesão.', date: '18/09/2026', monthKey: 'setembro', monthLabel: 'Setembro' },
@@ -82,15 +122,30 @@ async function loadUpdates(): Promise<CompactTableUpdate[]> {
     try {
       const stored = await redis.get<CompactTableUpdate[]>(KV_KEY);
       if (stored && Array.isArray(stored) && stored.length > 0) {
+        // Normalizar monthKey e monthLabel de todos os itens com base na data (corrige itens de outubro/novembro que ficaram salvos como 'setembro')
+        let modified = false;
+        const normalized = stored.map((item: CompactTableUpdate) => {
+          const mInfo = getMonthInfoFromDate(item.date);
+          if (mInfo && (item.monthKey !== mInfo.key || item.monthLabel !== mInfo.label)) {
+            modified = true;
+            return {
+              ...item,
+              monthKey: mInfo.key,
+              monthLabel: mInfo.label
+            };
+          }
+          return item;
+        });
+
         // Garantir que todos os itens do seed estejam presentes sem duplicar
-        const existingTexts = new Set(stored.map((s: CompactTableUpdate) => s.text.toLowerCase().trim()));
+        const existingTexts = new Set(normalized.map((s: CompactTableUpdate) => s.text.toLowerCase().trim()));
         const missingSeeds = SEED_UPDATES.filter(s => !existingTexts.has(s.text.toLowerCase().trim()));
-        if (missingSeeds.length > 0) {
-          const merged = [...stored, ...missingSeeds];
+        if (missingSeeds.length > 0 || modified) {
+          const merged = [...missingSeeds, ...normalized];
           await redis.set(KV_KEY, merged);
           return merged;
         }
-        return stored;
+        return normalized;
       }
       // Seed: primeira vez — gravar dados iniciais no Redis
       await redis.set(KV_KEY, SEED_UPDATES);
@@ -140,13 +195,16 @@ export default async function handler(req: ApiReq, res: ApiRes) {
       const index = updates.findIndex((u: CompactTableUpdate) => u.id === Number(id) || String(u.id) === String(id));
       if (index === -1) return res.status(404).json({ error: 'Atualização não encontrada' });
 
+      const dateVal = date || updates[index].date;
+      const dateMonth = getMonthInfoFromDate(dateVal);
+
       updates[index] = {
         ...updates[index],
         badge: badge || updates[index].badge,
         text: text ? String(text).trim() : updates[index].text,
-        date: date || updates[index].date,
-        monthKey: monthKey || updates[index].monthKey,
-        monthLabel: monthLabel || updates[index].monthLabel
+        date: dateVal,
+        monthKey: dateMonth?.key || monthKey || updates[index].monthKey,
+        monthLabel: dateMonth?.label || monthLabel || updates[index].monthLabel
       };
       await saveUpdates(updates);
       return res.status(200).json({ success: true, data: updates[index] });
@@ -161,13 +219,18 @@ export default async function handler(req: ApiReq, res: ApiRes) {
     }
 
     // ── NOVO CADASTRO ──
-    if (!text || !badge || !monthKey) {
+    if (!text || !badge) {
       return res.status(400).json({ error: 'Campos obrigatórios ausentes' });
     }
 
     const cleanText = String(text).trim();
+    const cleanDate = date || new Date().toLocaleDateString('pt-BR');
+    const dateMonth = getMonthInfoFromDate(cleanDate);
+    const targetMonthKey = dateMonth?.key || monthKey || 'novembro';
+    const targetMonthLabel = dateMonth?.label || monthLabel || 'Novembro';
+
     const isDuplicate = updates.some(
-      (u: CompactTableUpdate) => u.text.toLowerCase() === cleanText.toLowerCase() && u.monthKey === monthKey
+      (u: CompactTableUpdate) => u.text.toLowerCase() === cleanText.toLowerCase() && u.monthKey === targetMonthKey
     );
     if (isDuplicate) {
       return res.status(200).json({ success: true, duplicate: true, message: 'Aviso já existe.', data: updates[0] });
@@ -177,9 +240,9 @@ export default async function handler(req: ApiReq, res: ApiRes) {
       id: Date.now(),
       badge,
       text: cleanText,
-      date: date || new Date().toLocaleDateString('pt-BR'),
-      monthKey,
-      monthLabel: monthLabel || 'Agosto'
+      date: cleanDate,
+      monthKey: targetMonthKey,
+      monthLabel: targetMonthLabel
     };
 
     updates.unshift(newEntry);

@@ -709,6 +709,24 @@ export interface CompactTableUpdate {
 }
 
 const MOCK_COMPACT_UPDATES: CompactTableUpdate[] = [
+  // NOTÍCIAS DO COMERCIAL - NOVEMBRO 2026
+  { id: 1793972865001, badge: 'ATUALIZ.', text: 'UNIHOSP SAÚDE - SP: Atualização de rede em todos os produtos com novos credenciamentos disponível.', date: '05/11/2026', monthKey: 'novembro', monthLabel: 'Novembro' },
+  { id: 1793972865002, badge: 'ATUALIZ.', text: 'AMPLA SAÚDE (TEC GROUP): Regra de Dependentes atualizada (Sobrinhos, netos e irmãos a partir dos 12 anos de idade).', date: '05/11/2026', monthKey: 'novembro', monthLabel: 'Novembro' },
+  { id: 1793972865003, badge: 'ATUALIZ.', text: 'UNIMED SERRANA (SUPERMED) - RJ: Atualização de valores disponível no projeto Adesão.', date: '05/11/2026', monthKey: 'novembro', monthLabel: 'Novembro' },
+  { id: 1793972865004, badge: 'ATUALIZ.', text: 'AMIL (SUPERMED) SP/RJ: Atualizações disponíveis no projeto Adesão.', date: '05/11/2026', monthKey: 'novembro', monthLabel: 'Novembro' },
+
+  // NOTÍCIAS DO COMERCIAL - OUTUBRO 2026
+  { id: 1793972865005, badge: 'NOVO', text: 'DENTAL KLIN - SP: Novo projeto PME odontológico disponível.', date: '28/10/2026', monthKey: 'outubro', monthLabel: 'Outubro' },
+  { id: 1793972865006, badge: 'NOVO', text: 'NOTREDAME SAÚDE SP/RJ: Rede credenciada da nova Linha Metais disponível.', date: '28/10/2026', monthKey: 'outubro', monthLabel: 'Outubro' },
+  { id: 1793972865007, badge: 'ATUALIZ.', text: 'HAPVIDA SAÚDE: SP/RJ - Atualização dos valores dos produtos Smart 500 e Smart Prime no PME.', date: '23/10/2026', monthKey: 'outubro', monthLabel: 'Outubro' },
+  { id: 1793972865008, badge: 'SUSPENSO', text: 'HAPVIDA SAÚDE: Comercialização do produto Nosso Médico Apartamento nas filiais de São Paulo, Mogi das Cruzes, São Bernardo do Campo, Guarulhos, Santo André, Santos e Osasco suspensa.', date: '23/10/2026', monthKey: 'outubro', monthLabel: 'Outubro' },
+  { id: 1793972865009, badge: 'NOVO', text: 'NOTREDAME SAÚDE: SP/RJ - Inclusão da nova linha de produtos premium nas tabelas dos canais Super Simples (1 vida e 2 a 29 vidas) e PME.', date: '23/10/2026', monthKey: 'outubro', monthLabel: 'Outubro' },
+  { id: 1793972865010, badge: 'ATUALIZ.', text: 'SÃO FRANCISCO VIDA (CORPe SAÚDE) - SP: Atualização na idade mínima da entidade estudantil UCE disponível.', date: '23/10/2026', monthKey: 'outubro', monthLabel: 'Outubro' },
+  { id: 1793972865011, badge: 'ATUALIZ.', text: 'AMPLA SAÚDE (TEC GROUP): Atualização de faixa etária disponível nos projetos Adesão (SP/RJ/DF/PE) e PME (SP).', date: '23/10/2026', monthKey: 'outubro', monthLabel: 'Outubro' },
+  { id: 1793972865012, badge: 'SUSPENSO', text: 'ASSIM SAÚDE - RJ: Comercialização do produto médico (individual/familiar) suspensa.', date: '23/10/2026', monthKey: 'outubro', monthLabel: 'Outubro' },
+  { id: 1793972865013, badge: 'NOVO', text: 'ALICE SAÚDE - SP: Tabelas com contratos de 24 meses para PME porte 1 disponíveis na operadora.', date: '23/10/2026', monthKey: 'outubro', monthLabel: 'Outubro' },
+  { id: 1793972865014, badge: 'ATUALIZ.', text: 'SÃO CAMILO (CORPe SAÚDE) - SP: Campanha promocional de carência zero disponível nos projetos Adesão e PME.', date: '22/10/2026', monthKey: 'outubro', monthLabel: 'Outubro' },
+
   // NOTÍCIAS DO COMERCIAL - SETEMBRO 2026
   { id: 1790121855631, badge: 'ATUALIZ.', text: 'PROASA SAÚDE (TEC GROUP) - SP / DF / BA / AM / PA - Atualização de valores disponível no projeto PME.', date: '22/09/2026', monthKey: 'setembro', monthLabel: 'Setembro' },
   { id: 1789777393466, badge: 'REAJUSTE', text: 'GARANTIA DE SAÚDE (CORPe SAÚDE) - SP - Reajuste de valores Anual disponível no projeto Adesão.', date: '18/09/2026', monthKey: 'setembro', monthLabel: 'Setembro' },
