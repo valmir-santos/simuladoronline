@@ -28,7 +28,9 @@ export default function Home() {
 
   useEffect(() => {
     if (!ssr.products) wpService.getProducts().then(setProducts);
-    if (!ssr.recentPosts) wpService.getPosts().then(data => setRecentPosts(data.slice(0, 4)));
+    // Sempre busca de novo: o HTML pronto traz os posts do dia do build, e um artigo agendado
+    // para hoje entra no blog antes do próximo deploy
+    wpService.getPosts().then(data => setRecentPosts(data.slice(0, 4)));
   }, []);
 
   return (
@@ -133,7 +135,7 @@ export default function Home() {
                 className="bg-white rounded-3xl overflow-hidden border border-gray-100 shadow-sm hover:shadow-xl transition-all group flex flex-col"
               >
                 <Link to={`/blog/${post.slug}`} className="block relative h-48 overflow-hidden">
-                  <img src={post.featuredImage} alt={post.title} className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500" />
+                  <img src={(post as any).imageUrl || post.featuredImage || "https://images.unsplash.com/photo-1505751172876-fa1923c5c528?auto=format&fit=crop&q=80&w=1200"} alt={post.title} className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500" />
                   <div className="absolute top-4 left-4 bg-brand-primary text-white text-xs font-bold px-3 py-1 rounded-full">
                     {post.category}
                   </div>
