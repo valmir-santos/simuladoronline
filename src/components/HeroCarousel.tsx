@@ -27,8 +27,8 @@ const slides = [
   },
   {
     type: 'image-only',
-    image: '/banner-zapcentral-desktop.jpg',
-    mobileImage: '/banner-zapcentral-mobile.jpg',
+    image: '/banner-zapcentral-desktop-02.jpg',
+    mobileImage: '/banner-zapcentral-mobile-02.jpg',
     link: 'https://zapcentral.app.br/gratis.html'
   }
 ];
